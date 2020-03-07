@@ -1,0 +1,78 @@
+/********** Debut Fonts **********/
+/* Definitions des polices personnalisees
+		Titre du site :
+		Titres :
+		Paragraphes :
+
+	Equivalence de taille des titres (h) avec "font-size" en "em" et en "px"
+		h1 => 2em	=> 32px
+		h2 => 1.5em	=> 24px
+		h3 => 1.17em	=> 19px
+		h4 => 1em		=> 16px
+		h5 => 0.83em	=> 13.5px
+		h6 => 0.67em	=> 10.5px */
+
+@font-face {
+	font-family: 'garogier_regular';
+	src: url('../polices/Garogier-webfont.eot');
+	src: url('../polices/Garogier-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('../polices/Garogier-webfont.woff') format('woff'),
+		 url('../polices/Garogier-webfont.ttf') format('truetype'),
+		 url('../polices/Garogier-webfont.svg#garogierregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+/********** Fin Fonts **********/
+
+/********** Debut General **********/
+* {
+	margin: 0;
+	padding: 0;
+}
+ul {
+	list-style-type: none;
+}
+a {
+	padding: 5px;
+	text-decoration: none;
+	color: black;
+}
+body {
+	display: flex;
+	flex-direction: column;
+	background-color: #E6E6FA;
+}
+/********** Fin General **********/
+
+/********** Debut Section **********/
+section {
+
+}
+h2 {
+	font-size: 1.6em;
+	font-weight: bold;
+}
+/********** Fin Section **********/
+
+/********** Design Responsive **********/
+@media screen and (max-width: 1199px) {
+	/********** Debut Section **********/
+	section {
+
+	}
+	/********** Fin Section **********/
+}
+@media screen and (max-width: 991px) {
+	/********** Debut Section **********/
+	section {
+
+	}
+	/********** Fin Section **********/
+}
+@media screen and (max-width: 767px) {
+	/********** Debut Section **********/
+	section {
+
+	}
+	/********** Fin Section **********/
+}
