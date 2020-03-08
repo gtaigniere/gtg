@@ -1,0 +1,1096 @@
+/********** Debut Fonts **********/
+/* Definitions des polices personnalisees
+		Titre du site : ethnocentric
+		Titres : acari-sans, sans-serif
+		Paragraphes : spectral, serif
+
+	Equivalence de taille des titres (h) avec "font-size" en "em" et en "px"
+		h1 => 2em	=> 32px
+		h2 => 1.5em	=> 24px
+		h3 => 1.17em	=> 19px
+		h4 => 1em		=> 16px
+		h5 => 0.83em	=> 13.5px
+		h6 => 0.67em	=> 10.5px */
+
+@font-face {
+	font-family: 'acari-sans';
+	src: url('polices/acari-sans/AcariSans-Regular.ttf') format('truetype');
+	font-style: normal;
+	font-weight: normal;
+}
+@font-face {
+	font-family: 'acari-sans';
+	src: url('polices/acari-sans/AcariSans-Italic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: normal;
+}
+@font-face {
+	font-family: 'acari-sans';
+	src: url('polices/acari-sans/AcariSans-Bold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: bold;
+}
+@font-face {
+	font-family: 'acari-sans';
+	src: url('polices/acari-sans/AcariSans-BoldItalic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: bold;
+}
+@font-face {
+	font-family: 'spectral';
+	src: url('polices/spectral/spectral-regular.ttf') format('truetype');
+	font-style: normal;
+	font-weight: normal;
+}
+@font-face {
+	font-family: 'spectral';
+	src: url('polices/spectral/spectral-italic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: normal;
+}
+@font-face {
+	font-family: 'spectral';
+	src: url('polices/spectral/spectral-bold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: bold;
+}
+@font-face {
+	font-family: 'spectral';
+	src: url('polices/spectral/spectral-bolditalic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: bold;
+}
+@font-face {
+	font-family: 'slaytanic';
+	src: url('polices/slaytanic/slaytanic.ttf') format('truetype');
+	font-style: normal;
+	font-weight: normal;
+}
+@font-face {
+	font-family: 'ethnocentric';
+	src: url('polices/ethnocentric/ethnocentric.ttf') format('truetype');
+	font-style: normal;
+	font-weight: normal;
+}
+@font-face {
+	font-family: 'ethnocentric';
+	src: url('polices/ethnocentric/ethnocentric-italic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: normal;
+}
+/********** Fin Fonts **********/
+
+/********** Debut General **********/
+* {
+	margin: 0;
+	padding: 0;
+}
+ul {
+	list-style-type: none;
+}
+a {
+	padding: 5px;
+	text-decoration: none;
+	color: black;
+}
+.btn-violet {
+  color: #fff;
+  background-color: #9932CC;
+  border-color: #9932CC;
+}
+.btn-violet:hover {
+  color: #fff;
+  background-color: #8214FA;
+  border-color: #780AFF;
+}
+.btn-violet:focus {
+  box-shadow: 0 0 0 0.2rem rgba(170, 65, 200, 0.5);
+}
+body {
+	display: flex;
+	flex-direction: column;
+	font-family: spectral, serif;
+}
+h2, h3, h4, h5, h6 {
+	font-family: acari-sans, sans-serif;
+	font-weight: bold;
+}
+h2 {
+	font-size: 2.8em;
+	text-align: center;
+}
+.text_overline {
+	text-decoration: overline;
+}
+.text_underline {
+	text-decoration: underline;
+}
+.text_italic {
+	font-style: italic;
+}
+.text_red {
+	color: #FF0000;
+}
+.text_encad_black {
+	padding: 0 3px;
+	border: 2px solid #000000;
+}
+.text_encad_red {
+	padding: 0 3px;
+	border: 2px solid #FF0000;
+}
+.text_encerc_black {
+	padding: 0 3px;
+	border: 2px solid #000000;
+	border-radius: 10px;
+}
+.text_encerc_red {
+	padding: 0 3px;
+	border: 2px solid #FF0000;
+	border-radius: 10px;
+}
+.text_majuscule {
+	text-transform: uppercase;
+}
+.infobulle {
+	position: relative;
+	color: #8A2BE2;
+	font-style: italic;
+  text-indent: inherit; /*  Ne fonctionne pas */
+}
+.text_info {
+  /*display: inline-block;*/
+	padding: 0 5px;
+	display: none;
+	position: absolute;
+	top: -1px;
+	/*left: calc(100% + 5px);*/
+	left: 190px;
+	/*height: 124px;
+	width: 290px;*/
+	background-color: #FFFFFFC0;
+	border: 1px solid #22BB22 	;
+	border-radius: 10px;
+	color: #228B22 	;
+	font-style: normal;
+  text-indent: inherit; /*  Ne fonctionne pas */
+}
+/*
+.infobulle:hover .text_info {
+	display: block;
+}
+*/
+.zmargin_bottom {
+  margin-bottom: 0;
+}
+.nomargin_bottom {
+	margin-bottom: 5px;
+}
+.programme {
+	margin-left: 20px;
+	margin-bottom: 20px;
+	padding: 5px 8px 3px 8px;
+	background-color: #DFDFDF;
+	position: relative;
+	border-radius: 10px;
+}
+.programme p {
+	margin-bottom: 0;
+}
+.indent1fois {
+  text-indent: 1.4em;
+}
+.indent2fois {
+	text-indent: 2.8em;
+}
+.indent3fois {
+	text-indent: 4.2em;
+}
+.indent4fois {
+	text-indent: 5.6em;
+}
+.indent5fois {
+	text-indent: 7em;
+}
+.html, .css, .javascript, .php {
+  margin-left: 20px;
+}
+caption {
+	text-align: center;
+}
+table thead {
+	text-align: center;
+}
+.ws-nowrap {
+  white-space: nowrap;
+}
+/********** Fin General **********/
+
+/********** Debut Header **********/
+header {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	background-color: #FFF8DC;
+}
+header > div {
+	margin-top: 60px;
+	display: flex;
+	height: 240px;
+	width: 100%;
+}
+header > div > figure {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 240px;
+	width: 25%;
+}
+header > div > div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 75%;
+}
+header h1 {
+	padding-left: 50px;
+	font-family: ethnocentric, sans-serif;
+	font-size: 5em;
+	font-weight: bold;
+	letter-spacing: 50px;
+}
+/********** Debut Menus **********/
+nav {
+
+}
+/***** Debut Menu Header *****/
+#nav_header {
+	display: flex;
+	justify-content: space-between;
+	height: 60px;
+	width: 100%;
+	background-color: #F0FFFF;
+	position:fixed;
+  z-index: 10;
+}
+#nav_header div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#zone_recherche {
+	margin-left: 10px;
+	padding: 0 6px;
+	border: none;
+	height: 36px;
+	width: 180px;
+	border-radius: 10px 0 0 10px;
+}
+#nav_header div img {
+	height: 32px;
+}
+#nav_header > div > a {
+  margin: 20px;
+}
+#nav_header ul {
+	padding-right: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+}
+#nav_header li {
+	padding: 0 20px;
+}
+/***** Fin Menu Header *****/
+/********** Fin Header **********/
+#main {
+	display: flex;
+	width: 100%;
+}
+/***** Debut Menu Side *****/
+#nav_side {
+	padding: 15px 5px;
+	display: flex;
+	justify-content: center;
+  width: 16%;
+	min-width: 180px;
+	background-color: #F1F1F1;
+}
+/***** Fin Menu Side *****/
+/********** Fin Menus **********/
+
+/********** Debut Sections **********/
+/***** Debut Section globale *****/
+section {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: flex-start;
+	width: 100%;
+}
+section h2 {
+	margin: 10px 0;
+	width: 100%;
+}
+section h3 {
+	font-size: 1.6em;
+}
+section h4 {
+	font-size: 1.2em;
+}
+section li:before {
+	content: "\002212  ";
+	color: #0000FF;
+}
+.etoile li:before {
+	content: " 	\002217  ";
+}
+.btn_bas_page {
+	margin-top: 20px;
+  margin-bottom: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+.btn_bas_page a:first-child {
+	margin-right: 20px;
+	width: auto;
+	border-radius: 20px 5px 5px 20px;
+}
+.btn_bas_page a:nth-child(2) {
+	margin: 0 20px;
+	border-radius: 5px;
+}
+.btn_bas_page a:last-child {
+	margin-left: 20px;
+	width: auto;
+	border-radius: 5px 20px 20px 5px;
+}
+/***** Fin Section globale *****/
+/***** Debut Page Accueil *****/
+#section_accueil {
+	padding: 10px 0;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%
+}
+.h2_accueil {
+	margin: 30px 0 0 0;
+	font-size: 3.6em;
+}
+#section_accueil > figure {
+	margin: 50px 0;
+	align-items: center;
+	width: 22%;
+	/*background-color: #E9EAEA;*/
+	text-align: center;
+}
+#section_accueil > figure > img {
+	width: 60%;
+}
+.fig_rubrique {
+	perspective: 350px;
+}
+.img_rubrique {
+	transition: transform 0.5s;
+}
+.img_to_menu {
+	transform: translate3d(-10px, 0, 340px) rotateY(180deg) scaleY(1.1);
+}
+/*.imguml:hover {
+	transform: perspective(200px) rotateY(89.8deg) translateX(-100px);
+}*/
+/*.img_rubrique:hover {
+	transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
+}*/
+/***** Fin Page Accueil *****/
+/***** Debut Page Autres liens *****/
+#section_autres_liens {
+  padding: 10px 0;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%
+}
+#section_autres_liens > figure {
+  margin: 50px 0;
+  align-items: center;
+  width: 22%;
+  text-align: center;
+}
+#section_autres_liens figure img {
+  max-width: 300px;
+  width: 60%;
+  transition: transform 0.5s;
+}
+#section_autres_liens figure img:hover {
+  transform: rotate(10deg) scale(1.2);
+}
+/***** Fin Page Autres liens *****/
+/***** Debut Page Boole *****/
+#section_boole {
+
+}
+.table_verite {
+	margin-top: 15px;
+	text-align: center;
+}
+.table_verite th {
+	background-color: #D3D3D3;
+}
+.table_verite th, .table_verite td {
+	border: 2px solid black;
+}
+.table_col1car {
+	width: 40px;
+}
+.table_col5car {
+	width: 90px;
+}
+.table_col10car {
+	width: 120px;
+}
+/***** Fin Page Boole *****/
+/***** Debut Page Algo *****/
+#section_algo {
+
+}
+#section_algo table {
+	margin-bottom: 15px;
+}
+.tab_in-out {
+	width: 60%;
+}
+.tab_in-out > thead > tr td:last-child {
+	width: 50%;
+}
+.tab_in-out td {
+	text-align: center;
+	border: none;
+}
+.tab_lang_algo > thead > tr td:last-child {
+	width: 50%;
+}
+.tab_lang_algo td {
+	vertical-align: top;
+	text-align: left;
+	border: none;
+}
+.tab_photocop {
+	margin-left: 15px;
+}
+.tab_photocop tr td:first-child {
+	width: 100px;
+	text-align: center;
+}
+.tabs_functions img {
+	width: 84px;
+}
+.tabs_functions .tab_functions_img3 {
+	width: 62px;
+}
+.tab_func_cprix {
+	text-align: center;
+}
+/***** Fin Page Algo *****/
+/***** Debut Page Uml *****/
+#section_uml {
+
+}
+/***** Fin Page Uml *****/
+/***** Debut Page Model_bdd *****/
+#section_model_bdd {
+
+}
+/***** Fin Page Model_bdd *****/
+/***** Debut Page Html *****/
+#section_html {
+
+}
+/***** Fin Page html *****/
+/***** Debut Page Css *****/
+#section_css {
+
+}
+#selectors td:first-child {
+  width: 250px;
+}
+/***** Fin Page Css *****/
+/***** Debut Page JavaScript *****/
+#section_js {
+
+}
+/***** Fin Page JavaScript *****/
+/***** Debut Page Php *****/
+#section_php {
+
+}
+/***** Fin Page Php *****/
+/***** Debut Page Java *****/
+#section_java {
+
+}
+/***** Fin Page Java *****/
+/***** Debut Page Sql *****/
+#section_sql {
+
+}
+/***** Fin Page Sql *****/
+/***** Debut Page MySql *****/
+#section_mysql {
+
+}
+/***** Fin Page MySql *****/
+/***** Debut Page Oracle *****/
+#section_oracle {
+
+}
+/***** Fin Page Oracle *****/
+/***** Debut Pages Warhammer *****/
+#section_warhammer {
+
+}
+/***** Fin Pages Warhammer *****/
+/***** Debut Page Inscription *****/
+#section_inscription {
+	align-items: center;
+}
+#section_inscription form {
+	padding-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 900px;
+}
+#section_inscription form > div {
+	padding: 10px 0;
+}
+#section_inscription label {
+	width: calc(35% - 10px);
+}
+#section_inscription input {
+	background-color: #EFEFEF;
+	width: 30%;
+  min-width: 180px;
+	border-radius: 6px;
+}
+#section_inscription form button {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	align-self: center;
+	width: auto;
+	border-radius: 6px;
+}
+/***** Debut Page Inscription *****/
+/***** Debut Page Connexion *****/
+#section_connexion {
+	align-items: center;
+}
+#section_connexion form {
+	padding-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 900px;
+}
+#section_connexion form > div {
+	padding: 10px 0;
+}
+#section_connexion label {
+	width: calc(35% - 10px);
+}
+#section_connexion input {
+	background-color: #EFEFEF;
+	width: 30%;
+  min-width: 180px;
+	border-radius: 6px;
+}
+.message_connexion {
+	display: flex;
+}
+#section_connexion form button {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	align-self: center;
+	width: auto;
+	border-radius: 6px;
+}
+/***** Debut Page Connexion *****/
+/***** Debut Page Contact *****/
+#section_contact {
+	align-items: center;
+}
+#section_contact h1 {
+
+}
+#section_contact form {
+	padding-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 900px;
+}
+#section_contact form > div {
+	padding: 10px 0;
+}
+#section_contact label {
+	width: calc(30% - 10px);
+}
+#section_contact input, #section_contact textarea {
+	background-color: #EFEFEF;
+	border-radius: 6px;
+}
+#section_contact input {
+	width: 40%;
+  min-width: 180px;
+}
+.message_contact {
+	display: flex;
+}
+#section_contact textarea {
+	margin-left: 5px;
+	width: 40%;
+	min-width: 180px;
+	resize: none;
+}
+#section_contact form button {
+	margin-top: 15px;
+	align-self: center;
+	width: auto;
+	border-radius: 6px;
+}
+/***** Fin Page Contact *****/
+/***** Debut Page Accueil Admin *****/
+#section_accueil-admin {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  vertical-align: middle;
+  align-items: center;
+  width: 100%;
+}
+#section_accueil-admin h1 {
+  padding-bottom: 10px;
+}
+#section_accueil-admin div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+#section_accueil-admin .alert {
+  width: auto;
+}
+/*
+#section_accueil-admin #success {
+  padding: 0.75em 1.25em;
+  width: auto;
+}
+*/
+#section_accueil-admin table {
+  width: 100%;
+  max-width: 1000px;
+}
+#section_accueil-admin th {
+  height: 2.8em;
+  background-color: #C1C1C1;
+}
+#section_accueil-admin th:first-child {
+  border-radius: 4px 0 0 4px;
+}
+#section_accueil-admin th:last-child {
+  border-radius: 0 4px 4px 0;
+}
+#section_accueil-admin table td {
+  height: 2.8em;
+	text-align: center;
+}
+#section_accueil-admin select, #section_accueil-admin input {
+	margin: 0 5px;
+	border-radius: 0.25rem;
+text-align: center;
+}
+#section_accueil-admin .td-modif {
+	margin: 0 5px;
+  width: 100px;
+  text-align: center;
+}
+#section_accueil-admin .td-suppr {
+	margin: 0 5px;
+  width: 116px;
+  text-align: right;
+}
+#section_accueil-admin .td-ajout {
+  width: 88px;
+  text-align: center;
+}
+#section_accueil-admin button {
+	margin: 0 5px;
+}
+#section_accueil-admin p {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+/***** Fin Page Accueil Admin *****/
+/***** Debut Page Liste Utilisateurs *****/
+#section_users-admin {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  vertical-align: middle;
+  align-items: center;
+  width: 100%;
+}
+#section_users-admin h1 {
+  padding-bottom: 10px;
+}
+#section_users-admin div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+#section_users-admin .alert {
+  width: auto;
+}
+/*
+#section_users-admin #success {
+  padding: 0.75em 1.25em;
+  width: auto;
+}
+*/
+#section_users-admin table {
+  width: 100%;
+  max-width: 1000px;
+}
+#section_users-admin th {
+  height: 2.8em;
+  background-color: #C1C1C1;
+}
+#section_users-admin th:first-child {
+  border-radius: 4px 0 0 4px;
+}
+#section_users-admin th:last-child {
+  border-radius: 0 4px 4px 0;
+}
+#section_users-admin table td {
+  height: 2.8em;
+  text-align: center;
+}
+#section_users-admin select, #section_users-admin input {
+	margin: 0 5px 0 0;
+	border-radius: 0.25rem;
+  text-align: center;
+}
+#section_users-admin .td-modif {
+  width: 100px;
+  text-align: center;
+}
+#section_users-admin .td-suppr {
+  width: 116px;
+  text-align: right;
+}
+#section_users-admin .td-ajout {
+  width: 88px;
+  text-align: center;
+}
+#section_users-admin button {
+	margin: 0 5px;
+}
+#section_users-admin p {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+/***** Fin Page Liste Utilisateurs *****/
+/***** Debut Page Liste Types et Rubriques *****/
+#section_type_rubrique-admin {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  vertical-align: middle;
+  align-items: center;
+  width: 100%;
+}
+#section_type_rubrique-admin h1 {
+  padding-bottom: 10px;
+}
+#section_type_rubrique-admin div {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+}
+#section_type_rubrique-admin .alert {
+  width: auto;
+}
+/*
+#section_type_rubrique-admin #success {
+  padding: 0.75em 1.25em;
+  width: auto;
+}
+*/
+#section_type_rubrique-admin table {
+  max-width: 500px;
+}
+#section_type_rubrique-admin th {
+  height: 2.8em;
+  background-color: #C1C1C1;
+}
+#section_type_rubrique-admin th:first-child {
+  border-radius: 4px 0 0 4px;
+}
+#section_type_rubrique-admin th:last-child {
+  border-radius: 0 4px 4px 0;
+}
+#section_type_rubrique-admin table td {
+  height: 2.8em;
+  text-align: center;
+}
+#section_type_rubrique-admin select, #section_type_rubrique-admin input {
+  margin: 0 5px 0 0;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+#section_type_rubrique-admin .td-modif {
+  width: 100px;
+  text-align: center;
+}
+#section_type_rubrique-admin .td-suppr {
+  width: 116px;
+  text-align: right;
+}
+#section_type_rubrique-admin .td-ajout {
+  width: 88px;
+  text-align: center;
+}
+#section_type_rubrique-admin button {
+  margin: 0 5px;
+}
+#section_type_rubrique-admin p {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+/***** Fin Page Liste Types et Rubriques *****/
+/********** Fin Sections **********/
+
+/********** Debut Asides **********/
+#asides {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+  width: 16%;
+	min-width: 220px;
+}
+aside {
+	padding: 15px 5px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 100%;
+}
+aside h2 {
+	font-size: 1.2em;
+}
+.aside1 {
+	height: auto;
+	background-color: #DBE9CD;
+}
+.aside2 {
+	height: auto;
+	background-color: #DCD8CA;
+}
+.aside3 {
+  height: auto;
+  background-color: #F1E6E6;
+}
+/********** Fin Asides **********/
+
+/********** Debut Footer **********/
+footer {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	height: 80px;
+	width: 100%;
+	background-color: #D8EEE0;
+}
+footer > div {
+	display: flex;
+/*
+  justify-content: center;
+	align-items: center;
+*/
+	height: 80px;
+	width: 20%;
+}
+footer > div:nth-child(2) {
+	width: 60%;
+}
+footer > div p {
+	margin: auto;
+}
+/********** Fin Footer *********/
+
+/********** Design Responsive **********/
+@media screen and (max-width: 1199px) {
+	/********** Debut Header **********/
+	header {
+
+	}
+
+	/********** Debut Menus **********/
+	nav {
+
+	}
+	#nav_header {
+
+	}
+	/********** Fin Header **********/
+	#main {
+
+	}
+	#nav_side {
+
+	}
+	/********** Fin Menus **********/
+
+	/********** Debut Sections **********/
+	section {
+
+	}
+	/********** Fin Sections **********/
+
+	/********** Debut Asides **********/
+	#asides {
+
+	}
+	aside {
+
+	}
+	.aside1 {
+
+	}
+	.aside2 {
+
+	}
+  .aside3 {
+
+	}
+	/********** Fin Asides **********/
+
+	/********** Debut Footer **********/
+	footer {
+
+	}
+	/********** Fin Footer **********/
+}
+@media screen and (max-width: 991px) {
+	/********** Debut Header **********/
+	header {
+
+	}
+	/********** Debut Menus **********/
+	nav {
+
+	}
+	#nav_header {
+
+	}
+	/********** Fin Header **********/
+	#main {
+
+	}
+	#nav_side {
+
+	}
+	/********** Fin Menus **********/
+
+	/********** Debut Sections **********/
+	section {
+
+	}
+	/********** Fin Sections **********/
+
+	/********** Debut Asides **********/
+	#asides {
+
+	}
+	aside {
+
+	}
+	.aside1 {
+
+	}
+	.aside2 {
+
+	}
+  .aside3 {
+
+  }
+	/********** Fin Asides **********/
+
+	/********** Debut Footer **********/
+	footer {
+
+	}
+	/********** Fin Footer **********/
+}
+@media screen and (max-width: 767px) {
+	/********** Debut Header **********/
+	header {
+
+	}
+	/********** Debut Menus **********/
+	nav {
+
+	}
+	#nav_header {
+
+	}
+	/********** Fin Header **********/
+	#main {
+
+	}
+	#nav_side {
+
+	}
+	/********** Fin Menus **********/
+
+	/********** Debut Sections **********/
+	section {
+
+	}
+	/********** Fin Sections **********/
+
+	/********** Debut Asides **********/
+	#asides {
+
+	}
+	aside {
+
+	}
+	.aside1 {
+
+	}
+	.aside2 {
+
+	}
+	/********** Fin Asides **********/
+
+
+	/********** Debut Footer **********/
+	footer {
+
+	}
+	/********** Fin Footer **********/
+}

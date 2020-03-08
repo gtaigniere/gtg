@@ -90,7 +90,7 @@
 
   </section>
 
-<!--  <?php //include('../../vues/admin/asides.view.php'); ?>-->
+<!--  <?php //include('../../view/admin/asides.view.php'); ?>-->
 
 </div>
 
