@@ -3,7 +3,7 @@
 require_once (ROOT_DIR . 'manager/TypeManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class TypeCtrl extends Controller
+class TypeCtrl
 {
     /**
      * @var string
@@ -12,16 +12,17 @@ class TypeCtrl extends Controller
 
     /**
      * TypeCtrl constructor.
+     * @param PDO $db
      */
-    public function __construct()
+    public function __construct(PDO $db)
     {
-        $this->typeManager = new typeManager(new MyPdo());
+        $this->typeManager = new typeManager($db);
     }
 
     /**
-     * @return array
+     * @return void
      */
-    public function all(): ?
+    public function all(): void
     {
         $types = $this->typeManager->findAll();
         require (ROOT_DIR . 'view/allTypes.php');
@@ -29,8 +30,9 @@ class TypeCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
-    public function one(int $id): ?
+    public function one(int $id): void
     {
         $type = $this->typeManager->findOne($id);
         require_once (ROOT_DIR . 'view/admin/oneType.php');

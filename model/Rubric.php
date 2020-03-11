@@ -13,14 +13,15 @@ class Rubric
     private $libelle;
 
     /**
-     * Rubric constructor.
-     * @param int $idRub
-     * @param string $libelle
+     * @var string
      */
-    public function __construct($idRub, $libelle)
+    private $image;
+
+    /**
+     * Rubric constructor.
+     */
+    public function __construct()
     {
-        $this->idRub = $idRub;
-        $this->libelle = $libelle;
     }
 
     /**
@@ -53,6 +54,22 @@ class Rubric
     public function setLibelle($libelle)
     {
         $this->libelle = $libelle;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param string $image
+     */
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
     }
 
 }

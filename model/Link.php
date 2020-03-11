@@ -26,19 +26,9 @@ class Link
 
     /**
      * Link constructor.
-     * @param int $idLink
-     * @param string $name
-     * @param string $adrOrFile
-     * @param int $idRub
-     * @param int $idType
      */
-    public function __construct($idLink, $name, $adrOrFile, $idRub, $idType)
+    public function __construct()
     {
-        $this->idLink = $idLink;
-        $this->name = $name;
-        $this->adrOrFile = $adrOrFile;
-        $this->idRub = $idRub;
-        $this->idType = $idType;
     }
 
     /**

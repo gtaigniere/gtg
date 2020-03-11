@@ -3,7 +3,7 @@
 require_once (ROOT_DIR . 'manager/UserManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class UserCtrl extends Controller
+class UserCtrl
 {
     /**
      * @var string
@@ -12,16 +12,17 @@ class UserCtrl extends Controller
 
     /**
      * UserCtrl constructor.
+     * @param PDO $db
      */
-    public function __construct()
+    public function __construct(PDO $db)
     {
-        $this->userManager = new userManager(new MyPdo());
+        $this->userManager = new userManager($db);
     }
 
     /**
-     * @return array
+     * @return void
      */
-    public function all(): ?
+    public function all(): void
     {
         $users = $this->userManager->findAll();
         require (ROOT_DIR . 'view/admin/allUsers.php');
@@ -29,8 +30,9 @@ class UserCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
-    public function one(int $id): ?
+    public function one(int $id): void
     {
         $user = $this->userManager->findOne($id);
         require_once (ROOT_DIR . 'view/admin/oneUser.php');
@@ -38,8 +40,9 @@ class UserCtrl extends Controller
 
     /**
      * @param User $user
+     * @return void
      */
-    public function add(User $user): ?
+    public function add(User $user): void
     {
         $user = $this->userManager->insert($user);
         require_once (ROOT_DIR . 'view/admin/oneUser.php');
@@ -47,8 +50,9 @@ class UserCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
-    public function del(int $id): ?
+    public function del(int $id): void
     {
         $result = $this->userManager->delete($id);
         require_once (ROOT_DIR . 'view/admin/listUsers.php');
@@ -56,8 +60,9 @@ class UserCtrl extends Controller
 
     /**
      * @param User $user
+     * @return void
      */
-    public function upd(User $user): ?
+    public function upd(User $user): void
     {
         $user = $this->userManager->update($user);
         require_once (ROOT_DIR . 'view/admin/oneUser.php');

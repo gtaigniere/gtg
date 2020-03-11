@@ -14,13 +14,9 @@ class Type
 
     /**
      * Type constructor.
-     * @param int $idType
-     * @param string $label
      */
-    public function __construct($idType, $label)
+    public function __construct()
     {
-        $this->idType = $idType;
-        $this->label = $label;
     }
 
     /**

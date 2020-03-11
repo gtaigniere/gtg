@@ -3,7 +3,7 @@
 require_once (ROOT_DIR . 'manager/RubricManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class RubricCtrl extends Controller
+class RubricCtrl
 {
     /**
      * @var string
@@ -12,16 +12,17 @@ class RubricCtrl extends Controller
 
     /**
      * RubricCtrl constructor.
+     * @param PDO $db
      */
-    public function __construct()
+    public function __construct(PDO $db)
     {
-        $this->rubricManager = new rubricManager(new MyPdo());
+        $this->rubricManager = new rubricManager($db);
     }
 
     /**
-     * @return array
+     * @return void
      */
-    public function all(): ?
+    public function all(): void
     {
         $rubrics = $this->rubricManager->findAll();
         require (ROOT_DIR . 'view/admin/allRubrics.php');
@@ -29,8 +30,9 @@ class RubricCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
-    public function one(int $id): ?
+    public function one(int $id): void
     {
         $rubric = $this->rubricManager->findOne($id);
         require_once (ROOT_DIR . 'view/admin/oneRubric.php');
@@ -38,8 +40,9 @@ class RubricCtrl extends Controller
 
     /**
      * @param Rubric $rubric
+     * @return void
      */
-    public function add(Rubric $rubric): ?
+    public function add(Rubric $rubric): void
     {
         $rubric = $this->rubricManager->insert($rubric);
         require_once (ROOT_DIR . 'view/admin/oneRubric.php');
@@ -47,8 +50,9 @@ class RubricCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
-    public function del(int $id): ?
+    public function del(int $id): void
     {
         $result = $this->rubricManager->delete($id);
         require_once (ROOT_DIR . 'view/admin/listRubrics.php');
@@ -56,8 +60,9 @@ class RubricCtrl extends Controller
 
     /**
      * @param Rubric $rubric
+     * @return void
      */
-    public function upd(Rubric $rubric): ?
+    public function upd(Rubric $rubric): void
     {
         $rubric = $this->rubricManager->update($rubric);
         require_once (ROOT_DIR . 'view/admin/oneRubric.php');

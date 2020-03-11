@@ -3,7 +3,7 @@
 require_once (ROOT_DIR . 'manager/LinkManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class LinkCtrl extends Controller
+class LinkCtrl
 {
     /**
      * @var string
@@ -12,16 +12,18 @@ class LinkCtrl extends Controller
 
     /**
      * LinkCtrl constructor.
+     * @param PDO $db
      */
-    public function __construct()
+    public function __construct(PDO $db)
     {
-        $this->linkManager = new linkManager(new MyPdo());
+        $this->linkManager = new linkManager($db);
     }
 
     /**
-     * @return array
+     * @param int $idRub
+     * @return void
      */
-    public function allByRubric($idRub): ?
+    public function allByRubric(int $idRub): void
     {
         $links = $this->linkManager->findAllByRubric($idRub);
         require (ROOT_DIR . 'view/' . $rubric . '.php');

@@ -1,22 +1,18 @@
 <?php
 
-require_once 'config/MyPdo.php';
-require_once 'model/Type.php';
+require_once ROOT_DIR . 'manager/Manager.php';
+require_once ROOT_DIR . 'config/MyPdo.php';
+require_once ROOT_DIR . 'model/Type.php';
 
-class TypeManager
+class TypeManager extends Manager
 {
     /**
-     * @var MyPdo
-     */
-    private $db;
-
-    /**
      * TypeManager constructor.
-     * @param MyPdo $db
+     * @param PDO $db
      */
-    public function __construct(MyPdo $db)
+    public function __construct(PDO $db)
     {
-        $this->db = $db;
+        parent::__construct('Type', $db);
     }
 
     /**
@@ -25,30 +21,34 @@ class TypeManager
     public function findAll(): array
     {
         try {
-            $this->db;
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->query('SELECT * FROM type');
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $objs = [];
+            foreach ($results as $assocs) {
+                $objs[] = $this->convInObj($assocs);
+            }
+            return $objs;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
-        $this->db->exec("set names utf8");
-        $stmt = $this->db->query('SELECT * FROM type');
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * @param int $id
      * @return array
      */
-    public function findOne(int $id): array
+    public function findOne(int $id): Type
     {
         try {
-            $this->db;
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('SELECT * FROM type WHERE idType = :id');
+            $stmt->execute([':id' => $id]);
+            $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $this->convInObj($assocs);
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
-        $this->db->exec("set names utf8");
-        $stmt = $this->db->prepare('SELECT * FROM type WHERE idType = :id');
-        $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 }

@@ -25,20 +25,10 @@ class User
     private $pwd;
 
     /**
-     * User constructor.
-     * @param int $idUser
-     * @param string $lastname
-     * @param string $firstname
-     * @param string $email
-     * @param string $pwd
+     * Type constructor.
      */
-    public function __construct($idUser, $lastname, $firstname, $email, $pwd)
+    public function __construct()
     {
-        $this->idUser = $idUser;
-        $this->lastname = $lastname;
-        $this->firstname = $firstname;
-        $this->email = $email;
-        $this->pwd = $pwd;
     }
 
     /**

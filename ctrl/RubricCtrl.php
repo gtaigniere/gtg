@@ -3,7 +3,7 @@
 require_once (ROOT_DIR . 'manager/RubricManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class RubricCtrl extends Controller
+class RubricCtrl
 {
     /**
      * @var string
@@ -12,28 +12,32 @@ class RubricCtrl extends Controller
 
     /**
      * RubricCtrl constructor.
+     * @param PDO $db
      */
-    public function __construct()
+    public function __construct(PDO $db)
     {
-        $this->rubricManager = new rubricManager(new MyPdo());
+        $this->rubricManager = new rubricManager($db);
     }
 
     /**
-     * @return array
+     * @return void
      */
-    public function all(): ?
+    public function index(): void
     {
         $rubrics = $this->rubricManager->findAll();
-        require (ROOT_DIR . 'view/admin/allRubrics.php');
+        require ROOT_DIR . 'view/accueil.php';
+        require ROOT_DIR . 'view/template.php';
     }
 
     /**
      * @param int $id
+     * @return void
      */
-    public function one(int $id): ?
+    public function show(int $id): void
     {
         $rubric = $this->rubricManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/oneRubric.php');
+        require_once ROOT_DIR . 'view/' . strtolower($rubric->getLibelle()) . '.php';
+        require_once ROOT_DIR . 'view/template.php';
     }
 
 }

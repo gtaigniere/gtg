@@ -3,7 +3,7 @@
 require_once (ROOT_DIR . 'manager/TypeManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class TypeCtrl extends Controller
+class TypeCtrl
 {
     /**
      * @var string
@@ -12,16 +12,17 @@ class TypeCtrl extends Controller
 
     /**
      * TypeCtrl constructor.
+     * @param PDO $db
      */
-    public function __construct()
+    public function __construct(PDO $db)
     {
-        $this->typeManager = new typeManager(new MyPdo());
+        $this->typeManager = new typeManager($db);
     }
 
     /**
-     * @return array
+     * @return void
      */
-    public function all(): ?
+    public function all(): void
     {
         $types = $this->typeManager->findAll();
         require (ROOT_DIR . 'view/admin/allTypes.php');
@@ -29,8 +30,9 @@ class TypeCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
-    public function one(int $id): ?
+    public function one(int $id): void
     {
         $type = $this->typeManager->findOne($id);
         require_once (ROOT_DIR . 'view/admin/oneType.php');
@@ -38,8 +40,9 @@ class TypeCtrl extends Controller
 
     /**
      * @param Type $type
+     * @return void
      */
-    public function add(Type $type): ?
+    public function add(Type $type): void
     {
         $type = $this->typeManager->insert($type);
         require_once (ROOT_DIR . 'view/admin/oneType.php');
@@ -47,8 +50,9 @@ class TypeCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
-    public function del(int $id): ?
+    public function del(int $id): void
     {
         $result = $this->typeManager->delete($id);
         require_once (ROOT_DIR . 'view/admin/listTypes.php');
@@ -56,8 +60,9 @@ class TypeCtrl extends Controller
 
     /**
      * @param Type $type
+     * @return void
      */
-    public function upd(Type $type): ?
+    public function upd(Type $type): void
     {
         $types = $this->typeManager->update($type);
         require_once (ROOT_DIR . 'view/admin/oneType.php');

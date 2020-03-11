@@ -14,7 +14,7 @@
 		<title>Giltg</title>
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-		<link rel="stylesheet" type="text/css" href="style/style.css">
+		<link rel="stylesheet" type="text/css" href="../style/style.css">
 
 	</head>
 
@@ -29,20 +29,19 @@
 				<input id="zone_recherche" type="text" name="recherche" placeholder="Chercher" autofocus>
 				<button id="btn_recherche" type="submit"><img src="<?php //echo MYSITE_PATH; ?>img/icons/loupe.png" alt="Bouton loupe" title="Lancez la recherche"></button>
 				-->
-					<a class="ws-nowrap" href="<?= ROOT_DIR ?>ctrl/autres_liens.ctrl.php">Autres sites</a>
+					<a class="ws-nowrap" href="index.php?target=autres_sites">Autres sites</a>
 				</div>
 
 				<ul>
-
-					<li><a href="<?= ROOT_DIR ?>index.php">Accueil</a></li>
-
-					<li><a href="<?= ROOT_DIR ?>ctrl/vietnam.ctrl.php">Vietnam</a></li>
+					<li><a href="index.php">Accueil</a></li>
+                    <li><a href="index.php?target=snippets">Snippets</a></li>
+					<li><a href="index.php?target=vietnam">Vietnam</a></li>
 
 					<?php if (isset($_SESSION['nomUser']))	: ?>
-						<li><a href="<?= ROOT_DIR ?>ctrl/user/warhammer.ctrl.php">Warhammer JDRF</a></li>
-						<li><a href="<?= ROOT_DIR ?>ctrl/deconnexion.php">Déconnexion</a></li>
+						<li><a href="index.php?target=warhammer">Warhammer JDRF</a></li>
+						<li><a href="ctrl/deconnexion.php">Déconnexion</a></li>
 					<?php else : ?>
-						<li><a href="<?= ROOT_DIR ?>ctrl/connexion.ctrl.php">Connexion</a></li>
+						<li><a href="index.php?target=connexion">Connexion</a></li>
 					<?php endif; ?>
 
 				</ul>
@@ -53,9 +52,9 @@
 
 				<figure>
 					<?php if (isset($_SESSION['nomUser']) AND $_SESSION['nomUser'] == 'gilleste') : ?>
-						<a href="<?= ROOT_DIR ?>ctrl/admin/accueil-admin.ctrl.php"><img src="<?= __DIR__ ?>/../imgs/logo.png" alt="Logo"></a>
+						<a href="ctrl/admin/accueil-admin.ctrl.php"><img src="imgs/thumbmails/logo.png" alt="Logo"></a>
 					<?php else : ?>
-						<img src="<?= ROOT_DIR ?>imgs/thumbmails/logo.png" alt="Logo">
+						<img src="imgs/thumbmails/logo.png" alt="Logo">
 					<?php endif; ?>
 				</figure>
 
@@ -88,11 +87,11 @@
 		<footer>
 
 			<div>
-				<p><a href="<?= ROOT_DIR ?>ctrl/contact.ctrl.php">Contact</a></p>
+				<p><a href="ctrl/contact.ctrl.php">Contact</a></p>
 			</div>
 
 			<div>
-				<p>© Copyright 2019 - <strong><a href="#">Giltg.fr</a></strong> - <span class="ws-nowrap">Tous droits réservés</span></p>
+				<p>© Copyright 2019 - <strong><a href="index.php">GiltG.fr</a></strong> - <span class="ws-nowrap">Tous droits réservés</span></p>
 			</div>
 
 			<div>
@@ -104,7 +103,7 @@
 		<!-- Chargement du JavaScript Bootstrap JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 		<!-- Chargement d'autres JavaScript -->
-        <script src="<?= ROOT_DIR ?>script/.js"></script>
+        <!--<script src="script/.js"></script>-->
 
 	</body>
 

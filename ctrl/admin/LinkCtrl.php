@@ -3,7 +3,7 @@
 require_once (ROOT_DIR . 'manager/LinkManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class LinkCtrl extends Controller
+class LinkCtrl
 {
     /**
      * @var string
@@ -12,16 +12,17 @@ class LinkCtrl extends Controller
 
     /**
      * LinkCtrl constructor.
+     * @param PDO $db
      */
-    public function __construct()
+    public function __construct(PDO $db)
     {
-        $this->linkManager = new linkManager(new MyPdo());
+        $this->linkManager = new linkManager($db);
     }
 
     /**
-     * @return array
+     * @return void
      */
-    public function all(): ?
+    public function all(): void
     {
         $links = $this->linkManager->findAll();
         require (ROOT_DIR . 'view/admin/allLinks.php');
@@ -29,8 +30,9 @@ class LinkCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
-    public function one(int $id): ?
+    public function one(int $id): void
     {
         $link = $this->linkManager->findOne($id);
         require_once (ROOT_DIR . 'view/admin/oneLink.php');
@@ -38,8 +40,9 @@ class LinkCtrl extends Controller
 
     /**
      * @param Link $link
+     * @return void
      */
-    public function add(Link $link): ?
+    public function add(Link $link): void
     {
         $link = $this->linkManager->insert($link);
         require_once (ROOT_DIR . 'view/admin/oneLink.php');
@@ -47,8 +50,9 @@ class LinkCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
-    public function del(int $id): ?
+    public function del(int $id): void
     {
         $result = $this->linkManager->delete($id);
         require_once (ROOT_DIR . 'view/admin/listLinks.php');
@@ -56,8 +60,9 @@ class LinkCtrl extends Controller
 
     /**
      * @param Link $link
+     * @return void
      */
-    public function upd(Link $link): ?
+    public function upd(Link $link): void
     {
         $link = $this->linkManager->update($link);
         require_once (ROOT_DIR . 'view/admin/oneLink.php');
