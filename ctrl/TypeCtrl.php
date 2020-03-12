@@ -7,7 +7,7 @@ require_once (ROOT_DIR . 'config/MyPdo.php');
 class TypeCtrl extends Controller
 {
     /**
-     * @var string
+     * @var TypeManager
      */
     private $typeManager;
 
@@ -17,7 +17,7 @@ class TypeCtrl extends Controller
      */
     public function __construct(PDO $db)
     {
-        $this->typeManager = new typeManager($db);
+        $this->typeManager = new TypeManager($db);
     }
 
     /**

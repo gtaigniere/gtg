@@ -817,7 +817,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	width: 100%;
 }
 #section_type_rubrique-admin .alert {
-	width: ;idth: auto;
+	width: auto;
 }
 #section_type_rubrique-admin table {
 	max-width: 500px;
