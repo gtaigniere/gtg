@@ -36,16 +36,16 @@ class RubricManager extends Manager
 
     /**
      * @param int $id
-     * @return array
+     * @return Rubric|null
      */
-    public function findOne(int $id): Rubric
+    public function findOne(int $id): ?Rubric
     {
         try {
             $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('SELECT * FROM rubric WHERE idRub = :id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $this->convInObj($assocs);
+            return $assocs ? $this->convInObj($assocs) : null;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }

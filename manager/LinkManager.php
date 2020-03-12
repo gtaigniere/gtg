@@ -36,16 +36,16 @@ class LinkManager extends Manager
 
     /**
      * @param int $id
-     * @return array
+     * @return Link|null
      */
-    public function findOne(int $id): Link
+    public function findOne(int $id): ?Link
     {
         try {
             $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('SELECT * FROM link WHERE idLink = :id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $this->convInObj($assocs);
+            return $assocs ? $this->convInObj($assocs) : null;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
@@ -90,17 +90,35 @@ class LinkManager extends Manager
      * @param int $idType
      * @return array
      */
-    public function findAllByRubricAndType(int $idRub, int $idType): array
+    public function findAllByIdRubAndIdType(int $idRub, int $idType): array
     {
         try {
             $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('SELECT * FROM link WHERE idRub = :idRub AND idType = :idType');
             $stmt->execute([':idRub' => $idRub, ':idType' => $idType]);
-            $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $this->convInObj($assocs);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $objs = [];
+            foreach ($results as $assocs) {
+                $objs[] = $this->convInObj($assocs);
+            }
+            return $objs;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
+    }
+
+    /**
+     * @param int $idRub
+     * @return array
+     */
+    public function findAllAsides(int $idRub): array
+    {
+        $links = [];
+        $links[strtolower('Support')] = $this->findAllByIdRubAndIdType($idRub, 1);
+        $links[strtolower('Code')] = $this->findAllByIdRubAndIdType($idRub, 2);
+        $links[strtolower('Site_ext')] = $this->findAllByIdRubAndIdType($idRub, 3);
+        $links[strtolower('Menu_rubrique')] = $this->findAllByIdRubAndIdType($idRub, 4);
+        return $links;
     }
 
 }

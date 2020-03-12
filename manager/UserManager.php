@@ -36,16 +36,16 @@ class UserManager extends Manager
 
     /**
      * @param int $id
-     * @return array
+     * @return User|null
      */
-    public function findOne(int $id): User
+    public function findOne(int $id): ?User
     {
         try {
             $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('SELECT * FROM user WHERE idUser = :id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $this->convInObj($assocs);
+            return $assocs ? $this->convInObj($assocs) : null;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }

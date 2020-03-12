@@ -68,16 +68,27 @@
 
 		<main>
 
-            <?php if (isset($navSide)) { echo $navSide; } ?>
+            <?php $showLinks = isset($links);
+                if ($showLinks && array_key_exists('menu_rubrique', $links) && !empty($links['menu_rubrique'])) {
+                    require_once ROOT_DIR . 'view/fragment/nav_side.php';
+                }
+            ?>
 
             <?= $section ?>
 
-            <?php if (isset($supportAside) || isset($codeAside) || isset($siteExtAside)) : ?>
+            <?php if ($showLinks && array_key_exists('support', $links) || array_key_exists('code', $links) || array_key_exists('site_ext', $links)) : ?>
 			    <div id="asides">
 
-                    <?php if (isset($supportAside)) { echo $supportAside; } ?>
-                    <?php if (isset($codeAside)) { echo $codeAside; } ?>
-                    <?php if (isset($siteExtAside)) { echo $siteExtAside; } ?>
+                    <?php if (array_key_exists('support', $links)) {
+                            require_once ROOT_DIR . 'view/fragment/support_aside.php';
+                        }
+                        if (array_key_exists('code', $links)) {
+                            require_once ROOT_DIR . 'view/fragment/code_aside.php';
+                        }
+                        if (array_key_exists('site_ext', $links)) {
+                            require_once ROOT_DIR . 'view/fragment/site-ext_aside.php';
+                        }
+                    ?>
 
 			    </div>
             <?php endif; ?>
@@ -87,7 +98,7 @@
 		<footer>
 
 			<div>
-				<p><a href="ctrl/contact.ctrl.php">Contact</a></p>
+				<p><a href="index.php?target=contact">Contact</a></p>
 			</div>
 
 			<div>

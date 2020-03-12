@@ -1,9 +1,10 @@
 <?php
 
+require_once ROOT_DIR . 'ctrl/Controller.php';
 require_once (ROOT_DIR . 'manager/LinkManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class LinkCtrl
+class LinkCtrl extends Controller
 {
     /**
      * @var string
@@ -20,13 +21,22 @@ class LinkCtrl
     }
 
     /**
-     * @param int $idRub
      * @return void
      */
-    public function allByRubric(int $idRub): void
+    public function all(): void
     {
-        $links = $this->linkManager->findAllByRubric($idRub);
-        require (ROOT_DIR . 'view/' . $rubric . '.php');
+        $links = $this->linkManager->findAll();
+        require (ROOT_DIR . 'view/allLinks.php');
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function one(int $id): void
+    {
+        $link = $this->linkManager->findOne($id);
+        require_once (ROOT_DIR . 'view/oneLink.php');
     }
 
 }

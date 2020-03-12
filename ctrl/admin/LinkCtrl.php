@@ -6,7 +6,7 @@ require_once (ROOT_DIR . 'config/MyPdo.php');
 class LinkCtrl
 {
     /**
-     * @var string
+     * @var LinkManager
      */
     private $linkManager;
 
@@ -16,7 +16,7 @@ class LinkCtrl
      */
     public function __construct(PDO $db)
     {
-        $this->linkManager = new linkManager($db);
+        $this->linkManager = new LinkManager($db);
     }
 
     /**

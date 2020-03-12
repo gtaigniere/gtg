@@ -1,10 +1,6 @@
-/style/polices/
-/files_asides/
-/sql/
-/imgs/
 /config/MyPdo.php
-/style/style(old).css
-/index-old.php
-
-
-
+/sql/
+/style/polices/
+/files_asides/code/
+/files_asides/supports_cours/
+/imgs/

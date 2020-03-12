@@ -1,9 +1,10 @@
 <?php
 
+require_once ROOT_DIR . 'ctrl/Controller.php';
 require_once (ROOT_DIR . 'manager/TypeManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class TypeCtrl
+class TypeCtrl extends Controller
 {
     /**
      * @var string
@@ -35,7 +36,7 @@ class TypeCtrl
     public function one(int $id): void
     {
         $type = $this->typeManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/oneType.php');
+        require_once (ROOT_DIR . 'view/oneType.php');
     }
 
 }

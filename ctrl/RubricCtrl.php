@@ -1,14 +1,21 @@
 <?php
 
+require_once ROOT_DIR . 'ctrl/Controller.php';
 require_once (ROOT_DIR . 'manager/RubricManager.php');
+require_once (ROOT_DIR . 'manager/LinkManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
 
-class RubricCtrl
+class RubricCtrl extends Controller
 {
     /**
-     * @var string
+     * @var RubricManager
      */
     private $rubricManager;
+
+    /**
+     * @var LinkManager
+     */
+    private $linkManager;
 
     /**
      * RubricCtrl constructor.
@@ -16,7 +23,8 @@ class RubricCtrl
      */
     public function __construct(PDO $db)
     {
-        $this->rubricManager = new rubricManager($db);
+        $this->rubricManager = new RubricManager($db);
+        $this->linkManager = new LinkManager($db);
     }
 
     /**
@@ -36,8 +44,14 @@ class RubricCtrl
     public function show(int $id): void
     {
         $rubric = $this->rubricManager->findOne($id);
-        require_once ROOT_DIR . 'view/' . strtolower($rubric->getLibelle()) . '.php';
-        require_once ROOT_DIR . 'view/template.php';
+        $links = $this->linkManager->findAllAsides($id);
+
+        if (!is_null($rubric)) {
+            require_once ROOT_DIR . 'view/rubric/' . $rubric->getLibelle() . '.php';
+            require_once ROOT_DIR . 'view/template.php';
+        } else {
+            $this->notFound();
+        }
     }
 
 }
