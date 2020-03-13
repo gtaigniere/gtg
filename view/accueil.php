@@ -12,7 +12,7 @@
         <?php foreach ($rubrics as $rubric) :
             if ($rubric instanceof Rubric) : ?>
             <figure class="fig_rubrique">
-                <a href="index.php?target=rubric&id=<?= $rubric->getIdRub() ?>"><img class="img_rubrique" id="<?= strtolower($rubric->getLibelle()) ?>" src="../imgs/thumbmails/<?= $rubric->getImage() ?>" alt="<?= $rubric->getLibelle() ?>" /></a>
+                <a href="index.php?target=rubric&id=<?= $rubric->getIdRub() ?>"><img class="img_rubrique" id="<?= strtolower($rubric->getLabel()) ?>" src="../imgs/thumbmails/<?= $rubric->getImage() ?>" alt="<?= $rubric->getLabel() ?>" /></a>
             </figure>
             <?php endif;
         endforeach; ?>

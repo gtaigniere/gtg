@@ -7,18 +7,17 @@ class User
      * @var int
      */
     private $idUser;
+
     /**
      * @var string
      */
-    private $lastname;
-    /**
-     * @var string
-     */
-    private $firstname;
+    private $pseudo;
+
     /**
      * @var string
      */
     private $email;
+
     /**
      * @var string
      */
@@ -50,33 +49,17 @@ class User
     /**
      * @return string
      */
-    public function getLastname()
+    public function getPseudo()
     {
-        return $this->lastname;
+        return $this->pseudo;
     }
 
     /**
-     * @param string $lastname
+     * @param string $pseudo
      */
-    public function setLastname($lastname)
+    public function setPseudo($pseudo)
     {
-        $this->lastname = $lastname;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
-
-    /**
-     * @param string $firstname
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
+        $this->pseudo = $pseudo;
     }
 
     /**

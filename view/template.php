@@ -25,12 +25,13 @@
 			<nav id="nav_header">
 
 				<div>
-				<!--
+					<a class="ws-nowrap" href="index.php?target=autres_sites">Autres sites</a>
+				</div>
+
+                <!--
 				<input id="zone_recherche" type="text" name="recherche" placeholder="Chercher" autofocus>
 				<button id="btn_recherche" type="submit"><img src="<?php //echo MYSITE_PATH; ?>img/icons/loupe.png" alt="Bouton loupe" title="Lancez la recherche"></button>
 				-->
-					<a class="ws-nowrap" href="index.php?target=autres_sites">Autres sites</a>
-				</div>
 
 				<ul>
 					<li><a href="index.php">Accueil</a></li>
@@ -69,23 +70,23 @@
 		<main>
 
             <?php $showLinks = isset($links);
-                if ($showLinks && array_key_exists('menu_rubrique', $links) && !empty($links['menu_rubrique'])) {
+                if ($showLinks && !empty($links['menu-rubrique'])) {
                     require_once ROOT_DIR . 'view/fragment/nav_side.php';
                 }
             ?>
 
             <?= $section ?>
 
-            <?php if ($showLinks && array_key_exists('support', $links) || array_key_exists('code', $links) || array_key_exists('site_ext', $links)) : ?>
+            <?php if ($showLinks && !empty($links['support']) || !empty($links['code']) || !empty($links['site-ext'])) : ?>
 			    <div id="asides">
-
-                    <?php if (array_key_exists('support', $links)) {
+                    
+                    <?php if (!empty($links['support'])) {
                             require_once ROOT_DIR . 'view/fragment/support_aside.php';
                         }
-                        if (array_key_exists('code', $links)) {
+                        if (!empty($links['code'])) {
                             require_once ROOT_DIR . 'view/fragment/code_aside.php';
                         }
-                        if (array_key_exists('site_ext', $links)) {
+                        if (!empty($links['site-ext'])) {
                             require_once ROOT_DIR . 'view/fragment/site-ext_aside.php';
                         }
                     ?>

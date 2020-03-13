@@ -47,7 +47,7 @@ class RubricCtrl extends Controller
         $links = $this->linkManager->findAllAsides($id);
 
         if (!is_null($rubric)) {
-            require_once ROOT_DIR . 'view/rubric/' . $rubric->getLibelle() . '.php';
+            require_once ROOT_DIR . 'view/rubric/' . $rubric->getLabel() . '.php';
             require_once ROOT_DIR . 'view/template.php';
         } else {
             $this->notFound();

@@ -10,7 +10,7 @@ class Link
     /**
      * @var string
      */
-    private $name;
+    private $label;
     /**
      * @var string
      */
@@ -50,17 +50,17 @@ class Link
     /**
      * @return string
      */
-    public function getName()
+    public function getLabel()
     {
-        return $this->name;
+        return $this->label;
     }
 
     /**
-     * @param string $name
+     * @param string $label
      */
-    public function setName($name)
+    public function setLabel($label)
     {
-        $this->name = $name;
+        $this->label = $label;
     }
 
     /**

@@ -116,8 +116,8 @@ class LinkManager extends Manager
         $links = [];
         $links[strtolower('Support')] = $this->findAllByIdRubAndIdType($idRub, 1);
         $links[strtolower('Code')] = $this->findAllByIdRubAndIdType($idRub, 2);
-        $links[strtolower('Site_ext')] = $this->findAllByIdRubAndIdType($idRub, 3);
-        $links[strtolower('Menu_rubrique')] = $this->findAllByIdRubAndIdType($idRub, 4);
+        $links[strtolower('Site-ext')] = $this->findAllByIdRubAndIdType($idRub, 3);
+        $links[strtolower('Menu-rubrique')] = $this->findAllByIdRubAndIdType($idRub, 4);
         return $links;
     }
 

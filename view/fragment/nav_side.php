@@ -2,7 +2,7 @@
 
     <ul>
 
-        <?php foreach ($links['menu_rubrique'] as $link) : ?>
+        <?php foreach ($links['menu-rubrique'] as $link) : ?>
             <li><a href="<?= $link->getAdrOrFile() ?>"><?= $link->getName() ?></a></li>
         <?php endforeach; ?>
 

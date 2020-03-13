@@ -10,7 +10,7 @@ class Rubric
     /**
      * @var string
      */
-    private $libelle;
+    private $label;
 
     /**
      * @var string
@@ -43,17 +43,17 @@ class Rubric
     /**
      * @return string
      */
-    public function getLibelle()
+    public function getLabel()
     {
-        return $this->libelle;
+        return $this->label;
     }
 
     /**
-     * @param string $libelle
+     * @param string $label
      */
-    public function setLibelle($libelle)
+    public function setLabel($label)
     {
-        $this->libelle = $libelle;
+        $this->label = $label;
     }
 
     /**

@@ -4,7 +4,7 @@
 
     <ul>
 
-        <?php foreach ($links['site_ext'] as $link) : ?>
+        <?php foreach ($links['site-ext'] as $link) : ?>
             <li><a href="<?= $link->getAdrOrFile() ?>"><?= $link->getName() ?></a></li>
         <?php endforeach; ?>
 
