@@ -1,10 +1,10 @@
-<aside id="support_aside">
+<aside id="<?= $key ?>_aside">
 
-    <h2>Support</h2>
+    <h2><?= ucfirst($key) ?></h2>
 
     <ul>
 
-        <?php foreach ($links['support'] as $link) : ?>
+        <?php foreach ($values as $link) : ?>
             <li><a href="<?= $link->getAdrOrFile() ?>"><?= $link->getLabel() ?></a></li>
         <?php endforeach; ?>
 

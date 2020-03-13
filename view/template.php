@@ -84,14 +84,12 @@
             <?php if ($showLinks && !empty($links['support']) || !empty($links['code']) || !empty($links['site-ext'])) : ?>
 			    <div id="asides">
 
-                    <?php if (!empty($links['support'])) {
-                            require_once ROOT_DIR . 'view/fragment/support_aside.php';
-                        }
-                        if (!empty($links['code'])) {
-                            require_once ROOT_DIR . 'view/fragment/code_aside.php';
-                        }
-                        if (!empty($links['site-ext'])) {
-                            require_once ROOT_DIR . 'view/fragment/site-ext_aside.php';
+                    <?php
+                        foreach($links as $key => $values) {
+
+                            if (!empty($values) && $key != 'menu-rubrique') {
+                                require ROOT_DIR . 'view/fragment/asides.php';
+                            }
                         }
                     ?>
 
