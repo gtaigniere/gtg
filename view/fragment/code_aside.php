@@ -5,7 +5,7 @@
     <ul>
 
         <?php foreach ($links['code'] as $link) : ?>
-            <li><a href="<?= $link->getAdrOrFile() ?>"><?= $link->getName() ?></a></li>
+            <li><a href="<?= $link->getAdrOrFile() ?>"><?= $link->getLabel() ?></a></li>
         <?php endforeach; ?>
 
     </ul>

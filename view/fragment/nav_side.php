@@ -3,7 +3,7 @@
     <ul>
 
         <?php foreach ($links['menu-rubrique'] as $link) : ?>
-            <li><a href="<?= $link->getAdrOrFile() ?>"><?= $link->getName() ?></a></li>
+            <li><a href="<?= $link->getAdrOrFile() ?>"><?= $link->getLabel() ?></a></li>
         <?php endforeach; ?>
 
     </ul>
