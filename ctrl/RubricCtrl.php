@@ -44,8 +44,7 @@ class RubricCtrl extends Controller
     public function show(int $id): void
     {
         $rubric = $this->rubricManager->findOne($id);
-        $links = $this->linkManager->findAllAsides($id);
-
+        $links = $this->linkManager->findAllAsides($id, ['support', 'code', 'site-ext', 'menu-rubrique']);
         if (!is_null($rubric)) {
             require_once ROOT_DIR . 'view/rubric/' . $rubric->getLabel() . '.php';
             require_once ROOT_DIR . 'view/template.php';

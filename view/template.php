@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 
 <html lang="fr">
@@ -35,7 +37,9 @@
 
 				<ul>
 					<li><a href="index.php">Accueil</a></li>
-                    <li><a href="index.php?target=snippets">Snippets</a></li>
+                    <?php if (isset($_SESSION['nomUser']))	: ?>
+                        <li><a href="index.php?target=snippets">Snippets</a></li>
+                    <?php endif; ?>
 					<li><a href="index.php?target=vietnam">Vietnam</a></li>
 
 					<?php if (isset($_SESSION['nomUser']))	: ?>
@@ -79,7 +83,7 @@
 
             <?php if ($showLinks && !empty($links['support']) || !empty($links['code']) || !empty($links['site-ext'])) : ?>
 			    <div id="asides">
-                    
+
                     <?php if (!empty($links['support'])) {
                             require_once ROOT_DIR . 'view/fragment/support_aside.php';
                         }

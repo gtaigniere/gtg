@@ -87,15 +87,15 @@ class LinkManager extends Manager
 
     /**
      * @param int $idRub
-     * @param int $idType
-     * @return array
+     * @param string $label
+     * @return Link[]
      */
-    public function findAllByIdRubAndIdType(int $idRub, int $idType): array
+    public function findAllByIdRubAndIdType(int $idRub, string $label): array
     {
         try {
             $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT * FROM link WHERE idRub = :idRub AND idType = :idType');
-            $stmt->execute([':idRub' => $idRub, ':idType' => $idType]);
+            $stmt = $this->db->prepare('SELECT l.* FROM link l JOIN type t ON l.idType = t.idType WHERE idRub = :idRub AND t.label = :label');
+            $stmt->execute([':idRub' => $idRub, ':label' => $label]);
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $objs = [];
             foreach ($results as $assocs) {
@@ -109,15 +109,14 @@ class LinkManager extends Manager
 
     /**
      * @param int $idRub
-     * @return array
+     * @param string[] $typeLabels
+     * @return Link[]
      */
-    public function findAllAsides(int $idRub): array
+    public function findAllAsides(int $idRub, array $typeLabels): array
     {
         $links = [];
-        $links[strtolower('Support')] = $this->findAllByIdRubAndIdType($idRub, 1);
-        $links[strtolower('Code')] = $this->findAllByIdRubAndIdType($idRub, 2);
-        $links[strtolower('Site-ext')] = $this->findAllByIdRubAndIdType($idRub, 3);
-        $links[strtolower('Menu-rubrique')] = $this->findAllByIdRubAndIdType($idRub, 4);
+        foreach($typeLabels as $label)
+            $links[$label] = $this->findAllByIdRubAndIdType($idRub, $label);
         return $links;
     }
 
