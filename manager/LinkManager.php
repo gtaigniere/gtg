@@ -52,6 +52,82 @@ class LinkManager extends Manager
     }
 
     /**
+     * @param Link $link
+     * @return Link|null
+     */
+    public function insert(Link $link): ?Link
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare(
+                'INSERT INTO link (idLink, label, adrOrFile, idRub, idType)
+                            VALUES (idLink=:id, label=:label, adrOrFile=:adrOrFile, idRub=:idRub, idType=:idType'
+            );
+            if ($stmt->execute(
+                [
+                    ':id' => $link->getIdLink(),
+                    ':label' => $link->getLabel(),
+                    ':arOrFile' => $link->getAdrOrFile(),
+                    ':idRub' => $link->getIdRub(),
+                    ':idType' => $link->getIdType()
+                ]
+            )) {
+                $id = $this->db->lastInsertId();
+                return $this->findOne($id);
+            }
+            return null;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('DELETE FROM link WHERE idLink = :id');
+            $stmt->execute([':id' => $id]);
+            return $stmt->rowCount();
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param Link $link
+     * @return Link|null
+     */
+    public function update(Link $link): ?Link
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare(
+                'UPDATE link
+                            SET label=:label, adrOrFile=:adrOrFile, idRub=:idRub, idType=:idType
+                            WHERE idLink=:id'
+            );
+            if ($stmt->execute(
+                [
+                    ':label' => $link->getLabel(),
+                    ':arOrFile' => $link->getAdrOrFile(),
+                    ':idRub' => $link->getIdRub(),
+                    ':idType' => $link->getIdType(),
+                    ':id' => $link->getIdLink()
+                ]
+            )) {
+                return $this->findOne($link->getIdLink());
+            }
+            return null;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
      * @param int $idRub
      * @return array
      */
@@ -94,7 +170,10 @@ class LinkManager extends Manager
     {
         try {
             $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT l.* FROM link l JOIN type t ON l.idType = t.idType WHERE idRub = :idRub AND t.label = :label');
+            $stmt = $this->db->prepare(
+                'SELECT l.* FROM link l
+                            JOIN type t ON l.idType = t.idType
+                            WHERE idRub = :idRub AND t.label = :label');
             $stmt->execute([':idRub' => $idRub, ':label' => $label]);
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $objs = [];
@@ -117,6 +196,44 @@ class LinkManager extends Manager
         $links = [];
         foreach($typeLabels as $label)
             $links[$label] = $this->findAllByIdRubAndIdType($idRub, $label);
+        return $links;
+    }
+
+    /**
+     * @param string $labelRub
+     * @param string $labelType
+     * @return Link[]
+     */
+    public function findAllByLabelRubAndLabelType(string $labelRub, string $labelType): array
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('SELECT l.* FROM link l
+                JOIN rubric r ON l.idRub = r.idRub
+                JOIN type t ON l.idType = t.idType
+                WHERE r.label = :labelRub AND t.label = :labelType');
+            $stmt->execute([':labelRub' => $labelRub, ':labelType' => $labelType]);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $objs = [];
+            foreach ($results as $assocs) {
+                $objs[] = $this->convInObj($assocs);
+            }
+            return $objs;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param string $labelRub
+     * @param string[] $typeLabels
+     * @return Link[]
+     */
+    public function findAsidesByLabelRub(string $labelRub, array $typeLabels): array
+    {
+        $links = [];
+        foreach($typeLabels as $labelType)
+            $links[$labelType] = $this->findAllByLabelRubAndLabelType($labelRub, $labelType);
         return $links;
     }
 

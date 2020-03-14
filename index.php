@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once 'config/config.php';
 require_once ROOT_DIR . 'ctrl/HomeCtrl.php';
 require_once ROOT_DIR . 'ctrl/RubricCtrl.php';
@@ -21,18 +23,18 @@ if (isset($_GET['target'])) {
         require ROOT_DIR . 'view/template.php';
     } elseif ($_GET['target'] == 'vietnam') {
         $ctrl = new VnCtrl($db);
-        $ctrl->homeVn();
+        $ctrl->home();
     } elseif ($_GET['target'] == 'recette') {
         $ctrl = new RecetteCtrl($db);
         if (isset($_GET['id'])) { // Si un id de recette est présent alors on l'affiche
             $ctrl->show($_GET['id']);
         } else { // Sinon on affiche la page vietnam
             $ctrl = new VnCtrl($db);
-            $ctrl->homeVn();
+            $ctrl->home();
         }
     } elseif ($_GET['target'] == 'galerie') {
         $ctrl = new VnCtrl($db);
-        $ctrl->galerieVn();
+        $ctrl->galerie();
     } elseif ($_GET['target'] == 'connexion') {
         // $ctrl = new ();
         require ROOT_DIR . 'view/connexion.php';

@@ -39,9 +39,9 @@ class VnCtrl extends Controller
     * @param int $id
     * @return void
     */
-    public function homeVn(int $id = 13): void
+    public function home(): void
     {
-        $links = $this->linkManager->findAllAsides($id, ['recette', 'site-ext', 'menu-rubrique']);
+        $links = $this->linkManager->findAsidesByLabelRub('vietnam' ,['recette', 'site-ext', 'menu-rubrique']);
         require_once ROOT_DIR . 'view/vietnam.php';
         require_once ROOT_DIR . 'view/template.php';
     }
@@ -50,10 +50,10 @@ class VnCtrl extends Controller
      * @param int $id
      * @return void
      */
-    public function galerieVn(int $id = 13): void
+    public function galerie(): void
     {
         $photos = $this->photoManager->findAll();
-        $links = $this->linkManager->findAllAsides($id, ['recette', 'site-ext', 'menu-rubrique']);
+        $links = $this->linkManager->findAsidesByLabelRub('vietnam', ['recette', 'site-ext', 'menu-rubrique']);
         require_once ROOT_DIR . 'view/galerie.php';
         require_once ROOT_DIR . 'view/template.php';
     }

@@ -1,4 +1,8 @@
-<?php ob_start(); ?>
+<?php ob_start();
+
+    if (isset($recette) && $recette instanceof Recette) :
+
+?>
 
     <section id="section_recette">
 
@@ -6,7 +10,7 @@
 
         <p><?= $recette->getInfos() ?></p>
 
-        <p><?= $recette->getpourCombien() ?></p>
+        <p><?= $recette->getpour() ?></p>
 
         <p><?= $recette->getIngredient() ?></p>
 
@@ -16,4 +20,6 @@
 
     </section>
 
-<?php $section = ob_get_clean(); ?>
+    <?php endif;
+
+$section = ob_get_clean(); ?>

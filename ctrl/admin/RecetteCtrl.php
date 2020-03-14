@@ -59,7 +59,7 @@ class RecetteCtrl
     }
 
     /**
-     * @param Rubric $rubric
+     * @param Recette $recette
      * @return void
      */
     public function upd(Recette $recette): void

@@ -21,7 +21,7 @@ class Recette
     /**
      * @var int
      */
-    private $pourCombien;
+    private $pour;
 
     /**
      * @var string
@@ -96,17 +96,17 @@ class Recette
     /**
      * @return int
      */
-    public function getPourCombien(): int
+    public function getPour(): int
     {
-        return $this->pourCombien;
+        return $this->pour;
     }
 
     /**
-     * @param int $pourCombien
+     * @param int $pour
      */
-    public function setPourCombien(int $pourCombien): void
+    public function setPour(int $pour): void
     {
-        $this->pourCombien = $pourCombien;
+        $this->pour = $pour;
     }
 
     /**

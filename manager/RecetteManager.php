@@ -51,4 +51,83 @@ class RecetteManager extends Manager
         }
     }
 
+    /**
+     * @param Recette $recette
+     * @return Recette|null
+     */
+    public function insert(Recette $recette): ?Recette
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare(
+                'INSERT INTO recette (id, label, infos, pour, ingredient, photo, detail)
+                            VALUES (idRec=:id, label=:label, infos=:infos, pour=:pour, ingredient=:ingredient, photo=:photo, detail=:detail'
+            );
+            if ($stmt->execute(
+                [
+                    ':id' => $recette->getIdRec(),
+                    ':label' => $recette->getLabel(),
+                    ':infos' => $recette->getInfos(),
+                    ':pour' => $recette->getPour(),
+                    ':ingredient' => $recette->getIngredient(),
+                    ':photo' => $recette->getPhoto(),
+                    ':detail' => $recette->getDetail()
+                ]
+            )) {
+                $id = $this->db->lastInsertId();
+                return $this->findOne($id);
+            }
+            return null;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('DELETE FROM recette WHERE idRec = :id');
+            $stmt->execute([':id' => $id]);
+            return $stmt->rowCount();
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param Recette $recette
+     * @return Recette|null
+     */
+    public function update(Recette $recette): ?Recette
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare(
+                'UPDATE recette
+                            SET label=:label, infos=:infos, pour=:pour, ingredient=:ingredient, photo=:photo, detail=:detail
+                            WHERE idRec=:id');
+            if ($stmt->execute(
+                [
+                    ':label' => $recette->getLabel(),
+                    ':infos' => $recette->getInfos(),
+                    ':pour' => $recette->getPour(),
+                    ':ingredient' => $recette->getIngredient(),
+                    ':photo' => $recette->getPhoto(),
+                    ':detail' => $recette->getDetail(),
+                    ':idRec' => $recette->getIdRec()
+                ]
+            )) {
+                return $this->findOne($recette->getIdRec());
+            }
+            return null;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
 }
