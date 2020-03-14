@@ -10,11 +10,13 @@
         <h2 class="h2_accueil"><strong>Bienvenue</strong></h2>
 
         <?php foreach ($rubrics as $rubric) :
-            if ($rubric instanceof Rubric) : ?>
-            <figure class="fig_rubrique">
-                <a href="index.php?target=rubric&id=<?= $rubric->getIdRub() ?>"><img class="img_rubrique" id="<?= strtolower($rubric->getLabel()) ?>" src="../imgs/thumbmails/<?= $rubric->getImage() ?>" alt="<?= $rubric->getLabel() ?>" /></a>
-            </figure>
-            <?php endif;
+            if ($rubric instanceof Rubric) :
+                if($rubric->getLabel() != 'Vietnam') : ?>
+                    <figure class="fig_rubrique">
+                        <a href="index.php?target=rubric&id=<?= $rubric->getIdRub() ?>"><img class="img_rubrique" id="<?= strtolower($rubric->getLabel()) ?>" src="../imgs/thumbmails/<?= $rubric->getImage() ?>" alt="<?= $rubric->getLabel() ?>" /></a>
+                    </figure>
+                <?php endif;
+            endif;
         endforeach; ?>
 
     </section>

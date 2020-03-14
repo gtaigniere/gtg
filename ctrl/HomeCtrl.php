@@ -2,7 +2,7 @@
 
 require_once ROOT_DIR . 'ctrl/Controller.php';
 
-class DefaultCtrl extends Controller
+class HomeCtrl extends Controller
 {
 
     /**
@@ -10,12 +10,6 @@ class DefaultCtrl extends Controller
      */
     public function __construct()
     {
-    }
-
-    public function vietnam()
-    {
-        require_once ROOT_DIR . 'view/vietnam.php';
-        require_once ROOT_DIR . 'view/template.php';
     }
 
     public function otherSites()

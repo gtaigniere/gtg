@@ -1,12 +1,12 @@
 <?php
 
 
-class Type
+class Photo
 {
     /**
      * @var int
      */
-    private $idType;
+    private $idPhoto;
 
     /**
      * @var string
@@ -23,23 +23,23 @@ class Type
     /**
      * @return int
      */
-    public function getIdType()
+    public function getIdPhoto(): int
     {
-        return $this->idType;
+        return $this->idPhoto;
     }
 
     /**
-     * @param int $idType
+     * @param int $idPhoto
      */
-    public function setIdType($idType)
+    public function setIdPhoto(int $idPhoto): void
     {
-        $this->idType = $idType;
+        $this->idPhoto = $idPhoto;
     }
 
     /**
      * @return string
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
@@ -47,9 +47,10 @@ class Type
     /**
      * @param string $label
      */
-    public function setLabel($label)
+    public function setLabel(string $label): void
     {
         $this->label = $label;
     }
+
 
 }

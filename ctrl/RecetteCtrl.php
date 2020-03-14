@@ -2,15 +2,15 @@
 
 require_once ROOT_DIR . 'ctrl/Controller.php';
 require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'manager/RubricManager.php';
+require_once ROOT_DIR . 'manager/RecetteManager.php';
 require_once ROOT_DIR . 'manager/LinkManager.php';
 
-class RubricCtrl extends Controller
+class RecetteCtrl extends Controller
 {
     /**
-     * @var RubricManager
+     * @var RecetteManager
      */
-    private $rubricManager;
+    private $recetteManager;
 
     /**
      * @var LinkManager
@@ -18,22 +18,22 @@ class RubricCtrl extends Controller
     private $linkManager;
 
     /**
-     * RubricCtrl constructor.
+     * RecetteCtrl constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
-        $this->rubricManager = new RubricManager($db);
+        $this->recetteManager = new RecetteManager($db);
         $this->linkManager = new LinkManager($db);
     }
 
     /**
      * @return void
      */
-    public function index(): void
+    public function all(): void
     {
-        $rubrics = $this->rubricManager->findAll();
-        require ROOT_DIR . 'view/accueil.php';
+        $recettes = $this->recetteManager->findAll();
+
         require ROOT_DIR . 'view/template.php';
     }
 
@@ -43,10 +43,10 @@ class RubricCtrl extends Controller
      */
     public function show(int $id): void
     {
-        $rubric = $this->rubricManager->findOne($id);
-        $links = $this->linkManager->findAllAsides($id, ['support', 'code', 'site-ext', 'menu-rubrique']);
-        if (!is_null($rubric)) {
-            require_once ROOT_DIR . 'view/rubric/' . $rubric->getLabel() . '.php';
+        $recette = $this->recetteManager->findOne($id);
+        $links = $this->linkManager->findAllAsides($idRub = 13, ['recette', 'site-ext', 'menu-rubrique']);
+        if (!is_null($recette)) {
+            require_once ROOT_DIR . 'view/recette.php';
             require_once ROOT_DIR . 'view/template.php';
         } else {
             $this->notFound();

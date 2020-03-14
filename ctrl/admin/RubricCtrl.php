@@ -1,7 +1,7 @@
 <?php
 
-require_once (ROOT_DIR . 'manager/RubricManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
+require_once (ROOT_DIR . 'manager/RubricManager.php');
 
 class RubricCtrl
 {

@@ -550,6 +550,34 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 
 }
 /***** Fin Page Oracle *****/
+/***** Debut Page Vietnam *****/
+#section_vietnam {
+
+}
+/***** Fin Page Vietnam *****/
+/***** Debut Page Galerie *****/
+#section_galerie {
+	padding: 10px 0;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: 100%
+}
+#section_galerie > figure {
+	margin: 50px 0;
+	align-items: center;
+	width: 22%;
+	text-align: center;
+}
+#section_galerie > figure > img {
+	width: 60%;
+}
+/***** Fin Page Galerie *****/
+/***** Debut Page Recette *****/
+#section_galerie {
+
+}
+/***** Fin Page Recette *****/
 /***** Debut Pages Warhammer *****/
 #section_warhammer {
 
@@ -894,6 +922,10 @@ aside h2 {
 	height: auto;
 	background-color: #F1E6E6;
 }
+#recette_aside {
+	height: auto;
+	background-color: #DBE9CD;
+}
 /********** Fin Asides **********/
 
 /********** Debut Footer **********/
@@ -954,13 +986,16 @@ footer > div p {
 	aside {
 
 	}
-	.aside1 {
+	#support_aside {
 
 	}
-	.aside2 {
+	#code_aside {
 
 	}
-	.aside3 {
+	#site-ext_aside {
+
+	}
+	#recette_aside {
 
 	}
 	/********** Fin Asides **********/
@@ -1005,13 +1040,16 @@ footer > div p {
 	aside {
 
 	}
-	.aside1 {
+	#support_aside {
 
 	}
-	.aside2 {
+	#code_aside {
 
 	}
-	.aside3 {
+	#site-ext_aside {
+
+	}
+	#recette_aside {
 
 	}
 	/********** Fin Asides **********/
@@ -1056,10 +1094,16 @@ footer > div p {
 	aside {
 
 	}
-	.aside1 {
+	#support_aside {
 
 	}
-	.aside2 {
+	#code_aside {
+
+	}
+	#site-ext_aside {
+
+	}
+	#recette_aside {
 
 	}
 	/********** Fin Asides **********/

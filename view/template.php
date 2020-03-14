@@ -13,7 +13,7 @@
 		<meta name="description" content="Récapitulatif de cours en développement">
 		<meta name="keywords" content="">
 
-		<title>Giltg</title>
+		<title>Gtg</title>
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="../style/style.css">
@@ -64,7 +64,7 @@
 				</figure>
 
 				<div>
-					<h1>GILTG</h1>
+					<h1>GTG</h1>
 				</div>
 
 			</div>
@@ -81,7 +81,8 @@
 
             <?= $section ?>
 
-            <?php if ($showLinks && !empty($links['support']) || !empty($links['code']) || !empty($links['site-ext'])) : ?>
+            <?php if ($showLinks && !empty($links['support']) || !empty($links['code'])
+                || !empty($links['site-ext']) || !empty($links['recette'])) : ?>
 			    <div id="asides">
 
                     <?php
@@ -105,7 +106,7 @@
 			</div>
 
 			<div>
-				<p>© Copyright 2019 - <strong><a href="index.php">GiltG.fr</a></strong> - <span class="ws-nowrap">Tous droits réservés</span></p>
+				<p>© Copyright 2019 - <strong><a href="index.php">GtG.fr</a></strong> - <span class="ws-nowrap">Tous droits réservés</span></p>
 			</div>
 
 			<div>

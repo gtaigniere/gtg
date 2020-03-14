@@ -1,6 +1,6 @@
 <?php ob_start(); ?>
 
-    <section id="section_vietnam">
+    <section id="section_galerie">
 
         <h2>Vietnam</h2>
 

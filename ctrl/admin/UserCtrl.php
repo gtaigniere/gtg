@@ -1,7 +1,7 @@
 <?php
 
-require_once (ROOT_DIR . 'manager/UserManager.php');
 require_once (ROOT_DIR . 'config/MyPdo.php');
+require_once (ROOT_DIR . 'manager/UserManager.php');
 
 class UserCtrl
 {
