@@ -51,4 +51,59 @@ class RubricManager extends Manager
         }
     }
 
+    /**
+     * @param Rubric $rubric
+     * @return Rubric|null
+     */
+    public function insert(Rubric $rubric): ?Rubric
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare(
+                'INSERT INTO rubric (idRub, label)
+                            VALUES (idRub=:id, label=:label');
+            if ($stmt->execute([':id' => $rubric->getIdRub(), ':label' => $rubric->getLabel()])) {
+                $id = $this->db->lastInsertId();
+                return $this->findOne($id);
+            }
+            return null;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('DELETE FROM rubric WHERE idRub = :id');
+            $stmt->execute([':id' => $id]);
+            return $stmt->rowCount();
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param Rubric $rubric
+     * @return Rubric|null
+     */
+    public function update(Rubric $rubric): ?Rubric
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('UPDATE rubric SET label=:label WHERE idRub=:id');
+            if ($stmt->execute([':label' => $rubric->getLabel(), ':id' => $rubric->getIdRub()])) {
+                return $this->findOne($rubric->getIdRub());
+            }
+            return null;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
 }

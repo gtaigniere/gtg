@@ -24,6 +24,16 @@ class User
     private $pwd;
 
     /**
+     * @var string
+     */
+    private $confirmKey;
+
+    /**
+     * @var boolean
+     */
+    private $confirmed;
+
+    /**
      * Type constructor.
      */
     public function __construct()
@@ -92,6 +102,38 @@ class User
     public function setPwd($pwd)
     {
         $this->pwd = $pwd;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfirmKey(): string
+    {
+        return $this->confirmKey;
+    }
+
+    /**
+     * @param string $confirmKey
+     */
+    public function setConfirmKey(string $confirmKey): void
+    {
+        $this->confirmKey = $confirmKey;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isConfirmed(): bool
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * @param bool $confirmed
+     */
+    public function setConfirmed(bool $confirmed): void
+    {
+        $this->confirmed = $confirmed;
     }
 
 }

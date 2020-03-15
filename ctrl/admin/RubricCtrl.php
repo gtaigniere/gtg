@@ -39,10 +39,10 @@ class RubricCtrl
     }
 
     /**
-     * @param Rubric $rubric
+     * @param Type $rubric
      * @return void
      */
-    public function add(Rubric $rubric): void
+    public function add(Type $rubric): void
     {
         $rubric = $this->rubricManager->insert($rubric);
         require_once (ROOT_DIR . 'view/admin/oneRubric.php');
@@ -59,10 +59,10 @@ class RubricCtrl
     }
 
     /**
-     * @param Rubric $rubric
+     * @param Type $rubric
      * @return void
      */
-    public function upd(Rubric $rubric): void
+    public function upd(Type $rubric): void
     {
         $rubric = $this->rubricManager->update($rubric);
         require_once (ROOT_DIR . 'view/admin/oneRubric.php');

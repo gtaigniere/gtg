@@ -104,7 +104,7 @@
 			</div>
 
 			<div>
-				<p>© Copyright 2019 - <strong><a href="index.php">GtG.fr</a></strong> - <span class="ws-nowrap">Tous droits réservés</span></p>
+				<p>© Copyright 2019 - <strong><a href="index.php">gtg.fr</a></strong> - <span class="ws-nowrap">Tous droits réservés</span></p>
 			</div>
 
 			<div>
@@ -116,7 +116,7 @@
 		<!-- Chargement du JavaScript Bootstrap JS -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 		<!-- Chargement d'autres JavaScript -->
-        <!--<script src="script/.js"></script>-->
+        <!--<script src="../script/animRub.js"></script>-->
 
 	</body>
 

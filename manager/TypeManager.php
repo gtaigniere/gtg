@@ -51,4 +51,59 @@ class TypeManager extends Manager
         }
     }
 
+    /**
+     * @param Type $type
+     * @return Type|null
+     */
+    public function insert(Type $type): ?Type
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare(
+                'INSERT INTO type (idRub, label)
+                            VALUES (idType=:id, label=:label');
+            if ($stmt->execute([':id' => $type->getIdType(), ':label' => $type->getLabel()])) {
+                $id = $this->db->lastInsertId();
+                return $this->findOne($id);
+            }
+            return null;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('DELETE FROM type WHERE idType = :id');
+            $stmt->execute([':id' => $id]);
+            return $stmt->rowCount();
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param Type $type
+     * @return Type|null
+     */
+    public function update(Type $type): ?Type
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('UPDATE type SET label=:label WHERE idType=:id');
+            if ($stmt->execute([':label' => $type->getLabel(), ':id' => $type->getIdType()])) {
+                return $this->findOne($type->getIdType());
+            }
+            return null;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
 }

@@ -51,4 +51,81 @@ class UserManager extends Manager
         }
     }
 
+    /**
+     * @param User $user
+     * @return User|null
+     */
+    public function insert(User $user): ?User
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare(
+                'INSERT INTO user (idUser, pseudo, email, pwd, confirmKey, confirmed)
+                            VALUES (idUser=:id, pseudo=:pseudo, email=:email, pwd=:pwd, confirmKey=:confirmKey, confirmed=:confirmed'
+            );
+            if ($stmt->execute(
+                [
+                    ':id' => $user->getIdUser(),
+                    ':pseudo' => $user->getPseudo(),
+                    ':email' => $user->getEmail(),
+                    ':pwd' => $user->getPwd(),
+                    ':confirmKey' => $user->getConfirmKey(),
+                    ':confirmed' => $user->isConfirmed()
+                ]
+            )) {
+                $id = $this->db->lastInsertId();
+                return $this->findOne($id);
+            }
+            return null;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('DELETE FROM user WHERE idUser = :id');
+            $stmt->execute([':id' => $id]);
+            return $stmt->rowCount();
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param User $user
+     * @return User|null
+     */
+    public function update(User $user): ?User
+    {
+        try {
+            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare(
+                'UPDATE user
+                            SET pseudo=:pseudo, email=:email, pwd=:pwd, confirmKey=:confirmKey, confirmed=:confirmed
+                            WHERE idUser=:id');
+            if ($stmt->execute(
+                [
+                    ':pseudo' => $user->getPseudo(),
+                    ':email' => $user->getEmail(),
+                    ':pwd' => $user->getPwd(),
+                    ':confirmKey' => $user->getConfirmKey(),
+                    ':confirmed' => $user->isConfirmed(),
+                    ':id' => $user->getIdUser()
+                ]
+            )) {
+                return $this->findOne($user->getIdUser());
+            }
+            return null;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
 }

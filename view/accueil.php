@@ -13,7 +13,9 @@
             if ($rubric instanceof Rubric) :
                 if($rubric->getLabel() != 'Vietnam') : ?>
                     <figure class="fig_rubrique">
-                        <a href="index.php?target=rubric&id=<?= $rubric->getIdRub() ?>"><img class="img_rubrique" id="<?= strtolower($rubric->getLabel()) ?>" src="../imgs/thumbmails/<?= $rubric->getImage() ?>" alt="<?= $rubric->getLabel() ?>" /></a>
+                        <a href="index.php?target=rubric&id=<?= $rubric->getIdRub() ?>">
+                            <img class="img_rubrique" id="<?= strtolower($rubric->getLabel()) ?>" src="../imgs/thumbmails/<?= $rubric->getImage() ?>" alt="<?= $rubric->getLabel() ?>" />
+                        </a>
                     </figure>
                 <?php endif;
             endif;
