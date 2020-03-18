@@ -1,7 +1,14 @@
 <?php
 
+namespace Ctrl\Admin;
+
+use Manager\RubricManager;
+use PDO;
+
+/*
 require_once (ROOT_DIR . 'config/MyPdo.php');
 require_once (ROOT_DIR . 'manager/RubricManager.php');
+*/
 
 class RubricCtrl
 {
@@ -25,7 +32,7 @@ class RubricCtrl
     public function all(): void
     {
         $rubrics = $this->rubricManager->findAll();
-        require (ROOT_DIR . 'view/admin/allRubrics.php');
+        require (ROOT_DIR . 'view/admin/listRubrics.php');
     }
 
     /**

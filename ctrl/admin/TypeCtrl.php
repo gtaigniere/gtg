@@ -1,7 +1,14 @@
 <?php
 
+namespace Ctrl\Admin;
+
+use Manager\TypeManager;
+use PDO;
+
+/*
 require_once (ROOT_DIR . 'config/MyPdo.php');
 require_once (ROOT_DIR . 'manager/TypeManager.php');
+*/
 
 class TypeCtrl
 {
@@ -25,7 +32,7 @@ class TypeCtrl
     public function all(): void
     {
         $types = $this->typeManager->findAll();
-        require (ROOT_DIR . 'view/admin/allTypes.php');
+        require (ROOT_DIR . 'view/admin/listTypes.php');
     }
 
     /**

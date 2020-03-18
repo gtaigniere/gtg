@@ -1,8 +1,15 @@
 <?php
 
+namespace Manager;
+
+use PDO;
+use Model\Rubric;
+
+/*
 require_once ROOT_DIR . 'manager/Manager.php';
 require_once ROOT_DIR . 'config/MyPdo.php';
 require_once ROOT_DIR . 'model/Rubric.php';
+*/
 
 class RubricManager extends Manager
 {

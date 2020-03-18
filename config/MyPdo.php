@@ -1,5 +1,9 @@
 <?php
 
+namespace Config;
+
+use PDO;
+
 class MyPdo extends PDO {
 
     private $_sgbd = 'mysql';

@@ -1,8 +1,15 @@
 <?php
 
+namespace Manager;
+
+use PDO;
+use Model\User;
+
+/*
 require_once ROOT_DIR . 'manager/Manager.php';
 require_once ROOT_DIR . 'config/MyPdo.php';
 require_once ROOT_DIR . 'model/User.php';
+*/
 
 class UserManager extends Manager
 {

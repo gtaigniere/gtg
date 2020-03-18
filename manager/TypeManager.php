@@ -1,8 +1,15 @@
 <?php
 
+namespace Manager;
+
+use PDO;
+use Model\type;
+
+/*
 require_once ROOT_DIR . 'manager/Manager.php';
 require_once ROOT_DIR . 'config/MyPdo.php';
 require_once ROOT_DIR . 'model/Type.php';
+*/
 
 class TypeManager extends Manager
 {

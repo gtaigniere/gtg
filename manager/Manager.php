@@ -1,5 +1,8 @@
 <?php
 
+namespace Manager;
+
+use PDO;
 
 abstract class Manager
 {

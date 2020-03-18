@@ -1,8 +1,15 @@
 <?php
 
+namespace Manager;
+
+use PDO;
+use Model\Link;
+
+/*
 require_once ROOT_DIR . 'manager/Manager.php';
 require_once ROOT_DIR . 'config/MyPdo.php';
 require_once ROOT_DIR . 'model/Link.php';
+*/
 
 class LinkManager extends Manager
 {

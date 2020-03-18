@@ -1,7 +1,14 @@
 <?php
 
+namespace Ctrl\Admin;
+
+use Manager\PhotoManager;
+use PDO;
+
+/*
 require_once (ROOT_DIR . 'config/MyPdo.php');
 require_once (ROOT_DIR . 'manager/PhotoManager.php');
+*/
 
 class PhotoCtrl
 {
@@ -25,7 +32,7 @@ class PhotoCtrl
     public function all(): void
     {
         $photos = $this->photoManager->findAll();
-        require (ROOT_DIR . 'view/admin/allPhotos.php');
+        require (ROOT_DIR . 'view/admin/listPhotos.php');
     }
 
     /**

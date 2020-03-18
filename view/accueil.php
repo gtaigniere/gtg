@@ -1,7 +1,8 @@
 <?php
 
-    require_once ROOT_DIR . 'model/Rubric.php';
-    ob_start();
+use Model\Rubric;
+
+ob_start();
 
 ?>
 

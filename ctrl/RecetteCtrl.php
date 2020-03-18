@@ -1,9 +1,17 @@
 <?php
 
+namespace Ctrl;
+
+use Manager\LinkManager;
+use Manager\RecetteManager;
+use PDO;
+
+/*
 require_once ROOT_DIR . 'ctrl/Controller.php';
 require_once ROOT_DIR . 'config/MyPdo.php';
 require_once ROOT_DIR . 'manager/RecetteManager.php';
 require_once ROOT_DIR . 'manager/LinkManager.php';
+*/
 
 class RecetteCtrl extends Controller
 {

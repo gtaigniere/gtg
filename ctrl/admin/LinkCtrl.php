@@ -1,7 +1,14 @@
 <?php
 
+namespace Ctrl\Admin;
+
+use Manager\LinkManager;
+use PDO;
+
+/*
 require_once (ROOT_DIR . 'config/MyPdo.php');
 require_once (ROOT_DIR . 'manager/LinkManager.php');
+*/
 
 class LinkCtrl
 {
@@ -25,7 +32,7 @@ class LinkCtrl
     public function all(): void
     {
         $links = $this->linkManager->findAll();
-        require (ROOT_DIR . 'view/admin/allLinks.php');
+        require (ROOT_DIR . 'view/admin/listLinks.php');
     }
 
     /**

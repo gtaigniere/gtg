@@ -1,7 +1,14 @@
 <?php
 
+namespace Ctrl\Admin;
+
+use Manager\RecetteManager;
+use PDO;
+
+/*
 require_once (ROOT_DIR . 'config/MyPdo.php');
 require_once (ROOT_DIR . 'manager/RecetteManager.php');
+*/
 
 class RecetteCtrl
 {
@@ -25,7 +32,7 @@ class RecetteCtrl
     public function all(): void
     {
         $recettes = $this->recetteManager->findAll();
-        require (ROOT_DIR . 'view/admin/allRecettes.php');
+        require (ROOT_DIR . 'view/admin/listRecettes.php');
     }
 
     /**

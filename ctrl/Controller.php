@@ -1,5 +1,6 @@
 <?php
 
+namespace Ctrl;
 
 abstract class Controller
 {
