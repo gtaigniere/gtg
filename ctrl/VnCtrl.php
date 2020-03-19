@@ -4,6 +4,7 @@ namespace Ctrl;
 
 use Manager\LinkManager;
 use Manager\PhotoManager;
+use Manager\RecetteManager;
 use Manager\VnManager;
 use PDO;
 
@@ -25,6 +26,11 @@ class VnCtrl extends Controller
     private $photoManager;
 
     /**
+     * @var RecetteManager
+     */
+    private $recetteManager;
+
+    /**
      * VnCtrl constructor.
      * @param PDO $db
      */
@@ -33,6 +39,7 @@ class VnCtrl extends Controller
         $this->vnManager = new VnManager($db);
         $this->linkManager = new LinkManager($db);
         $this->photoManager = new PhotoManager($db);
+        $this->recetteManager = new RecetteManager($db);
     }
 
     /**
@@ -41,7 +48,8 @@ class VnCtrl extends Controller
     */
     public function home(): void
     {
-        $links = $this->linkManager->findAsidesByLabelRub('vietnam' ,['recette', 'site-ext', 'menu-rubrique']);
+        $recettes = $this->recetteManager->findAll();
+        $links = $this->linkManager->findAsidesByLabelRub('vietnam' ,['site-ext', 'menu-rubrique']);
         require_once ROOT_DIR . 'view/vietnam.php';
         require_once ROOT_DIR . 'view/template.php';
     }
@@ -52,8 +60,9 @@ class VnCtrl extends Controller
      */
     public function galerie(): void
     {
+        $recettes = $this->recetteManager->findAll();
         $photos = $this->photoManager->findAll();
-        $links = $this->linkManager->findAsidesByLabelRub('vietnam', ['recette', 'site-ext', 'menu-rubrique']);
+        $links = $this->linkManager->findAsidesByLabelRub('vietnam', ['site-ext', 'menu-rubrique']);
         require_once ROOT_DIR . 'view/galerie.php';
         require_once ROOT_DIR . 'view/template.php';
     }

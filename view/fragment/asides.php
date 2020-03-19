@@ -12,11 +12,13 @@ use Model\Link;
         <?php foreach ($values as $link) :
             if ($link instanceof Link) : ?>
 
+            <?php
+                $href = $link->getType()->getLabel() == 'Recette' ?
+                    $link->getAdrOrFile() :
+                    'index.php?target=link&action=open&id=' . $link->getIdLink();
+                ?>
                 <li>
-                    <a href="<?= (in_array($link->getType()->getLabel(), ['Support', 'Code'])) ? '/' . 'files_asides' .
-                        '/' . strtolower($link->getType()->getLabel()) .
-                        '/' . strtolower($link->getRubric()->getLabel()) .
-                        '/' .$link->getAdrOrFile() : $link->getAdrOrFile(); ?>">
+                    <a href="index.php?target=link&action=open&id=<?= $link->getIdLink() ?>">
                         <?= $link->getLabel() ?></a>
                 </li>
 

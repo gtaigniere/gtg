@@ -8,6 +8,7 @@ require_once 'config' . DIRECTORY_SEPARATOR . 'Autoloader.php';
 use Config\Autoloader;
 use Config\MyPdo;
 //use Ctrl\Admin\LinkCtrl as AdminLinkCtrl;
+use Ctrl\LinkCtrl;
 use Ctrl\HomeCtrl;
 use Ctrl\RecetteCtrl;
 use Ctrl\RubricCtrl;
@@ -31,7 +32,15 @@ if ($_SESSION['pseudo'] = 'gilleste') {
 
 if (isset($_GET['target'])) {
 
-    if ($_GET['target'] == 'autres_sites') {
+    if ($_GET['target'] == 'link') {
+        $ctrl = new LinkCtrl($db);
+        if ($_GET['action'] == 'open') {
+            if (isset($_GET['id'])) {
+                $ctrl->open($_GET['id']);
+            }
+        }
+
+    } elseif ($_GET['target'] == 'autres_sites') {
         $ctrl = new HomeCtrl();
         $ctrl->otherSites();
 

@@ -40,4 +40,27 @@ class LinkCtrl extends Controller
         require_once (ROOT_DIR . 'view/oneLink.php');
     }
 
+    /**
+     * Permet d'ouvrir un lien dont l'id est passé en paramètres
+     * @param int $id
+     */
+    public function open(int $id): void
+    {
+        $link = $this->linkManager->findOne($id);
+        if (!is_null($link)) {
+            $labelType = $link->getType()->getLabel();
+            if ($labelType == 'Site-ext') {
+                header('Location: ' . $link->getAdrOrFile());
+            } else {
+                $contentType = $labelType == 'Support' ? 'application/pdf' : 'plain/text';
+                header('Content-type: ' . $contentType);
+                header('Content-Disposition: inline; filename=' . $link->getAdrOrFile());
+                @readfile('files_asides' .
+                    '/' . strtolower($link->getType()->getLabel()) .
+                    '/' . strtolower($link->getRubric()->getLabel()) .
+                    '/' .$link->getAdrOrFile());
+            }
+        }
+    }
+
 }

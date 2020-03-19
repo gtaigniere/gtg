@@ -84,6 +84,9 @@
 			    <div id="asides">
 
                     <?php
+                        if (isset($recettes)) {
+                            require ROOT_DIR . 'view/fragment/aside_recettes.php';
+                        }
                         foreach($links as $key => $values) {
 
                             if (!empty($values) && $key != 'menu-rubrique') {
