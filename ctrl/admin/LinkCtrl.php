@@ -32,7 +32,7 @@ class LinkCtrl
     public function all(): void
     {
         $links = $this->linkManager->findAll();
-        require (ROOT_DIR . 'view/admin/listLinks.php');
+        require (ROOT_DIR . 'view/admin/accueil-admin.php');
     }
 
     /**

@@ -5,12 +5,6 @@ namespace Ctrl;
 use Manager\LinkManager;
 use PDO;
 
-/*
-require_once ROOT_DIR . 'ctrl/Controller.php';
-require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'manager/LinkManager.php';
-*/
-
 class LinkCtrl extends Controller
 {
     /**

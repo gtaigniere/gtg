@@ -2,8 +2,6 @@
 
 namespace Ctrl;
 
-require_once ROOT_DIR . 'ctrl/Controller.php';
-
 class HomeCtrl extends Controller
 {
 

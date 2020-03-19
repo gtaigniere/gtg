@@ -4,12 +4,7 @@ namespace Manager;
 
 use PDO;
 use Model\Rubric;
-
-/*
-require_once ROOT_DIR . 'manager/Manager.php';
-require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'model/Rubric.php';
-*/
+use PDOException;
 
 class RubricManager extends Manager
 {
@@ -19,7 +14,7 @@ class RubricManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        parent::__construct('Rubric', $db);
+        parent::__construct('Model\Rubric', $db);
     }
 
     /**
@@ -28,7 +23,7 @@ class RubricManager extends Manager
     public function findAll(): array
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->query('SELECT * FROM rubric');
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $objs = [];
@@ -48,7 +43,7 @@ class RubricManager extends Manager
     public function findOne(int $id): ?Rubric
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('SELECT * FROM rubric WHERE idRub = :id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -65,7 +60,7 @@ class RubricManager extends Manager
     public function insert(Rubric $rubric): ?Rubric
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
                 'INSERT INTO rubric (idRub, label)
                             VALUES (idRub=:id, label=:label');
@@ -86,7 +81,7 @@ class RubricManager extends Manager
     public function delete(int $id): bool
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM rubric WHERE idRub = :id');
             $stmt->execute([':id' => $id]);
             return $stmt->rowCount();
@@ -102,7 +97,7 @@ class RubricManager extends Manager
     public function update(Rubric $rubric): ?Rubric
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('UPDATE rubric SET label=:label WHERE idRub=:id');
             if ($stmt->execute([':label' => $rubric->getLabel(), ':id' => $rubric->getIdRub()])) {
                 return $this->findOne($rubric->getIdRub());

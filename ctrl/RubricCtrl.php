@@ -6,13 +6,6 @@ use Manager\LinkManager;
 use Manager\RubricManager;
 use PDO;
 
-/*
-require_once ROOT_DIR . 'ctrl/Controller.php';
-require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'manager/RubricManager.php';
-require_once ROOT_DIR . 'manager/LinkManager.php';
-*/
-
 class RubricCtrl extends Controller
 {
     /**

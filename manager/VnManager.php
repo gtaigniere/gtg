@@ -3,14 +3,6 @@
 namespace Manager;
 
 use PDO;
-use Model\Vietnam;
-
-/*
-require_once ROOT_DIR . 'manager/Manager.php';
-require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'model/Vietnam.php';
-*/
-
 
 class VnManager extends Manager
 {
@@ -20,7 +12,7 @@ class VnManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        parent::__construct('Vietnam', $db);
+        parent::__construct('Model\Vietnam', $db);
     }
 
 }

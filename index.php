@@ -2,21 +2,12 @@
 
 session_start();
 
-require_once 'config/config.php';
-require_once 'config/Autoloader.php';
-
-/*
-require_once ROOT_DIR . 'ctrl/admin/LinkCtrl.php';
-require_once ROOT_DIR . 'ctrl/admin/RubricCtrl.php';
-require_once ROOT_DIR . 'ctrl/admin/TypeCtrl.php';
-require_once ROOT_DIR . 'ctrl/admin/UserCtrl.php';
-require_once ROOT_DIR . 'ctrl/admin/RecetteCtrl.php';
-require_once ROOT_DIR . 'ctrl/admin/PhotoCtrl.php';
-*/
+require_once 'config' . DIRECTORY_SEPARATOR . 'config.php';
+require_once 'config' . DIRECTORY_SEPARATOR . 'Autoloader.php';
 
 use Config\Autoloader;
 use Config\MyPdo;
-//use Ctrl\Admin\LinkCtrl;
+//use Ctrl\Admin\LinkCtrl as AdminLinkCtrl;
 use Ctrl\HomeCtrl;
 use Ctrl\RecetteCtrl;
 use Ctrl\RubricCtrl;
@@ -33,7 +24,7 @@ if ($_SESSION['pseudo'] = 'gilleste') {
         $ctrl->otherSites();
     }
 } elseif ($_GET['target'] == 'acc-admin') {
-        $ctrl = new LinkCtrl($db);
+        $ctrl = new AdminLinkCtrl($db);
         $ctrl->all();
 }
 */

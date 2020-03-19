@@ -7,14 +7,6 @@ use Manager\PhotoManager;
 use Manager\VnManager;
 use PDO;
 
-/*
-require_once ROOT_DIR . 'ctrl/Controller.php';
-require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'manager/VnManager.php';
-require_once ROOT_DIR . 'manager/LinkManager.php';
-require_once ROOT_DIR . 'manager/PhotoManager.php';
-*/
-
 class VnCtrl extends Controller
 {
     /**

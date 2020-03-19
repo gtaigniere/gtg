@@ -4,12 +4,7 @@ namespace Manager;
 
 use PDO;
 use Model\type;
-
-/*
-require_once ROOT_DIR . 'manager/Manager.php';
-require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'model/Type.php';
-*/
+use PDOException;
 
 class TypeManager extends Manager
 {
@@ -19,7 +14,7 @@ class TypeManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        parent::__construct('Type', $db);
+        parent::__construct('Model\Type', $db);
     }
 
     /**
@@ -28,7 +23,7 @@ class TypeManager extends Manager
     public function findAll(): array
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->query('SELECT * FROM type');
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $objs = [];
@@ -48,7 +43,7 @@ class TypeManager extends Manager
     public function findOne(int $id): ?Type
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('SELECT * FROM type WHERE idType = :id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -65,7 +60,7 @@ class TypeManager extends Manager
     public function insert(Type $type): ?Type
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
                 'INSERT INTO type (idRub, label)
                             VALUES (idType=:id, label=:label');
@@ -86,7 +81,7 @@ class TypeManager extends Manager
     public function delete(int $id): bool
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM type WHERE idType = :id');
             $stmt->execute([':id' => $id]);
             return $stmt->rowCount();
@@ -102,7 +97,7 @@ class TypeManager extends Manager
     public function update(Type $type): ?Type
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('UPDATE type SET label=:label WHERE idType=:id');
             if ($stmt->execute([':label' => $type->getLabel(), ':id' => $type->getIdType()])) {
                 return $this->findOne($type->getIdType());

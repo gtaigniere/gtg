@@ -5,12 +5,6 @@ namespace Ctrl;
 use Manager\TypeManager;
 use PDO;
 
-/*
-require_once ROOT_DIR . 'ctrl/Controller.php';
-require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'manager/TypeManager.php';
-*/
-
 class TypeCtrl extends Controller
 {
     /**

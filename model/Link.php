@@ -8,22 +8,26 @@ class Link
      * @var int
      */
     private $idLink;
+
     /**
      * @var string
      */
     private $label;
+
     /**
      * @var string
      */
     private $adrOrFile;
+
     /**
-     * @var int
+     * @var Rubric
      */
-    private $idRub;
+    private $rubric;
+
     /**
-     * @var int
+     * @var Type
      */
-    private $idType;
+    private $type;
 
     /**
      * Link constructor.
@@ -81,35 +85,35 @@ class Link
     }
 
     /**
-     * @return int
+     * @return Rubric
      */
-    public function getIdRub()
+    public function getRubric()
     {
-        return $this->idRub;
+        return $this->rubric;
     }
 
     /**
-     * @param int $idRub
+     * @param Rubric $rubric
      */
-    public function setIdRub($idRub)
+    public function setRubric($rubric): void
     {
-        $this->idRub = $idRub;
+        $this->rubric = $rubric;
     }
 
     /**
-     * @return int
+     * @return Type
      */
-    public function getIdType()
+    public function getType()
     {
-        return $this->idType;
+        return $this->type;
     }
 
     /**
-     * @param int $idType
+     * @param Type
      */
-    public function setIdType($idType)
+    public function setType($type): void
     {
-        $this->idType = $idType;
+        $this->type = $type;
     }
 
 }

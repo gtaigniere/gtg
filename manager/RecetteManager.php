@@ -4,12 +4,7 @@ namespace Manager;
 
 use PDO;
 use Model\Recette;
-
-/*
-require_once ROOT_DIR . 'manager/Manager.php';
-require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'model/Recette.php';
-*/
+use PDOException;
 
 class RecetteManager extends Manager
 {
@@ -19,7 +14,7 @@ class RecetteManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        parent::__construct('Recette', $db);
+        parent::__construct('Model\Recette', $db);
     }
 
     /**
@@ -28,7 +23,7 @@ class RecetteManager extends Manager
     public function findAll(): array
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->query('SELECT * FROM recette');
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $objs = [];
@@ -48,7 +43,7 @@ class RecetteManager extends Manager
     public function findOne(int $id): ?Recette
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('SELECT * FROM recette WHERE idRec = :id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -65,7 +60,7 @@ class RecetteManager extends Manager
     public function insert(Recette $recette): ?Recette
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
                 'INSERT INTO recette (id, label, infos, pour, ingredient, photo, detail)
                             VALUES (idRec=:id, label=:label, infos=:infos, pour=:pour, ingredient=:ingredient, photo=:photo, detail=:detail'
@@ -97,7 +92,7 @@ class RecetteManager extends Manager
     public function delete(int $id): bool
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM recette WHERE idRec = :id');
             $stmt->execute([':id' => $id]);
             return $stmt->rowCount();

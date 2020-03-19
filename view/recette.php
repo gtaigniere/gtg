@@ -1,4 +1,8 @@
-<?php ob_start();
+<?php
+
+use Model\Recette;
+
+ob_start();
 
     if (isset($recette) && $recette instanceof Recette) :
 

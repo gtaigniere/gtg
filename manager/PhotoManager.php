@@ -4,12 +4,7 @@ namespace Manager;
 
 use PDO;
 use Model\Photo;
-
-/*
-require_once ROOT_DIR . 'manager/Manager.php';
-require_once ROOT_DIR . 'config/MyPdo.php';
-require_once ROOT_DIR . 'model/Photo.php';
-*/
+use PDOException;
 
 class PhotoManager extends Manager
 {
@@ -19,7 +14,7 @@ class PhotoManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        parent::__construct('Photo', $db);
+        parent::__construct('Model\Photo', $db);
     }
 
     /**
@@ -28,7 +23,7 @@ class PhotoManager extends Manager
     public function findAll(): array
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->query('SELECT * FROM photo');
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $objs = [];
@@ -48,7 +43,7 @@ class PhotoManager extends Manager
     public function findOne(int $id): ?Photo
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('SELECT * FROM type WHERE idPhoto = :id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -65,7 +60,7 @@ class PhotoManager extends Manager
     public function insert(Photo $photo): ?Photo
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
                 'INSERT INTO photo (idPhoto, label)
                             VALUES (idPhoto=:id, label=:label');
@@ -86,7 +81,7 @@ class PhotoManager extends Manager
     public function delete(int $id): bool
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM photo WHERE idPhoto = :id');
             $stmt->execute([':id' => $id]);
             return $stmt->rowCount();
@@ -102,7 +97,7 @@ class PhotoManager extends Manager
     public function update(Photo $photo): ?Photo
     {
         try {
-            $this->db->exec("set names utf8");
+//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('UPDATE photo SET label=:label WHERE idPhoto=:id');
             if ($stmt->execute([':label' => $photo->getLabel(), ':id' => $photo->getIdPhoto()])) {
                 return $this->findOne($photo->getIdPhoto());
