@@ -11,6 +11,7 @@ use Ctrl\Admin\LinkCtrl as AdmLnkCtrl;
 use Ctrl\Admin\RubricCtrl as AdmRubCtrl;
 use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
+use Ctrl\AuthCtrl;
 use Ctrl\LinkCtrl;
 use Ctrl\HomeCtrl;
 use Ctrl\RecetteCtrl;
@@ -22,7 +23,7 @@ Autoloader::register();
 
 $db = new MyPdo();
 
-$_SESSION['User'] = 'gilleste';
+//$_SESSION['User'] = 'gilleste';
 
 //session_destroy();
 
@@ -58,9 +59,18 @@ if (isset($_SESSION['User'])) {
             } elseif ($_GET['target'] == 'vietnam') {
                 $ctrl = new VnCtrl($db);
                 $ctrl->home();
-            } elseif ($_GET['target'] == 'deco') {
-                $ctrl = new HomeCtrl();
-                $ctrl->deco();
+            } elseif ($_GET['target'] == 'auth') {
+                $ctrl = new AuthCtrl($db);
+                if ($_GET['action'] == 'logout') {
+                    $ctrl->logout();
+                } elseif ($_GET['action'] == 'loginForm') {
+                    $ctrl->loginForm();
+                } elseif ($_GET['action'] == 'login') {
+                    $ctrl->login($pseudo, $pwd);
+                } elseif ($_GET['action'] == 'subscribe') {
+                    $ctrl->subscribe();
+                }
+
             } elseif ($_GET['target'] == 'galerie') {
                 $ctrl = new VnCtrl($db);
                 $ctrl->galerie();
@@ -69,16 +79,16 @@ if (isset($_SESSION['User'])) {
                 if (isset($_GET['id'])) { // Si un id de rubrique est présent alors on l'affiche
                     $ctrl->show($_GET['id']);
                 } else { // Sinon on affiche la page d'accueil
-                    $ctrl->index();
-                }
+    $ctrl->index();
+}
             } elseif ($_GET['target'] == 'contact') {
-                $ctrl = new HomeCtrl();
+$ctrl = new HomeCtrl();
                 $ctrl->contact();
             }
         } else {
-            $ctrl = new RubricCtrl($db);
-            $ctrl->index();
-        }
+    $ctrl = new RubricCtrl($db);
+    $ctrl->index();
+}
     }
 
 } elseif (isset($_GET['target'])) {
@@ -110,12 +120,6 @@ if (isset($_SESSION['User'])) {
     } elseif ($_GET['target'] == 'galerie') {
         $ctrl = new VnCtrl($db);
         $ctrl->galerie();
-    } elseif ($_GET['target'] == 'inscription') {
-        $ctrl = new HomeCtrl();
-        $ctrl->inscription();
-    } elseif ($_GET['target'] == 'connexion') {
-        $ctrl = new HomeCtrl();
-        $ctrl->connexion();
     } elseif ($_GET['target'] == 'rubric') {
         $ctrl = new RubricCtrl($db);
         if (isset($_GET['id'])) { // Si un id de rubrique est présent alors on l'affiche

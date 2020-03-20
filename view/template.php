@@ -34,7 +34,7 @@
 				-->
 
                 <?php if (!isset($_SESSION['User'])) : ?>
-                    <div><a href="?target=inscription""><button id="button_inscription">Inscription</button></a></div>
+                    <div><a href="?target=auth&action=subscribe"><button id="button_inscription">Inscription</button></a></div>
                 <?php endif; ?>
 
 				<ul>
@@ -48,9 +48,9 @@
                         <?php if ($_SESSION['User'] == 'v' || $_SESSION['User'] == 'w' || $_SESSION['User'] == 'x' || $_SESSION['User'] == 'z') : ?>
 						    <li><a href="?target=warhammer">Warhammer JDRF</a></li>
                         <?php endif; ?>
-						<li><a href="?target=deco">Déconnexion</a></li>
+						<li><a href="?target=auth&action=logout">Déconnexion</a></li>
 					<?php else : ?>
-						<li><a href="?target=connexion">Connexion</a></li>
+						<li><a href="?target=auth&action=loginForm">Connexion</a></li>
 					<?php endif; ?>
 
 				</ul>
