@@ -4,43 +4,26 @@
 
         <h2>Contact</h2>
 
-        <?php if ($coSuccess) : ?>
-            <div class="alert alert-success" role="alert">
-                Message envoyé !
-            </div>
-        <?php endif; ?>
-
-        <?php if (isset($coNoSuccess) && $coNoSuccess != '') : ?>
-            <div id="success" class="alert alert-danger" role="alert">
-                <?php echo $coNoSuccess; ?>
-            </div>
-        <?php endif; ?>
-
-        <form class="form_contact" action="../ctrl/contact.ctrl.php" method="POST">
+        <form class="form_contact" action="" method="POST">
 
             <div>
-                <label>Nom : </label>
-                <input type="text" name="nom" required>
+                <label for="prenom">Prénom : </label>
+                <input id="prenom" type="text" name="prenom" required>
             </div>
 
             <div>
-                <label>Prénom : </label>
-                <input type="text" name="prenom" required>
+                <label for="mail">Mail : </label>
+                <input id="mail" type="email" name="mail" placeholder="contact@email.fr" required>
             </div>
 
             <div>
-                <label>Mail : </label>
-                <input type="email" name="mail" placeholder="contact@email.fr" required>
-            </div>
-
-            <div>
-                <label>Objet : </label>
-                <input type="text" name="objet" required>
+                <label for="objet">Objet : </label>
+                <input id="objet" type="text" name="objet" required>
             </div>
 
             <div class="message_contact">
-                <label>Message : </label>
-                <textarea class="textarea_contact" name="message" rows="8" maxlength="400" required></textarea>
+                <label for="message">Message : </label>
+                <textarea id="message" class="textarea_contact" name="message" rows="8" maxlength="400" required></textarea>
             </div>
 
             <button class="btn btn-info">Envoyer</button>

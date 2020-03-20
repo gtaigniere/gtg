@@ -4,26 +4,21 @@
 
         <h2>Inscription</h2>
 
-        <form action="inscription.ctrl.php" method="POST">
+        <form action="" method="POST">
 
             <div>
-                <label>Nom :</label>
-                <input type="text" name="nomUser" value="<?php if(isset($nomUser)) {echo $nomUser;} ?>" required />
+                <label for="pseudo">Pseudo :</label>
+                <input id="pseudo" type="text" name="nomUser" value="<?php if(isset($pseudo)) {echo $pseudo;} ?>" required />
             </div>
 
             <div>
-                <label>Prénom :</label>
-                <input type="text" name="prenom" value="<?php if(isset($prenom)) {echo $prenom;} ?>" required />
+                <label for="mail">Email :</label>
+                <input id="mail" type="email" name="email" value="<?php if(isset($email)) {echo $email;} ?>" placeholder="inscription@email.fr" required />
             </div>
 
             <div>
-                <label>Email :</label>
-                <input type="email" name="email" value="<?php if(isset($email)) {echo $email;} ?>" placeholder="inscription@email.fr" required />
-            </div>
-
-            <div>
-                <label>Mot de passe :</label>
-                <input type="password" name="pwd" required />
+                <label for="pwd">Mot de passe :</label>
+                <input id="pwd" type="password" name="pwd" required />
             </div>
 
             <button class="btn btn-info">S'inscrire</button>

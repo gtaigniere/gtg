@@ -4,26 +4,16 @@
 
         <h2>Connexion</h2>
 
-        <?php if ($cNoSuccess == 1) : ?>
-            <div class= "alert alert-success" role="alert">
-                Cet utilisateur n'existe pas !
-            </div>
-        <?php elseif ($cNoSuccess == 2) : ?>
-            <div class= "alert alert-success" role="alert">
-                Le mot de passe et le nom d'utilisateur ne correspondent pas !
-            </div>
-        <?php endif; ?>
-
-        <form action="connexion.ctrl.php" method="POST">
+        <form action="" method="POST">
 
         <div>
-        <label>Nom d'utilisateur :</label>
-        <input type="nomUser" name="nomUser" value="<?php if(isset($nomUser)) {echo $nomUser;} ?>" required />
+        <label for="pseudo">Pseudo :</label>
+        <input id="pseudo" type="text" name="pseudo" value="<?php if(isset($pseudo)) {echo $pseudo;} ?>" required />
         </div>
 
         <div>
-        <label>Mot de passe :</label>
-        <input type="password" name="pwd" required />
+        <label for="pwd">Mot de passe :</label>
+        <input id="pwd" type="password" name="pwd" required />
         </div>
 
         <button class="btn btn-info">Se connecter</button>

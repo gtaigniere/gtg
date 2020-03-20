@@ -3,12 +3,10 @@
 namespace Ctrl\Admin;
 
 use Manager\LinkManager;
+use Manager\RubricManager;
+use Manager\TypeManager;
+use Model\Link;
 use PDO;
-
-/*
-require_once (ROOT_DIR . 'config/MyPdo.php');
-require_once (ROOT_DIR . 'manager/LinkManager.php');
-*/
 
 class LinkCtrl
 {
@@ -18,12 +16,24 @@ class LinkCtrl
     private $linkManager;
 
     /**
+     * @var RubricManager
+     */
+    private $rubricManager;
+
+    /**
+     * @var TypeManager
+     */
+    private $typeManager;
+
+    /**
      * LinkCtrl constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
         $this->linkManager = new LinkManager($db);
+        $this->rubricManager = new RubricManager($db);
+        $this->typeManager = new TypeManager($db);
     }
 
     /**
@@ -32,7 +42,10 @@ class LinkCtrl
     public function all(): void
     {
         $links = $this->linkManager->findAll();
-        require (ROOT_DIR . 'view/admin/accueil-admin.php');
+        $rubrics = $this->rubricManager->findAll();
+        $types = $this->typeManager->findAll();
+        require(ROOT_DIR . 'view/admin/links.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -42,7 +55,8 @@ class LinkCtrl
     public function one(int $id): void
     {
         $link = $this->linkManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/oneLink.php');
+        require_once (ROOT_DIR . 'view/admin/.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -52,7 +66,8 @@ class LinkCtrl
     public function add(Link $link): void
     {
         $link = $this->linkManager->insert($link);
-        require_once (ROOT_DIR . 'view/admin/oneLink.php');
+        require_once (ROOT_DIR . 'view/admin/links.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -62,7 +77,8 @@ class LinkCtrl
     public function del(int $id): void
     {
         $result = $this->linkManager->delete($id);
-        require_once (ROOT_DIR . 'view/admin/listLinks.php');
+        require_once(ROOT_DIR . 'view/admin/links.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -72,7 +88,8 @@ class LinkCtrl
     public function upd(Link $link): void
     {
         $link = $this->linkManager->update($link);
-        require_once (ROOT_DIR . 'view/admin/oneLink.php');
+        require_once (ROOT_DIR . 'view/admin/links.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }

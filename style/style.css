@@ -278,6 +278,11 @@ nav {
 	justify-content: center;
 	align-items: center;
 }
+#button_inscription {
+	padding: 0 5px;
+	background-color: skyblue;
+	border-radius: 8px;
+}
 #zone_recherche {
 	margin-left: 10px;
 	padding: 0 6px;
@@ -602,7 +607,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 #section_inscription input {
 	background-color: #EFEFEF;
-	width: 30%;
+	width: 31%;
 	min-width: 180px;
 	border-radius: 6px;
 }
@@ -613,7 +618,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	width: auto;
 	border-radius: 6px;
 }
-/***** Debut Page Inscription *****/
+/***** Fin Page Inscription *****/
 /***** Debut Page Connexion *****/
 #section_connexion {
 	align-items: center;
@@ -633,7 +638,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 #section_connexion input {
 	background-color: #EFEFEF;
-	width: 30%;
+	width: 31%;
 	min-width: 180px;
 	border-radius: 6px;
 }
@@ -666,7 +671,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	padding: 10px 0;
 }
 #section_contact label {
-	width: calc(30% - 10px);
+	width: calc(31% - 10px);
 }
 #section_contact input, #section_contact textarea {
 	background-color: #EFEFEF;
@@ -692,8 +697,8 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	border-radius: 6px;
 }
 /***** Fin Page Contact *****/
-/***** Debut Page Accueil Admin *****/
-#section_accueil-admin {
+/***** Debut Page Links Admin *****/
+#section_links-admin {
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
@@ -701,66 +706,66 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	align-items: center;
 	width: 100%;
 }
-#section_accueil-admin h1 {
+#section_links-admin h1 {
 	padding-bottom: 10px;
 }
-#section_accueil-admin div {
+#section_links-admin div {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
 }
-#section_accueil-admin .alert {
+#section_links-admin .alert {
 	width: auto;
 }
-#section_accueil-admin table {
+#section_links-admin table {
 	width: 100%;
 	max-width: 1000px;
 }
-#section_accueil-admin th {
+#section_links-admin th {
 	height: 2.8em;
 	background-color: #C1C1C1;
 }
-#section_accueil-admin th:first-child {
+#section_links-admin th:first-child {
 	border-radius: 4px 0 0 4px;
 }
-#section_accueil-admin th:last-child {
+#section_links-admin th:last-child {
 	border-radius: 0 4px 4px 0;
 }
-#section_accueil-admin table td {
+#section_links-admin table td {
 	height: 2.8em;
 	text-align: center;
 }
-#section_accueil-admin select, #section_accueil-admin input {
+#section_links-admin select, #section_accueil-admin input {
 	margin: 0 5px;
 	border-radius: 0.25rem;
 	text-align: center;
 }
-#section_accueil-admin .td-modif {
+#section_links-admin .td-modif {
 	margin: 0 5px;
 	width: 100px;
 	text-align: center;
 }
-#section_accueil-admin .td-suppr {
+#section_links-admin .td-suppr {
 	margin: 0 5px;
 	width: 116px;
 	text-align: right;
 }
-#section_accueil-admin .td-ajout {
+#section_links-admin .td-ajout {
 	width: 88px;
 	text-align: center;
 }
-#section_accueil-admin button {
+#section_links-admin button {
 	margin: 0 5px;
 }
-#section_accueil-admin p {
+#section_links-admin p {
 	margin-top: 20px;
 	display: flex;
 	justify-content: center;
 }
-/***** Fin Page Accueil Admin *****/
-/***** Debut Page Liste Utilisateurs *****/
+/***** Fin Page Links Admin *****/
+/***** Debut Page Utilisateurs Admin *****/
 #section_users-admin {
 	padding: 10px;
 	display: flex;
@@ -825,8 +830,8 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	display: flex;
 	justify-content: center;
 }
-/***** Fin Page Liste Utilisateurs *****/
-/***** Debut Page Liste Types et Rubriques *****/
+/***** Fin Page Utilisateurs Admin *****/
+/***** Debut Page Types et Rubriques Admin *****/
 #section_type_rubrique-admin {
 	padding: 10px;
 	display: flex;
@@ -889,7 +894,105 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	display: flex;
 	justify-content: center;
 }
-/***** Fin Page Liste Types et Rubriques *****/
+
+/***** Fin Page Types et Rubriques Admin *****/
+/***** Debut Page Recettes Admin *****/
+#section_recettes-admin {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	vertical-align: middle;
+	align-items: center;
+	width: 100%;
+}
+#section_recettes-admin h1 {
+	padding-bottom: 10px;
+}
+#section_recettes-admin div {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+#section_recettes-admin .alert {
+	width: auto;
+}
+#section_recettes-admin table {
+	width: 100%;
+	max-width: 1000px;
+}
+#section_recettes-admin th {
+	height: 2.8em;
+	background-color: #C1C1C1;
+}
+#section_recettes-admin th:first-child {
+	border-radius: 4px 0 0 4px;
+}
+#section_recettes-admin th:last-child {
+	border-radius: 0 4px 4px 0;
+}
+#section_recettes-admin table td {
+	height: 2.8em;
+	text-align: center;
+}
+#section_recettes-admin select, #section_users-admin input {
+	margin: 0 5px 0 0;
+	border-radius: 0.25rem;
+	text-align: center;
+}
+#section_recettes-admin .td-modif {
+	width: 100px;
+	text-align: center;
+}
+#section_recettes-admin .td-suppr {
+	width: 116px;
+	text-align: right;
+}
+#section_recettes-admin .td-ajout {
+	width: 88px;
+	text-align: center;
+}
+#section_recettes-admin button {
+	margin: 0 5px;
+}
+#section_recettes-admin p {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+}
+/***** Fin Page Recettes Admin *****/
+/***** Debut Page Recette Admin *****/
+#section_recette {
+	align-items: center;
+}
+#section_recette form {
+	padding-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 900px;
+}
+#section_recette form > div {
+	padding: 10px 0;
+}
+#section_recette label {
+	width: calc(35% - 10px);
+}
+#section_recette input {
+	background-color: #EFEFEF;
+	width: 30%;
+	min-width: 180px;
+	border-radius: 6px;
+}
+#section_recette form button {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	align-self: center;
+	width: auto;
+	border-radius: 6px;
+}
+/***** Fin Page Recette Admin *****/
 /********** Fin Sections **********/
 
 /********** Debut Asides **********/

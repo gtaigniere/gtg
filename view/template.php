@@ -25,7 +25,7 @@
 			<nav id="nav_header">
 
 				<div>
-					<a class="ws-nowrap" href="index.php?target=autres_sites">Autres sites</a>
+					<a class="ws-nowrap" href="?target=autres_sites">Autres sites</a>
 				</div>
 
                 <!--
@@ -33,18 +33,24 @@
 				<button id="btn_recherche" type="submit"><img src="<?php //echo MYSITE_PATH; ?>img/icons/loupe.png" alt="Bouton loupe" title="Lancez la recherche"></button>
 				-->
 
+                <?php if (!isset($_SESSION['User'])) : ?>
+                    <div><a href="?target=inscription""><button id="button_inscription">Inscription</button></a></div>
+                <?php endif; ?>
+
 				<ul>
 					<li><a href="index.php">Accueil</a></li>
-                    <?php if (isset($_SESSION['nomUser']))	: ?>
-                        <li><a href="index.php?target=snippets">Snippets</a></li>
+                    <?php if (isset($_SESSION['User']))	: ?>
+                        <li><a href="?target=snippets">Snippets</a></li>
                     <?php endif; ?>
-					<li><a href="index.php?target=vietnam">Vietnam</a></li>
+					<li><a href="?target=vietnam">Vietnam</a></li>
 
-					<?php if (isset($_SESSION['nomUser']))	: ?>
-						<li><a href="index.php?target=warhammer">Warhammer JDRF</a></li>
-						<li><a href="ctrl/deconnexion.php">Déconnexion</a></li>
+					<?php if (isset($_SESSION['User']))	: ?>
+                        <?php if ($_SESSION['User'] == 'v' || $_SESSION['User'] == 'w' || $_SESSION['User'] == 'x' || $_SESSION['User'] == 'z') : ?>
+						    <li><a href="?target=warhammer">Warhammer JDRF</a></li>
+                        <?php endif; ?>
+						<li><a href="?target=deco">Déconnexion</a></li>
 					<?php else : ?>
-						<li><a href="index.php?target=connexion">Connexion</a></li>
+						<li><a href="?target=connexion">Connexion</a></li>
 					<?php endif; ?>
 
 				</ul>
@@ -54,11 +60,11 @@
 			<div>
 
 				<figure>
-					<?php if (isset($_SESSION['nomUser']) AND $_SESSION['nomUser'] == 'gilleste') : ?>
-						<a href="ctrl/admin/accueil-admin.ctrl.php"><img src="imgs/thumbmails/logo.png" alt="Logo"></a>
-					<?php else : ?>
-						<img src="imgs/thumbmails/logo.png" alt="Logo">
-					<?php endif; ?>
+                    <?php if (isset($_SESSION['User']) && $_SESSION['User'] == 'gilleste') : ?>
+                        <a href="?target=links"><img src="imgs/thumbmails/logo.png" alt="Logo"></a>
+                    <?php else : ?>
+					    <img src="imgs/thumbmails/logo.png" alt="Logo">
+                    <?php endif; ?>
 				</figure>
 
 				<div>
@@ -103,7 +109,7 @@
 		<footer>
 
 			<div>
-				<p><a href="index.php?target=contact">Contact</a></p>
+				<p><a href="?target=contact">Contact</a></p>
 			</div>
 
 			<div>

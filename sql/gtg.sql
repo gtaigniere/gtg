@@ -53,8 +53,7 @@ INSERT INTO type (idType, label) VALUES
     (NULL, 'Support'),
     (NULL, 'Code'),
     (NULL, 'Site-ext'),
-    (NULL, 'Menu-rubrique'),
-    (NULL, 'Recette');
+    (NULL, 'Menu-rubrique');
 
 -- --------------------------------------------------------
 
@@ -164,7 +163,6 @@ INSERT INTO link (idLink, label, adrOrFile, idRub, idType) VALUES
     (NULL, 'Fonctions', '#fonctions', 2, 4),
     (NULL, 'Tableaux', '#tableaux', 2, 4),
     (NULL, 'Récapitulatif', '#recap', 2, 4),
-    (NULL, 'Pho', 'index.php?target=recette&id=1', 13, 5),
     (NULL, 'Routard.com', 'https://www.routard.com/guide/code_dest/vietnam.htm', 13, 3),
     (NULL, 'Galerie', 'index.php?target=galerie', 13, 4);
 

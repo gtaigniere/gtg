@@ -3,12 +3,8 @@
 namespace Ctrl\Admin;
 
 use Manager\TypeManager;
+use Model\Type;
 use PDO;
-
-/*
-require_once (ROOT_DIR . 'config/MyPdo.php');
-require_once (ROOT_DIR . 'manager/TypeManager.php');
-*/
 
 class TypeCtrl
 {

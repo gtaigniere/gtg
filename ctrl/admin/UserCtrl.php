@@ -3,12 +3,8 @@
 namespace Ctrl\Admin;
 
 use Manager\UserManager;
+use Model\User;
 use PDO;
-
-/*
-require_once (ROOT_DIR . 'config/MyPdo.php');
-require_once (ROOT_DIR . 'manager/UserManager.php');
-*/
 
 class UserCtrl
 {
@@ -32,7 +28,8 @@ class UserCtrl
     public function all(): void
     {
         $users = $this->userManager->findAll();
-        require (ROOT_DIR . 'view/admin/listUsers.php');
+        require (ROOT_DIR . 'view/admin/users.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -42,7 +39,8 @@ class UserCtrl
     public function one(int $id): void
     {
         $user = $this->userManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/oneUser.php');
+        require_once (ROOT_DIR . 'view/admin/.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -52,7 +50,8 @@ class UserCtrl
     public function add(User $user): void
     {
         $user = $this->userManager->insert($user);
-        require_once (ROOT_DIR . 'view/admin/oneUser.php');
+        require_once (ROOT_DIR . 'view/admin/users.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -62,7 +61,8 @@ class UserCtrl
     public function del(int $id): void
     {
         $result = $this->userManager->delete($id);
-        require_once (ROOT_DIR . 'view/admin/listUsers.php');
+        require_once (ROOT_DIR . 'view/admin/users.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -72,7 +72,8 @@ class UserCtrl
     public function upd(User $user): void
     {
         $user = $this->userManager->update($user);
-        require_once (ROOT_DIR . 'view/admin/oneUser.php');
+        require_once (ROOT_DIR . 'view/admin/users.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }

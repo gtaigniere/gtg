@@ -3,12 +3,8 @@
 namespace Ctrl\Admin;
 
 use Manager\PhotoManager;
+use Model\Photo;
 use PDO;
-
-/*
-require_once (ROOT_DIR . 'config/MyPdo.php');
-require_once (ROOT_DIR . 'manager/PhotoManager.php');
-*/
 
 class PhotoCtrl
 {
