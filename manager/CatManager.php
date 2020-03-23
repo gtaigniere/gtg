@@ -3,18 +3,18 @@
 namespace Manager;
 
 use PDO;
-use Model\type;
+use Model\Cat;
 use PDOException;
 
-class TypeManager extends Manager
+class CatManager extends Manager
 {
     /**
-     * TypeManager constructor.
+     * PhotoManager constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
-        parent::__construct(Type::class, $db);
+        parent::__construct(Cat::class, $db);
     }
 
     /**
@@ -24,7 +24,7 @@ class TypeManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->query('SELECT * FROM type');
+            $stmt = $this->db->query('SELECT * FROM cat');
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $objs = [];
             foreach ($results as $assocs) {
@@ -38,13 +38,13 @@ class TypeManager extends Manager
 
     /**
      * @param int $id
-     * @return Type|null
+     * @return Cat|null
      */
-    public function findOne(int $id): ?Type
+    public function findOne(int $id): ?Cat
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT * FROM type WHERE idType = :id');
+            $stmt = $this->db->prepare('SELECT * FROM cat WHERE idCat=:id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
             return $assocs ? $this->convInObj($assocs) : null;
@@ -54,17 +54,17 @@ class TypeManager extends Manager
     }
 
     /**
-     * @param Type $type
-     * @return Type|null
+     * @param Cat $cat
+     * @return Cat|null
      */
-    public function insert(Type $type): ?Type
+    public function insert(Cat $cat): ?Cat
     {
         try {
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
-                'INSERT INTO type (idRub, label)
-                            VALUES (idType=:id, label=:label');
-            if ($stmt->execute([':id' => $type->getIdType(), ':label' => $type->getLabel()])) {
+                'INSERT INTO cat (idCat, label)
+                            VALUES (idCat=:id, label=:label');
+            if ($stmt->execute([':id' => $cat->getIdCat(), ':label' => $cat->getLabel()])) {
                 $id = $this->db->lastInsertId();
                 return $this->findOne($id);
             }
@@ -82,7 +82,7 @@ class TypeManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('DELETE FROM type WHERE idType = :id');
+            $stmt = $this->db->prepare('DELETE FROM cat WHERE idCat=:id');
             $stmt->execute([':id' => $id]);
             return $stmt->rowCount();
         } catch(PDOException $e) {
@@ -91,16 +91,16 @@ class TypeManager extends Manager
     }
 
     /**
-     * @param Type $type
-     * @return Type|null
+     * @param Cat $cat
+     * @return Cat|null
      */
-    public function update(Type $type): ?Type
+    public function update(Cat $cat): ?Cat
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('UPDATE type SET label=:label WHERE idType=:id');
-            if ($stmt->execute([':label' => $type->getLabel(), ':id' => $type->getIdType()])) {
-                return $this->findOne($type->getIdType());
+            $stmt = $this->db->prepare('UPDATE cat SET label=:label WHERE idCat=:id');
+            if ($stmt->execute([':label' => $cat->getLabel(), ':id' => $cat->getIdCat()])) {
+                return $this->findOne($cat->getIdCat());
             }
             return null;
         } catch (PDOException $e) {

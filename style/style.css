@@ -311,6 +311,7 @@ nav {
 /********** Fin Header **********/
 main {
 	display: flex;
+	/*justify-content: center;*/
 	width: 100%;
 }
 /***** Debut Menu Side *****/
@@ -653,6 +654,63 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	border-radius: 6px;
 }
 /***** Debut Page Connexion *****/
+/***** Debut Sections Snippets *****/
+#section_snippets {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	padding: 0px 10px;
+	width: 66%;
+}
+#section_snippets h1 {
+	padding-top: 20px;
+}
+#section_snippets form {
+	align-self: center;
+	padding: 10px;
+	width: 90%;
+}
+#section_snippets form div {
+	display: flex;
+	justify-content: center;
+}
+#section_snippets form label {
+	min-width: 130px;
+	width: 20%;
+}
+#navcol {
+	display: flex;
+	flex-direction: column;
+	min-width: 240px;
+}
+#listsnippets {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 10px;
+	width: 34%;
+}
+#listsnippets h1 {
+	padding-top: 20px;
+}
+#listsnippets ul {
+	padding: 10px;
+}
+#listsnippets li {
+	padding: 0px 5px;
+}
+#listsnippets h2 {
+	text-align: left;
+	font-size: 1em;
+	font-weight: bold;
+}
+#section_snippets .selected {
+	background-color: palegreen;
+}
+#titlesnippet {
+	text-align: left;
+	font-size: 1.6em;
+}
+/***** Fin Sections Snippets *****/
 /***** Debut Page Contact *****/
 #section_contact {
 	align-items: center;
@@ -737,19 +795,19 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	height: 2.8em;
 	text-align: center;
 }
-#section_links-admin select, #section_accueil-admin input {
+#section_links-admin select, #section_links-admin input {
 	margin: 0 5px;
 	border-radius: 0.25rem;
 	text-align: center;
 }
 #section_links-admin .td-modif {
 	margin: 0 5px;
-	width: 100px;
+	width: 63px;
 	text-align: center;
 }
 #section_links-admin .td-suppr {
 	margin: 0 5px;
-	width: 116px;
+	width: 75px;
 	text-align: right;
 }
 #section_links-admin .td-ajout {
@@ -811,11 +869,13 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	text-align: center;
 }
 #section_users-admin .td-modif {
-	width: 100px;
+	margin: 0 5px;
+	width: 63px;
 	text-align: center;
 }
 #section_users-admin .td-suppr {
-	width: 116px;
+	margin: 0 5px;
+	width: 75px;
 	text-align: right;
 }
 #section_users-admin .td-ajout {
@@ -832,7 +892,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 /***** Fin Page Utilisateurs Admin *****/
 /***** Debut Page Types et Rubriques Admin *****/
-#section_type_rubrique-admin {
+#section_types_rubrics-admin {
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
@@ -840,56 +900,58 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	align-items: center;
 	width: 100%;
 }
-#section_type_rubrique-admin h1 {
+#section_types_rubrics-admin h1 {
 	padding-bottom: 10px;
 }
-#section_type_rubrique-admin div {
+#section_types_rubrics-admin div {
 	display: flex;
 	justify-content: space-around;
 	align-items: flex-start;
 	width: 100%;
 }
-#section_type_rubrique-admin .alert {
+#section_types_rubrics-admin .alert {
 	width: auto;
 }
-#section_type_rubrique-admin table {
+#section_types_rubrics-admin table {
 	max-width: 500px;
 }
-#section_type_rubrique-admin th {
+#section_types_rubrics-admin th {
 	height: 2.8em;
 	background-color: #C1C1C1;
 }
-#section_type_rubrique-admin th:first-child {
+#section_types_rubrics-admin th:first-child {
 	border-radius: 4px 0 0 4px;
 }
-#section_type_rubrique-admin th:last-child {
+#section_types_rubrics-admin th:last-child {
 	border-radius: 0 4px 4px 0;
 }
-#section_type_rubrique-admin table td {
+#section_types_rubrics-admin table td {
 	height: 2.8em;
 	text-align: center;
 }
-#section_type_rubrique-admin select, #section_type_rubrique-admin input {
+#section_types_rubrics-admin select, #section_types_rubrics-admin input {
 	margin: 0 5px 0 0;
 	border-radius: 0.25rem;
 	text-align: center;
 }
-#section_type_rubrique-admin .td-modif {
-	width: 100px;
+#section_types_rubrics-admin .td-modif {
+	margin: 0 5px;
+	width: 63px;
 	text-align: center;
 }
-#section_type_rubrique-admin .td-suppr {
-	width: 116px;
+#section_types_rubrics-admin .td-suppr {
+	margin: 0 5px;
+	width: 75px;
 	text-align: right;
 }
-#section_type_rubrique-admin .td-ajout {
+#section_types_rubrics-admin .td-ajout {
 	width: 88px;
 	text-align: center;
 }
-#section_type_rubrique-admin button {
+#section_types_rubrics-admin button {
 	margin: 0 5px;
 }
-#section_type_rubrique-admin p {
+#section_types_rubrics-admin p {
 	margin-top: 20px;
 	display: flex;
 	justify-content: center;
@@ -920,7 +982,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 #section_recettes-admin table {
 	width: 100%;
-	max-width: 1000px;
+	max-width: 800px;
 }
 #section_recettes-admin th {
 	height: 2.8em;
@@ -929,6 +991,9 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #section_recettes-admin th:first-child {
 	border-radius: 4px 0 0 4px;
 }
+#section_recettes-admin th:nth-child(2) {
+	width: 30px;
+}
 #section_recettes-admin th:last-child {
 	border-radius: 0 4px 4px 0;
 }
@@ -936,17 +1001,28 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	height: 2.8em;
 	text-align: center;
 }
-#section_recettes-admin select, #section_users-admin input {
-	margin: 0 5px 0 0;
+#section_recettes-admin td:first-child {
+	width: 295px;
+}
+#section_recettes-admin td:nth-child(2) {
+	width: 20%;
+}
+#section_recettes-admin select, #section_recettes-admin input {
+	margin: 0 5px;
 	border-radius: 0.25rem;
 	text-align: center;
 }
+#section_recettes-admin .input-pour {
+	width: 40px;
+}
 #section_recettes-admin .td-modif {
-	width: 100px;
+	margin: 0 5px;
+	width: 63px;
 	text-align: center;
 }
 #section_recettes-admin .td-suppr {
-	width: 116px;
+	margin: 0 5px;
+	width: 75px;
 	text-align: right;
 }
 #section_recettes-admin .td-ajout {
@@ -993,8 +1069,35 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	border-radius: 6px;
 }
 /***** Fin Page Recette Admin *****/
+/***** Debut Page Validation Admin *****/
+#section_validation-admin {
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	vertical-align: middle;
+	align-items: center;
+	width: 100%;
+}
+#section_validation-admin h2 {
+	font-size: 2.4em;
+}
+#section_validation-admin p {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	font-size: 1.5em;
+}
+#section_validation-admin form {
+	padding-bottom: 15px;
+	text-align: center;
+}
+#section_validation-admin input {
+	margin: 0 5px;
+	border-radius: 0.25rem;
+	text-align: center;
+}
+/***** Fin Page Validation Admin *****/
 /********** Fin Sections **********/
-
 /********** Debut Asides **********/
 #asides {
 	display: flex;

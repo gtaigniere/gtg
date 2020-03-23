@@ -61,8 +61,8 @@ ob_start();
                 <tr>
                     <th>Nom du lien</th>
                     <th>Adresse / Fichier</th>
-                    <th>Type</th>
                     <th>Rubrique</th>
+                    <th>Type</th>
                     <th colspan="2">Options</th>
                 </tr>
                 </thead>
@@ -73,10 +73,9 @@ ob_start();
 
                     <tr>
 
-                        <form action="" method="POST">
+                        <form action="" method="POST" onsubmit="return sure()">
 
-                            <td style="display: none;"><input type="text" name="idLink"
-                                value="<?php if (!is_null($link->getIdLink())) { echo $link->getIdLink(); } ?>"/></td>
+                            <td style="display: none;"><input type="text" name="idLink" value="<?= $link->getIdLink() ?>"/></td>
 
                             <td><input type="text" name="label" value="<?php if (!is_null($link->getLabel())) { echo $link->getLabel(); } ?>"/></td>
 
@@ -109,21 +108,31 @@ ob_start();
                         </form>
 
                         <td class="td-suppr"><a href="" class="btn btn-danger"
-                                                onclick="return confirm('Etes-vous sûr ?')">Supprimer</a></td>
+                            onclick="return confirm('Etes-vous sûr ?')">Supprimer</a></td>
                     </tr>
+
                     <?php endif;
                 endforeach; ?>
 
                 <form action="" method="POST">
                     <tr>
 
-                        <td><input type="text" name="label" value="<?php if (!is_null($link->getLabel())) {
-                                echo $link->getLabel();
+                        <td><input type="text" name="label" value="<?php if (isset($label)) {
+                                echo $label;
                             } ?>" required/></td>
 
-                        <td><input type="text" name="adrOrFile" value="<?php if (!is_null($link->getAdrOrFile())) {
-                                echo $link->getAdrOrFile();
+                        <td><input type="text" name="adrOrFile" value="<?php if (isset($adrOrFile)) {
+                                echo $adrOrFile;
                             } ?>" required/></td>
+
+                        <td>
+                            <select name="idRub">
+                                <option value="">Choose an option</option>
+                                <?php foreach ($rubrics as $rubric) : ?>
+                                    <option value="<?= $rubric->getLabel() ?>"><?= $rubric->getLabel() ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
 
                         <td>
                             <select name="idType">
@@ -132,15 +141,6 @@ ob_start();
                                     <option value="<?= $type->getIdType() ?>"
 
                                     ><?= $type->getLabel() ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </td>
-
-                        <td>
-                            <select name="idRub">
-                                <option value="">Choose an option</option>
-                                <?php foreach ($rubrics as $rubric) : ?>
-                                    <option value="<?= $rubric->getLabel() ?>"><?= $rubric->getLabel() ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </td>
@@ -157,11 +157,14 @@ ob_start();
             </table>
 
             <p>
-                <a href="">
+                <a href="?target=users">
                     <button class="btn btn-primary">Utilisateurs</button>
                 </a>
-                <a href="">
+                <a href="?target=typsrubs">
                     <button class="btn btn-primary">Types et Rubriques</button>
+                </a>
+                <a href="?target=recettes">
+                    <button class="btn btn-primary">Recettes</button>
                 </a>
             </p>
 

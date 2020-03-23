@@ -3,18 +3,18 @@
 namespace Manager;
 
 use PDO;
-use Model\User;
+use Model\Snippet;
 use PDOException;
 
-class UserManager extends Manager
+class SnippetManager extends Manager
 {
     /**
-     * UserManager constructor.
+     * PhotoManager constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
-        parent::__construct(User::class, $db);
+        parent::__construct(Snippet::class, $db);
     }
 
     /**
@@ -24,7 +24,7 @@ class UserManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->query('SELECT * FROM user');
+            $stmt = $this->db->query('SELECT * FROM snippet');
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $objs = [];
             foreach ($results as $assocs) {
@@ -38,13 +38,13 @@ class UserManager extends Manager
 
     /**
      * @param int $id
-     * @return User|null
+     * @return Snippet|null
      */
-    public function findOne(int $id): ?User
+    public function findOne(int $id): ?Snippet
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT * FROM user WHERE idUser = :id');
+            $stmt = $this->db->prepare('SELECT * FROM snippet WHERE idSnip=:id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
             return $assocs ? $this->convInObj($assocs) : null;
@@ -54,25 +54,25 @@ class UserManager extends Manager
     }
 
     /**
-     * @param User $user
-     * @return User|null
+     * @param Snippet $snippet
+     * @return Snippet|null
      */
-    public function insert(User $user): ?User
+    public function insert(Snippet $snippet): ?Snippet
     {
         try {
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
-                'INSERT INTO user (idUser, pseudo, email, pwd, confirmKey, confirmed)
-                            VALUES (idUser=:id, pseudo=:pseudo, email=:email, pwd=:pwd, confirmKey=:confirmKey, confirmed=:confirmed'
-            );
+                'INSERT INTO language (idSnip, title, dateCrea, comment, requirement, idUser, idLang)
+                            VALUES (idSnip=:id, title=:title, dateCrea=:dateCrea, comment=:comment, requirement=:requirement, idUser=:idUser, idLang=:idLang');
             if ($stmt->execute(
                 [
-                    ':id' => $user->getIdUser(),
-                    ':pseudo' => $user->getPseudo(),
-                    ':email' => $user->getEmail(),
-                    ':pwd' => $user->getPwd(),
-                    ':confirmKey' => $user->getConfirmKey(),
-                    ':confirmed' => $user->isConfirmed()
+                    ':id' => $snippet->getIdSnip(),
+                    ':title' => $snippet->getTitle(),
+                    ':dateCrea' => $snippet->getDateCrea(),
+                    ':comment' => $snippet->getComment(),
+                    ':requirement' => $snippet->getRequirement(),
+                    ':idUser' => $snippet->getIdUser(),
+                    ':idLang' => $snippet->getIdLang(),
                 ]
             )) {
                 $id = $this->db->lastInsertId();
@@ -92,7 +92,7 @@ class UserManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('DELETE FROM user WHERE idUser = :id');
+            $stmt = $this->db->prepare('DELETE FROM snippet WHERE idSnip=:id');
             $stmt->execute([':id' => $id]);
             return $stmt->rowCount();
         } catch(PDOException $e) {
@@ -101,28 +101,29 @@ class UserManager extends Manager
     }
 
     /**
-     * @param User $user
-     * @return User|null
+     * @param Snippet $snippet
+     * @return Snippet|null
      */
-    public function update(User $user): ?User
+    public function update(Snippet $snippet): ?Snippet
     {
         try {
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
-                'UPDATE user
-                            SET pseudo=:pseudo, email=:email, pwd=:pwd, confirmKey=:confirmKey, confirmed=:confirmed
-                            WHERE idUser=:id');
+                'UPDATE snippet
+                            SET title=:title, dateCrea=:dateCrea, comment=:comment, requirement=:requirement, idUser=:idUser, idLang=:idLang
+                            WHERE idSnip=:id');
             if ($stmt->execute(
                 [
-                    ':pseudo' => $user->getPseudo(),
-                    ':email' => $user->getEmail(),
-                    ':pwd' => $user->getPwd(),
-                    ':confirmKey' => $user->getConfirmKey(),
-                    ':confirmed' => $user->isConfirmed(),
-                    ':id' => $user->getIdUser()
+                    ':title' => $snippet->getTitle(),
+                    ':dateCrea' => $snippet->getDateCrea(),
+                    ':comment' => $snippet->getComment(),
+                    ':requirement' => $snippet->getRequirement(),
+                    ':idUser' => $snippet->getIdUser(),
+                    ':idLang' => $snippet->getIdLang(),
+                    ':id' => $snippet->getIdSnip()
                 ]
             )) {
-                return $this->findOne($user->getIdUser());
+                return $this->findOne($snippet->getIdLang());
             }
             return null;
         } catch (PDOException $e) {

@@ -21,7 +21,7 @@ ob_start();
 
                 <div>
                     <label for="infos">Infos :</label>
-                    <input id="infos" type="text" name="infos" value="<?php if(isset($recette->getInfos())) {echo $recette->getInfos();} ?>" required />
+                    <textarea id="infos" name="infos" rows="5" cols="50" required ><?php if(isset($recette->getInfos())) {echo $recette->getInfos();} ?></textarea>
                 </div>
 
                 <div>
@@ -31,7 +31,7 @@ ob_start();
 
                 <div>
                     <label for="ingredient">Ingrédients :</label>
-                    <input id="ingredient" type="text" name="ingredient" value="<?php if(isset($recette->getIngredient())) {echo $recette->getIngredient();} ?>" required />
+                    <textarea id="ingredient" name="ingredient" rows="10" cols="50" required ><?php if(isset($recette->getIngredient())) {echo $recette->getIngredient();} ?></textarea>
                 </div>
 
                 <div>
@@ -41,10 +41,10 @@ ob_start();
 
                 <div>
                     <label for="detail">Détail :</label>
-                    <textarea id="detail" name="detail" rows="10" cols="50" required ><?php if(isset($recette->getDetail())) {echo $recette->getDetail();} ?></textarea>
+                    <textarea id="detail" name="detail" rows="20" cols="50" required ><?php if(isset($recette->getDetail())) {echo $recette->getDetail();} ?></textarea>
                 </div>
 
-                <button class="btn btn-info">S'inscrire</button>
+                <button class="btn btn-info">Valider</button>
 
             </form>
 

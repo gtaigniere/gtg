@@ -3,6 +3,7 @@
 namespace Manager;
 
 use PDO;
+use Model\Vietnam;
 
 class VnManager extends Manager
 {
@@ -12,7 +13,7 @@ class VnManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        parent::__construct('Model\Vietnam', $db);
+        parent::__construct(Vietnam::class, $db);
     }
 
 }

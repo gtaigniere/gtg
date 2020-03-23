@@ -14,7 +14,7 @@ class RecetteManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        parent::__construct('Model\Recette', $db);
+        parent::__construct(Recette::class, $db);
     }
 
     /**

@@ -14,7 +14,7 @@ class PhotoManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        parent::__construct('Model\Photo', $db);
+        parent::__construct(Photo::class, $db);
     }
 
     /**
@@ -44,7 +44,7 @@ class PhotoManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT * FROM type WHERE idPhoto = :id');
+            $stmt = $this->db->prepare('SELECT * FROM photo WHERE idPhoto = :id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
             return $assocs ? $this->convInObj($assocs) : null;

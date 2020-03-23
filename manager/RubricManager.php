@@ -14,7 +14,7 @@ class RubricManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        parent::__construct('Model\Rubric', $db);
+        parent::__construct(Rubric::class, $db);
     }
 
     /**

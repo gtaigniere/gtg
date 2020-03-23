@@ -92,4 +92,11 @@ class LinkCtrl
         require_once (ROOT_DIR . 'view/template.php');
     }
 
+    public function validate(array $datas)
+    {
+        // Vérifier le type des variables
+        require_once (ROOT_DIR . 'view/admin/validation.php');
+        require_once (ROOT_DIR . 'view/template.php');
+    }
+
 }

@@ -30,7 +30,7 @@ class User
     private $confirmKey;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $confirmed;
 
@@ -106,17 +106,17 @@ class User
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getConfirmKey(): string
+    public function getConfirmKey(): ?string
     {
         return $this->confirmKey;
     }
 
     /**
-     * @param string $confirmKey
+     * @param string|null $confirmKey
      */
-    public function setConfirmKey(string $confirmKey): void
+    public function setConfirmKey(?string $confirmKey): void
     {
         $this->confirmKey = $confirmKey;
     }

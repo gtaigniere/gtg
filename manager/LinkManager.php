@@ -24,7 +24,7 @@ class LinkManager extends Manager
      */
     public function __construct(PDO $db)
     {
-        Parent::__construct('Model\Link', $db);
+        Parent::__construct(Link::class, $db);
         $this->rubricManager = new RubricManager($db);
         $this->typeManager = new TypeManager($db);
 

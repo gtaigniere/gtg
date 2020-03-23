@@ -17,13 +17,12 @@ use Ctrl\HomeCtrl;
 use Ctrl\RecetteCtrl;
 use Ctrl\RubricCtrl;
 use Ctrl\VnCtrl;
-use Ctrl\UserCtrl;
 
 Autoloader::register();
 
 $db = new MyPdo();
 
-//$_SESSION['User'] = 'gilleste';
+$_SESSION['User'] = 'gilleste';
 
 //session_destroy();
 
@@ -32,7 +31,26 @@ if (isset($_SESSION['User'])) {
         if (isset($_GET['target'])) {
             if ($_GET['target'] == 'links') {
                 $ctrl = new AdmLnkCtrl($db);
-                $ctrl->all();
+                // Si on est en POST et que le formulaire est validé
+                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['validate'])) {
+                    // Alors on persiste les données
+                    if (!isset($_POST['idLink']) && count($_POST) > 1) {
+                        $ctrl->add($_POST['label'], $_POST['adrOrFile'], $_POST['idRub'], $_POST['idType']);
+                    } elseif (isset($_POST['idLink']) && count($_POST) > 1) {
+                        $ctrl->upd($_POST['label'], $_POST['adrOrFile'], $_POST['idRub'], $_POST['idType'], $_POST['idLink']);
+                    }
+                    // Sinon si on est en POST mais que le formulaire n'est pas validé
+                } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Alors on affiche une page de validation
+                    $ctrl->validate($_POST);
+                } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_POST['validate']) && isset($_GET['idLink'])) {
+                    $ctrl->del($_GET['idLink']);
+                    // Sinon si on est en GET mais que le formulaire n'est pas validé
+                } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['idLink'])) {
+                    $ctrl->validate($_GET);
+                } else { // Sinon on affiche la liste des liens
+                    $ctrl->all();
+                }
             } elseif ($_GET['target'] == 'typsrubs') {
                 $ctrl = new AdmRubCtrl($db);
                 $ctrl->all();
