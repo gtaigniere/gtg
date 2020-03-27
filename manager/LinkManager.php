@@ -75,16 +75,15 @@ class LinkManager extends Manager
         try {
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
-                'INSERT INTO link (idLink, label, adrOrFile, idRub, idType)
-                            VALUES (idLink=:id, label=:label, adrOrFile=:adrOrFile, idRub=:idRub, idType=:idType'
+                'INSERT INTO link (label, adrOrFile, idRub, idType)
+                            VALUES (:label, :adrOrFile, :idRub, :idType)'
             );
             if ($stmt->execute(
                 [
-                    ':id' => $link->getIdLink(),
                     ':label' => $link->getLabel(),
-                    ':arOrFile' => $link->getAdrOrFile(),
-                    ':idRub' => $link->getIdRub(),
-                    ':idType' => $link->getIdType()
+                    ':adrOrFile' => $link->getAdrOrFile(),
+                    ':idRub' => $link->getRubric()->getIdRub(),
+                    ':idType' => $link->getType()->getIdType()
                 ]
             )) {
                 $id = $this->db->lastInsertId();
@@ -255,8 +254,8 @@ class LinkManager extends Manager
     protected function convInObj(array $assocs)
     {
         $link = parent::convInObj($assocs);
-        $rubric = $this->rubricManager->findOne($assocs['idRub']);
-        $type = $this->typeManager->findOne($assocs['idType']);
+        $rubric = !is_null($assocs['idRub']) ? $this->rubricManager->findOne($assocs['idRub']) : null;
+        $type = !is_null($assocs['idType']) ? $this->typeManager->findOne($assocs['idType']) : null;
         $link->setRubric($rubric);
         $link->setType($type);
         return $link;

@@ -15,7 +15,9 @@ class MyPdo extends PDO {
     public function __construct()
     {
         $sgbdHost = $this->_sgbd . ':host=' . $this->_host . ';dbname=' . $this->_bdd . ';charset=UTF8';
-        parent::__construct($sgbdHost, $this->_user, $this->_password);
+        parent::__construct($sgbdHost, $this->_user, $this->_password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     }
+
+
 
 }

@@ -17,6 +17,7 @@ use Ctrl\HomeCtrl;
 use Ctrl\RecetteCtrl;
 use Ctrl\RubricCtrl;
 use Ctrl\VnCtrl;
+use Html\Form;
 
 Autoloader::register();
 
@@ -34,9 +35,12 @@ if (isset($_SESSION['User'])) {
                 // Si on est en POST et que le formulaire est validé
                 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['validate'])) {
                     // Alors on persiste les données
-                    if (!isset($_POST['idLink']) && count($_POST) > 1) {
-                        $ctrl->add($_POST['label'], $_POST['adrOrFile'], $_POST['idRub'], $_POST['idType']);
+                    $form = new Form($_POST);
+                    if (isset($_GET['action']) && $_GET['action'] = 'insert') {
+                        // Où et comment créer l'objet qui doit être passer à la fonction add() ?
+                        $ctrl->add($form);
                     } elseif (isset($_POST['idLink']) && count($_POST) > 1) {
+                        // Où et comment créer l'objet qui doit être passer à la fonction add() ?
                         $ctrl->upd($_POST['label'], $_POST['adrOrFile'], $_POST['idRub'], $_POST['idType'], $_POST['idLink']);
                     }
                     // Sinon si on est en POST mais que le formulaire n'est pas validé

@@ -96,35 +96,11 @@ ob_start();
                     <?php endif;
                 endforeach; ?>
 
-                <form action="" method="POST">
-                    <tr>
-
-                        <td>
-                            <input type="text" name="label" value="<?php if(isset($label)) {
-                                echo $label;
-                            } ?>" required />
-                        </td>
-
-                        <td>
-                            <input class="input-pour" type="number" name="pour" value="<?php if(isset($pour)) {
-                                echo $pour;
-                            } ?>" required />
-                        </td>
-
-                        <td>
-                            <input type="text" name="photo" value="<?php if(isset($photo)) {
-                                echo $photo;
-                            } ?>" required />
-                        </td>
-
-                        <td class="td-ajout" colspan="2"><button class="btn btn-success">Ajouter</button></td>
-
-                    </tr>
-                </form>
-
                 </tbody>
 
             </table>
+
+            <p><a href="?"><button class="btn btn-success">Ajouter une recette</button></a></p>
 
             <p>
                 <a href="?target=links">
