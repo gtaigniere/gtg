@@ -62,8 +62,8 @@ class UserManager extends Manager
         try {
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
-                'INSERT INTO user (idUser, pseudo, email, pwd, confirmKey, confirmed)
-                            VALUES (idUser=:id, pseudo=:pseudo, email=:email, pwd=:pwd, confirmKey=:confirmKey, confirmed=:confirmed'
+                'INSERT INTO user (pseudo, email, pwd, confirmKey, confirmed)
+                            VALUES (:pseudo, :email, :pwd, :confirmKey, :confirmed')
             );
             if ($stmt->execute(
                 [

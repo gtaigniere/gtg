@@ -13,26 +13,19 @@ ob_start();
     <h2>Les liens</h2>
 
     <?php
-    try {
-
         foreach (SuccessManager::getMessages() as $message) : ?>
             <div class="alert alert-success" role="alert">
                 <?= $message ?>
             </div>
         <?php endforeach;
         SuccessManager::destroy();
-    } catch (Exception $ignored) {
-    }
 
-    try {
         foreach (ErrorManager::getMessages() as $message) : ?>
             <div class="alert alert-danger" role="alert">
                 <?= $message ?>
             </div>
         <?php endforeach;
         ErrorManager::destroy();
-    } catch (Exception $ignored) {
-    }
     ?>
 
     <div>
@@ -55,10 +48,11 @@ ob_start();
 
                     <tr>
 
-                        <form action="" method="POST" onsubmit="return sure()">
+                        <form class="form-mod-sup" action="?target=links&action=update" method="POST">
 
                             <td style="display: none;"><input type="text" name="idLink"
                                                               value="<?= $link->getIdLink() ?>"/></td>
+<!--                            <td style="display: none;">--><?php //$form->input('idLink') ?><!--</td>-->
 
                             <td><input type="text" name="label" value="<?php if (!is_null($link->getLabel())) {
                                     echo $link->getLabel();
@@ -92,10 +86,16 @@ ob_start();
                                 <button class="btn btn-warning">Modifier</button>
                             </td>
 
+<!--                            <td class="td-suppr">-->
+<!--                                <button class="btn btn-danger">Supprimer</button>-->
+<!--                            </td>-->
+
                         </form>
 
-                        <td class="td-suppr"><a href="" class="btn btn-danger"
-                                                onclick="return confirm('Etes-vous sûr ?')">Supprimer</a></td>
+                        <td class="td-suppr">
+                            <a href="?target=links&action=delete&idLink=<?= $link->getIdLink() ?>" class="btn btn-danger">Supprimer</a>
+                        </td>
+
                     </tr>
 
                 <?php endif;
@@ -156,5 +156,7 @@ ob_start();
     </div>
 
 </section>
+
+<!--<script src="--><?php //ROOT_DIR ?><!--../script/mod-sup-form.js"></script>-->
 
 <?php $section = ob_get_clean(); ?>

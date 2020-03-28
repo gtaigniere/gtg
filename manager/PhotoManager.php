@@ -61,9 +61,7 @@ class PhotoManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare(
-                'INSERT INTO photo (idPhoto, label)
-                            VALUES (idPhoto=:id, label=:label');
+            $stmt = $this->db->prepare('INSERT INTO photo (label) VALUES (:label)');
             if ($stmt->execute([':id' => $photo->getIdPhoto(), ':label' => $photo->getLabel()])) {
                 $id = $this->db->lastInsertId();
                 return $this->findOne($id);

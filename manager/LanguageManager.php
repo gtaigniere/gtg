@@ -61,9 +61,7 @@ class LanguageManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare(
-                'INSERT INTO language (idLang, label)
-                            VALUES (idLang=:id, label=:label');
+            $stmt = $this->db->prepare('INSERT INTO language (label) VALUES (:label)');
             if ($stmt->execute([':id' => $language->getIdLang(), ':label' => $language->getLabel()])) {
                 $id = $this->db->lastInsertId();
                 return $this->findOne($id);

@@ -105,7 +105,7 @@ class LinkManager extends Manager
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM link WHERE idLink = :id');
             $stmt->execute([':id' => $id]);
-            return $stmt->rowCount();
+            return $stmt->rowCount() > 0;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
@@ -128,8 +128,8 @@ class LinkManager extends Manager
                 [
                     ':label' => $link->getLabel(),
                     ':arOrFile' => $link->getAdrOrFile(),
-                    ':idRub' => $link->getIdRub(),
-                    ':idType' => $link->getIdType(),
+                    ':idRub' => $link->getRubric()->getIdRub(),
+                    ':idType' => $link->getType()->getIdType(),
                     ':id' => $link->getIdLink()
                 ]
             )) {

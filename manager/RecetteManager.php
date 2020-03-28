@@ -62,8 +62,8 @@ class RecetteManager extends Manager
         try {
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
-                'INSERT INTO recette (id, label, infos, pour, ingredient, photo, detail)
-                            VALUES (idRec=:id, label=:label, infos=:infos, pour=:pour, ingredient=:ingredient, photo=:photo, detail=:detail'
+                'INSERT INTO recette (label, infos, pour, ingredient, photo, detail)
+                            VALUES (:label, :infos, :pour, :ingredient, :photo, :detail)'
             );
             if ($stmt->execute(
                 [

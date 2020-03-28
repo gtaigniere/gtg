@@ -79,9 +79,9 @@ class LinkCtrl
         $link->setType($type);
         $link = $this->linkManager->insert($link);
         if ($link == null) {
-            ErrorManager::add('Une erreur est survenue lors de l\'ajout du lien !');
+            ErrorManager::add('Erreur lors de l\'ajout du lien !');
         } else {
-            SuccessManager::add('Le lien a été ajouté avec succès');
+            SuccessManager::add('Le lien a été ajouté avec succès.');
         }
         $links = $this->linkManager->findAll();
         $rubrics = $this->rubricManager->findAll();
@@ -97,17 +97,42 @@ class LinkCtrl
     public function del(int $id): void
     {
         $result = $this->linkManager->delete($id);
+        if (!$result) {
+            ErrorManager::add('Erreur lors de la suppression du lien !');
+        } else {
+            SuccessManager::add('Le lien a été supprimé avec succès.');
+        }
+        $links = $this->linkManager->findAll();
+        $rubrics = $this->rubricManager->findAll();
+        $types = $this->typeManager->findAll();
         require_once(ROOT_DIR . 'view/admin/links.php');
         require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
-     * @param Link $link
+     * @param Form $form
      * @return void
+     * @throws Exception
      */
-    public function upd(Link $link): void
+    public function upd(Form $form): void
     {
+        $link = new Link();
+        $link->setLabel($form->getValue('label'));
+        $link->setAdrOrFile($form->getValue('adrOrFile'));
+        $rubric = $this->rubricManager->findOne((int)$form->getValue('idRub'));
+        $link->setRubric($rubric);
+        $type = $this->typeManager->findOne((int)$form->getValue('idType'));
+        $link->setType($type);
+        $link->setIdLink($form->getValue('idLink'));
         $link = $this->linkManager->update($link);
+        if ($link == null) {
+            ErrorManager::add('Erreur lors de la modification du lien !');
+        } else {
+            SuccessManager::add('Le lien a été modifié avec succès.');
+        }
+        $links = $this->linkManager->findAll();
+        $rubrics = $this->rubricManager->findAll();
+        $types = $this->typeManager->findAll();
         require_once (ROOT_DIR . 'view/admin/links.php');
         require_once (ROOT_DIR . 'view/template.php');
     }

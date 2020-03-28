@@ -25,6 +25,8 @@ $db = new MyPdo();
 
 $_SESSION['User'] = 'gilleste';
 
+var_dump($_POST);
+
 //session_destroy();
 
 if (isset($_SESSION['User'])) {
@@ -32,26 +34,56 @@ if (isset($_SESSION['User'])) {
         if (isset($_GET['target'])) {
             if ($_GET['target'] == 'links') {
                 $ctrl = new AdmLnkCtrl($db);
-                // Si on est en POST et que le formulaire est validé
-                if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['validate'])) {
-                    // Alors on persiste les données
-                    $form = new Form($_POST);
-                    if (isset($_GET['action']) && $_GET['action'] = 'insert') {
-                        // Où et comment créer l'objet qui doit être passer à la fonction add() ?
-                        $ctrl->add($form);
-                    } elseif (isset($_POST['idLink']) && count($_POST) > 1) {
-                        // Où et comment créer l'objet qui doit être passer à la fonction add() ?
-                        $ctrl->upd($_POST['label'], $_POST['adrOrFile'], $_POST['idRub'], $_POST['idType'], $_POST['idLink']);
+                // INSERT
+                if (isset($_GET['action']) && $_GET['action'] == 'insert') {
+                    // Si on est en POST
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $form = new Form($_POST);
+                        // Si le formulaire est validé
+                        if (isset($_POST['validate'])) {
+                            // Alors on persiste les données
+                            $ctrl->add($form);
+                        }
+                        // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'ajout ou redirection à la liste
                     }
-                    // Sinon si on est en POST mais que le formulaire n'est pas validé
-                } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    // Alors on affiche une page de validation
-                    $ctrl->validate($_POST);
-                } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_POST['validate']) && isset($_GET['idLink'])) {
-                    $ctrl->del($_GET['idLink']);
-                    // Sinon si on est en GET mais que le formulaire n'est pas validé
-                } elseif ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['idLink'])) {
-                    $ctrl->validate($_GET);
+                }
+                // UPDATE
+                elseif (isset($_GET['action']) && $_GET['action'] == 'update') {
+                    // Si on est en POST
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $form = new Form($_POST);
+                        // Si le formulaire est validé
+                        if (isset($_POST['validate'])) {
+                            // Alors on persiste les données
+                            $ctrl->upd($form);
+                        } // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'ajout ou redirection à la liste
+                    }
+                }
+                // DELETE
+                elseif (isset($_GET['action']) && $_GET['action'] == 'delete') {
+                    echo 1;
+                     if (isset($_GET['idLink'])) {
+                        // Si on est en POST et que c'est validé
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['validate'])) {
+                            // Alors on supprime les données
+                            $ctrl->del($_GET['idLink']);
+                        } // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'erreur ou redirection à la liste avec message d'erreur
+                    }
                 } else { // Sinon on affiche la liste des liens
                     $ctrl->all();
                 }
@@ -101,16 +133,16 @@ if (isset($_SESSION['User'])) {
                 if (isset($_GET['id'])) { // Si un id de rubrique est présent alors on l'affiche
                     $ctrl->show($_GET['id']);
                 } else { // Sinon on affiche la page d'accueil
-    $ctrl->index();
-}
+                    $ctrl->index();
+                }
             } elseif ($_GET['target'] == 'contact') {
-$ctrl = new HomeCtrl();
+                $ctrl = new HomeCtrl();
                 $ctrl->contact();
             }
         } else {
-    $ctrl = new RubricCtrl($db);
-    $ctrl->index();
-}
+             $ctrl = new RubricCtrl($db);
+            $ctrl->index();
+        }
     }
 
 } elseif (isset($_GET['target'])) {

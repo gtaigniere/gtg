@@ -61,9 +61,7 @@ class RubricManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare(
-                'INSERT INTO rubric (idRub, label)
-                            VALUES (idRub=:id, label=:label');
+            $stmt = $this->db->prepare('INSERT INTO rubric (label) VALUES (:label)');
             if ($stmt->execute([':id' => $rubric->getIdRub(), ':label' => $rubric->getLabel()])) {
                 $id = $this->db->lastInsertId();
                 return $this->findOne($id);

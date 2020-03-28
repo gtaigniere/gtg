@@ -62,8 +62,8 @@ class SnippetManager extends Manager
         try {
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
-                'INSERT INTO language (idSnip, title, dateCrea, comment, requirement, idUser, idLang)
-                            VALUES (idSnip=:id, title=:title, dateCrea=:dateCrea, comment=:comment, requirement=:requirement, idUser=:idUser, idLang=:idLang');
+                'INSERT INTO language (title, dateCrea, comment, requirement, idUser, idLang)
+                            VALUES (:title, :dateCrea, :comment, :requirement, :idUser, :idLang)');
             if ($stmt->execute(
                 [
                     ':id' => $snippet->getIdSnip(),
