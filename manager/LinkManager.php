@@ -82,8 +82,8 @@ class LinkManager extends Manager
                 [
                     ':label' => $link->getLabel(),
                     ':adrOrFile' => $link->getAdrOrFile(),
-                    ':idRub' => $link->getRubric()->getIdRub(),
-                    ':idType' => $link->getType()->getIdType()
+                    ':idRub' => $link->getRubric() != null ? $link->getRubric()->getIdRub() : null,
+                    ':idType' => $link->getType() != null ? $link->getType()->getIdType() : null
                 ]
             )) {
                 $id = $this->db->lastInsertId();
@@ -128,8 +128,8 @@ class LinkManager extends Manager
                 [
                     ':label' => $link->getLabel(),
                     ':arOrFile' => $link->getAdrOrFile(),
-                    ':idRub' => $link->getRubric()->getIdRub(),
-                    ':idType' => $link->getType()->getIdType(),
+                    ':idRub' => $link->getRubric() != null ? $link->getRubric()->getIdRub() : null,
+                    ':idType' => $link->getType() != null ? $link->getType()->getIdType() : null,
                     ':id' => $link->getIdLink()
                 ]
             )) {
