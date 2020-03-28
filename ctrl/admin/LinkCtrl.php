@@ -73,9 +73,11 @@ class LinkCtrl
         $link = new Link();
         $link->setLabel($form->getValue('label'));
         $link->setAdrOrFile($form->getValue('adrOrFile'));
-        $rubric = $this->rubricManager->findOne((int)$form->getValue('idRub'));
+        $idRub = $form->getValue('idRub');
+        $rubric = is_numeric($idRub) ? $this->rubricManager->findOne((int)$idRub) : null;
         $link->setRubric($rubric);
-        $type = $this->typeManager->findOne((int)$form->getValue('idType'));
+        $idType = $form->getValue('idType');
+        $type = is_numeric($idType) ? $this->typeManager->findOne((int)$idType) : null;
         $link->setType($type);
         $link = $this->linkManager->insert($link);
         if ($link == null) {
@@ -119,9 +121,11 @@ class LinkCtrl
         $link = new Link();
         $link->setLabel($form->getValue('label'));
         $link->setAdrOrFile($form->getValue('adrOrFile'));
-        $rubric = $this->rubricManager->findOne((int)$form->getValue('idRub'));
+        $idRub = $form->getValue('idRub');
+        $rubric = is_numeric($idRub) ? $this->rubricManager->findOne((int)$idRub) : null;
         $link->setRubric($rubric);
-        $type = $this->typeManager->findOne((int)$form->getValue('idType'));
+        $idType = $form->getValue('idType');
+        $type = is_numeric($idType) ? $this->typeManager->findOne((int)$idType) : null;
         $link->setType($type);
         $link->setIdLink($form->getValue('idLink'));
         $link = $this->linkManager->update($link);

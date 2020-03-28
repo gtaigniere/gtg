@@ -25,8 +25,6 @@ $db = new MyPdo();
 
 $_SESSION['User'] = 'gilleste';
 
-var_dump($_POST);
-
 //session_destroy();
 
 if (isset($_SESSION['User'])) {

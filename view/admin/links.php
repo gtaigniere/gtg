@@ -48,9 +48,9 @@ ob_start();
 
                     <tr>
 
-                        <form class="form-mod-sup" action="?target=links&action=update" method="POST">
+                        <form action="?target=links&action=update" method="POST">
 
-                            <td style="display: none;"><input type="text" name="idLink"
+                            <td style="display: none;"><input type="hidden" name="idLink"
                                                               value="<?= $link->getIdLink() ?>"/></td>
 <!--                            <td style="display: none;">--><?php //$form->input('idLink') ?><!--</td>-->
 
@@ -63,7 +63,8 @@ ob_start();
                                 } ?>"/></td>
 
                             <td>
-                                <select name="labelRubric">
+                                <select name="idRub">
+                                    <option value="">-- null --</option>
                                     <?php foreach ($rubrics as $rubric) : ?>
                                         <option value="<?= $rubric->getIdRub() ?>"
                                             <?= (!is_null($link->getRubric()) && $link->getRubric()->getIdRub() == $rubric->getIdRub()) ? 'selected' : ''; ?>
@@ -73,7 +74,8 @@ ob_start();
                             </td>
 
                             <td>
-                                <select name="labelType">
+                                <select name="idType">
+                                    <option value="">-- null --</option>
                                     <?php foreach ($types as $type) : ?>
                                         <option value="<?= $type->getIdType() ?>"
                                             <?= (!is_null($link->getType()) && $link->getType()->getIdType() == $type->getIdType()) ? 'selected' : ''; ?>
@@ -85,10 +87,6 @@ ob_start();
                             <td class="td-modif">
                                 <button class="btn btn-warning">Modifier</button>
                             </td>
-
-<!--                            <td class="td-suppr">-->
-<!--                                <button class="btn btn-danger">Supprimer</button>-->
-<!--                            </td>-->
 
                         </form>
 

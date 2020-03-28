@@ -127,7 +127,7 @@ class LinkManager extends Manager
             if ($stmt->execute(
                 [
                     ':label' => $link->getLabel(),
-                    ':arOrFile' => $link->getAdrOrFile(),
+                    ':adrOrFile' => $link->getAdrOrFile(),
                     ':idRub' => $link->getRubric() != null ? $link->getRubric()->getIdRub() : null,
                     ':idType' => $link->getType() != null ? $link->getType()->getIdType() : null,
                     ':id' => $link->getIdLink()
