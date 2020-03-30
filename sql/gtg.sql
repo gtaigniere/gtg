@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS user (
     email VARCHAR(50) COLLATE utf8_general_ci NOT NULL,
     pwd VARCHAR(100) COLLATE utf8_general_ci NOT NULL,
     confirmKey VARCHAR(255) COLLATE utf8_general_ci DEFAULT NULL,
-    confirmed boolean NOT NULL DEFAULT FALSE,
+    confirmed BOOLEAN DEFAULT FALSE NOT NULL,
     PRIMARY KEY (idUser)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 

@@ -63,11 +63,10 @@ class UserManager extends Manager
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare(
                 'INSERT INTO user (pseudo, email, pwd, confirmKey, confirmed)
-                            VALUES (:pseudo, :email, :pwd, :confirmKey, :confirmed')
+                            VALUES (:pseudo, :email, :pwd, :confirmKey, :confirmed)'
             );
             if ($stmt->execute(
                 [
-                    ':id' => $user->getIdUser(),
                     ':pseudo' => $user->getPseudo(),
                     ':email' => $user->getEmail(),
                     ':pwd' => $user->getPwd(),
@@ -94,7 +93,7 @@ class UserManager extends Manager
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM user WHERE idUser = :id');
             $stmt->execute([':id' => $id]);
-            return $stmt->rowCount();
+            return $stmt->rowCount() > 0;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
@@ -111,7 +110,8 @@ class UserManager extends Manager
             $stmt = $this->db->prepare(
                 'UPDATE user
                             SET pseudo=:pseudo, email=:email, pwd=:pwd, confirmKey=:confirmKey, confirmed=:confirmed
-                            WHERE idUser=:id');
+                            WHERE idUser=:id'
+            );
             if ($stmt->execute(
                 [
                     ':pseudo' => $user->getPseudo(),

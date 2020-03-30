@@ -5,7 +5,7 @@ namespace Ctrl;
 use Manager\TypeManager;
 use PDO;
 
-class TypeCtrl extends Controller
+class TypeCtrl
 {
     /**
      * @var TypeManager
@@ -18,7 +18,7 @@ class TypeCtrl extends Controller
      */
     public function __construct(PDO $db)
     {
-        $this->typeManager = new TypeManager($db);
+        $this->typeManager = new typeManager($db);
     }
 
     /**
@@ -27,7 +27,7 @@ class TypeCtrl extends Controller
     public function all(): void
     {
         $types = $this->typeManager->findAll();
-        require (ROOT_DIR . 'view/allTypes.php');
+        require (ROOT_DIR . 'view/admin/listTypes.php');
     }
 
     /**
@@ -37,7 +37,7 @@ class TypeCtrl extends Controller
     public function one(int $id): void
     {
         $type = $this->typeManager->findOne($id);
-        require_once (ROOT_DIR . 'view/oneType.php');
+        require_once (ROOT_DIR . 'view/admin/oneType.php');
     }
 
 }

@@ -48,8 +48,8 @@ class LinkCtrl
         $links = $this->linkManager->findAll();
         $rubrics = $this->rubricManager->findAll();
         $types = $this->typeManager->findAll();
-        require(ROOT_DIR . 'view/admin/links.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        require_once(ROOT_DIR . 'view/admin/links.php');
+        require_once(ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -59,8 +59,8 @@ class LinkCtrl
     public function one(int $id): void
     {
         $link = $this->linkManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        require_once(ROOT_DIR . 'view/admin/.php');
+        require_once(ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -108,7 +108,7 @@ class LinkCtrl
         $rubrics = $this->rubricManager->findAll();
         $types = $this->typeManager->findAll();
         require_once(ROOT_DIR . 'view/admin/links.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        require_once(ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -137,15 +137,18 @@ class LinkCtrl
         $links = $this->linkManager->findAll();
         $rubrics = $this->rubricManager->findAll();
         $types = $this->typeManager->findAll();
-        require_once (ROOT_DIR . 'view/admin/links.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        require_once(ROOT_DIR . 'view/admin/links.php');
+        require_once(ROOT_DIR . 'view/template.php');
     }
 
+    /**
+     * @param array $datas
+     */
     public function validate(array $datas)
     {
         // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        require_once(ROOT_DIR . 'view/admin/validation.php');
+        require_once(ROOT_DIR . 'view/template.php');
     }
 
 }

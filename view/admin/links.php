@@ -33,13 +33,13 @@ ob_start();
         <table>
 
             <thead>
-            <tr>
-                <th>Nom du lien</th>
-                <th>Adresse / Fichier</th>
-                <th>Rubrique</th>
-                <th>Type</th>
-                <th colspan="2">Options</th>
-            </tr>
+                <tr>
+                    <th>Nom du lien</th>
+                    <th>Adresse / Fichier</th>
+                    <th>Rubrique</th>
+                    <th>Type</th>
+                    <th colspan="2">Options</th>
+                </tr>
             </thead>
             <tbody>
 
@@ -51,14 +51,16 @@ ob_start();
                         <form action="?target=links&action=update" method="POST">
 
                             <td style="display: none;"><input type="hidden" name="idLink"
-                                                              value="<?= $link->getIdLink() ?>"/></td>
+                                                    value="<?= $link->getIdLink() ?>"/></td>
 <!--                            <td style="display: none;">--><?php //$form->input('idLink') ?><!--</td>-->
 
-                            <td><input type="text" name="label" value="<?php if (!is_null($link->getLabel())) {
+                            <td><input type="text" name="label"
+                                       value="<?php if (!is_null($link->getLabel())) {
                                     echo $link->getLabel();
                                 } ?>"/></td>
 
-                            <td><input type="text" name="adrOrFile" value="<?php if (!is_null($link->getAdrOrFile())) {
+                            <td><input type="text" name="adrOrFile"
+                                       value="<?php if (!is_null($link->getAdrOrFile())) {
                                     echo $link->getAdrOrFile();
                                 } ?>"/></td>
 
@@ -154,7 +156,5 @@ ob_start();
     </div>
 
 </section>
-
-<!--<script src="--><?php //ROOT_DIR ?><!--../script/mod-sup-form.js"></script>-->
 
 <?php $section = ob_get_clean(); ?>

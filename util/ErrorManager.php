@@ -2,8 +2,6 @@
 
 namespace Util;
 
-use Exception;
-
 class ErrorManager
 {
 

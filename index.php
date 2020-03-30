@@ -8,7 +8,7 @@ require_once 'config' . DIRECTORY_SEPARATOR . 'Autoloader.php';
 use Config\Autoloader;
 use Config\MyPdo;
 use Ctrl\Admin\LinkCtrl as AdmLnkCtrl;
-use Ctrl\Admin\RubricCtrl as AdmRubCtrl;
+use Ctrl\Admin\TypRubCtrl as AdmTypRubCtrl;
 use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
 use Ctrl\AuthCtrl;
@@ -86,11 +86,170 @@ if (isset($_SESSION['User'])) {
                     $ctrl->all();
                 }
             } elseif ($_GET['target'] == 'typsrubs') {
-                $ctrl = new AdmRubCtrl($db);
+                $ctrl = new AdmTypRubCtrl($db);
                 $ctrl->all();
+            } elseif ($_GET['target'] == 'types') {
+                $ctrl = new AdmTypRubCtrl($db);
+                // INSERT
+                if (isset($_GET['action']) && $_GET['action'] == 'insert') {
+                    // Si on est en POST
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $form = new Form($_POST);
+                        // Si le formulaire est validé
+                        if (isset($_POST['validate'])) {
+                            // Alors on persiste les données
+                            $ctrl->addType($form);
+                        }
+                        // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'ajout ou redirection à la liste
+                    }
+                }
+                // UPDATE
+                elseif (isset($_GET['action']) && $_GET['action'] == 'update') {
+                    // Si on est en POST
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $form = new Form($_POST);
+                        // Si le formulaire est validé
+                        if (isset($_POST['validate'])) {
+                            // Alors on persiste les données
+                            $ctrl->updType($form);
+                        } // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'ajout ou redirection à la liste
+                    }
+                }
+                // DELETE
+                elseif (isset($_GET['action']) && $_GET['action'] == 'delete') {
+                    echo 1;
+                    if (isset($_GET['idType'])) {
+                        // Si on est en POST et que c'est validé
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['validate'])) {
+                            // Alors on supprime les données
+                            $ctrl->delType($_GET['idType']);
+                        } // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'erreur ou redirection à la liste avec message d'erreur
+                    }
+                } else { // Sinon on affiche la liste des types et des rubriques
+                    $ctrl->all();
+                }
+            } elseif ($_GET['target'] == 'rubrics') {
+                $ctrl = new AdmTypRubCtrl($db);
+                // INSERT
+                if (isset($_GET['action']) && $_GET['action'] == 'insert') {
+                    // Si on est en POST
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $form = new Form($_POST);
+                        // Si le formulaire est validé
+                        if (isset($_POST['validate'])) {
+                            // Alors on persiste les données
+                            $ctrl->addRubric($form);
+                        } // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'ajout ou redirection à la liste
+                    }
+                } // UPDATE
+                elseif (isset($_GET['action']) && $_GET['action'] == 'update') {
+                    // Si on est en POST
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $form = new Form($_POST);
+                        // Si le formulaire est validé
+                        if (isset($_POST['validate'])) {
+                            // Alors on persiste les données
+                            $ctrl->updRubric($form);
+                        } // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'ajout ou redirection à la liste
+                    }
+                } // DELETE
+                elseif (isset($_GET['action']) && $_GET['action'] == 'delete') {
+                    echo 1;
+                    if (isset($_GET['idRub'])) {
+                        // Si on est en POST et que c'est validé
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['validate'])) {
+                            // Alors on supprime les données
+                            $ctrl->delRubric($_GET['idRub']);
+                        } // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'erreur ou redirection à la liste avec message d'erreur
+                    }
+                } else { // Sinon on affiche la liste des types et des rubriques
+                    $ctrl->all();
+                }
             } elseif ($_GET['target'] == 'users') {
                 $ctrl = new AdmUsrCtrl($db);
-                $ctrl->all();
+                // INSERT
+                if (isset($_GET['action']) && $_GET['action'] == 'insert') {
+                    // Si on est en POST
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $form = new Form($_POST);
+                        // Si le formulaire est validé
+                        if (isset($_POST['validate'])) {
+                            // Alors on persiste les données
+                            $ctrl->add($form);
+                        }
+                        // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'ajout ou redirection à la liste
+                    }
+                }
+                // UPDATE
+                elseif (isset($_GET['action']) && $_GET['action'] == 'update') {
+                    // Si on est en POST
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        $form = new Form($_POST);
+                        // Si le formulaire est validé
+                        if (isset($_POST['validate'])) {
+                            // Alors on persiste les données
+                            $ctrl->upd($form);
+                        } // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'ajout ou redirection à la liste
+                    }
+                }
+                // DELETE
+                elseif (isset($_GET['action']) && $_GET['action'] == 'delete') {
+                    echo 1;
+                    if (isset($_GET['idUser'])) {
+                        // Si on est en POST et que c'est validé
+                        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['validate'])) {
+                            // Alors on supprime les données
+                            $ctrl->del($_GET['idUser']);
+                        } // Sinon on le valide
+                        else {
+                            $ctrl->validate($_POST);
+                        }
+                    } else {
+                        // ToDo: Page d'erreur ou redirection à la liste avec message d'erreur
+                    }
+                } else { // Sinon on affiche la liste des utilisateurs
+                    $ctrl->all();
+                }
             } elseif ($_GET['target'] == 'recettes') {
                 $ctrl = new AdmRecCtrl($db);
                 if (isset($_GET['id'])) {

@@ -2,8 +2,8 @@
 
 namespace Ctrl;
 
-use Manager\LinkManager;
 use Manager\RubricManager;
+use Manager\LinkManager;
 use PDO;
 
 class RubricCtrl extends Controller

@@ -8,6 +8,7 @@ use PDOException;
 
 class TypeManager extends Manager
 {
+
     /**
      * TypeManager constructor.
      * @param PDO $db
@@ -62,7 +63,7 @@ class TypeManager extends Manager
         try {
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('INSERT INTO type (label) VALUES (:label)');
-            if ($stmt->execute([':id' => $type->getIdType(), ':label' => $type->getLabel()])) {
+            if ($stmt->execute([':label' => $type->getLabel()])) {
                 $id = $this->db->lastInsertId();
                 return $this->findOne($id);
             }
@@ -82,7 +83,7 @@ class TypeManager extends Manager
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM type WHERE idType = :id');
             $stmt->execute([':id' => $id]);
-            return $stmt->rowCount();
+            return $stmt->rowCount() > 0;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }

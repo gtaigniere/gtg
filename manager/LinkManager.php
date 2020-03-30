@@ -27,7 +27,6 @@ class LinkManager extends Manager
         Parent::__construct(Link::class, $db);
         $this->rubricManager = new RubricManager($db);
         $this->typeManager = new TypeManager($db);
-
     }
 
     /**
@@ -251,6 +250,10 @@ class LinkManager extends Manager
         return $links;
     }
 
+    /**
+     * @param array $assocs:
+     * @return mixed
+     */
     protected function convInObj(array $assocs)
     {
         $link = parent::convInObj($assocs);

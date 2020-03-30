@@ -8,6 +8,7 @@ use PDOException;
 
 class RubricManager extends Manager
 {
+
     /**
      * RubricManager constructor.
      * @param PDO $db
@@ -61,8 +62,8 @@ class RubricManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('INSERT INTO rubric (label) VALUES (:label)');
-            if ($stmt->execute([':id' => $rubric->getIdRub(), ':label' => $rubric->getLabel()])) {
+            $stmt = $this->db->prepare('INSERT INTO rubric (label, image) VALUES (:label, :image)');
+            if ($stmt->execute([':label' => $rubric->getLabel(), ':image' => $rubric->getImage()])) {
                 $id = $this->db->lastInsertId();
                 return $this->findOne($id);
             }
@@ -82,7 +83,7 @@ class RubricManager extends Manager
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM rubric WHERE idRub = :id');
             $stmt->execute([':id' => $id]);
-            return $stmt->rowCount();
+            return $stmt->rowCount() > 0;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
@@ -96,8 +97,8 @@ class RubricManager extends Manager
     {
         try {
 //            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('UPDATE rubric SET label=:label WHERE idRub=:id');
-            if ($stmt->execute([':label' => $rubric->getLabel(), ':id' => $rubric->getIdRub()])) {
+            $stmt = $this->db->prepare('UPDATE rubric SET label=:label, image=:image WHERE idRub=:id');
+            if ($stmt->execute([':label' => $rubric->getLabel(), ':image' => $rubric->getImage(), ':id' => $rubric->getIdRub()])) {
                 return $this->findOne($rubric->getIdRub());
             }
             return null;
