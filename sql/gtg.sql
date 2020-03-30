@@ -220,28 +220,6 @@ CREATE TABLE IF NOT EXISTS recette (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `photo`
---
-CREATE TABLE IF NOT EXISTS photo (
-    idPhoto SMALLINT(5) NOT NULL AUTO_INCREMENT,
-    label VARCHAR(40) COLLATE utf8_general_ci NOT NULL,
-    PRIMARY KEY (idPhoto)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Contenu de la table `photo`
---
-INSERT INTO photo (idPhoto, label) VALUES
-    (NULL, 'photo1-mini.jpg'),
-    (NULL, 'photo2-mini.jpg'),
-    (NULL, 'photo3-mini.jpg'),
-    (NULL, 'photo4-mini.jpg'),
-    (NULL, 'photo5-mini.jpg'),
-    (NULL, 'photo6-mini.jpg');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `cat`
 --
 CREATE TABLE IF NOT EXISTS cat (

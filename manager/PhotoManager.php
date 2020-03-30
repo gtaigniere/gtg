@@ -8,6 +8,9 @@ use PDOException;
 
 class PhotoManager extends Manager
 {
+    const CHEMIN = ROOT_DIR . 'imgs/galerie/';
+    const FILES_EXT = ['jpg', 'png'];
+
     /**
      * PhotoManager constructor.
      * @param PDO $db
@@ -22,18 +25,11 @@ class PhotoManager extends Manager
      */
     public function findAll(): array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->query('SELECT * FROM photo');
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+        return array_map( // F:\PHP(Perso)\gtg\imgs/galerie/photo1-mini.jpg
+            function(string $photo) {
+                return str_replace('F:\\PHP(Perso)\\gtg\\', '', $photo );
+            }, glob(self::CHEMIN . '*.{' . join(',', self::FILES_EXT) . '}', GLOB_BRACE)
+        );
     }
 
     /**
