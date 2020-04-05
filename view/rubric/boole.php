@@ -2,7 +2,7 @@
 
     <section id="section_boole">
 
-        <h2>Algèbre de Boole</h2>
+        <h1>Algèbre de Boole</h1>
         <p>Négation =&gt; -P, !P, &macr;P, <span class="text_overline">P</span></p>
         <p>ET =&gt; p et q, p and q, p &and; q, p & q, p * q, p &times; q, p.q, pq, p &cap; q</p>
         <p>OU =&gt; p ou q, p or q, p &nu; q, p + q, p &cup; q</p>

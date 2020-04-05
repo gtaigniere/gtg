@@ -2,7 +2,7 @@
 
 namespace Ctrl\Admin;
 
-use Exception;
+use Ctrl\Controller;
 use Html\Form;
 use Manager\LinkManager;
 use Manager\RubricManager;
@@ -12,7 +12,7 @@ use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-class LinkCtrl
+class LinkCtrl extends Controller
 {
     /**
      * @var LinkManager
@@ -53,20 +53,54 @@ class LinkCtrl
     }
 
     /**
-     * @param int $id
-     * @return void
+     * @param Form $form
      */
-    public function one(int $id): void
+    public function ajouter(Form $form): void
     {
-        $link = $this->linkManager->findOne($id);
-        require_once(ROOT_DIR . 'view/admin/.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        // Si le formulaire est validé
+        if (isset($_POST['validate'])) {
+            // Alors on persiste les données
+            $this->add($form);
+        }
+        // Sinon on le valide
+        else {
+            $this->validate($_POST);
+        }
+    }
+
+    /**
+     * @param Form $form
+     */
+    public function modifier(Form $form): void
+    {
+        // Si le formulaire est validé
+        if (isset($_POST['validate'])) {
+            // Alors on persiste les données
+            $this->upd($form);
+        } // Sinon on le valide
+        else {
+            $this->validate($_POST);
+        }
+    }
+
+    /**
+     * @param Form $form
+     */
+    public function supprimer(Form $form): void
+    {
+        // Si on est en POST et que c'est validé
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
+            // Alors on supprime les données
+            $this->del($form->getValue('idLink'));
+        } // Sinon on le valide
+        else {
+            $this->validate(['idLink' => $form->getValue('idLink')]);
+        }
     }
 
     /**
      * @param Form $form
      * @return void
-     * @throws Exception
      */
     public function add(Form $form): void
     {
@@ -93,28 +127,8 @@ class LinkCtrl
     }
 
     /**
-     * @param int $id
-     * @return void
-     */
-    public function del(int $id): void
-    {
-        $result = $this->linkManager->delete($id);
-        if (!$result) {
-            ErrorManager::add('Erreur lors de la suppression du lien !');
-        } else {
-            SuccessManager::add('Le lien a été supprimé avec succès.');
-        }
-        $links = $this->linkManager->findAll();
-        $rubrics = $this->rubricManager->findAll();
-        $types = $this->typeManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/links.php');
-        require_once(ROOT_DIR . 'view/template.php');
-    }
-
-    /**
      * @param Form $form
      * @return void
-     * @throws Exception
      */
     public function upd(Form $form): void
     {
@@ -133,6 +147,25 @@ class LinkCtrl
             ErrorManager::add('Erreur lors de la modification du lien !');
         } else {
             SuccessManager::add('Le lien a été modifié avec succès.');
+        }
+        $links = $this->linkManager->findAll();
+        $rubrics = $this->rubricManager->findAll();
+        $types = $this->typeManager->findAll();
+        require_once(ROOT_DIR . 'view/admin/links.php');
+        require_once(ROOT_DIR . 'view/template.php');
+    }
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function del(int $id): void
+    {
+        $result = $this->linkManager->delete($id);
+        if (!$result) {
+            ErrorManager::add('Erreur lors de la suppression du lien !');
+        } else {
+            SuccessManager::add('Le lien a été supprimé avec succès.');
         }
         $links = $this->linkManager->findAll();
         $rubrics = $this->rubricManager->findAll();

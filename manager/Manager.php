@@ -27,6 +27,10 @@ abstract class Manager
         $this->db = $db;
     }
 
+    /**
+     * @param array $assocs
+     * @return mixed
+     */
     protected function convInObj(array $assocs)
     {
         if (class_exists($this->className)) {

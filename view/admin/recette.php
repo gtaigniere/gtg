@@ -1,55 +1,69 @@
 <?php
 
-use Model\Recette;
+use Html\Form;
 
 ob_start();
 
-    if (isset($recette) && $recette instanceof Recette) :
+if (isset($form) && $form instanceof Form) :
+
+    $isUpdate = $form->getValue('idRec') != null;
 
 ?>
 
-        <section id="section_recette-admin">
+        <section id="sect-adm_recette">
 
-            <h2><?= $recette->getLabel() ?></h2>
+            <h1>
+                <?= ($isUpdate) ? $form->getValue('label') : 'Ajout d\'une recette'; ?>
+            </h1>
 
-            <form action="" method="POST">
+                <form method="POST">
 
-                <div>
-                    <label for="label">Nom :</label>
-                    <input id="label" type="text" name="label" value="<?php if(isset($recette->getLabel())) {echo $recette->getLabel();} ?>" required />
-                </div>
+                    <div>
+                        <?= $form->input('idRec', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
+                    </div>
 
-                <div>
-                    <label for="infos">Infos :</label>
-                    <textarea id="infos" name="infos" rows="5" cols="50" required ><?php if(isset($recette->getInfos())) {echo $recette->getInfos();} ?></textarea>
-                </div>
+                    <div>
+                        <?= $form->input('label', 'label :', ['required' => 'required']); ?>
+                    </div>
 
-                <div>
-                    <label for="pour">Pour :</label>
-                    <input id="pour" type="number" name="pour" value="<?php if(isset($recette->getPour())) {echo $recette->getPour();} ?>" required />
-                </div>
+                    <div class="areatext_recette">
+                        <?= $form->textarea('infos', 'Infos :', ['rows' => '5', 'cols' => '50', 'required' => 'required']); ?>
+                    </div>
 
-                <div>
-                    <label for="ingredient">Ingrédients :</label>
-                    <textarea id="ingredient" name="ingredient" rows="10" cols="50" required ><?php if(isset($recette->getIngredient())) {echo $recette->getIngredient();} ?></textarea>
-                </div>
+                    <div>
+                        <?= $form->input('pour', 'pour', ['required' => 'required']); ?>
+                    </div>
 
-                <div>
-                    <label for="photo">Photo :</label>
-                    <input id="photo" type="text" name="photo" value="<?php if(isset($recette->getPhoto())) {echo $recette->getPhoto();} ?>" required />
-                </div>
+                    <div class="areatext_recette">
+                        <?= $form->textarea('ingredient', 'Ingrédients :', ['rows' => '10', 'cols' => '50', 'required' => 'required']); ?>
+                    </div class="areatext_recette">
 
-                <div>
-                    <label for="detail">Détail :</label>
-                    <textarea id="detail" name="detail" rows="20" cols="50" required ><?php if(isset($recette->getDetail())) {echo $recette->getDetail();} ?></textarea>
-                </div>
+                    <div>
+                        <?= $form->input('photo', 'Photo :', ['required' => 'required']); ?>
+                    </div>
 
-                <button class="btn btn-info">Valider</button>
+                    <div class="areatext_recette">
+                        <?= $form->textarea('detail', 'Détail :', ['rows' => '20', 'cols' => '50', 'required' => 'required']); ?>
+                    </div>
+
+                    <?php if ($isUpdate) : ?>
+                        <button class="btn btn-warning">Modifier</button>
+                    <?php else : ?>
+                        <button class="btn btn-success">Ajouter</button>
+                    <?php endif; ?>
 
             </form>
 
+            <?php if ($isUpdate) : ?>
+                <a href="?target=admin&admTarg=recette&action=delete&idRec=<?= $form->getValue('idRec') ?>" class="btn btn-danger">Supprimer</a>
+            <?php endif; ?>
+
         </section>
 
-    <?php endif;
+<?php
 
-$section = ob_get_clean(); ?>
+endif;
+
+$section = ob_get_clean();
+
+?>

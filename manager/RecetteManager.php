@@ -67,7 +67,6 @@ class RecetteManager extends Manager
             );
             if ($stmt->execute(
                 [
-                    ':id' => $recette->getIdRec(),
                     ':label' => $recette->getLabel(),
                     ':infos' => $recette->getInfos(),
                     ':pour' => $recette->getPour(),
@@ -95,7 +94,7 @@ class RecetteManager extends Manager
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM recette WHERE idRec = :id');
             $stmt->execute([':id' => $id]);
-            return $stmt->rowCount();
+            return $stmt->rowCount() > 0;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }
@@ -112,7 +111,8 @@ class RecetteManager extends Manager
             $stmt = $this->db->prepare(
                 'UPDATE recette
                             SET label=:label, infos=:infos, pour=:pour, ingredient=:ingredient, photo=:photo, detail=:detail
-                            WHERE idRec=:id');
+                            WHERE idRec=:id'
+            );
             if ($stmt->execute(
                 [
                     ':label' => $recette->getLabel(),
@@ -121,7 +121,7 @@ class RecetteManager extends Manager
                     ':ingredient' => $recette->getIngredient(),
                     ':photo' => $recette->getPhoto(),
                     ':detail' => $recette->getDetail(),
-                    ':idRec' => $recette->getIdRec()
+                    ':id' => $recette->getIdRec()
                 ]
             )) {
                 return $this->findOne($recette->getIdRec());

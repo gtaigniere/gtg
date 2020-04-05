@@ -1,8 +1,8 @@
 <?php ob_start(); ?>
 
-    <section id="section_autres_liens">
+    <section id="section_autres_sites">
 
-        <h2>Autres sites</h2>
+        <h1>Autres sites</h1>
 
         <figure>
           <a href="https://www.developpez.com/"><img src="../imgs/thumbmails/developpez.jpg" alt="Developpez" /></a>

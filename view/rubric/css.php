@@ -2,7 +2,7 @@
 
     <section id="section_css">
 
-        <h2>CSS</h2>
+        <h1>CSS</h1>
 
         <h5>Quelques infos :</h5>
         <p class="indent1fois">On privilégie une police sans sérif pour les titres et une avec sérif pour le reste.</p>

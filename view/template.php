@@ -45,9 +45,11 @@
 					<li><a href="?target=vietnam">Vietnam</a></li>
 
 					<?php if (isset($_SESSION['User']))	: ?>
+
                         <?php if ($_SESSION['User'] == 'v' || $_SESSION['User'] == 'w' || $_SESSION['User'] == 'x' || $_SESSION['User'] == 'z') : ?>
 						    <li><a href="?target=warhammer">Warhammer JDRF</a></li>
                         <?php endif; ?>
+
 						<li><a href="?target=auth&action=logout">Déconnexion</a></li>
 					<?php else : ?>
 						<li><a href="?target=auth&action=loginForm">Connexion</a></li>
@@ -61,7 +63,7 @@
 
 				<figure>
                     <?php if (isset($_SESSION['User']) && $_SESSION['User'] == 'gilleste') : ?>
-                        <a href="?target=links"><img src="imgs/thumbmails/logo.png" alt="Logo"></a>
+                        <a href="?target=admin&admTarg=link"><img src="imgs/thumbmails/logo.png" alt="Logo"></a>
                     <?php else : ?>
 					    <img src="imgs/thumbmails/logo.png" alt="Logo">
                     <?php endif; ?>

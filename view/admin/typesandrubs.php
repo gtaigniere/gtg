@@ -9,9 +9,9 @@ ob_start();
 
 ?>
 
-<section id="section_types_rubrics-admin">
+<section class="sect-adm" id="sect-adm_typsrubs">
 
-	<h2>Les types et les rubriques</h2>
+	<h1>Les types et les rubriques</h1>
 
 	<?php
         foreach (SuccessManager::getMessages() as $message) : ?>
@@ -46,13 +46,13 @@ ob_start();
 
 						<tr>
 
-							<form action="?target=types&action=update" method="POST">
+							<form action="?target=admin&admTarg=type&action=update" method="POST">
 
 								<td style="display: none;"><input type="hidden" name="idType"
-                                                        value="<?= $type->getIdType() ?>"/></td>
+                                            value="<?= $type->getIdType() ?>"/></td>
 
 								<td><input type="text" name="label"
-                                           value="<?php if (!is_null($type->getLabel())) {
+                                           value="<?php if ($type->getLabel() != null) {
 										echo $type->getLabel();
 									} ?>"/></td>
 
@@ -63,7 +63,7 @@ ob_start();
 							</form>
 
 							<td class="td-suppr">
-								<a href="?target=types&action=delete&idType=<?= $type->getIdType() ?>" class="btn btn-danger">Supprimer</a>
+								<a href="?target=admin&admTarg=type&action=delete&idType=<?= $type->getIdType() ?>" class="btn btn-danger">Supprimer</a>
 							</td>
 
 						</tr>
@@ -71,7 +71,7 @@ ob_start();
 					<?php endif;
 				endforeach; ?>
 
-				<form action="?target=types&action=insert" method="POST">
+				<form action="?target=admin&admTarg=type&action=insert" method="POST">
 				
 					<tr>
 
@@ -105,23 +105,23 @@ ob_start();
 
 						<tr>
 
-							<form action="?target=rubrics&action=update" method="POST">
+							<form action="?target=admin&admTarg=rubric&action=update" method="POST">
 
 								<td style="display: none;"><input type="hidden" name="idRub"
-                                                        value="<?= $rubric->getIdRub() ?>"/></td>
+                                            value="<?= $rubric->getIdRub() ?>"/></td>
 
 								<td><input type="text" name="label"
-                                           value="<?php if (!is_null($rubric->getLabel())) { echo $rubric->getLabel(); } ?>"/></td>
+                                           value="<?php if ($rubric->getLabel() != null) { echo $rubric->getLabel(); } ?>"/></td>
 
 								<td><input type="text" name="image"
-                                           value="<?php if (!is_null($rubric->getImage())) { echo $rubric->getImage(); } ?>"/></td>
+                                           value="<?php if ($rubric->getImage() != null) { echo $rubric->getImage(); } ?>"/></td>
 
 								<td class="td-modif"><button class="btn btn-warning">Modifier</button></td>
 
 							</form>
 
 							<td class="td-suppr">
-                                <a href="?target=rubrics&action=delete&idRub=<?= $rubric->getIdRub() ?>" class="btn btn-danger">Supprimer</a>
+                                <a href="?target=admin&admTarg=rubric&action=delete&idRub=<?= $rubric->getIdRub() ?>" class="btn btn-danger">Supprimer</a>
                             </td>
 
 						</tr>
@@ -129,7 +129,7 @@ ob_start();
 					<?php endif;
 				endforeach; ?>
 
-				<form action="?target=rubrics&action=insert" method="POST">
+				<form action="?target=admin&admTarg=rubric&action=insert" method="POST">
 					<tr>
 
 						<td>
@@ -155,13 +155,13 @@ ob_start();
 	</div>
 
 	<p>
-		<a href="?target=links">
+		<a href="?target=admin&admTarg=link">
 			<button class="btn btn-primary">Liens</button>
 		</a>
-		<a href="?target=users">
+		<a href="?target=admin&admTarg=user">
 			<button class="btn btn-primary">Utilisateurs</button>
 		</a>
-		<a href="?target=recettes">
+		<a href="?target=admin&admTarg=recette">
 			<button class="btn btn-primary">Recettes</button>
 		</a>
 

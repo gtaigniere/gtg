@@ -18,7 +18,7 @@ class ErrorManager
     /**
      * @param string $message
      */
-    public static function add(string $message)
+    public static function add(string $message): void
     {
         if (!isset($_SESSION['error'])) {
             $_SESSION['error'] = [];
@@ -29,7 +29,7 @@ class ErrorManager
     /**
      * Détruit le tableau de messages
      */
-    public static function destroy()
+    public static function destroy(): void
     {
         unset($_SESSION['error']);
     }

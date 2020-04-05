@@ -2,7 +2,7 @@
 
     <section id="section_mysql">
 
-        <h2>MySQL</h2>
+        <h1>MySQL</h1>
 
         <p></p>
 

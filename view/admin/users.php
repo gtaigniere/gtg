@@ -8,9 +8,9 @@ ob_start();
 
 ?>
 
-    <section id="section_users-admin">
+    <section class="sect-adm" id="sect-adm_users">
 
-        <h2>Les utilisateurs</h2>
+        <h1>Les utilisateurs</h1>
 
         <?php
             foreach (SuccessManager::getMessages() as $message) : ?>
@@ -47,26 +47,26 @@ ob_start();
 
                     <tr>
 
-                        <form action="?target=users&action=update" method="POST">
+                        <form action="?target=admin&admTarg=user&action=update" method="POST">
 
                             <td style="display: none;"><input type="hidden" name="idUser"
-                                                    value="<?= $user->getIdUser() ?>" /></td>
+                                        value="<?= $user->getIdUser() ?>" /></td>
 
                             <td><input type="text" name="pseudo"
-                                       value="<?php if ($user->getPseudo() != null) {
+                                        value="<?php if ($user->getPseudo() != null) {
                                     echo $user->getPseudo();
                                 } ?>" required /></td>
 
                             <td class="t-email"><input type="email" name="email"
-                                       value="<?php if ($user->getEmail() != null) {
+                                        value="<?php if ($user->getEmail() != null) {
                                     echo $user->getEmail();
                                 } ?>" required /></td>
 
                             <td style="display: none;"><input type="hidden" name="pwd"
-                                                              value="<?= $user->getPwd() ?>" /></td>
+                                        value="<?= $user->getPwd() ?>" /></td>
 
                             <td style="display: none;"><input type="hidden" name="confirmKey"
-                                                                value="<?= $user->getConfirmKey() ?>" /></td>
+                                        value="<?= $user->getConfirmKey() ?>" /></td>
 
                             <td class="t-confirmed"><input type="checkbox" name="confirmed"
                                         <?php if ($user->isConfirmed()) { echo 'checked'; } ?> /></td>
@@ -78,7 +78,7 @@ ob_start();
                         </form>
 
                         <td class="td-suppr">
-                            <a href="?target=users&action=delete&idUser=<?= $user->getIdUser() ?>" class="btn btn-danger">Supprimer</a>
+                            <a href="?target=admin&admTarg=user&action=delete&idUser=<?= $user->getIdUser() ?>" class="btn btn-danger">Supprimer</a>
                         </td>
 
                     </tr>
@@ -86,7 +86,7 @@ ob_start();
                     <?php endif;
                 endforeach; ?>
 
-                <form action="?target=users&action=insert" method="POST">
+                <form action="?target=admin&admTarg=user&action=insert" method="POST">
 
                     <tr>
 
@@ -123,13 +123,13 @@ ob_start();
             </table>
 
             <p>
-                <a href="?target=links">
+                <a href="?target=admin&admTarg=link">
                     <button class="btn btn-primary">Liens</button>
                 </a>
-                <a href="?target=typsrubs">
+                <a href="?target=admin&admTarg=typAndRub">
                     <button class="btn btn-primary">Types et Rubriques</button>
                 </a>
-                <a href="?target=recettes">
+                <a href="?target=admin&admTarg=recette">
                     <button class="btn btn-primary">Recettes</button>
                 </a>
             </p>

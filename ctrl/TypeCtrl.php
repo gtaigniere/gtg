@@ -5,7 +5,7 @@ namespace Ctrl;
 use Manager\TypeManager;
 use PDO;
 
-class TypeCtrl
+class TypeCtrl extends Controller
 {
     /**
      * @var TypeManager

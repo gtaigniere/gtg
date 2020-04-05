@@ -71,7 +71,7 @@ class UserManager extends Manager
                     ':email' => $user->getEmail(),
                     ':pwd' => $user->getPwd(),
                     ':confirmKey' => $user->getConfirmKey(),
-                    ':confirmed' => $user->isConfirmed()
+                    ':confirmed' => $user->isConfirmed() ? 1 : 0
                 ]
             )) {
                 $id = $this->db->lastInsertId();
@@ -112,16 +112,19 @@ class UserManager extends Manager
                             SET pseudo=:pseudo, email=:email, pwd=:pwd, confirmKey=:confirmKey, confirmed=:confirmed
                             WHERE idUser=:id'
             );
-            if ($stmt->execute(
-                [
-                    ':pseudo' => $user->getPseudo(),
-                    ':email' => $user->getEmail(),
-                    ':pwd' => $user->getPwd(),
-                    ':confirmKey' => $user->getConfirmKey(),
-                    ':confirmed' => $user->isConfirmed(),
-                    ':id' => $user->getIdUser()
-                ]
-            )) {
+            $pseudo = $user->getPseudo();
+            $stmt->bindParam(':pseudo', $pseudo);
+            $email = $user->getEmail();
+            $stmt->bindParam(':email', $email);
+            $pwd = $user->getPwd();
+            $stmt->bindParam(':pwd', $pwd);
+            $confirmKey = $user->getConfirmKey();
+            $stmt->bindParam(':confirmKey', $confirmKey);
+            $isConfirmed = $user->isConfirmed();
+            $stmt->bindParam(':confirmed', $isConfirmed, PDO::PARAM_BOOL);
+            $idUser = $user->getIdUser();
+            $stmt->bindParam(':id', $idUser);
+            if ($stmt->execute()) {
                 return $this->findOne($user->getIdUser());
             }
             return null;

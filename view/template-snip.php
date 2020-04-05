@@ -61,7 +61,7 @@
 
 				<figure>
                     <?php if (isset($_SESSION['User']) && $_SESSION['User'] == 'gilleste') : ?>
-                        <a href="?target=links"><img src="imgs/thumbmails/logo.png" alt="Logo"></a>
+                        <a href="?target=admin&admTarg=link"><img src="imgs/thumbmails/logo.png" alt="Logo"></a>
                     <?php else : ?>
 					    <img src="imgs/thumbmails/logo.png" alt="Logo">
                     <?php endif; ?>

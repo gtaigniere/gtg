@@ -21,13 +21,17 @@ class AuthCtrl extends Controller
         $this->userManager = new UserManager($db);
     }
 
-    public function loginForm()
+    public function loginForm(): void
     {
         require_once 'view/connexion.php';
         require_once 'view/template.php';
     }
 
-    public function login($pseudo, $pwd)
+    /**
+     * @param $pseudo
+     * @param $pwd
+     */
+    public function login($pseudo, $pwd): void
     {
         // Effectuer la vérification et la connexion
         if ($loginOk) {
@@ -38,6 +42,9 @@ class AuthCtrl extends Controller
         }
     }
 
+    /**
+     *
+     */
     public function logout()
     {
         session_destroy();

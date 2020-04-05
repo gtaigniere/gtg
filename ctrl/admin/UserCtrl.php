@@ -2,7 +2,7 @@
 
 namespace Ctrl\Admin;
 
-use Exception;
+use Ctrl\Controller;
 use Html\Form;
 use Manager\UserManager;
 use Model\User;
@@ -10,7 +10,7 @@ use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-class UserCtrl
+class UserCtrl extends Controller
 {
     /**
      * @var UserManager
@@ -37,20 +37,54 @@ class UserCtrl
     }
 
     /**
-     * @param int $id
-     * @return void
+     * @param Form $form
      */
-    public function one(int $id): void
+    public function ajouter(Form $form): void
     {
-        $user = $this->userManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        // Si le formulaire est validé
+        if (isset($_POST['validate'])) {
+            // Alors on persiste les données
+            $this->add($form);
+        }
+        // Sinon on le valide
+        else {
+            $this->validate($_POST);
+        }
+    }
+
+    /**
+     * @param Form $form
+     */
+    public function modifier(Form $form): void
+    {
+        // Si le formulaire est validé
+        if (isset($_POST['validate'])) {
+            // Alors on persiste les données
+            $this->upd($form);
+        } // Sinon on le valide
+        else {
+            $this->validate($_POST);
+        }
+    }
+
+    /**
+     * @param Form $form
+     */
+    public function supprimer(Form $form): void
+    {
+        // Si on est en POST et que c'est validé
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
+            // Alors on supprime les données
+            $this->del($form->getValue('idUser'));
+        } // Sinon on le valide
+        else {
+            $this->validate(['idUser' => $form->getValue('idUser')]);
+        }
     }
 
     /**
      * @param Form $form
      * @return void
-     * @throws Exception
      */
     public function add(Form $form): void
     {
@@ -59,12 +93,40 @@ class UserCtrl
         $user->setEmail($form->getValue('email'));
         $user->setPwd($form->getValue('pwd'));
         $user->setConfirmKey($form->getValue('confirmKey'));
-        $user->setConfirmed($form->getValue('confirmed'));
+        $user->setConfirmed(
+            $form->getValue('confirmed') != null ? $form->getValue('confirmed') : false
+        );
         $user = $this->userManager->insert($user);
         if ($user == null) {
             ErrorManager::add('Erreur lors de l\'ajout de l\'utilisateur !');
         } else {
             SuccessManager::add('L\'utilisateur a été ajouté avec succès.');
+        }
+        $users = $this->userManager->findAll();
+        require_once (ROOT_DIR . 'view/admin/users.php');
+        require_once (ROOT_DIR . 'view/template.php');
+    }
+
+    /**
+     * @param Form $form
+     * @return void
+     */
+    public function upd(Form $form): void
+    {
+        $user = new User();
+        $user->setPseudo($form->getValue('pseudo'));
+        $user->setEmail($form->getValue('email'));
+        $user->setPwd($form->getValue('pwd'));
+        $user->setConfirmKey($form->getValue('confirmKey'));
+        $user->setConfirmed(
+            $form->getValue('confirmed') != null ? true : false
+        );
+        $user->setIdUser($form->getValue('idUser'));
+        $user = $this->userManager->update($user);
+        if ($user == null) {
+            ErrorManager::add('Erreur lors de la modification de l\'utilisateur !');
+        } else {
+            SuccessManager::add('L\'utilisateur a été modifié avec succès.');
         }
         $users = $this->userManager->findAll();
         require_once (ROOT_DIR . 'view/admin/users.php');
@@ -82,31 +144,6 @@ class UserCtrl
             ErrorManager::add('Erreur lors de la suppression de l\'utilisateur !');
         } else {
             SuccessManager::add('L\'utilisateur a été supprimé avec succès.');
-        }
-        $users = $this->userManager->findAll();
-        require_once (ROOT_DIR . 'view/admin/users.php');
-        require_once (ROOT_DIR . 'view/template.php');
-    }
-
-    /**
-     * @param Form $form
-     * @return void
-     * @throws Exception
-     */
-    public function upd(Form $form): void
-    {
-        $user = new User();
-        $user->setPseudo($form->getValue('pseudo'));
-        $user->setEmail($form->getValue('email'));
-        $user->setPwd($form->getValue('pwd'));
-        $user->setConfirmKey($form->getValue('confirmKey'));
-        $user->setConfirmed($form->getValue('confirmed'));
-        $user->setIdUser($form->getValue('idUser'));
-        $user = $this->userManager->update($user);
-        if ($user == null) {
-            ErrorManager::add('Erreur lors de la modification de l\'utilisateur !');
-        } else {
-            SuccessManager::add('L\'utilisateur a été modifié avec succès.');
         }
         $users = $this->userManager->findAll();
         require_once (ROOT_DIR . 'view/admin/users.php');

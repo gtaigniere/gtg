@@ -251,7 +251,7 @@ class LinkManager extends Manager
     }
 
     /**
-     * @param array $assocs:
+     * @param array $assocs
      * @return mixed
      */
     protected function convInObj(array $assocs)

@@ -2,7 +2,7 @@
 
     <section id="section_galerie">
 
-        <h2>Galerie</h2>
+        <h1>Galerie</h1>
 
         <?php foreach ($photos as $photo) : ?>
 

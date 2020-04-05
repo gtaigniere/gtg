@@ -5,7 +5,7 @@ namespace Ctrl;
 use Manager\UserManager;
 use PDO;
 
-class UserCtrl
+class UserCtrl extends Controller
 {
     /**
      * @var string

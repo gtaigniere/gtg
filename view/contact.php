@@ -2,7 +2,7 @@
 
     <section id="section_contact">
 
-        <h2>Contact</h2>
+        <h1>Contact</h1>
 
         <form class="form_contact" action="" method="POST">
 

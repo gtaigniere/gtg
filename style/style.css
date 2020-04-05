@@ -79,7 +79,28 @@ h6 => 0.67em	=> 10.5px */
 	font-weight: normal;
 }
 /********** Fin Fonts **********/
-
+/********** Debut Variables **********/
+:root {
+	/***** Couleurs *****/
+	--fndHeader: #FFF8DC;
+	--fndNavHeader: #F0FFFF;
+	--fndNavSide: #F1F1F1;
+	--fndFooter: #D8EEE0;
+	--Noir: #000000; /* Noir */
+	--Rouge: #FF0000; /* Rouge */
+	--Bleu: #0000FF; /* Bleu */
+	--txtInfBorder: #22BB22; /* Vert */
+	--infbul: #8A2BE2; /* violet */
+	--fndProg: #DFDFDF; /*  Gris très clair */
+	--fndInput: #EFEFEF; /* Gris très clair */
+	--fndTxtArea: #EFEFEF; /* Gris très clair */
+	--fndTabTh: #C1C1C1; /* Gris */
+	--supAside: #DBE9CD; /* Vert pale */
+	--codeAside: #DCD8CA;
+	--sitExtAside: #F1E6E6;
+	--recAside: #DBE9CD;
+}
+/********** Fin Variables **********/
 /********** Debut General **********/
 * {
 	margin: 0;
@@ -111,12 +132,9 @@ body {
 	flex-direction: column;
 	font-family: spectral, serif;
 }
-h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
 	font-family: acari-sans, sans-serif;
 	font-weight: bold;
-}
-h2 {
-	font-size: 2.8em;
 	text-align: center;
 }
 .text_overline {
@@ -129,24 +147,24 @@ h2 {
 	font-style: italic;
 }
 .text_red {
-	color: #FF0000;
+	color: var(--Rouge);
 }
 .text_encad_black {
 	padding: 0 3px;
-	border: 2px solid #000000;
+	border: 2px solid var(--Noir);
 }
 .text_encad_red {
 	padding: 0 3px;
-	border: 2px solid #FF0000;
+	border: 2px solid var(--Rouge);
 }
 .text_encerc_black {
 	padding: 0 3px;
-	border: 2px solid #000000;
+	border: 2px solid var(--Noir);
 	border-radius: 10px;
 }
 .text_encerc_red {
 	padding: 0 3px;
-	border: 2px solid #FF0000;
+	border: 2px solid var(--Rouge);
 	border-radius: 10px;
 }
 .text_majuscule {
@@ -154,7 +172,7 @@ h2 {
 }
 .infobulle {
 	position: relative;
-	color: #8A2BE2;
+	color: var(--infbul);
 	font-style: italic;
 	text-indent: inherit; /*  Ne fonctionne pas */
 }
@@ -169,7 +187,7 @@ h2 {
 	/*height: 124px;
     width: 290px;*/
 	background-color: #FFFFFFC0;
-	border: 1px solid #22BB22 	;
+	border: 1px solid var(--txtInfBorder);
 	border-radius: 10px;
 	color: #228B22 	;
 	font-style: normal;
@@ -190,7 +208,7 @@ display: block;
 	margin-left: 20px;
 	margin-bottom: 20px;
 	padding: 5px 8px 3px 8px;
-	background-color: #DFDFDF;
+	background-color: var(--fndProg);
 	position: relative;
 	border-radius: 10px;
 }
@@ -231,7 +249,7 @@ header {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	background-color: #FFF8DC;
+	background-color: var(--fndHeader);
 }
 header > div {
 	margin-top: 60px;
@@ -269,7 +287,7 @@ nav {
 	justify-content: space-between;
 	height: 60px;
 	width: 100%;
-	background-color: #F0FFFF;
+	background-color: var(--fndNavHeader);
 	position:fixed;
 	z-index: 10;
 }
@@ -321,7 +339,7 @@ main {
 	justify-content: center;
 	width: 16%;
 	min-width: 180px;
-	background-color: #F1F1F1;
+	background-color: var(--fndNavSide);
 }
 /***** Fin Menu Side *****/
 /********** Fin Menus **********/
@@ -337,8 +355,13 @@ section {
 	align-items: flex-start;
 	width: 100%;
 }
+section h1 {
+	margin: 20px 0;
+	font-size: 2.8em;
+	width: 100%;
+}
 section h2 {
-	margin: 10px 0;
+	font-size: 2.2em;
 	width: 100%;
 }
 section h3 {
@@ -349,7 +372,7 @@ section h4 {
 }
 section li:before {
 	content: "\002212  ";
-	color: #0000FF;
+	color: var(--Bleu);
 }
 .etoile li:before {
 	content: " 	\002217  ";
@@ -377,34 +400,35 @@ section li:before {
 	border-radius: 5px 20px 20px 5px;
 }
 /***** Fin Section globale *****/
-/***** Debut Page Accueil *****/
-#section_accueil {
+/***** Debut Pages Accueil, Autres_sites, et Galerie *****/
+#section_accueil, #section_autres_sites, #section_galerie {
 	padding: 10px 0;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	width: 100%
 }
-.h2_accueil {
-	margin: 30px 0 0 0;
-	font-size: 3.6em;
-}
-#section_accueil > figure {
+#section_accueil figure, #section_galerie figure,
+#section_autres_sites figure {
 	margin: 50px 0;
 	align-items: center;
 	width: 22%;
 	text-align: center;
 }
-#section_accueil > figure > img {
+#section_accueil figure img, #section_autres_sites figure img
+#section_galerie figure img {
 	width: 60%;
 }
-.fig_rubrique {
+#section_accueil h1 {
+	margin: 30px 0 0 0;
+	font-size: 3.6em;
+}
+#section_accueil .fig_rubrique {
 	perspective: 350px;
 }
-.img_rubrique {
+#section_accueil .img_rubrique {
 	transition: transform 0.5s;
 }
-.img_to_menu {
+#section_accueil .img_to_menu {
 	transform: translate3d(-10px, 0, 340px) rotateY(180deg) scaleY(1.1);
 }
 /*.imguml:hover {
@@ -413,30 +437,17 @@ transform: perspective(200px) rotateY(89.8deg) translateX(-100px);
 /*.img_rubrique:hover {
 transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }*/
-/***** Fin Page Accueil *****/
-/***** Debut Page Autres liens *****/
-#section_autres_liens {
-	padding: 10px 0;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	width: 100%
-}
-#section_autres_liens > figure {
-	margin: 50px 0;
-	align-items: center;
-	width: 22%;
-	text-align: center;
-}
-#section_autres_liens figure img {
-	max-width: 300px;
-	width: 60%;
-	transition: transform 0.5s;
-}
-#section_autres_liens figure img:hover {
+#section_autres_sites figure img {
+	 max-width: 300px;
+	 transition: transform 0.5s;
+ }
+#section_autres_sites figure img:hover {
 	transform: rotate(10deg) scale(1.2);
 }
-/***** Fin Page Autres liens *****/
+#section_galerie figure img {
+	/*width: 200px;*/
+}
+/***** Fin Pages Accueil, Autres_sites, et Galerie *****/
 /***** Debut Page Boole *****/
 #section_boole {
 
@@ -446,7 +457,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	text-align: center;
 }
 .table_verite th {
-	background-color: #D3D3D3;
+	background-color: var(--fndTabTh);
 }
 .table_verite th, .table_verite td {
 	border: 2px solid black;
@@ -561,27 +572,26 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 
 }
 /***** Fin Page Vietnam *****/
-/***** Debut Page Galerie *****/
-#section_galerie {
-	padding: 10px 0;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	width: 100%
-}
-#section_galerie > figure {
-	margin: 50px 0;
-	align-items: center;
-	width: 22%;
-	text-align: center;
-}
-#section_galerie > figure > img {
-	width: 60%;
-}
-/***** Fin Page Galerie *****/
 /***** Debut Page Recette *****/
 #section_recette {
 
+}
+#section_recette div {
+	padding: 0 20px;
+	text-align: center;
+	width: 100%;
+}
+#section_recette div div {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+}
+#section_recette div div p {
+	width: 50%;
+}
+#section_recette div div:nth-child(3) p:last-child {
+	padding: 0 20px;
+	text-align: left;
 }
 /***** Fin Page Recette *****/
 /***** Debut Pages Warhammer *****/
@@ -589,77 +599,71 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 
 }
 /***** Fin Pages Warhammer *****/
-/***** Debut Page Inscription *****/
-#section_inscription {
+/***** Debut Pages Inscription, Connexion, et Contact *****/
+#section_inscription, #section_connexion, #section_contact {
 	align-items: center;
 }
-#section_inscription form {
+#section_inscription form, #section_connexion form,
+#section_contact form {
 	padding-bottom: 10px;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	max-width: 900px;
 }
-#section_inscription form > div {
+#section_inscription form div, #section_connexion form div,
+#section_contact form div {
 	padding: 10px 0;
 }
-#section_inscription label {
+#section_inscription label, #section_connexion label {
 	width: calc(35% - 10px);
 }
-#section_inscription input {
-	background-color: #EFEFEF;
-	width: 31%;
+#section_contact label {
+	width: calc(31% - 10px);
+}
+#section_inscription input, #section_connexion input,
+#section_contact input {
+	background-color: var(--fndInput);
 	min-width: 180px;
 	border-radius: 6px;
 }
-#section_inscription form button {
+#section_inscription input, #section_connexion input {
+	width: 31%;
+}
+#section_contact input {
+	width: 40%;
+}
+#section_inscription form button, #section_connexion form button,
+#section_contact form button {
 	margin-top: 15px;
-	margin-bottom: 10px;
 	align-self: center;
 	width: auto;
-	border-radius: 6px;
+	border-radius: 4px;
 }
-/***** Fin Page Inscription *****/
-/***** Debut Page Connexion *****/
-#section_connexion {
-	align-items: center;
-}
-#section_connexion form {
-	padding-bottom: 10px;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	max-width: 900px;
-}
-#section_connexion form > div {
-	padding: 10px 0;
-}
-#section_connexion label {
-	width: calc(35% - 10px);
-}
-#section_connexion input {
-	background-color: #EFEFEF;
-	width: 31%;
-	min-width: 180px;
-	border-radius: 6px;
+#section_inscription form button, #section_connexion form button {
+	margin-bottom: 10px;
 }
 .message_connexion {
 	display: flex;
 }
-#section_connexion form button {
-	margin-top: 15px;
-	margin-bottom: 10px;
-	align-self: center;
-	width: auto;
-	border-radius: 6px;
+.message_contact {
+	display: flex;
 }
-/***** Debut Page Connexion *****/
+#section_contact textarea {
+	margin-left: 5px;
+	background-color: var(--fndTxtArea);
+	border-radius: 6px;
+	width: 40%;
+	min-width: 180px;
+	resize: none;
+}
+/***** Fin Pages Inscription, Connexion, et Contact *****/
 /***** Debut Sections Snippets *****/
 #section_snippets {
 	display: flex;
 	flex-direction: column;
 	align-content: center;
-	padding: 0px 10px;
+	padding: 0 10px;
 	width: 66%;
 }
 #section_snippets h1 {
@@ -711,401 +715,212 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	font-size: 1.6em;
 }
 /***** Fin Sections Snippets *****/
-/***** Debut Page Contact *****/
-#section_contact {
-	align-items: center;
-}
-#section_contact h1 {
-
-}
-#section_contact form {
-	padding-bottom: 10px;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	max-width: 900px;
-}
-#section_contact form > div {
-	padding: 10px 0;
-}
-#section_contact label {
-	width: calc(31% - 10px);
-}
-#section_contact input, #section_contact textarea {
-	background-color: #EFEFEF;
-	border-radius: 6px;
-}
-#section_contact input {
-	width: 40%;
-	min-width: 180px;
-}
-.message_contact {
-	display: flex;
-}
-#section_contact textarea {
-	margin-left: 5px;
-	width: 40%;
-	min-width: 180px;
-	resize: none;
-}
-#section_contact form button {
-	margin-top: 15px;
-	align-self: center;
-	width: auto;
-	border-radius: 6px;
-}
-/***** Fin Page Contact *****/
-/***** Debut Page Links Admin *****/
-#section_links-admin {
+/***** Debut Pages Admin *****/
+.sect-adm {
+	/* sect-adm_links, sect-adm_users, sect-adm_typsrubs,
+		sect-adm_recettes, sect-adm_validation */
 	padding: 10px;
 	display: flex;
 	flex-direction: column;
 	vertical-align: middle;
 	align-items: center;
-	width: 100%;
 }
-#section_links-admin h1 {
-	padding-bottom: 10px;
-}
-#section_links-admin div {
+.sect-adm div {
+	/* sect-adm_links, sect-adm_users, sect-adm_recettes */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
 }
-#section_links-admin .alert {
+.sect-adm .alert {
+	/* #sect-adm_links, sect-adm_users,
+		sect-adm_typsrubs, sect-adm_recettes  */
 	width: auto;
 }
-#section_links-admin table {
+.sect-adm table {
+	/* sect-adm_links, sect-adm_users, sect-adm_recettes */
 	width: 100%;
 	max-width: 1000px;
 }
-#section_links-admin th {
+.sect-adm th {
+	/* sect-adm_links, sect-adm_users,
+		sect-adm_typsrubs, sect-adm_recettes */
 	height: 2.8em;
-	background-color: #C1C1C1;
+	background-color: var(--fndTabTh);
 }
-#section_links-admin th:first-child {
+.sect-adm th:first-child {
+	/* sect-adm_links, sect-adm_users,
+		sect-adm_typsrubs, sect-adm_recettes */
 	border-radius: 4px 0 0 4px;
 }
-#section_links-admin th:last-child {
-	border-radius: 0 4px 4px 0;
+.sect-adm th:last-child {
+	/* sect-adm_links, sect-adm_users,
+		sect-adm_typsrubs, sect-adm_recettes */
+	border-radius: 4px 0 0 4px;
 }
-#section_links-admin table td {
+.sect-adm table td {
+	/* sect-adm_links, sect-adm_users,
+	 	sect-adm_typsrubs, sect-adm_recettes */
 	height: 2.8em;
 	text-align: center;
 }
-#section_links-admin select, #section_links-admin input {
+.sect-adm select, .sect-adm input {
+	/* sect-adm_links, sect-adm_users, sect-adm_typsrubs */
 	margin: 0 5px;
 	border-radius: 0.25rem;
 	text-align: center;
 }
-#section_links-admin .td-modif {
+.sect-adm .td-modif {
+	/* sect-adm_links, sect-adm_users,
+		sect-adm_typsrubs, sect-adm_recettes */
 	margin: 0 5px;
 	width: 63px;
 	text-align: center;
 }
-#section_links-admin .td-suppr {
+.sect-adm .td-suppr {
+	/* sect-adm_links, sect-adm_users,
+		sect-adm_typsrubs, sect-adm_recettes */
 	margin: 0 5px;
 	width: 75px;
 	text-align: right;
 }
-#section_links-admin .td-ajout {
+.sect-adm .td-ajout {
+	/* sect-adm_links, sect-adm_users,
+		sect-adm_typsrubs, sect-adm_recettes */
 	width: 88px;
 	text-align: center;
 }
-#section_links-admin button {
+.sect-adm button {
+	/* sect-adm_links, sect-adm_users, sect-adm_typsrubs */
 	margin: 0 5px;
 }
-#section_links-admin p {
+.sect-adm p {
+	/* sect-adm_links, sect-adm_users, sect-adm_typsrubs,
+		sect-adm_recettes, sect-adm_validation */
 	margin-top: 20px;
 	display: flex;
 	justify-content: center;
+}
+/***** Debut Page Links Admin *****/
+#sect-adm_links {
+
 }
 /***** Fin Page Links Admin *****/
 /***** Debut Page Utilisateurs Admin *****/
-#section_users-admin {
-	padding: 10px;
-	display: flex;
-	flex-direction: column;
-	vertical-align: middle;
-	align-items: center;
-	width: 100%;
-}
-#section_users-admin h1 {
-	padding-bottom: 10px;
-}
-#section_users-admin div {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-}
-#section_users-admin .alert {
-	width: auto;
-}
-#section_users-admin table {
-	width: 100%;
-	max-width: 1000px;
-}
-#section_users-admin th {
-	height: 2.8em;
-	background-color: #C1C1C1;
-}
-#section_users-admin th:first-child {
-	border-radius: 4px 0 0 4px;
-}
-#section_users-admin th:last-child {
-	border-radius: 0 4px 4px 0;
-}
-#section_users-admin .t-email {
+#sect-adm_users .t-email {
 	width: 35%;
 }
-#section_users-admin .t-confirmed {
+#sect-adm_users .t-confirmed {
 	width: 20%;
 }
-#section_users-admin table td {
-	height: 2.8em;
-	text-align: center;
-}
-#section_users-admin select, #section_users-admin input {
-	margin: 0 5px 0 0;
-	border-radius: 0.25rem;
-	text-align: center;
-}
-#section_users-admin input {
+#sect-adm_users input {
 	width: 95%;
-}
-#section_users-admin .td-modif {
-	margin: 0 5px;
-	width: 63px;
-	text-align: center;
-}
-#section_users-admin .td-suppr {
-	margin: 0 5px;
-	width: 75px;
-	text-align: right;
-}
-#section_users-admin .td-ajout {
-	width: 88px;
-	text-align: center;
-}
-#section_users-admin button {
-	margin: 0 5px;
-}
-#section_users-admin p {
-	margin-top: 20px;
-	display: flex;
-	justify-content: center;
 }
 /***** Fin Page Utilisateurs Admin *****/
 /***** Debut Page Types et Rubriques Admin *****/
-#section_types_rubrics-admin {
-	padding: 10px;
+#sect-adm_typsrubs div {
 	display: flex;
-	flex-direction: column;
-	vertical-align: middle;
-	align-items: center;
-	width: 100%;
-}
-#section_types_rubrics-admin h1 {
-	padding-bottom: 10px;
-}
-#section_types_rubrics-admin div {
-	display: flex;
+	flex-direction: row;
 	justify-content: space-around;
 	align-items: flex-start;
 	width: 100%;
 }
-#section_types_rubrics-admin .alert {
-	width: auto;
+#sect-adm_typsrubs table:first-child {
+	max-width: 400px;
 }
-#section_types_rubrics-admin table {
+#sect-adm_typsrubs table:last-child {
 	max-width: 500px;
 }
-#section_types_rubrics-admin th {
-	height: 2.8em;
-	background-color: #C1C1C1;
+#sect-adm_typsrubs th {
+	border-radius: inherit;
 }
-#section_types_rubrics-admin th:first-child {
+#sect-adm_typsrubs th:first-child {
 	border-radius: 4px 0 0 4px;
 }
-#section_types_rubrics-admin th:last-child {
+#sect-adm_typsrubs th:last-child {
 	border-radius: 0 4px 4px 0;
 }
-#section_types_rubrics-admin table td {
-	height: 2.8em;
-	text-align: center;
-}
-#section_types_rubrics-admin select, #section_types_rubrics-admin input {
-	margin: 0 5px;
-	border-radius: 0.25rem;
-	text-align: center;
-}
-#section_types_rubrics-admin .td-modif {
-	margin: 0 5px;
-	width: 63px;
-	text-align: center;
-}
-#section_types_rubrics-admin .td-suppr {
-	margin: 0 5px;
-	width: 75px;
-	text-align: right;
-}
-#section_types_rubrics-admin .td-ajout {
-	width: 88px;
-	text-align: center;
-}
-#section_types_rubrics-admin button {
-	margin: 0 5px;
-}
-#section_types_rubrics-admin p {
-	margin-top: 20px;
-	display: flex;
-	justify-content: center;
-}
-
 /***** Fin Page Types et Rubriques Admin *****/
 /***** Debut Page Recettes Admin *****/
-#section_recettes-admin {
-	padding: 10px;
-	display: flex;
-	flex-direction: column;
-	vertical-align: middle;
-	align-items: center;
-	width: 100%;
-}
-#section_recettes-admin h1 {
-	padding-bottom: 10px;
-}
-#section_recettes-admin div {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-}
-#section_recettes-admin .alert {
-	width: auto;
-}
-#section_recettes-admin table {
-	width: 100%;
-	max-width: 800px;
-}
-#section_recettes-admin th {
-	height: 2.8em;
-	background-color: #C1C1C1;
-}
-#section_recettes-admin th:first-child {
-	border-radius: 4px 0 0 4px;
-}
-#section_recettes-admin th:nth-child(2) {
-	width: 30px;
-}
-#section_recettes-admin th:last-child {
+#sect-adm_recettes th:last-child {
 	border-radius: 0 4px 4px 0;
 }
-#section_recettes-admin table td {
-	height: 2.8em;
-	text-align: center;
+#sect-adm_recettes .t-label {
+	width: 40%;
 }
-#section_recettes-admin td:first-child {
-	width: 295px;
+#sect-adm_recettes .td-modif, #sect-adm_recettes .td-suppr {
+	margin: inherit;
 }
-#section_recettes-admin td:nth-child(2) {
-	width: 20%;
+#sect-adm_recettes .td-modif a {
+	margin-right: 2px;
 }
-#section_recettes-admin select, #section_recettes-admin input {
-	margin: 0 5px;
-	border-radius: 0.25rem;
-	text-align: center;
+#sect-adm_recettes .td-suppr a {
+	margin-left: 2px;
 }
-#section_recettes-admin .input-pour {
-	width: 40px;
-}
-#section_recettes-admin .td-modif {
-	margin: 0 5px;
-	width: 63px;
-	text-align: center;
-}
-#section_recettes-admin .td-suppr {
-	margin: 0 5px;
-	width: 75px;
-	text-align: right;
-}
-#section_recettes-admin .td-ajout {
-	width: 88px;
-	text-align: center;
-}
-#section_recettes-admin button {
-	margin: 0 5px;
-}
-#section_recettes-admin p {
-	margin-top: 20px;
-	display: flex;
-	justify-content: center;
+#sect-adm_recettes p {
+	margin-top: inherit;
 }
 /***** Fin Page Recettes Admin *****/
 /***** Debut Page Recette Admin *****/
-#section_recette {
+#sect-adm_recette {
 	align-items: center;
 }
-#section_recette form {
+#sect-adm_recette form {
 	padding-bottom: 10px;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	max-width: 900px;
 }
-#section_recette form > div {
+#sect-adm_recette form > div {
 	padding: 10px 0;
 }
-#section_recette label {
-	width: calc(35% - 10px);
+#sect-adm_recette label {
+	width: calc(31% - 10px);
 }
-#section_recette input {
-	background-color: #EFEFEF;
-	width: 30%;
-	min-width: 180px;
+#sect-adm_recette input, #sect-adm_recette textarea {
+	background-color: var(--fndInput);
 	border-radius: 6px;
 }
-#section_recette form button {
+#sect-adm_recette input {
+	width: 40%;
+	min-width: 180px;
+}
+.areatext_recette {
+	display: flex;
+}
+#sect-adm_recette textarea {
+	margin-bottom: 7px;
+	width: 40%;
+	min-width: 180px;
+	resize: none;
+}
+#sect-adm_recette form button {
 	margin-top: 15px;
-	margin-bottom: 10px;
 	align-self: center;
 	width: auto;
-	border-radius: 6px;
+	border-radius: 4px;
+}
+#sect-adm_recette a:last-child {
+	border-radius: 4px;
 }
 /***** Fin Page Recette Admin *****/
 /***** Debut Page Validation Admin *****/
-#section_validation-admin {
-	padding: 10px;
-	display: flex;
-	flex-direction: column;
-	vertical-align: middle;
-	align-items: center;
-	width: 100%;
-}
-#section_validation-admin h2 {
-	font-size: 2.4em;
-}
-#section_validation-admin p {
-	margin-top: 20px;
-	display: flex;
-	justify-content: center;
+#sect-adm_validation p {
 	font-size: 1.5em;
 }
-#section_validation-admin form {
+#sect-adm_validation form {
 	padding-bottom: 15px;
 	text-align: center;
 }
-#section_validation-admin input {
+#sect-adm_validation input {
 	margin: 0 5px;
 	border-radius: 0.25rem;
 	text-align: center;
 }
 /***** Fin Page Validation Admin *****/
+/***** Fin Pages Admin *****/
 /********** Fin Sections **********/
 /********** Debut Asides **********/
 #asides {
@@ -1127,19 +942,19 @@ aside h2 {
 }
 #support_aside {
 	height: auto;
-	background-color: #DBE9CD;
+	background-color: var(--supAside);
 }
 #code_aside {
 	height: auto;
-	background-color: #DCD8CA;
+	background-color: var(--codeAside);
 }
 #site-ext_aside {
 	height: auto;
-	background-color: #F1E6E6;
+	background-color: var(--sitExtAside);
 }
 #recette_aside {
 	height: auto;
-	background-color: #DBE9CD;
+	background-color: var(--recAside);
 }
 /********** Fin Asides **********/
 
@@ -1150,7 +965,7 @@ footer {
 	display: flex;
 	height: 80px;
 	width: 100%;
-	background-color: #D8EEE0;
+	background-color: var(--fndFooter);
 }
 footer > div {
 	display: flex;

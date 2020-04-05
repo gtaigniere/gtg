@@ -8,9 +8,9 @@ ob_start();
 
 ?>
 
-<section id="section_links-admin">
+<section class="sect-adm" id="sect-adm_links">
 
-    <h2>Les liens</h2>
+    <h1>Les liens</h1>
 
     <?php
         foreach (SuccessManager::getMessages() as $message) : ?>
@@ -48,10 +48,10 @@ ob_start();
 
                     <tr>
 
-                        <form action="?target=links&action=update" method="POST">
+                        <form action="?target=admin&admTarg=link&action=update" method="POST">
 
                             <td style="display: none;"><input type="hidden" name="idLink"
-                                                    value="<?= $link->getIdLink() ?>"/></td>
+                                        value="<?= $link->getIdLink() ?>"/></td>
 <!--                            <td style="display: none;">--><?php //$form->input('idLink') ?><!--</td>-->
 
                             <td><input type="text" name="label"
@@ -69,7 +69,7 @@ ob_start();
                                     <option value="">-- null --</option>
                                     <?php foreach ($rubrics as $rubric) : ?>
                                         <option value="<?= $rubric->getIdRub() ?>"
-                                            <?= (!is_null($link->getRubric()) && $link->getRubric()->getIdRub() == $rubric->getIdRub()) ? 'selected' : ''; ?>
+                                            <?= (($link->getRubric() != null) && $link->getRubric()->getIdRub() == $rubric->getIdRub()) ? 'selected' : ''; ?>
                                         ><?= $rubric->getLabel() ?></option>
                                     <?php endforeach; ?>
                                 </select>
@@ -80,7 +80,7 @@ ob_start();
                                     <option value="">-- null --</option>
                                     <?php foreach ($types as $type) : ?>
                                         <option value="<?= $type->getIdType() ?>"
-                                            <?= (!is_null($link->getType()) && $link->getType()->getIdType() == $type->getIdType()) ? 'selected' : ''; ?>
+                                            <?= (($link->getType() != null) && $link->getType()->getIdType() == $type->getIdType()) ? 'selected' : ''; ?>
                                         ><?= $type->getLabel() ?></option>
                                     <?php endforeach; ?>
                                 </select>
@@ -93,7 +93,7 @@ ob_start();
                         </form>
 
                         <td class="td-suppr">
-                            <a href="?target=links&action=delete&idLink=<?= $link->getIdLink() ?>" class="btn btn-danger">Supprimer</a>
+                            <a href="?target=admin&admTarg=link&action=delete&idLink=<?= $link->getIdLink() ?>" class="btn btn-danger">Supprimer</a>
                         </td>
 
                     </tr>
@@ -101,7 +101,7 @@ ob_start();
                 <?php endif;
             endforeach; ?>
 
-            <form action="?target=links&action=insert" method="POST">
+            <form action="?target=admin&admTarg=link&action=insert" method="POST">
                 <tr>
 
                     <td><input type="text" name="label" value="<?php if (isset($label)) {
@@ -142,13 +142,13 @@ ob_start();
         </table>
 
         <p>
-            <a href="?target=users">
+            <a href="?target=admin&admTarg=user">
                 <button class="btn btn-primary">Utilisateurs</button>
             </a>
-            <a href="?target=typsrubs">
+            <a href="?target=admin&admTarg=typAndRub">
                 <button class="btn btn-primary">Types et Rubriques</button>
             </a>
-            <a href="?target=recettes">
+            <a href="?target=admin&admTarg=recette">
                 <button class="btn btn-primary">Recettes</button>
             </a>
         </p>

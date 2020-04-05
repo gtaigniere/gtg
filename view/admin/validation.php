@@ -1,8 +1,8 @@
 <?php ob_start(); ?>
 
-<section id="section_validation-admin">
+<section class="sect-adm" id="sect-adm_validation">
 
-    <h2>Demande de confirmation</h2>
+    <h1>Demande de confirmation</h1>
 
     <form action="" method="POST">
         <?php foreach ($datas as $name => $value) : ?>

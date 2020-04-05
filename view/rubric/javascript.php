@@ -2,7 +2,7 @@
 
     <section id="section_js">
 
-        <h2>JavaScript</h2>
+        <h1>JavaScript</h1>
 
         <p></p>
 

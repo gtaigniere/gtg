@@ -2,7 +2,7 @@
 
     <section id="section_model_bdd">
 
-        <h2>Modélisation de bases de données</h2>
+        <h1>Modélisation de bases de données</h1>
 
         <p>Modèles majeurs :</p>
         <p class="indent1fois">Relationnel (MR) => MLD</p>

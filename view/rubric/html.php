@@ -2,7 +2,7 @@
 
     <section id="section_html">
 
-        <h2>HTML</h2>
+        <h1>HTML</h1>
 
         <h3>Base d'une page HTML</h3>
         <p class="html zmargin_bottom">&lt;!DOCTYPE html&gt;</p>

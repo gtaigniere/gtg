@@ -2,7 +2,7 @@
 
     <section id="section_algo">
 
-        <h2>Algorithmie</h2>
+        <h1>Algorithmie</h1>
 
         <h3 class="text_underline">Base</h3>
         <p>Algorithme = Texte sans ambiguïté décrivant une méthode pour résoudre un problème.</p>

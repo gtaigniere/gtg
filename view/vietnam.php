@@ -2,7 +2,7 @@
 
     <section id="section_galerie">
 
-        <h2>Vietnam</h2>
+        <h1>Vietnam</h1>
 
         <p></p>
 

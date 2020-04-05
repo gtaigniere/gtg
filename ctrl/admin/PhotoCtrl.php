@@ -2,11 +2,12 @@
 
 namespace Ctrl\Admin;
 
+use Ctrl\Controller;
 use Manager\PhotoManager;
 use Model\Photo;
 use PDO;
 
-class PhotoCtrl
+class PhotoCtrl extends Controller
 {
     /**
      * @var string
@@ -38,36 +39,6 @@ class PhotoCtrl
     public function one(int $id): void
     {
         $photo = $this->photoManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/onePhoto.php');
-    }
-
-    /**
-     * @param Photo $photo
-     * @return void
-     */
-    public function add(Photo $photo): void
-    {
-        $photo = $this->photoManager->insert($photo);
-        require_once (ROOT_DIR . 'view/admin/onePhoto.php');
-    }
-
-    /**
-     * @param int $id
-     * @return void
-     */
-    public function del(int $id): void
-    {
-        $result = $this->photoManager->delete($id);
-        require_once (ROOT_DIR . 'view/admin/listPhotos.php');
-    }
-
-    /**
-     * @param Photo $photo
-     * @return void
-     */
-    public function upd(Photo $photo): void
-    {
-        $photo = $this->photoManager->update($photo);
         require_once (ROOT_DIR . 'view/admin/onePhoto.php');
     }
 

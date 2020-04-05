@@ -2,7 +2,7 @@
 
     <section id="section_oracle">
 
-        <h2>Oracle</h2>
+        <h1>Oracle</h1>
 
         <p></p>
 

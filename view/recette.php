@@ -10,17 +10,30 @@ ob_start();
 
     <section id="section_recette">
 
-        <h2><?= $recette->getLabel() ?></h2>
+        <h1><?= $recette->getLabel() ?></h1>
 
-        <p><?= $recette->getInfos() ?></p>
+        <div>
 
-        <p><?= $recette->getpour() ?></p>
+            <p><?= $recette->getInfos() ?></p>
 
-        <p><?= $recette->getIngredient() ?></p>
+            <div>
+                <p>Pour <?= $recette->getpour() ?> personnes</p>
+                <p class="text_underline">Ingrédients</p>
+            </div>
 
-        <figure><img class="img_recette" src="../imgs/recettes/<?= $recette->getPhoto() ?>" alt="<?= $recette->getPhoto() ?>" /></figure>
+            <div>
+                <figure>
+                    <img class="img_recette"
+                         src="../imgs/recettes/<?= $recette->getPhoto() ?>"
+                             alt="<?= $recette->getPhoto() ?>" />
+                </figure>
 
-        <p><?= $recette->getDetail() ?></p>
+                <p><?= $recette->getIngredient() ?></p>
+            </div>
+
+            <p><?= $recette->getDetail() ?></p>
+
+        </div>
 
     </section>
 

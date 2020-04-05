@@ -2,7 +2,7 @@
 
     <section id="section_uml">
 
-        <h2>UML</h2>
+        <h1>UML</h1>
 
         <p>Concept objet : Ensemble d'attributs (caractéristiques), d'état significatif, de comportement.</p>
         <p>Classe : Ensemble d'objets de même type Ensemble Attributs.</p>

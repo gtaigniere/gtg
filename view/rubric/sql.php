@@ -2,7 +2,7 @@
 
     <section id="section_sql">
 
-        <h2>SQL</h2>
+        <h1>SQL</h1>
 
         <p></p>
 

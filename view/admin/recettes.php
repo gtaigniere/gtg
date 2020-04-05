@@ -1,60 +1,32 @@
 <?php
 
 use Model\Recette;
+use Util\ErrorManager;
+use Util\SuccessManager;
 
 ob_start();
 
 ?>
 
-    <section id="section_recettes-admin">
+    <section class="sect-adm" id="sect-adm_recettes">
 
-        <h2>Les recettes</h2>
+        <h1>Les recettes</h1>
 
-<!--        --><?php
-//        if (isset($uSuccess) AND isset($ams)) :
-//            switch ($ams) {
-//                case '1':
-//                    $message = 'Utilisateur ajouté avec succès !';
-//                    break;
-//                case '2':
-//                    $message = 'Utilisateur modifié avec succès !';
-//                    break;
-//                case '3':
-//                    $message = 'Utilisateur supprimé avec succès !';
-//                    break;
-//            }
-//            ?>
-<!--            <div class= "alert alert-success" role="alert">-->
-<!--                --><?php //echo $message; ?>
-<!--            </div>-->
-<!--        --><?php //endif; ?>
-<!--        --><?php
-//        if (isset($uNoSuccess)) :
-//            switch ($uNoSuccess) {
-//                case '0':
-//                    $message = 'L\'email ne peut contenir que lettres, chiffres, "-", "_", "&","@", et "." !';
-//                    break;
-//                case '1':
-//                    $message = 'Le nom et le prénom ne peuvent contenir que des lettres et "-" !';
-//                    break;
-//                case '2':
-//                    $message = 'Le mot de passe ne peut contenir que des lettres et des chiffres !';
-//                    break;
-//                case '3':
-//                    $message = 'Echec de l\'ajout de l\'utilisateur';
-//                    break;
-//                case '4':
-//                    $message = 'Echec de la modification de l\'utilisateur';
-//                    break;
-//                case '5':
-//                    $message = 'Echec de la suppression de l\'utilisateur';
-//                    break;
-//            }
-//            ?>
-<!--            <div class= "alert alert-danger" role="alert">-->
-<!--                --><?php //echo $message; ?>
-<!--            </div>-->
-<!--        --><?php //endif; ?>
+        <?php
+        foreach (SuccessManager::getMessages() as $message) : ?>
+            <div class="alert alert-success" role="alert">
+                <?= $message ?>
+            </div>
+        <?php endforeach;
+        SuccessManager::destroy();
+
+        foreach (ErrorManager::getMessages() as $message) : ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $message ?>
+            </div>
+        <?php endforeach;
+        ErrorManager::destroy();
+        ?>
 
         <div>
 
@@ -62,7 +34,7 @@ ob_start();
 
                 <thead>
                 <tr>
-                    <th>Label</th>
+                    <th class="t-label">Label</th>
                     <th>Pour</th>
                     <th>Photo</th>
                     <th colspan="2">Options</th>
@@ -74,22 +46,21 @@ ob_start();
 
                         <tr>
 
-                            <form action="" method="POST" onsubmit="return sure()">
+                            <td style="display: none;"><?= $recette->getIdRec() ?>/td>
 
-                                <td style="display: none;"><input type="text" name="idRec" value="<?= $recette->getIdRec() ?>" /></td>
+                            <td class="t-label"><?php if ($recette->getLabel() != null) { echo $recette->getLabel(); } ?></td>
 
-                                <td><input type="text" name="label" value="<?php if (is_null($recette->getLabel())) { echo $recette->getLabel(); } ?>" required /></td>
+                            <td><?php if ($recette->getPour() != null) { echo $recette->getPour(); } ?></td>
 
-                                <td><input class="input-pour" type="number" name="pour" value="<?php if (is_null($recette->getPour())) { echo $recette->getPour(); } ?>" required /></td>
+                            <td><?php if ($recette->getPhoto() != null) { echo $recette->getPhoto(); } ?></td>
 
-                                <td><input type="text" name="photo" value="<?php if (is_null($recette->getPhoto())) { echo $recette->getPhoto(); } ?>" required /></td>
+                            <td class="td-modif">
+                                <a href="?target=admin&admTarg=recette&action=update&idRec=<?= $recette->getIdRec() ?>" class="btn btn-warning">Modifier</a>
+                            </td>
 
-                                <td class="td-modif"><button class="btn btn-warning">Modifier</button></td>
-
-                            </form>
-
-                            <td class="td-suppr"><a href="" class="btn btn-danger"
-                                                    onclick="return confirm('Etes-vous sûr ?')">Supprimer</a></td>
+                            <td class="td-suppr">
+                                <a href="?target=admin&admTarg=recette&action=delete&idRec=<?= $recette->getIdRec() ?>" class="btn btn-danger">Supprimer</a>
+                            </td>
 
                         </tr>
 
@@ -100,16 +71,23 @@ ob_start();
 
             </table>
 
-            <p><a href="?"><button class="btn btn-success">Ajouter une recette</button></a></p>
+            <p>
+                <a href="?target=admin&admTarg=recette&action=insert"><button class="btn btn-success">Ajouter une recette</button></a>
+                <form enctype="multipart/form-data" action="" method="POST">
+                    <button class="btn btn-violet">Uploader une image</button>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="200000" />
+                    <input type="file" name="myFile" />
+                </form>
+            </p>
 
             <p>
-                <a href="?target=links">
+                <a href="?target=admin&admTarg=link">
                     <button class="btn btn-primary">Liens</button>
                 </a>
-                <a href="?target=typsrubs">
+                <a href="?target=admin&admTarg=typAndRub">
                     <button class="btn btn-primary">Types et Rubriques</button>
                 </a>
-                <a href="?target=users">
+                <a href="?target=admin&admTarg=user">
                     <button class="btn btn-primary">Utilisateurs</button>
                 </a>
             </p>
@@ -118,4 +96,4 @@ ob_start();
 
     </section>
 
-<?php $section =ob_get_clean(); ?>
+<?php $section = ob_get_clean(); ?>

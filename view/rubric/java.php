@@ -2,7 +2,7 @@
 
     <section id="section_java">
 
-    <h2>Java</h2>
+    <h1>Java</h1>
 
     <p>Static => Se récupère à partir de la classe</p>
     <p>Non static => S’applique à une variable</p>
