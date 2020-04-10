@@ -2,8 +2,8 @@
 
 namespace Manager;
 
-use PDO;
 use Model\Vietnam;
+use PDO;
 
 class VnManager extends Manager
 {

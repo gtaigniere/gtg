@@ -2,8 +2,8 @@
 
 namespace Manager;
 
-use PDO;
 use Model\Recette;
+use PDO;
 use PDOException;
 
 class RecetteManager extends Manager

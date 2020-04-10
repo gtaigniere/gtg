@@ -2,8 +2,8 @@
 
 namespace Manager;
 
-use PDO;
 use Model\Rubric;
+use PDO;
 use PDOException;
 
 class RubricManager extends Manager

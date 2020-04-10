@@ -3,7 +3,6 @@
 namespace Manager;
 
 use PDO;
-use PDOException;
 
 class PhotoManager extends Manager
 {

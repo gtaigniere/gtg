@@ -42,10 +42,6 @@ class VnCtrl extends Controller
         $this->recetteManager = new RecetteManager($db);
     }
 
-    /**
-    * @param int $id
-    * @return void
-    */
     public function home(): void
     {
         $recettes = $this->recetteManager->findAll();
@@ -54,10 +50,6 @@ class VnCtrl extends Controller
         require_once ROOT_DIR . 'view/template.php';
     }
 
-    /**
-     * @param int $id
-     * @return void
-     */
     public function galerie(): void
     {
         $recettes = $this->recetteManager->findAll();

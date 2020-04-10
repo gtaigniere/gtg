@@ -2,8 +2,8 @@
 
 namespace Manager;
 
-use PDO;
 use Model\Language;
+use PDO;
 use PDOException;
 
 class LanguageManager extends Manager

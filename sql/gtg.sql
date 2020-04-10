@@ -267,8 +267,8 @@ CREATE TABLE snippet (
     dateCrea DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     comment TEXT NULL,
     requirement TINYTEXT NULL,
-    idUser INT NOT NULL,
     idLang INT DEFAULT NULL,
+    idUser INT NOT NULL,
     PRIMARY KEY (idSnip)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 ALTER TABLE snippet
@@ -279,14 +279,14 @@ ALTER TABLE snippet
 --
 -- Contenu de la table `snippet`
 --
-INSERT INTO snippet (idSnip, title, code, dateCrea, comment, requirement, idUser, idLang) VALUES
+INSERT INTO snippet (idSnip, title, code, dateCrea, comment, requirement, idLang, idUser) VALUES
     (NULL, 'A vérifier', '<?php echo \'test\'; ?>\r\npeut être remplacé par\r\n<?= \'test\'; ?>\r\nA confirmer', '2020-02-05 12:35:27', 'Voir avec Matthieu', NULL, 1, 1),
     (NULL, 'VarLetConst', 'VAR est remplac&eacute; par CONST et LET depuis ES...', '2020-02-07 09:46:52', '', '', 2, 2),
-    (NULL, 'Display', 'display:none; =&gt; ne sera pas affich&eacute;', '2020-02-06 22:15:08', '', '', 2, 3),
+    (NULL, 'Display', 'display:none; =&gt; ne sera pas affich&eacute;', '2020-02-06 22:15:08', '', '', 3, 2),
     (NULL, 'HtmlSpecialChar', 'HTMLSPECIALCHAR($_GET[\'variable\'])', '2020-02-08 16:47:18', NULL, NULL, 1, 1),
-    (NULL, 'Envoyer un mail', 'mail("label@fournisseur", "Sujet", $message, $header);', '2020-02-07 00:00:00', NULL, NULL, 2, 1),
-    (NULL, 'Test ajout', 'var $add = "Ajout d\'un snippet";console.log($add...', '2020-02-09 12:31:40', '', '', 1, 2),
-    (NULL, 'Debugage', '<?phg debugueur ?>', '2020-02-08 07:31:20', NULL, NULL, 2, 1);
+    (NULL, 'Envoyer un mail', 'mail("label@fournisseur", "Sujet", $message, $header);', '2020-02-07 00:00:00', NULL, NULL, 1, 2),
+    (NULL, 'Test ajout', 'var $add = "Ajout d\'un snippet";console.log($add...', '2020-02-09 12:31:40', '', '', 2, 1),
+    (NULL, 'Debugage', '<?phg debugueur ?>', '2020-02-08 07:31:20', NULL, NULL, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -311,5 +311,6 @@ INSERT INTO snipcat (idSnip, idCat) VALUES
     (3, 3),
     (4, 1),
     (5, 2),
-    (7, 1),
-    (1, 2);
+    (6, 1),
+    (7, 2),
+    (7, 3);

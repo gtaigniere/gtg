@@ -27,7 +27,7 @@ class LinkCtrl extends Controller
     public function all(): void
     {
         $links = $this->linkManager->findAll();
-        require (ROOT_DIR . 'view/allLinks.php');
+        require_once (ROOT_DIR . 'view/allLinks.php');
     }
 
     /**

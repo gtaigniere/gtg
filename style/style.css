@@ -99,6 +99,8 @@ h6 => 0.67em	=> 10.5px */
 	--codeAside: #DCD8CA;
 	--sitExtAside: #F1E6E6;
 	--recAside: #DBE9CD;
+	--liSnippets: #007BBF; /* Bleu href */
+	--violet: #9932CC;
 }
 /********** Fin Variables **********/
 /********** Debut General **********/
@@ -659,15 +661,61 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 /***** Fin Pages Inscription, Connexion, et Contact *****/
 /***** Debut Sections Snippets *****/
+#navcol {
+	display: flex;
+	flex-direction: column;
+	padding: 12px;
+	width: 16%;
+	min-width: 220px;
+}
+#navcol h1 {
+	padding-top: 10px;
+	font-size: 1.6rem;
+}
+.ul_title {
+	font-size: 1.2rem;
+}
+#navcol li {
+	padding-left: 8px;
+	font-size: 1.1rem;
+}
+#navcol a {
+	color: var(--liSnippets);
+}
+#listsnippets {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	width: 28%;
+	min-width: 240px;
+}
+#listsnippets h1 {
+	padding-top: 10px;
+	font-size: 2.2rem;
+}
+#listsnippets ul {
+	padding: 0 10px;
+	font-size: 1rem;
+}
+#listsnippets li {
+	padding: 0 5px;
+	color: var(--liSnippets);
+}
+#listsnippets h2 {
+	text-align: left;
+	font-size: 1.1rem;
+	font-weight: bold;
+}
 #section_snippets {
 	display: flex;
 	flex-direction: column;
 	align-content: center;
 	padding: 0 10px;
-	width: 66%;
+	width: 56%;
+	min-width: 330px;
 }
 #section_snippets h1 {
-	padding-top: 20px;
+	padding-top: 0;
 }
 #section_snippets form {
 	align-self: center;
@@ -682,37 +730,25 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	min-width: 130px;
 	width: 20%;
 }
-#navcol {
-	display: flex;
-	flex-direction: column;
-	min-width: 240px;
-}
-#listsnippets {
-	display: flex;
-	flex-direction: column;
-	padding-bottom: 10px;
-	width: 34%;
-}
-#listsnippets h1 {
-	padding-top: 20px;
-}
-#listsnippets ul {
-	padding: 10px;
-}
-#listsnippets li {
-	padding: 0px 5px;
-}
-#listsnippets h2 {
-	text-align: left;
-	font-size: 1em;
-	font-weight: bold;
-}
 #section_snippets .selected {
 	background-color: palegreen;
 }
 #titlesnippet {
+	padding-bottom: 5px;
 	text-align: left;
-	font-size: 1.6em;
+	font-size: 1.5rem;
+	color: var(--violet);
+}
+#cat {
+	font-style: normal;
+	color: var(--liSnippets);
+}
+#section_snippets p {
+	font-size: 1.1rem;
+}
+#section_snippets p:last-child {
+	margin-top: 15px;
+	align-self: center;
 }
 /***** Fin Sections Snippets *****/
 /***** Debut Pages Admin *****/

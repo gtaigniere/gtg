@@ -7,11 +7,13 @@ use Ctrl\HomeCtrl;
 use Ctrl\LinkCtrl;
 use Ctrl\RecetteCtrl;
 use Ctrl\RubricCtrl;
+use Ctrl\SnippetCtrl;
 use Ctrl\VnCtrl;
 use Ctrl\Admin\LinkCtrl as AdmLnkCtrl;
 use Ctrl\Admin\TypRubCtrl as AdmTypRubCtrl;
 use Ctrl\Admin\TypeCtrl as AdmTypCtrl;
 use Ctrl\Admin\RubricCtrl as AdmRubCtrl;
+use Ctrl\Admin\SnippetCtrl as AdmSnipCtrl;
 use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
 use Html\Form;
@@ -64,6 +66,9 @@ class Router
                     break;
                 case 'contact':
                     $this->contact();
+                    break;
+                case 'snippet':
+                    $this->snippet();
                     break;
                 case 'admin':
                     $this->admin();
@@ -135,6 +140,50 @@ class Router
         }
     }
 
+    private function snippet(): void
+    {
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'lang':
+                    $this->snipByLang();
+                    break;
+                case 'cat':
+                    $this->snipByCat();
+                    break;
+                case 'langAndCat':
+                    $this->snipByLangAndCat();
+                    break;
+                default:
+                    $this->snippets();
+            }
+        } else {
+            $this->snippets();
+        }
+    }
+
+    private function snippets(): void
+    {
+        (new SnippetCtrl($this->db))->all();
+    }
+
+    private function snipByLang(): void
+    {
+        $ctrl = new SnippetCtrl($this->db);
+        $ctrl->allByLang();
+    }
+
+    private function snipByCat(): void
+    {
+        $ctrl = new SnippetCtrl($this->db);
+        $ctrl->allByCat();
+    }
+
+    private function snipByLangAndCat(): void
+    {
+        $ctrl = new SnippetCtrl($this->db);
+        $ctrl->allByLangAndCat();
+    }
+
     private function admin(): void
     {
         if (isset($this->params['admTarg'])) {
@@ -168,7 +217,6 @@ class Router
     private function adminLink(): void
     {
         if (isset($this->params['action'])) {
-
             switch ($this->params['action']) {
                 case 'insert':
                     $this->addLink();
@@ -182,7 +230,6 @@ class Router
                 default:
                     $this->links();
             }
-
         } else {
             $this->links();
         }
@@ -252,7 +299,6 @@ class Router
     private function adminType(): void
     {
         if (isset($this->params['action'])) {
-
             switch ($this->params['action']) {
                 case 'insert':
                     $this->addTyp();
@@ -266,7 +312,6 @@ class Router
                 default:
                     $this->typsAndRubs();
             }
-
         } else {
             $this->typsAndRubs();
         }
@@ -318,7 +363,6 @@ class Router
     private function adminRubric(): void
     {
         if (isset($this->params['action'])) {
-
             switch ($this->params['action']) {
                 case 'insert':
                     $this->addRub();
@@ -332,7 +376,6 @@ class Router
                 default:
                     $this->typsAndRubs();
             }
-
         } else {
             $this->typsAndRubs();
         }
@@ -379,7 +422,6 @@ class Router
     private function adminUser(): void
     {
         if (isset($this->params['action'])) {
-
             switch ($this->params['action']) {
                 case 'insert':
                     $this->addUsr();
@@ -393,7 +435,6 @@ class Router
                 default:
                     $this->users();
             }
-
         } else {
             $this->users();
         }
@@ -445,7 +486,6 @@ class Router
     private function adminRecette(): void
     {
         if (isset($this->params['action'])) {
-
             switch ($this->params['action']) {
                 case 'insert':
                     $this->addRec();
@@ -459,7 +499,6 @@ class Router
                 default:
                     $this->recettes();
             }
-
         } else {
             $this->recettes();
         }

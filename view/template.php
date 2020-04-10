@@ -39,9 +39,9 @@
 
 				<ul>
 					<li><a href="index.php">Accueil</a></li>
-                    <?php if (isset($_SESSION['User']))	: ?>
-                        <li><a href="?target=snippets">Snippets</a></li>
-                    <?php endif; ?>
+<!--                    --><?php //if (isset($_SESSION['User']))	: ?>
+                        <li><a href="?target=snippet">Snippets</a></li>
+<!--                    --><?php //endif; ?>
 					<li><a href="?target=vietnam">Vietnam</a></li>
 
 					<?php if (isset($_SESSION['User']))	: ?>

@@ -2,8 +2,8 @@
 
 namespace Manager;
 
-use PDO;
 use Model\Cat;
+use PDO;
 use PDOException;
 
 class CatManager extends Manager
@@ -48,6 +48,29 @@ class CatManager extends Manager
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
             return $assocs ? $this->convInObj($assocs) : null;
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function CatsBySnip(int $id): array
+    {
+        try {
+//            $this->db->exec("set names utf8");
+            $stmt = $this->db->prepare('SELECT c.* FROM cat c
+                JOIN snipcat sc ON sc.idCat = c.idCat
+                WHERE sc.idSnip = :id');
+            $stmt->execute([':id' => $id]);
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $objs = [];
+            foreach ($results as $assocs) {
+                $objs[] = $this->convInObj($assocs);
+            }
+            return $objs;
         } catch(PDOException $e) {
             echo $e->getMessage();
         }

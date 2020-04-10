@@ -17,6 +17,11 @@ class Snippet
     private $title;
 
     /**
+     * @var string
+     */
+    private $code;
+
+    /**
      * @var DateTime
      */
     private $dateCrea;
@@ -32,14 +37,26 @@ class Snippet
     private $requirement;
 
     /**
-     * @var int
+     * @var Language
      */
-    private $idUser;
+    private $language;
 
     /**
-     * @var int
+     * @var UserForSnippet
      */
-    private $idLang;
+    private $user;
+
+    /**
+     * @var Cat[]
+     */
+    private $cats = [];
+
+    /**
+     * Snippet constructor.
+     */
+    public function __construct()
+    {
+    }
 
     /**
      * @return int
@@ -74,6 +91,22 @@ class Snippet
     }
 
     /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+    }
+
+    /**
      * @return DateTime
      */
     public function getDateCrea(): DateTime
@@ -82,17 +115,17 @@ class Snippet
     }
 
     /**
-     * @param DateTime $dateCrea
+     * @param string $dateCrea
      */
-    public function setDateCrea(DateTime $dateCrea): void
+    public function setDateCrea(string $dateCrea): void
     {
-        $this->dateCrea = $dateCrea;
+        $this->dateCrea = DateTime::createFromFormat('Y-m-d H:i:s', $dateCrea);
     }
 
     /**
      * @return string
      */
-    public function getComment(): string
+    public function getComment(): ?string
     {
         return $this->comment;
     }
@@ -100,7 +133,7 @@ class Snippet
     /**
      * @param string $comment
      */
-    public function setComment(string $comment): void
+    public function setComment(?string $comment): void
     {
         $this->comment = $comment;
     }
@@ -108,7 +141,7 @@ class Snippet
     /**
      * @return string
      */
-    public function getRequirement(): string
+    public function getRequirement(): ?string
     {
         return $this->requirement;
     }
@@ -116,41 +149,57 @@ class Snippet
     /**
      * @param string $requirement
      */
-    public function setRequirement(string $requirement): void
+    public function setRequirement(?string $requirement): void
     {
         $this->requirement = $requirement;
     }
 
     /**
-     * @return int
+     * @return Language
      */
-    public function getIdUser(): int
+    public function getLanguage(): Language
     {
-        return $this->idUser;
+        return $this->language;
     }
 
     /**
-     * @param int $idUser
+     * @param Language $language
      */
-    public function setIdUser(int $idUser): void
+    public function setLanguage(Language $language): void
     {
-        $this->idUser = $idUser;
+        $this->language = $language;
     }
 
     /**
-     * @return int
+     * @return UserForSnippet
      */
-    public function getIdLang(): int
+    public function getUser(): UserForSnippet
     {
-        return $this->idLang;
+        return $this->user;
     }
 
     /**
-     * @param int $idLang
+     * @param UserForSnippet $user
      */
-    public function setIdLang(int $idLang): void
+    public function setUser(UserForSnippet $user): void
     {
-        $this->idLang = $idLang;
+        $this->user = $user;
+    }
+
+    /**
+     * @return Cat[]
+     */
+    public function getCats(): array
+    {
+        return $this->cats;
+    }
+
+    /**
+     * @param Cat[] $cats
+     */
+    public function setCats(array $cats): void
+    {
+        $this->cats = $cats;
     }
 
 }

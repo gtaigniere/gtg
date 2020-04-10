@@ -29,12 +29,16 @@ abstract class Manager
 
     /**
      * @param array $assocs
+     * @param string $className
      * @return mixed
      */
-    protected function convInObj(array $assocs)
+    protected function convInObj(array $assocs, string $className = null)
     {
-        if (class_exists($this->className)) {
-            $obj = new $this->className();
+        if ($className == null) {
+            $className = $this->className;
+        }
+        if (class_exists($className)) {
+            $obj = new $className();
             foreach ($assocs as $key => $value) {
                 $setter = 'set' . ucfirst($key);
                 if (method_exists($obj, $setter)) {

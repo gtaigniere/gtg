@@ -2,8 +2,8 @@
 
 namespace Manager;
 
-use PDO;
 use Model\type;
+use PDO;
 use PDOException;
 
 class TypeManager extends Manager

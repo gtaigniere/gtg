@@ -2,8 +2,8 @@
 
 namespace Manager;
 
-use PDO;
 use Model\Link;
+use PDO;
 use PDOException;
 
 class LinkManager extends Manager
@@ -252,11 +252,12 @@ class LinkManager extends Manager
 
     /**
      * @param array $assocs
+     * @param string $className
      * @return mixed
      */
-    protected function convInObj(array $assocs)
+    protected function convInObj(array $assocs, string $className = null)
     {
-        $link = parent::convInObj($assocs);
+        $link = parent::convInObj($assocs, $className);
         $rubric = !is_null($assocs['idRub']) ? $this->rubricManager->findOne($assocs['idRub']) : null;
         $type = !is_null($assocs['idType']) ? $this->typeManager->findOne($assocs['idType']) : null;
         $link->setRubric($rubric);
