@@ -47,7 +47,7 @@ class LinkCtrl extends Controller
     public function open(int $id): void
     {
         $link = $this->linkManager->findOne($id);
-        if (!is_null($link)) {
+        if (($link) != null) {
             $labelType = $link->getType()->getLabel();
             if ($labelType == 'Site-ext') {
                 header('Location: ' . $link->getAdrOrFile());

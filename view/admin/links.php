@@ -55,12 +55,12 @@ ob_start();
 <!--                            <td style="display: none;">--><?php //$form->input('idLink') ?><!--</td>-->
 
                             <td><input type="text" name="label"
-                                       value="<?php if (!is_null($link->getLabel())) {
+                                       value="<?php if ($link->getLabel() != null) {
                                     echo $link->getLabel();
                                 } ?>"/></td>
 
                             <td><input type="text" name="adrOrFile"
-                                       value="<?php if (!is_null($link->getAdrOrFile())) {
+                                       value="<?php if ($link->getAdrOrFile() != null) {
                                     echo $link->getAdrOrFile();
                                 } ?>"/></td>
 

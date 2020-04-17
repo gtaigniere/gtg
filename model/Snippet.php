@@ -37,12 +37,12 @@ class Snippet
     private $requirement;
 
     /**
-     * @var Language
+     * @var Language|null
      */
     private $language;
 
     /**
-     * @var UserForSnippet
+     * @var UserForSnip
      */
     private $user;
 
@@ -163,25 +163,25 @@ class Snippet
     }
 
     /**
-     * @param Language $language
+     * @param Language|null $language
      */
-    public function setLanguage(Language $language): void
+    public function setLanguage(?Language $language): void
     {
         $this->language = $language;
     }
 
     /**
-     * @return UserForSnippet
+     * @return UserForSnip
      */
-    public function getUser(): UserForSnippet
+    public function getUser(): UserForSnip
     {
         return $this->user;
     }
 
     /**
-     * @param UserForSnippet $user
+     * @param UserForSnip $user
      */
-    public function setUser(UserForSnippet $user): void
+    public function setUser(UserForSnip $user): void
     {
         $this->user = $user;
     }

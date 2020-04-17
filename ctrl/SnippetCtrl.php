@@ -53,11 +53,15 @@ class SnippetCtrl extends Controller
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
+    /**
+     * @param int $id
+     */
     public function one(int $id): void
     {
-//        $snippets = $this->snippetManager->findAll();
-//        $snippet = $this->snippetManager->findOne($id);
-        $snippet = $this->oneWithCats();
+        $languages = $this->languageManager->findAll();
+        $cats = $this->catManager->findAll();
+        $snippets = $this->snippetManager->findAll();
+        $snippet = $this->snippetManager->findOne($id);
         require_once (ROOT_DIR . 'view/snippet.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }

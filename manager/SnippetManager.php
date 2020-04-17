@@ -2,9 +2,12 @@
 
 namespace Manager;
 
+use DateTime;
+use Html\Form;
 use Model\Snippet;
 use PDO;
 use PDOException;
+use Service\AuthService;
 
 class SnippetManager extends Manager
 {
@@ -40,18 +43,13 @@ class SnippetManager extends Manager
      */
     public function findAll(): array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->query('SELECT * FROM snippet');
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->query('SELECT * FROM snippet');
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
@@ -60,15 +58,10 @@ class SnippetManager extends Manager
      */
     public function findOne(int $id): ?Snippet
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT * FROM snippet WHERE idSnip = :id');
-            $stmt->execute([':id' => $id]);
-            $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $assocs ? $this->convInObj($assocs) : null;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+        $stmt = $this->db->prepare('SELECT * FROM snippet WHERE idSnip = :id');
+        $stmt->execute([':id' => $id]);
+        $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $assocs ? $this->convInObj($assocs) : null;
     }
 
     /**
@@ -76,14 +69,9 @@ class SnippetManager extends Manager
      */
     public function findLast(): ?Snippet
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->query('SELECT * FROM snippet ORDER BY idSnip DESC LIMIT 1');
-            $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $assocs ? $this->convInObj($assocs) : null;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+        $stmt = $this->db->query('SELECT * FROM snippet ORDER BY idSnip DESC LIMIT 1');
+        $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $assocs ? $this->convInObj($assocs) : null;
     }
 
     /**
@@ -228,33 +216,33 @@ class SnippetManager extends Manager
     }
 
     /**
-     * @param Snippet $snippet
+     *
+     * @param Form $form
      * @return Snippet|null
      */
-    public function insert(Snippet $snippet): ?Snippet
+    public function insert(Form $form): ?Snippet
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare(
-                'INSERT INTO language (title, dateCrea, comment, requirement, idUser, idLang)
-                            VALUES (:title, :dateCrea, :comment, :requirement, :idLang, :idUser)');
-            if ($stmt->execute(
-                [
-                    ':title' => $snippet->getTitle(),
-                    ':dateCrea' => $snippet->getDateCrea(),
-                    ':comment' => $snippet->getComment(),
-                    ':requirement' => $snippet->getRequirement(),
-                    ':idLang' => $snippet->getLanguage() != null ? $snippet->getLanguage()->getIdLang() : null,
-                    ':idUser' => $snippet->getIdUser()
-                ]
-            )) {
-                $id = $this->db->lastInsertId();
-                return $this->findOne($id);
+        $stmt = $this->db->prepare(
+            'INSERT INTO snippet (title, code, dateCrea, comment, requirement, idUser, idLang)
+                        VALUES (:title, :code, :dateCrea, :comment, :requirement, :idLang, :idUser)');
+        if ($stmt->execute(
+            [
+                ':title' => $form->getValue('title'),
+                ':code' => $form->getValue('code'),
+                ':dateCrea' => (new DateTime())->format('Y-m-d H:i:s'),
+                ':comment' => $form->getValue('comment') != null ? $form->getValue('comment') : null,
+                ':requirement' => $form->getValue('requirement') != null ? $form->getValue('requirement') : null,
+                ':idLang' => $form->getValue('language') != null ? $form->getValue('language') : null,
+                ':idUser' => AuthService::getUser()->getIdUser()
+            ]
+        )) {
+            $id = $this->db->lastInsertId();
+            foreach($form->getValue('cats') as $idCat) {
+                $this->addCatForSnip($id, $idCat);
             }
-            return null;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+            return $this->findOne($id);
         }
+        return null;
     }
 
     /**
@@ -263,14 +251,9 @@ class SnippetManager extends Manager
      */
     public function delete(int $id): bool
     {
-        try {
-//            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('DELETE FROM snippet WHERE idSnip=:id');
             $stmt->execute([':id' => $id]);
-            return $stmt->rowCount();
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+            return $stmt->rowCount() > 0;
     }
 
     /**
@@ -289,19 +272,44 @@ class SnippetManager extends Manager
                 [
                     ':title' => $snippet->getTitle(),
                     ':dateCrea' => $snippet->getDateCrea(),
-                    ':comment' => $snippet->getComment(),
-                    ':requirement' => $snippet->getRequirement(),
-                    ':idLang' => $snippet->getLanguage() != null ? $snippet->getLanguage()->getIdLang() : null,
-                    ':idUser' => $snippet->getIdUser(),
+                    ':comment' => $snippet->getComment() != null ? $snippet->getComment() : null,
+                    ':requirement' => $snippet->getRequirement() != null ? $snippet->getRequirement() : null,
+                    ':language' => $snippet->getLanguage() != null ? $snippet->getLanguage() : null,
+                    ':user' => $snippet->getUser(),
                     ':id' => $snippet->getIdSnip()
                 ]
             )) {
-                return $this->findOne($snippet->getIdLang());
+                return $this->findOne($snippet->getIdSnip());
             }
             return null;
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+    }
+
+    /**
+     * @param $idSnip
+     * @param $idCat
+     * @return int
+     */
+    public function addCatForSnip($idSnip, $idCat): int
+    {
+        $stmt = $this->db->prepare(
+            'INSERT INTO snipcat (idSnip, idCat)
+                        VALUES (:idSnip, :idCat)');
+        $stmt->execute([':idSnip' => $idSnip, ':idCat' => $idCat]);
+        return $stmt->rowCount();
+    }
+
+    /**
+     * @param $id
+     * @return int
+     */
+    public function supCatsForSnip($id): int
+    {
+        $stmt = $this->db->prepare('DELETE FROM snipcat WHERE idSnip=:id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
     protected function convInObjTest()

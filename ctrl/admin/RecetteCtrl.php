@@ -37,32 +37,6 @@ class RecetteCtrl extends Controller
     }
 
     /**
-     * @param int $id
-     * @return void
-     */
-    public function one(int $id): void
-    {
-        $recette = $this->recetteManager->findOne($id);
-        if ($recette != null) {
-            $form = new Form(
-                [
-                    'idRec' => $recette->getIdRec(),
-                    'label' => $recette->getLabel(),
-                    'infos' => $recette->getInfos(),
-                    'pour' => $recette->getPour(),
-                    'ingredient' => $recette->getIngredient(),
-                    'photo' => $recette->getPhoto(),
-                    'detail' => $recette->getDetail()
-                ]
-            );
-            require_once(ROOT_DIR . 'view/admin/recette.php');
-            require_once(ROOT_DIR . 'view/template.php');
-        } else {
-            $this->notFound();
-        }
-    }
-
-    /**
      * @param Form $form
      * @return void
      */

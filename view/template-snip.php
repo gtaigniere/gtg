@@ -112,7 +112,7 @@ use Model\Snippet;
             </aside>
 
             <aside id="listsnippets">
-                <h1>Les snippets</h1>
+                <h1>Liste snippets</h1>
                 <ul>
                     <?php foreach($snippets as $snippet) : ?>
                         <?php if ($snippet instanceof Snippet) : ?>
@@ -120,7 +120,7 @@ use Model\Snippet;
                             <li class="">
                                 <h2><?= $snippet->getTitle() ?></h2>
                                 <p><?= $snippet->getLanguage()->getLabel() ?></p>
-                                <p><?= $snippet->getDateCrea()->format('Y-m-d') ?></p>
+                                <p><?= $snippet->getDateCrea()->format('d-m-Y') ?></p>
                             </li>
                         </a>
                         <?php endif; ?>

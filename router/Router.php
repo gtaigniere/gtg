@@ -163,7 +163,12 @@ class Router
 
     private function snippets(): void
     {
-        (new SnippetCtrl($this->db))->all();
+        $ctrl = new SnippetCtrl($this->db);
+        if (isset($this->params['id'])) {
+            $ctrl->one($this->params['id']);
+        } else {
+            $ctrl->all();
+        }
     }
 
     private function snipByLang(): void
@@ -205,6 +210,9 @@ class Router
                     break;
                 case 'recette':
                     $this->adminRecette();
+                    break;
+                case 'snippet':
+                    $this->adminSnippet();
                     break;
                 default:
                     $this->adminLink();
@@ -532,6 +540,52 @@ class Router
     private function recettes(): void
     {
         (new AdmRecCtrl($this->db))->all();
+    }
+
+    private function adminSnippet(): void
+    {
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'insert':
+                    $this->addSnip();
+                    break;
+                case 'update':
+                    $this->updSnip();
+                    break;
+                case 'delete':
+                    $this->delSnip();
+                    break;
+                default:
+                    $this->snippets();
+            }
+        } else {
+            $this->snippets();
+        }
+    }
+
+    private function addSnip(): void
+    {
+        (new AdmSnipCtrl($this->db))->ajouter(new Form($_POST));
+    }
+
+    private function updSnip(): void
+    {
+        $ctrl = new AdmSnipCtrl($this->db);
+        if (is_numeric($_GET['id'])) {
+            $ctrl->modifier($_GET['id'], new Form($_POST));
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function delSnip(): void
+    {
+        $ctrl = new AdmSnipCtrl(($this->db));
+        if (is_numeric($_GET['id'])) {
+            $ctrl->supprimer($_GET['id'], new Form($_POST));
+        } else {
+            $ctrl->notFound();
+        }
     }
 
 }

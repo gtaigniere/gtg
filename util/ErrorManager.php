@@ -10,7 +10,7 @@ class ErrorManager
      */
     public static function getMessages(): array
     {
-        // Equivalent à return !is_null($_SESSION['error']) ? $_SESSION[error'] : [] ;
+        // Equivalent à return ($_SESSION['error'] != null) ? $_SESSION[error'] : [] ;
 
         return isset($_SESSION['error']) ? $_SESSION['error'] : [];
     }

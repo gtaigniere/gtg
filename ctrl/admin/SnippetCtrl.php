@@ -3,11 +3,17 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use Form\SnippetForm;
 use Html\Form;
+use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;
+use Manager\UserManager;
+use Model\Cat;
 use Model\Snippet;
+use Model\UserForSnip;
 use PDO;
+use PDOException;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
@@ -24,6 +30,16 @@ class SnippetCtrl extends Controller
     private $languageManager;
 
     /**
+     * @var UserForSnip
+     */
+    private $userManager;
+
+    /**
+     * @var CatManager
+     */
+    private $catManager;
+
+    /**
      * SnippetCtrl constructor.
      * @param PDO $db
      */
@@ -31,6 +47,8 @@ class SnippetCtrl extends Controller
     {
         $this->snippetManager = new SnippetManager($db);
         $this->languageManager = new LanguageManager($db);
+        $this->userManager = new UserManager($db);
+        $this->catManager = new CatManager($db);
     }
 
     /**
@@ -38,65 +56,106 @@ class SnippetCtrl extends Controller
      */
     public function all(): void
     {
+        $languages = $this->languageManager->findAll();
+        $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
-        require_once(ROOT_DIR . 'view/???.php');
-        require_once(ROOT_DIR . 'view/template-snip.php');
-    }
-
-    /**
-     * @param int $id
-     */
-    public function one(int $id): void
-    {
-        $snippets = $this->snippetManager->findAll();
-        $snippet = $this->snippetManager->findOne($id);
+        $snippet = $this->snippetManager->findLast();
         require_once (ROOT_DIR . 'view/snippet.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
     /**
      * @param Form $form
+     * @return void
      */
     public function ajouter(Form $form): void
     {
-        // Si le formulaire est validé
-        if (isset($_POST['validate'])) {
-            // Alors on persiste les données
-            $this->add($form);
-        }
-        // Sinon on le valide
-        else {
-            $this->validate($_POST);
-        }
-    }
-
-    /**
-     * @param Form $form
-     */
-    public function modifier(Form $form): void
-    {
-        // Si le formulaire est validé
-        if (isset($_POST['validate'])) {
-            // Alors on persiste les données
-            $this->upd($form);
-        } // Sinon on le valide
-        else {
-            $this->validate($_POST);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Si le formulaire est validé
+            if ($form->getValue('validate') != null) {
+                // Alors on persiste les données
+                $this->add($form);
+            } // Sinon on le valide
+            else {
+                $this->validate($form->getDatas());
+            }
+        } else {
+            $languages = $this->languageManager->findAll();
+            $cats = $this->catManager->findAll();
+            $snippets = $this->snippetManager->findAll();
+            $action = 'insert';
+            require_once(ROOT_DIR . 'view/admin/snippet.php');
+            require_once(ROOT_DIR . 'view/template-snip.php');
         }
     }
 
     /**
+     * @param int $id
      * @param Form $form
      */
-    public function supprimer(Form $form): void
+    public function modifier(int $id, Form $form): void
     {
-        // Si on est en POST et que c'est validé
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
-            // Alors on supprime les données
-            $this->del($form->getValue('idSnip'));
-        } // Sinon on le valide
-        else {
-            $this->validate(['idSnip' => $form->getValue('idSnip')]);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($form->getValue('validate') != null) {
+                $this->upd($form);
+            } else {
+                $this->validate($form->getDatas());
+            }
+        } else {
+            $snippet = $this->snippetManager->findOne($id);
+            if ($snippet != null) {
+                $form = new SnippetForm($snippet);
+                $languages = $this->languageManager->findAll();
+                $cats = $this->catManager->findAll();
+                $snippets = $this->snippetManager->findAll();
+                $action = 'update';
+                require_once ROOT_DIR . 'view/admin/snippet.php';
+                require_once ROOT_DIR . 'view/template-snip.php';
+            } else {
+                $this->notFound();
+            }
+        }
+    }
+
+    /**
+     * @param int $id
+     * @param Form $form
+     */
+    public function supprimer(int $id, Form $form): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($form->getValue('validate') != null) {
+                $this->del($id);
+                $this->snippetManager->supCatsForSnip($id);
+            } else {
+                $this->validate($form->getDatas());
+            }
+        } else {
+            $snippet = $this->snippetManager->findOne($id);
+            if ($snippet != null) {
+                $form = new Form([
+                    'idSnip' => $snippet->getIdSnip(),
+                    'title' => $snippet->getTitle(),
+                    'code' => $snippet->getCode(),
+                    'dateCrea' => $snippet->getDateCrea()->format('d-m-Y H:i:s'),
+                    'comment' => $snippet->getComment(),
+                    'requirement' => $snippet->getRequirement(),
+                    'language' => $snippet->getLanguage()->getIdLang(),
+                    'user' => $snippet->getUser()->getIdUser(),
+                    'cats' =>
+                        array_map(function(Cat $cat) {
+                            return $cat->getIdCat();
+                        }, $snippet->getCats())
+                ]);
+                $languages = $this->languageManager->findAll();
+                $cats = $this->catManager->findAll();
+                $snippets = $this->snippetManager->findAll();
+                $action = 'delete';
+                require_once ROOT_DIR . 'view/admin/snippet.php';
+                require_once ROOT_DIR . 'view/template-snip.php';
+            } else {
+                $this->notFound();
+            }
         }
     }
 
@@ -106,25 +165,19 @@ class SnippetCtrl extends Controller
      */
     public function add(Form $form): void
     {
-        $snippet = new Snippet();
-        $snippet->setTitle($form->getValue('title'));
-        $snippet->setDateCrea($form->getValue('dateCrea'));
-        $snippet->setComment($form->getValue('comment'));
-        $snippet->setRequirement($form->getValue('requirement'));
-        $idLang = $form->getValue('idLang');
-        $language = is_numeric($idLang) ? $this->languageManager->findOne((int)$idLang) : null;
-        $snippet->setLanguage($language);
-        $snippet->setIdUser($form->getValue('idUser'));
-        $snippet = $this->snippetManager->insert($snippet);
+        $snippet = $this->snippetManager->insert($form);
+
         if ($snippet == null) {
             ErrorManager::add('Erreur lors de l\'ajout du snippet !');
         } else {
             SuccessManager::add('Le snippet a été ajouté avec succès.');
         }
+        $languages = $this->languageManager->findAll();
+        $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findLast();
-        require_once(ROOT_DIR . 'view/???.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        require_once (ROOT_DIR . 'view/snippet.php');
+        require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
     /**
@@ -141,17 +194,23 @@ class SnippetCtrl extends Controller
         $idLang = $form->getValue('idLang');
         $language = is_numeric($idLang) ? $this->languageManager->findOne((int)$idLang) : null;
         $snippet->setLanguage($language);
-        $snippet->setIdUser($form->getValue('idUser'));
+        $idUser = $form->getValue('idUser');
+        $user = is_numeric($idUser) ? $this->userManager->findOne((int)$idUser) : null;
+        $snippet->setUser($user);
+        $cats = $form->getValue('cats');
+        $snippet->setCats($cats);
         $snippet = $this->snippetManager->update($snippet);
         if ($snippet == null) {
             ErrorManager::add('Erreur lors de la modification du snippet !');
         } else {
             SuccessManager::add('Le snippet a été modifié avec succès.');
         }
+        $languages = $this->languageManager->findAll();
+        $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
-        $snippet = $this->snippetManager->findOne();
-        require_once(ROOT_DIR . 'view/???.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $snippet = $this->snippetManager->findLast();
+        require_once (ROOT_DIR . 'view/snippet.php');
+        require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
     /**
@@ -160,16 +219,19 @@ class SnippetCtrl extends Controller
      */
     public function del(int $id): void
     {
-        $result = $this->snippetManager->delete($id);
-        if (!$result) {
-            ErrorManager::add('Erreur lors de la suppression du snippet !');
-        } else {
+        try {
+            $this->snippetManager->delete($id);
+            $this->snippetManager->supCatsForSnip($id);
             SuccessManager::add('Le snippet a été supprimé avec succès.');
+        } catch(PDOException $e) {
+            ErrorManager::add('Erreur lors de la suppression du snippet !');
         }
+        $languages = $this->languageManager->findAll();
+        $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
-        $snippet = $this->snippetManager->findOne();
-        require_once(ROOT_DIR . 'view/???.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $snippet = $this->snippetManager->findLast();
+        require_once (ROOT_DIR . 'view/snippet.php');
+        require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
     /**

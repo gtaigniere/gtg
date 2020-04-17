@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class UserForSnippet
+class UserForSnip
 {
     /**
      * @var int

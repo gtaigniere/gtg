@@ -665,7 +665,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	display: flex;
 	flex-direction: column;
 	padding: 12px;
-	width: 16%;
+	width: 18%;
 	min-width: 220px;
 }
 #navcol h1 {
@@ -686,7 +686,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
-	width: 28%;
+	width: 26%;
 	min-width: 240px;
 }
 #listsnippets h1 {
@@ -706,7 +706,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	font-size: 1.1rem;
 	font-weight: bold;
 }
-#section_snippets {
+#section_snippet {
 	display: flex;
 	flex-direction: column;
 	align-content: center;
@@ -714,23 +714,27 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	width: 56%;
 	min-width: 330px;
 }
-#section_snippets h1 {
+#section_snippet h1 {
 	padding-top: 0;
 }
-#section_snippets form {
+#section_snippet .alert {
+	border-radius: 8px;
+	align-self: center;
+}
+#section_snippet form {
 	align-self: center;
 	padding: 10px;
 	width: 90%;
 }
-#section_snippets form div {
+#section_snippet form div {
 	display: flex;
 	justify-content: center;
 }
-#section_snippets form label {
+#section_snippet form label {
 	min-width: 130px;
 	width: 20%;
 }
-#section_snippets .selected {
+#section_snippet .selected {
 	background-color: palegreen;
 }
 #titlesnippet {
@@ -743,10 +747,10 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	font-style: normal;
 	color: var(--liSnippets);
 }
-#section_snippets p {
+#section_snippet p {
 	font-size: 1.1rem;
 }
-#section_snippets p:last-child {
+#last_p {
 	margin-top: 15px;
 	align-self: center;
 }
@@ -773,6 +777,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	/* #sect-adm_links, sect-adm_users,
 		sect-adm_typsrubs, sect-adm_recettes  */
 	width: auto;
+	border-radius: 8px;
 }
 .sect-adm table {
 	/* sect-adm_links, sect-adm_users, sect-adm_recettes */
@@ -898,50 +903,56 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	margin-top: inherit;
 }
 /***** Fin Page Recettes Admin *****/
-/***** Debut Page Recette Admin *****/
-#sect-adm_recette {
+/***** Debut Page Recette Admin et Snippet Admin *****/
+#sect-adm_recette, #sect-adm_snippet {
 	align-items: center;
 }
-#sect-adm_recette form {
+#sect-adm_recette form, #sect-adm_snippet form {
 	padding-bottom: 10px;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	max-width: 900px;
 }
-#sect-adm_recette form > div {
+#sect-adm_recette form > div, #sect-adm_snippet form > div {
 	padding: 10px 0;
 }
-#sect-adm_recette label {
+#sect-adm_recette label, #sect-adm_snippet label {
 	width: calc(31% - 10px);
 }
-#sect-adm_recette input, #sect-adm_recette textarea {
+#sect-adm_recette input, #sect-adm_recette textarea,
+#sect-adm_snippet input, #sect-adm_snippet textarea,
+#sect-adm_snippet select {
 	background-color: var(--fndInput);
 	border-radius: 6px;
 }
-#sect-adm_recette input {
+#sect-adm_recette input, #sect-adm_snippet input,
+#sect-adm_snippet select {
 	width: 40%;
 	min-width: 180px;
 }
-.areatext_recette {
+.areatext_recette, .areatext_snippet {
 	display: flex;
 }
-#sect-adm_recette textarea {
+#sect-adm_recette textarea, #sect-adm_snippet textarea {
 	margin-bottom: 7px;
 	width: 40%;
 	min-width: 180px;
 	resize: none;
 }
-#sect-adm_recette form button {
+#sect-adm_recette form button, #sect-adm_snippet form button {
 	margin-top: 15px;
 	align-self: center;
 	width: auto;
 	border-radius: 4px;
 }
+#sect-adm_snippet form .btn-success {
+	margin-bottom: 15px;
+}
 #sect-adm_recette a:last-child {
 	border-radius: 4px;
 }
-/***** Fin Page Recette Admin *****/
+/***** Fin Page Recette Admin et Snippet Admin *****/
 /***** Debut Page Validation Admin *****/
 #sect-adm_validation p {
 	font-size: 1.5em;

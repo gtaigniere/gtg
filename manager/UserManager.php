@@ -2,7 +2,7 @@
 
 namespace Manager;
 
-use Model\UserForSnippet;
+use Model\UserForSnip;
 use Model\User;
 use PDO;
 use PDOException;
@@ -56,16 +56,16 @@ class UserManager extends Manager
 
     /**
      * @param int $id
-     * @return UserForSnippet|null
+     * @return UserForSnip|null
      */
-    public function findOneForSnippet(int $id): ?UserForSnippet
+    public function findOneForSnippet(int $id): ?UserForSnip
     {
         try {
 //            $this->db->exec("set names utf8");
             $stmt = $this->db->prepare('SELECT idUser, pseudo FROM user WHERE idUser = :id');
             $stmt->execute([':id' => $id]);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-            return ($assocs ? $this->convInObj($assocs, UserForSnippet::class) : null);
+            return ($assocs ? $this->convInObj($assocs, UserForSnip::class) : null);
         } catch(PDOException $e) {
             echo $e->getMessage();
         }

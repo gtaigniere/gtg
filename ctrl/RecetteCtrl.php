@@ -47,7 +47,7 @@ class RecetteCtrl extends Controller
         $recettes = $this->recetteManager->findAll();
         $recette = $this->recetteManager->findOne($id);
         $links = $this->linkManager->findAllAsides($idRub = 13, ['site-ext', 'menu-rubrique']);
-        if (!is_null($recette)) {
+        if (($recette) != null) {
             require_once ROOT_DIR . 'view/recette.php';
             require_once ROOT_DIR . 'view/template.php';
         } else {
