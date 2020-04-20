@@ -750,7 +750,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #section_snippet p {
 	font-size: 1.1rem;
 }
-#last_p {
+#afterlast_p, #last_p {
 	margin-top: 15px;
 	align-self: center;
 }
@@ -859,30 +859,41 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	width: 95%;
 }
 /***** Fin Page Utilisateurs Admin *****/
-/***** Debut Page Types et Rubriques Admin *****/
-#sect-adm_typsrubs div {
+/***** Debut Page Types et Rubriques Admin
+ 	+ Catégories et Languages Admin *****/
+#sect-adm_catslangs {
+	width: 56%;
+}
+#sect-adm_typsrubs div, #sect-adm_catslangs div {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: flex-start;
 	width: 100%;
 }
-#sect-adm_typsrubs table:first-child {
+#sect-adm_typsrubs table:first-child,
+#sect-adm_catslangs table:first-child {
 	max-width: 400px;
 }
 #sect-adm_typsrubs table:last-child {
 	max-width: 500px;
 }
-#sect-adm_typsrubs th {
+#sect-adm_catslangs table:last-child {
+	max-width: 400px;
+}
+#sect-adm_typsrubs th, #sect-adm_catslangs th {
 	border-radius: inherit;
 }
-#sect-adm_typsrubs th:first-child {
+#sect-adm_typsrubs th:first-child,
+#sect-adm_catslangs th:first-child {
 	border-radius: 4px 0 0 4px;
 }
-#sect-adm_typsrubs th:last-child {
+#sect-adm_typsrubs th:last-child,
+#sect-adm_catslangs th:last-child {
 	border-radius: 0 4px 4px 0;
 }
-/***** Fin Page Types et Rubriques Admin *****/
+/***** Fin Page Types et Rubriques Admin
+  	+ Catégories et Languages Admin *****/
 /***** Debut Page Recettes Admin *****/
 #sect-adm_recettes th:last-child {
 	border-radius: 0 4px 4px 0;

@@ -58,13 +58,15 @@ class LinkCtrl extends Controller
     public function ajouter(Form $form): void
     {
         // Si le formulaire est validé
-        if (isset($_POST['validate'])) {
-            // Alors on persiste les données
-            $this->add($form);
-        }
-        // Sinon on le valide
-        else {
-            $this->validate($_POST);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($form->getValue('validate') != null) {
+                // Alors on persiste les données
+                $this->add($form);
+            } else {
+                $this->validate($form->getDatas());
+            }
+        } else {
+            $this->unauthorizedMethod();
         }
     }
 
@@ -73,28 +75,31 @@ class LinkCtrl extends Controller
      */
     public function modifier(Form $form): void
     {
-        // Si le formulaire est validé
-        if (isset($_POST['validate'])) {
-            // Alors on persiste les données
-            $this->upd($form);
-        } // Sinon on le valide
-        else {
-            $this->validate($_POST);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Si le formulaire est validé
+            if ($form->getValue('validate') != null) {
+                // Alors on persiste les données
+                $this->upd($form);
+            } else {
+                $this->validate($form->getDatas());
+            }
+        } else {
+            $this->unauthorizedMethod();
         }
     }
 
     /**
+     * @param int $id
      * @param Form $form
      */
-    public function supprimer(Form $form): void
+    public function supprimer(int $id, Form $form): void
     {
         // Si on est en POST et que c'est validé
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
             // Alors on supprime les données
-            $this->del($form->getValue('idLink'));
-        } // Sinon on le valide
-        else {
-            $this->validate(['idLink' => $form->getValue('idLink')]);
+            $this->del($id);
+        } else {
+            $this->validate([]);
         }
     }
 

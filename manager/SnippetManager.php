@@ -4,6 +4,7 @@ namespace Manager;
 
 use DateTime;
 use Html\Form;
+use Exception;
 use Model\Snippet;
 use PDO;
 use PDOException;
@@ -80,21 +81,16 @@ class SnippetManager extends Manager
      */
     public function findByLang(int $id): ?array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT s.* FROM snippet s
-                JOIN snipcat sc ON sc.idSnip = s.idSnip
-                WHERE s.idLang = :id');
-            $stmt->execute([':id' => $id]);
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('SELECT s.* FROM snippet s
+            JOIN snipcat sc ON sc.idSnip = s.idSnip
+            WHERE s.idLang = :id');
+        $stmt->execute([':id' => $id]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
@@ -103,21 +99,16 @@ class SnippetManager extends Manager
      */
     public function findLastByLang(int $id): ?array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT s.* FROM snippet s
-                JOIN snipcat sc ON sc.idSnip = s.idSnip
-                WHERE s.idLang = :id ORDER BY idSnip DESC LIMIT 1');
-            $stmt->execute([':id' => $id]);
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('SELECT s.* FROM snippet s
+            JOIN snipcat sc ON sc.idSnip = s.idSnip
+            WHERE s.idLang = :id ORDER BY idSnip DESC LIMIT 1');
+        $stmt->execute([':id' => $id]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
@@ -126,21 +117,16 @@ class SnippetManager extends Manager
      */
     public function findByCat(int $id): ?array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT s.* FROM snippet s
-                JOIN snipcat sc ON sc.idSnip = s.idSnip
-                WHERE sc.idCat = :id');
-            $stmt->execute([':id' => $id]);
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('SELECT s.* FROM snippet s
+            JOIN snipcat sc ON sc.idSnip = s.idSnip
+            WHERE sc.idCat = :id');
+        $stmt->execute([':id' => $id]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
@@ -149,21 +135,16 @@ class SnippetManager extends Manager
      */
     public function findLastByCat(int $id): ?array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT s.* FROM snippet s
-                JOIN snipcat sc ON sc.idSnip = s.idSnip
-                WHERE sc.idCat = :id ORDER BY idSnip DESC LIMIT 1');
-            $stmt->execute([':id' => $id]);
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('SELECT s.* FROM snippet s
+            JOIN snipcat sc ON sc.idSnip = s.idSnip
+            WHERE sc.idCat = :id ORDER BY idSnip DESC LIMIT 1');
+        $stmt->execute([':id' => $id]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
@@ -173,21 +154,16 @@ class SnippetManager extends Manager
      */
     public function findByLangAndCat(int $idLang, int $idCat): ?array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT s.* FROM snippet s
-                JOIN snipcat sc ON sc.idSnip = s.idSnip
-                WHERE s.idLang = :idLang AND sc.idCat = :idCat');
-            $stmt->execute([':idLang' => $idLang, ':idCat' => $idCat]);
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('SELECT s.* FROM snippet s
+            JOIN snipcat sc ON sc.idSnip = s.idSnip
+            WHERE s.idLang = :idLang AND sc.idCat = :idCat');
+        $stmt->execute([':idLang' => $idLang, ':idCat' => $idCat]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
@@ -197,28 +173,24 @@ class SnippetManager extends Manager
      */
     public function findLastByLangAndCat(int $idLang, int $idCat): ?array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT s.* FROM snippet s
-                JOIN snipcat sc ON sc.idSnip = s.idSnip
-                WHERE s.idLang = :idLang AND sc.idCat = :idCat
-                ORDER BY idSnip DESC LIMIT 1');
-            $stmt->execute([':idLang' => $idLang, ':idCat' => $idCat]);
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('SELECT s.* FROM snippet s
+            JOIN snipcat sc ON sc.idSnip = s.idSnip
+            WHERE s.idLang = :idLang AND sc.idCat = :idCat
+            ORDER BY idSnip DESC LIMIT 1');
+        $stmt->execute([':idLang' => $idLang, ':idCat' => $idCat]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
      *
      * @param Form $form
      * @return Snippet|null
+     * @throws Exception
      */
     public function insert(Form $form): ?Snippet
     {
@@ -246,45 +218,40 @@ class SnippetManager extends Manager
     }
 
     /**
-     * @param int $id
-     * @return bool
-     */
-    public function delete(int $id): bool
-    {
-            $stmt = $this->db->prepare('DELETE FROM snippet WHERE idSnip=:id');
-            $stmt->execute([':id' => $id]);
-            return $stmt->rowCount() > 0;
-    }
-
-    /**
      * @param Snippet $snippet
      * @return Snippet|null
      */
     public function update(Snippet $snippet): ?Snippet
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare(
-                'UPDATE snippet
-                            SET title=:title, dateCrea=:dateCrea, comment=:comment, requirement=:requirement, idLang=:idLang, idUser=:idUser
-                            WHERE idSnip=:id');
-            if ($stmt->execute(
-                [
-                    ':title' => $snippet->getTitle(),
-                    ':dateCrea' => $snippet->getDateCrea(),
-                    ':comment' => $snippet->getComment() != null ? $snippet->getComment() : null,
-                    ':requirement' => $snippet->getRequirement() != null ? $snippet->getRequirement() : null,
-                    ':language' => $snippet->getLanguage() != null ? $snippet->getLanguage() : null,
-                    ':user' => $snippet->getUser(),
-                    ':id' => $snippet->getIdSnip()
-                ]
-            )) {
-                return $this->findOne($snippet->getIdSnip());
-            }
-            return null;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare(
+            'UPDATE snippet
+                        SET title=:title, dateCrea=:dateCrea, comment=:comment, requirement=:requirement, idLang=:idLang, idUser=:idUser
+                        WHERE idSnip=:id');
+        if ($stmt->execute(
+            [
+                ':title' => $snippet->getTitle(),
+                ':dateCrea' => $snippet->getDateCrea(),
+                ':comment' => $snippet->getComment() != null ? $snippet->getComment() : null,
+                ':requirement' => $snippet->getRequirement() != null ? $snippet->getRequirement() : null,
+                ':language' => $snippet->getLanguage() != null ? $snippet->getLanguage() : null,
+                ':user' => $snippet->getUser(),
+                ':id' => $snippet->getIdSnip()
+            ]
+        )) {
+            return $this->findOne($snippet->getIdSnip());
         }
+        return null;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM snippet WHERE idSnip=:id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
     /**

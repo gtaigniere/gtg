@@ -246,54 +246,23 @@ class Router
     private function addLink(): void
     {
         $ctrl = new AdmLnkCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            // Si le formulaire est validé
-            if (isset($_POST['validate'])) {
-                // Alors on persiste les données
-                $ctrl->add($form);
-            }
-            // Sinon on le valide
-            else {
-                $ctrl->validate($_POST);
-            }
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        $form = new Form($_POST);
+        $ctrl->ajouter($form);
     }
 
     private function updLink(): void
     {
         $ctrl = new AdmLnkCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            // Si le formulaire est validé
-            if (isset($_POST['validate'])) {
-                // Alors on persiste les données
-                $ctrl->upd($form);
-            } // Sinon on le valide
-            else {
-                $ctrl->validate($_POST);
-            }
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        $form = new Form($_POST);
+        $ctrl->modifier($form);
     }
 
     private function delLink(): void
     {
         $ctrl = new AdmLnkCtrl($this->db);
-        if (isset($this->params['idLink'])) {
-            // Si on est en POST et que c'est validé
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['validate'])) {
-                // Alors on supprime les données
-                $ctrl->del($this->params['idLink']);
-            } // Sinon on le valide
-            else {
-                $ctrl->validate($_POST);
-            }
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }

@@ -263,10 +263,10 @@ INSERT INTO language (idLang, label) VALUES
 CREATE TABLE snippet (
     idSnip INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(60) NOT NULL,
-    code TEXT NULL,
+    code TEXT NOT NULL,
     dateCrea DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    comment TEXT NULL,
-    requirement TINYTEXT NULL,
+    comment TEXT DEFAULT NULL,
+    requirement TINYTEXT DEFAULT NULL,
     idLang INT DEFAULT NULL,
     idUser INT NOT NULL,
     PRIMARY KEY (idSnip)

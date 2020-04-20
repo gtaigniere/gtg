@@ -93,7 +93,7 @@ ob_start();
                         </form>
 
                         <td class="td-suppr">
-                            <a href="?target=admin&admTarg=link&action=delete&idLink=<?= $link->getIdLink() ?>" class="btn btn-danger">Supprimer</a>
+                            <a href="?target=admin&admTarg=link&action=delete&id=<?= $link->getIdLink() ?>" class="btn btn-danger">Supprimer</a>
                         </td>
 
                     </tr>
