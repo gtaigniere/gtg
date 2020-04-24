@@ -7,7 +7,6 @@ use Html\Form;
 use Exception;
 use Model\Snippet;
 use PDO;
-use PDOException;
 use Service\AuthService;
 
 class SnippetManager extends Manager
@@ -277,11 +276,6 @@ class SnippetManager extends Manager
         $stmt = $this->db->prepare('DELETE FROM snipcat WHERE idSnip=:id');
         $stmt->execute([':id' => $id]);
         return $stmt->rowCount() > 0;
-    }
-
-    protected function convInObjTest()
-    {
-
     }
 
     /**

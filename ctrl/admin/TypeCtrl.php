@@ -34,7 +34,20 @@ class TypeCtrl extends Controller
     }
 
     /**
+     * @param Type $type
+     * @return Form
+     */
+    public function typeToForm(Type $type): Form
+    {
+        $form = new Form();
+        $form->add('idType', $type->getIdType());
+        $form->add('label', $type->getLabel());
+        return $form;
+    }
+
+    /**
      * @param Form $form
+     * @return void
      */
     public function ajouter(Form $form): void
     {
@@ -42,15 +55,14 @@ class TypeCtrl extends Controller
         if (isset($_POST['validate'])) {
             // Alors on persiste les données
             $this->add($form);
-        }
-        // Sinon on le valide
-        else {
+        } else {
             $this->validate($_POST);
         }
     }
 
     /**
      * @param Form $form
+     * @return void
      */
     public function modifier(Form $form): void
     {
@@ -58,14 +70,14 @@ class TypeCtrl extends Controller
         if (isset($_POST['validate'])) {
             // Alors on persiste les données
             $this->upd($form);
-        } // Sinon on le valide
-        else {
+        } else {
             $this->validate($_POST);
         }
     }
 
     /**
      * @param Form $form
+     * @return void
      */
     public function supprimer(Form $form): void
     {
@@ -73,14 +85,14 @@ class TypeCtrl extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
             // Alors on supprime les données
             $this->del($form->getValue('idType'));
-        } // Sinon on le valide
-        else {
+        } else {
             $this->validate(['idType' => $form->getValue('idType')]);
         }
     }
 
     /**
      * @param Form $form
+     * @return void
      */
     private function add(Form $form): void
     {
@@ -100,6 +112,7 @@ class TypeCtrl extends Controller
 
     /**
      * @param Form $form
+     * @return void
      */
     private function upd(Form $form): void
     {
@@ -138,6 +151,7 @@ class TypeCtrl extends Controller
 
     /**
      * @param array $datas
+     * @return void
      */
     public function validate(array $datas): void
     {

@@ -27,6 +27,18 @@ class CatCtrl extends Controller
     }
 
     /**
+     * @param Cat $cat
+     * @return Form
+     */
+    public function catToForm(Cat $cat): Form
+    {
+        $form = new Form();
+        $form->add('idCat', $cat->getIdCat());
+        $form->add('label', $cat->getLabel());
+        return $form;
+    }
+
+    /**
      * @param Form $form
      * @return void
      */

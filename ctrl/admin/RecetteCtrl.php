@@ -27,6 +27,23 @@ class RecetteCtrl extends Controller
     }
 
     /**
+     * @param Recette $recette
+     * @return Form
+     */
+    public function recetteToForm(Recette $recette): Form
+    {
+        $form = new Form();
+        $form->add('idRec', $recette->getIdRec());
+        $form->add('label', $recette->getLabel());
+        $form->add('infos', $recette->getInfos());
+        $form->add('pour', $recette->getPour());
+        $form->add('ingredient', $recette->getIngredient());
+        $form->add('photo', $recette->getPhoto());
+        $form->add('detail', $recette->getDetail());
+        return $form;
+    }
+
+    /**
      * @return void
      */
     public function all(): void
@@ -47,8 +64,7 @@ class RecetteCtrl extends Controller
             if ($form->getValue('validate') != null) {
                 // Alors on persiste les données
                 $this->add($form);
-            } // Sinon on le valide
-            else {
+            } else {
                 $this->validate([
                     'label' => $form->getValue('label'),
                     'infos' => $form->getValue('infos'),
@@ -67,6 +83,7 @@ class RecetteCtrl extends Controller
     /**
      * @param int $id
      * @param Form $form
+     * @return void
      */
     public function modifier(int $id, Form $form): void
     {
@@ -99,6 +116,7 @@ class RecetteCtrl extends Controller
     /**
      * @param int $id
      * @param Form $form
+     * @return void
      */
     public function supprimer(int $id, Form $form): void
     {
@@ -190,6 +208,7 @@ class RecetteCtrl extends Controller
 
     /**
      * @param array $datas
+     * @return void
      */
     public function validate(array $datas): void
     {
@@ -197,4 +216,5 @@ class RecetteCtrl extends Controller
         require_once(ROOT_DIR . 'view/admin/validation.php');
         require_once(ROOT_DIR . 'view/template.php');
     }
+
 }

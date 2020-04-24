@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Form;
-
 
 use Html\Form;
 use Model\Cat;
@@ -38,4 +36,5 @@ class SnippetForm extends Form
             parent::__construct($snippet);
         }
     }
+
 }

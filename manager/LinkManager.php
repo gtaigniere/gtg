@@ -4,7 +4,6 @@ namespace Manager;
 
 use Model\Link;
 use PDO;
-use PDOException;
 
 class LinkManager extends Manager
 {
@@ -128,7 +127,7 @@ class LinkManager extends Manager
     }
 
     /**
-     * @param int $idRub
+     * @param int $idType
      * @return array
      */
     public function findAllByType(int $idType): array

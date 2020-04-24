@@ -1,5 +1,6 @@
 <?php
 
+use Html\Form;
 use Model\Link;
 use Util\ErrorManager;
 use Util\SuccessManager;
@@ -43,47 +44,37 @@ ob_start();
             </thead>
             <tbody>
 
-            <?php foreach ($links as $link) :
-                if ($link instanceof Link) : ?>
+            <?php foreach ($forms as $form) :
+                if ($form instanceof Form) : ?>
 
                     <tr>
 
                         <form action="?target=admin&admTarg=link&action=update" method="POST">
 
-                            <td style="display: none;"><input type="hidden" name="idLink"
-                                        value="<?= $link->getIdLink() ?>"/></td>
-<!--                            <td style="display: none;">--><?php //$form->input('idLink') ?><!--</td>-->
-
-                            <td><input type="text" name="label"
-                                       value="<?php if ($link->getLabel() != null) {
-                                    echo $link->getLabel();
-                                } ?>"/></td>
-
-                            <td><input type="text" name="adrOrFile"
-                                       value="<?php if ($link->getAdrOrFile() != null) {
-                                    echo $link->getAdrOrFile();
-                                } ?>"/></td>
+                            <?= $form->input('idLink', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
                             <td>
-                                <select name="idRub">
-                                    <option value="">-- null --</option>
-                                    <?php foreach ($rubrics as $rubric) : ?>
-                                        <option value="<?= $rubric->getIdRub() ?>"
-                                            <?= (($link->getRubric() != null) && $link->getRubric()->getIdRub() == $rubric->getIdRub()) ? 'selected' : ''; ?>
-                                        ><?= $rubric->getLabel() ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <?= $form->input('label', null, ['required' => 'required']); ?>
+                            <td>
+                                <?= $form->input('adrOrFile', null, ['required' => 'required']); ?>
+                            <td>
+                                <?php
+                                $options = [];
+                                foreach($rubrics as $rubric) {
+                                    $options[$rubric->getIdRub()] = $rubric->getLabel();
+                                }
+                                ?>
+                                <?= $form->select('idRub', $options, null, '--null--') ?>
                             </td>
 
                             <td>
-                                <select name="idType">
-                                    <option value="">-- null --</option>
-                                    <?php foreach ($types as $type) : ?>
-                                        <option value="<?= $type->getIdType() ?>"
-                                            <?= (($link->getType() != null) && $link->getType()->getIdType() == $type->getIdType()) ? 'selected' : ''; ?>
-                                        ><?= $type->getLabel() ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <?php
+                                $options = [];
+                                foreach($types as $type) {
+                                    $options[$type->getIdType()] = $type->getLabel();
+                                }
+                                ?>
+                                <?= $form->select('idType', $options, null, '--null--') ?>
                             </td>
 
                             <td class="td-modif">
@@ -104,30 +95,28 @@ ob_start();
             <form action="?target=admin&admTarg=link&action=insert" method="POST">
                 <tr>
 
-                    <td><input type="text" name="label" value="<?php if (isset($label)) {
-                            echo $label;
-                        } ?>" required/></td>
-
-                    <td><input type="text" name="adrOrFile" value="<?php if (isset($adrOrFile)) {
-                            echo $adrOrFile;
-                        } ?>" required/></td>
-
                     <td>
-                        <select name="idRub">
-                            <option value="">Choose an option</option>
-                            <?php foreach ($rubrics as $rubric) : ?>
-                                <option value="<?= $rubric->getIdRub() ?>"><?= $rubric->getLabel() ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <?= $formAdd->input('label', null, ['required' => 'required']); ?>
+                    <td>
+                        <?= $formAdd->input('adrOrFile', null, ['required' => 'required']); ?>
+                    <td>
+                        <?php
+                        $options = [];
+                        foreach($rubrics as $rubric) {
+                            $options[$rubric->getIdRub()] = $rubric->getLabel();
+                        }
+                        ?>
+                        <?= $formAdd->select('idRub', $options, null, 'Choose an option') ?>
                     </td>
 
                     <td>
-                        <select name="idType">
-                            <option value="">Choose an option</option>
-                            <?php foreach ($types as $type) : ?>
-                                <option value="<?= $type->getIdType() ?>"><?= $type->getLabel() ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <?php
+                        $options = [];
+                        foreach($types as $type) {
+                            $options[$type->getIdType()] = $type->getLabel();
+                        }
+                        ?>
+                        <?= $formAdd->select('idType', $options, null, 'Choose an option') ?>
                     </td>
 
                     <td class="td-ajout" colspan="2">

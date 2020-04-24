@@ -27,6 +27,22 @@ class UserCtrl extends Controller
     }
 
     /**
+     * @param User $user
+     * @return Form
+     */
+    public function userToForm(User $user): Form
+    {
+        $form = new Form();
+        $form->add('idUser', $user->getIdUser());
+        $form->add('pseudo', $user->getPseudo());
+        $form->add('email', $user->getEmail());
+        $form->add('pwd', $user->getPwd());
+        $form->add('confirmKey', $user->getConfirmKey());
+        $form->add('confirmed', $user->isConfirmed());
+        return $form;
+    }
+
+    /**
      * @return void
      */
     public function all(): void
@@ -38,6 +54,7 @@ class UserCtrl extends Controller
 
     /**
      * @param Form $form
+     * @return void
      */
     public function ajouter(Form $form): void
     {
@@ -45,15 +62,14 @@ class UserCtrl extends Controller
         if (isset($_POST['validate'])) {
             // Alors on persiste les données
             $this->add($form);
-        }
-        // Sinon on le valide
-        else {
+        } else {
             $this->validate($_POST);
         }
     }
 
     /**
      * @param Form $form
+     * @return void
      */
     public function modifier(Form $form): void
     {
@@ -61,14 +77,14 @@ class UserCtrl extends Controller
         if (isset($_POST['validate'])) {
             // Alors on persiste les données
             $this->upd($form);
-        } // Sinon on le valide
-        else {
+        } else {
             $this->validate($_POST);
         }
     }
 
     /**
      * @param Form $form
+     * @return void
      */
     public function supprimer(Form $form): void
     {
@@ -76,8 +92,7 @@ class UserCtrl extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
             // Alors on supprime les données
             $this->del($form->getValue('idUser'));
-        } // Sinon on le valide
-        else {
+        } else {
             $this->validate(['idUser' => $form->getValue('idUser')]);
         }
     }

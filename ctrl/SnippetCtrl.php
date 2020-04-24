@@ -43,6 +43,9 @@ class SnippetCtrl extends Controller
         $this->catManager = new CatManager($db);
     }
 
+    /**
+     * @return void
+     */
     public function all(): void
     {
         $languages = $this->languageManager->findAll();
@@ -55,6 +58,7 @@ class SnippetCtrl extends Controller
 
     /**
      * @param int $id
+     * @return void
      */
     public function one(int $id): void
     {
@@ -66,6 +70,9 @@ class SnippetCtrl extends Controller
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
+    /**
+     * @return void
+     */
     public function last(int $id): void
     {
 //        $snippets = $this->snippetManager->findAll();
@@ -75,7 +82,10 @@ class SnippetCtrl extends Controller
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
-    public function allWithCats()
+    /**
+     * @return void
+     */
+    public function allWithCats(): void
     {
         $snippets = $this->snippetManager->all();
     }
@@ -127,6 +137,9 @@ class SnippetCtrl extends Controller
         return $snippet;
     }
 
+    /**
+     * @return void
+     */
     public function allByLang(int $id): void
     {
 //        $snippets = $this->snippetManager->findByLang($id);
@@ -135,6 +148,9 @@ class SnippetCtrl extends Controller
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
+    /**
+     * @return void
+     */
     public function allByCat(int $id): void
     {
 //        $snippets = $this->snippetManager->findByCat($id);
@@ -143,6 +159,11 @@ class SnippetCtrl extends Controller
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
+    /**
+     * @param int $idCat
+     * @param int $idLang
+     * @return void
+     */
     public function allByLangAndCat(int $idLang, int $idCat): void
     {
 //        $snippets = $this->snippetManager->findByLangAndCat($idLang, $idCat);

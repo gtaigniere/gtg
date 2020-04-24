@@ -34,7 +34,21 @@ class RubricCtrl extends Controller
     }
 
     /**
+     * @param Rubric $rubric
+     * @return Form
+     */
+    public function rubricToForm(Rubric $rubric): Form
+    {
+        $form = new Form();
+        $form->add('idRub', $rubric->getIdRub());
+        $form->add('label', $rubric->getLabel());
+        $form->add('image', $rubric->getImage());
+        return $form;
+    }
+
+    /**
      * @param Form $form
+     * @return void
      */
     public function ajouter(Form $form): void
     {
@@ -51,6 +65,7 @@ class RubricCtrl extends Controller
 
     /**
      * @param Form $form
+     * @return void
      */
     public function modifier(Form $form): void
     {
@@ -66,6 +81,7 @@ class RubricCtrl extends Controller
 
     /**
      * @param Form $form
+     * @return void
      */
     public function supprimer(Form $form): void
     {

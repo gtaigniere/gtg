@@ -3,6 +3,7 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use Form\LinkForm;
 use Html\Form;
 use Manager\LinkManager;
 use Manager\RubricManager;
@@ -46,14 +47,20 @@ class LinkCtrl extends Controller
     public function all(): void
     {
         $links = $this->linkManager->findAll();
+        $forms = [];
+        foreach($links as $link) {
+            $forms[] = new LinkForm($link);
+        }
         $rubrics = $this->rubricManager->findAll();
         $types = $this->typeManager->findAll();
+        $formAdd = new Form();
         require_once(ROOT_DIR . 'view/admin/links.php');
         require_once(ROOT_DIR . 'view/template.php');
     }
 
     /**
      * @param Form $form
+     * @return void
      */
     public function ajouter(Form $form): void
     {
@@ -72,6 +79,7 @@ class LinkCtrl extends Controller
 
     /**
      * @param Form $form
+     * @return void
      */
     public function modifier(Form $form): void
     {
@@ -91,6 +99,7 @@ class LinkCtrl extends Controller
     /**
      * @param int $id
      * @param Form $form
+     * @return void
      */
     public function supprimer(int $id, Form $form): void
     {
@@ -124,11 +133,7 @@ class LinkCtrl extends Controller
         } else {
             SuccessManager::add('Le lien a été ajouté avec succès.');
         }
-        $links = $this->linkManager->findAll();
-        $rubrics = $this->rubricManager->findAll();
-        $types = $this->typeManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/links.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -153,11 +158,7 @@ class LinkCtrl extends Controller
         } else {
             SuccessManager::add('Le lien a été modifié avec succès.');
         }
-        $links = $this->linkManager->findAll();
-        $rubrics = $this->rubricManager->findAll();
-        $types = $this->typeManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/links.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -172,11 +173,7 @@ class LinkCtrl extends Controller
         } else {
             SuccessManager::add('Le lien a été supprimé avec succès.');
         }
-        $links = $this->linkManager->findAll();
-        $rubrics = $this->rubricManager->findAll();
-        $types = $this->typeManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/links.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**

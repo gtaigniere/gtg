@@ -13,9 +13,21 @@ class Form
      * Form constructor.
      * @param array $datas
      */
-    public function __construct(array $datas)
+    public function __construct(array $datas = [])
     {
         $this->datas = $datas;
+    }
+
+    // Pour définir une clef à un tableau clef => valeur : $tab[$key] = 'string';
+
+    /**
+     * @param string $key
+     * @param string|string[] $value
+     * @return void
+     */
+    public function add(string $key, $value)
+    {
+        $this->datas[$key] = $value;
     }
 
     /**
@@ -102,12 +114,8 @@ class Form
         foreach($values as $key => $value) {
             // $this->getValue('language') renvoi l'id du language à sélectionner
             // $this->getValue('cats') renvoi un tableau contenant les ids des catégories à sélectionner
-            $selected = '';
-            if ((is_array($selecteds) && in_array($key, $selecteds)) ||
-                $selecteds == $key) {
-                    $selected = ' selected';
-            };
-            $html .= '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
+            $selected = is_array($selecteds) ? in_array($key, $selecteds) : $selecteds == $key ;
+            $html .= '<option value="' . $key . '"' . ($selected ? 'selected' : '') . '>' . $value . '</option>';
         }
         return $html .= '</select>';
     }

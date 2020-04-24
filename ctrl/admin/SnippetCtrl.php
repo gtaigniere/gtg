@@ -3,6 +3,7 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use Exception;
 use Form\SnippetForm;
 use Html\Form;
 use Manager\CatManager;
@@ -52,6 +53,25 @@ class SnippetCtrl extends Controller
     }
 
     /**
+     * @param Snippet $snippet
+     * @return Form
+     */
+    public function snippetToForm(Snippet $snippet): Form
+    {
+        $form = new Form();
+        $form->add('idSnip', $snippet->getIdSnip());
+        $form->add('title', $snippet->getTitle());
+        $form->add('code', $snippet->getCode());
+        $form->add('dateCrea', $snippet->getDateCrea());
+        $form->add('comment', $snippet->getComment());
+        $form->add('requirement', $snippet->getRequirement());
+        $form->add('idLang', $snippet->getLanguage()->getIdLang());
+        $form->add('idUser', $snippet->getUser()->getIdUser());
+        $form->add('cats'); // Au secours
+        return $form;
+    }
+
+    /**
      * @return void
      */
     public function all(): void
@@ -67,6 +87,7 @@ class SnippetCtrl extends Controller
     /**
      * @param Form $form
      * @return void
+     * @throws Exception
      */
     public function ajouter(Form $form): void
     {
@@ -75,8 +96,7 @@ class SnippetCtrl extends Controller
             if ($form->getValue('validate') != null) {
                 // Alors on persiste les données
                 $this->add($form);
-            } // Sinon on le valide
-            else {
+            } else {
                 $this->validate($form->getDatas());
             }
         } else {
@@ -92,6 +112,7 @@ class SnippetCtrl extends Controller
     /**
      * @param int $id
      * @param Form $form
+     * @return void
      */
     public function modifier(int $id, Form $form): void
     {
@@ -120,6 +141,7 @@ class SnippetCtrl extends Controller
     /**
      * @param int $id
      * @param Form $form
+     * @return void
      */
     public function supprimer(int $id, Form $form): void
     {
@@ -162,6 +184,7 @@ class SnippetCtrl extends Controller
     /**
      * @param Form $form
      * @return void
+     * @throws Exception
      */
     public function add(Form $form): void
     {

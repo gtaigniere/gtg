@@ -8,6 +8,7 @@ class Rubric
      * @var int
      */
     private $idRub;
+
     /**
      * @var string
      */

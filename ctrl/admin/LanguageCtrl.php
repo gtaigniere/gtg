@@ -27,6 +27,18 @@ class LanguageCtrl extends Controller
     }
 
     /**
+     * @param Language $language
+     * @return Form
+     */
+    public function languageToForm(Language $language): Form
+    {
+        $form = new Form();
+        $form->add('idLang', $language->getIdLang());
+        $form->add('label', $language->getLabel());
+        return $form;
+    }
+
+    /**
      * @param Form $form
      * @return void
      */
