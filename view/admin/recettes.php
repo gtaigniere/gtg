@@ -55,11 +55,11 @@ ob_start();
                             <td><?php if ($recette->getPhoto() != null) { echo $recette->getPhoto(); } ?></td>
 
                             <td class="td-modif">
-                                <a href="?target=admin&admTarg=recette&action=update&idRec=<?= $recette->getIdRec() ?>" class="btn btn-warning">Modifier</a>
+                                <a href="?target=admin&admTarg=recette&action=update&id=<?= $recette->getIdRec() ?>" class="btn btn-warning">Modifier</a>
                             </td>
 
                             <td class="td-suppr">
-                                <a href="?target=admin&admTarg=recette&action=delete&idRec=<?= $recette->getIdRec() ?>" class="btn btn-danger">Supprimer</a>
+                                <a href="?target=admin&admTarg=recette&action=delete&id=<?= $recette->getIdRec() ?>" class="btn btn-danger">Supprimer</a>
                             </td>
 
                         </tr>

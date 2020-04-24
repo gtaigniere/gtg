@@ -6,7 +6,7 @@ ob_start();
 
 if (isset($form) && $form instanceof Form) :
 
-    $isUpdate = $form->getValue('idRec') != null;
+    $isUpdate = $form->getValue('id') != null;
 
 ?>
 
@@ -18,9 +18,11 @@ if (isset($form) && $form instanceof Form) :
 
                 <form method="POST">
 
+                    <?php if($isUpdate) : ?>
                     <div>
-                        <?= $form->input('idRec', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
+                        <?= $form->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
                     </div>
+                    <?php endif; ?>
 
                     <div>
                         <?= $form->input('label', 'label :', ['required' => 'required']); ?>
@@ -55,7 +57,7 @@ if (isset($form) && $form instanceof Form) :
             </form>
 
             <?php if ($isUpdate) : ?>
-                <a href="?target=admin&admTarg=recette&action=delete&idRec=<?= $form->getValue('idRec') ?>" class="btn btn-danger">Supprimer</a>
+                <a href="?target=admin&admTarg=recette&action=delete&id=<?= $form->getValue('idRec') ?>" class="btn btn-danger">Supprimer</a>
             <?php endif; ?>
 
         </section>

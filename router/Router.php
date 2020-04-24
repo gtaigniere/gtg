@@ -489,8 +489,8 @@ class Router
     private function updRec(): void
     {
         $ctrl = new AdmRecCtrl($this->db);
-        if (is_numeric($_GET['idRec'])) {
-            $ctrl->modifier($_GET['idRec'], new Form($_POST));
+        if (array_key_exists('id', $this->params) && is_numeric($this->params['id'])) {
+            $ctrl->modifier($this->params['id'], new Form($_POST));
         } else {
             $ctrl->notFound();
         }
@@ -499,8 +499,9 @@ class Router
     private function delRec(): void
     {
         $ctrl = new AdmRecCtrl(($this->db));
-        if (is_numeric($_GET['idRec'])) {
-            $ctrl->supprimer($_GET['idRec'], new Form($_POST));
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }

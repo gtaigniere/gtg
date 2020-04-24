@@ -3,6 +3,7 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use Form\RecetteForm;
 use Html\Form;
 use Manager\RecetteManager;
 use Model\Recette;
@@ -27,23 +28,6 @@ class RecetteCtrl extends Controller
     }
 
     /**
-     * @param Recette $recette
-     * @return Form
-     */
-    public function recetteToForm(Recette $recette): Form
-    {
-        $form = new Form();
-        $form->add('idRec', $recette->getIdRec());
-        $form->add('label', $recette->getLabel());
-        $form->add('infos', $recette->getInfos());
-        $form->add('pour', $recette->getPour());
-        $form->add('ingredient', $recette->getIngredient());
-        $form->add('photo', $recette->getPhoto());
-        $form->add('detail', $recette->getDetail());
-        return $form;
-    }
-
-    /**
      * @return void
      */
     public function all(): void
@@ -65,14 +49,7 @@ class RecetteCtrl extends Controller
                 // Alors on persiste les données
                 $this->add($form);
             } else {
-                $this->validate([
-                    'label' => $form->getValue('label'),
-                    'infos' => $form->getValue('infos'),
-                    'pour' => $form->getValue('pour'),
-                    'ingredient' => $form->getValue('ingredient'),
-                    'photo' => $form->getValue('photo'),
-                    'detail' => $form->getValue('detail')
-                ]);
+                $this->validate($form->getDatas());
             }
         } else {
             require_once(ROOT_DIR . 'view/admin/recette.php');
@@ -96,15 +73,7 @@ class RecetteCtrl extends Controller
         } else {
             $recette = $this->recetteManager->findOne($id);
             if ($recette != null) {
-                $form = new Form([
-                    'label' => $recette->getLabel(),
-                    'infos' => $recette->getInfos(),
-                    'pour' => $recette->getPour(),
-                    'ingredient' => $recette->getIngredient(),
-                    'photo' => $recette->getPhoto(),
-                    'detail' => $recette->getDetail(),
-                    'idRec' => $recette->getIdRec()
-                ]);
+                $form = new RecetteForm($recette);
                 require_once ROOT_DIR . 'view/admin/recette.php';
                 require_once ROOT_DIR . 'view/template.php';
             } else {
@@ -125,15 +94,8 @@ class RecetteCtrl extends Controller
         } else {
             $recette = $this->recetteManager->findOne($id);
             if ($recette != null) {
-                $this->validate([
-                    'idRec' => $recette->getIdRec(),
-                    'label' => $recette->getLabel(),
-                    'infos' => $recette->getInfos(),
-                    'pour' => $recette->getPour(),
-                    'ingredient' => $recette->getIngredient(),
-                    'photo' => $recette->getPhoto(),
-                    'detail' => $recette->getDetail()
-                ]);
+                $form = new RecetteForm($recette);
+                $this->validate($form->getDatas());
             } else {
                 $this->notFound();
             }
@@ -159,9 +121,7 @@ class RecetteCtrl extends Controller
         } else {
             SuccessManager::add('La recette a été ajouté avec succès.');
         }
-        $recettes = $this->recetteManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/recettes.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -177,16 +137,14 @@ class RecetteCtrl extends Controller
         $recette->setIngredient($form->getValue('ingredient'));
         $recette->setPhoto($form->getValue('photo'));
         $recette->setDetail($form->getValue('detail'));
-        $recette->setIdRec($form->getValue('idRec'));
+        $recette->setIdRec($form->getValue('id'));
         $recette = $this->recetteManager->update($recette);
         if ($recette == null) {
             ErrorManager::add('Erreur lors de la modification de la recette !');
         } else {
             SuccessManager::add('La recette a été modifié avec succès.');
         }
-        $recettes = $this->recetteManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/recettes.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -201,9 +159,7 @@ class RecetteCtrl extends Controller
         } else {
             SuccessManager::add('La recette a été supprimé avec succès.');
         }
-        $recettes = $this->recetteManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/recettes.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
