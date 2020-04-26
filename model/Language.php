@@ -15,6 +15,14 @@ class Language
     private $label;
 
     /**
+     * Language constructor.
+     */
+    public function __construct()
+    {
+    }
+
+
+    /**
      * @return int
      */
     public function getIdLang(): int

@@ -8,13 +8,13 @@ use Model\Language;
 class LanguageForm extends Form
 {
     /**
-     * TypeForm constructor.
+     * LanguageForm constructor.
      * @param Language $language
      */
     public function __construct(Language $language)
     {
         parent::__construct();
-        $this->add('idLang', $language->getIdLang());
+        $this->add('id', $language->getIdLang());
         $this->add('label', $language->getLabel());
     }
 

@@ -3,10 +3,12 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use Form\CatForm;
+use Form\LanguageForm;
 use Html\Form;
 use Manager\CatManager;
 use Manager\LanguageManager;
-use Model\Cat;
+use Manager\SnippetManager;
 use Model\Language;
 use PDO;
 use Util\ErrorManager;
@@ -25,13 +27,19 @@ class LanguageCtrl extends Controller
     private $catManager;
 
     /**
-     * RubricCtrl constructor.
+     * @var SnippetManager
+     */
+    private $snippetManager;
+
+    /**
+     * LanguageCtrl constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
         $this->languageManager = new LanguageManager($db);
         $this->catManager = new CatManager($db);
+        $this->snippetManager = new SnippetManager($db);
     }
 
     /**
@@ -69,10 +77,11 @@ class LanguageCtrl extends Controller
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function supprimer(Form $form): void
+    public function supprimer(int $id, Form $form): void
     {
         // Si on est en POST et que c'est validé
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
@@ -91,13 +100,25 @@ class LanguageCtrl extends Controller
     {
         $language = new Language();
         $language->setLabel($form->getValue('label'));
-        $obj = $this->languageManager->insert($language);
-        if ($obj == null) {
+        $language = $this->languageManager->insert($language);
+        if ($language == null) {
             ErrorManager::add('Erreur lors de l\'ajout du language !');
         } else {
             SuccessManager::add('Le language a été ajouté avec succès.');
         }
+        $snippets = $this->snippetManager->findAll();
         $languages = $this->languageManager->findAll();
+        $languageForms = [];
+        foreach($languages as $language) {
+            $languageForms[] = new LanguageForm($language);
+        }
+        $formAddLang = new Form();
+        $cats = $this->catManager->findAll();
+        $catForms = [];
+        foreach($cats as $cat) {
+            $catForms[] = new CatForm($cat);
+        }
+        $formAddCat = new Form();
         require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
@@ -110,13 +131,26 @@ class LanguageCtrl extends Controller
     {
         $language = new Language();
         $language->setLabel($form->getValue('label'));
-        $obj = $this->languageManager->update($language);
-        if ($obj == null) {
+        $language->setIdLang($form->getValue('id'));
+        $language = $this->languageManager->update($language);
+        if ($language == null) {
             ErrorManager::add('Erreur lors de la modification du language !');
         } else {
             SuccessManager::add('Le language a été modifié avec succès.');
         }
+        $snippets = $this->snippetManager->findAll();
         $languages = $this->languageManager->findAll();
+        $languageForms = [];
+        foreach($languages as $language) {
+            $languageForms[] = new LanguageForm($language);
+        }
+        $formAddLang = new Form();
+        $cats = $this->catManager->findAll();
+        $catForms = [];
+        foreach($cats as $cat) {
+            $catForms[] = new CatForm($cat);
+        }
+        $formAddCat = new Form();
         require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
@@ -133,7 +167,19 @@ class LanguageCtrl extends Controller
         } else {
             SuccessManager::add('Le language a été supprimé avec succès.');
         }
+        $snippets = $this->snippetManager->findAll();
         $languages = $this->languageManager->findAll();
+        $languageForms = [];
+        foreach($languages as $language) {
+            $languageForms[] = new LanguageForm($language);
+        }
+        $formAddLang = new Form();
+        $cats = $this->catManager->findAll();
+        $catForms = [];
+        foreach($cats as $cat) {
+            $catForms[] = new CatForm($cat);
+        }
+        $formAddCat = new Form();
         require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }

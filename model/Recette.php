@@ -40,7 +40,7 @@ class Recette
     private $detail;
 
     /**
-     * Type constructor.
+     * Recette constructor.
      */
     public function __construct()
     {

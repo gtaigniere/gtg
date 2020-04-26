@@ -8,13 +8,13 @@ use Model\Cat;
 class CatForm extends Form
 {
     /**
-     * TypeForm constructor.
+     * CatForm constructor.
      * @param Cat $cat
      */
     public function __construct(Cat $cat)
     {
         parent::__construct();
-        $this->add('idCat', $cat->getIdCat());
+        $this->add('id', $cat->getIdCat());
         $this->add('label', $cat->getLabel());
     }
 

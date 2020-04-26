@@ -308,14 +308,14 @@ class Router
 
     private function addTyp(): void
     {
-        $ctrl =  new AdmTypCtrl($this->db);
+        $ctrl = new AdmTypCtrl($this->db);
         $form = new Form($_POST);
         $ctrl->ajouter($form);
     }
 
     private function updTyp(): void
     {
-        $ctrl =  new AdmTypCtrl($this->db);
+        $ctrl = new AdmTypCtrl($this->db);
         $form = new Form($_POST);
         var_dump($form);
         $ctrl->modifier($form);
@@ -323,7 +323,7 @@ class Router
 
     private function delTyp(): void
     {
-        $ctrl =  new AdmTypCtrl($this->db);
+        $ctrl = new AdmTypCtrl($this->db);
         if (array_key_exists('id', $this->params)) {
             $form = new Form($_POST);
             $ctrl->supprimer($this->params['id'], $form);
@@ -360,21 +360,21 @@ class Router
 
     private function addRub(): void
     {
-        $ctrl =  new AdmRubCtrl($this->db);
+        $ctrl = new AdmRubCtrl($this->db);
         $form = new Form($_POST);
         $ctrl->ajouter($form);
     }
 
     private function updRub(): void
     {
-        $ctrl =  new AdmRubCtrl($this->db);
+        $ctrl = new AdmRubCtrl($this->db);
         $form = new Form($_POST);
         $ctrl->modifier($form);
     }
 
     private function delRub(): void
     {
-        $ctrl =  new AdmRubCtrl($this->db);
+        $ctrl = new AdmRubCtrl($this->db);
         if (array_key_exists('id', $this->params)) {
             $form = new Form($_POST);
             $ctrl->supprimer($this->params['id'], $form);
@@ -568,21 +568,21 @@ class Router
 
     private function addCat(): void
     {
-        $ctrl =  new AdmCatCtrl($this->db);
+        $ctrl = new AdmCatCtrl($this->db);
         $form = new Form($_POST);
         $ctrl->ajouter($form);
     }
 
     private function updCat(): void
     {
-        $ctrl =  new AdmCatCtrl($this->db);
+        $ctrl = new AdmCatCtrl($this->db);
         $form = new Form($_POST);
         $ctrl->modifier($form);
     }
 
     private function delCat(): void
     {
-        $ctrl =  new AdmTypCtrl($this->db);
+        $ctrl = new AdmCatCtrl($this->db);
         if (array_key_exists('id', $this->params)) {
             $form = new Form($_POST);
             $ctrl->supprimer($this->params['id'], $form);
@@ -619,21 +619,21 @@ class Router
 
     private function addLang(): void
     {
-        $ctrl =  new AdmLngCtrl($this->db);
+        $ctrl = new AdmLngCtrl($this->db);
         $form = new Form($_POST);
         $ctrl->ajouter($form);
     }
 
     private function updLang(): void
     {
-        $ctrl =  new AdmLngCtrl($this->db);
+        $ctrl = new AdmLngCtrl($this->db);
         $form = new Form($_POST);
         $ctrl->modifier($form);
     }
 
     private function delLang(): void
     {
-        $ctrl =  new AdmLngCtrl($this->db);
+        $ctrl = new AdmLngCtrl($this->db);
         if (array_key_exists('id', $this->params)) {
             $form = new Form($_POST);
             $ctrl->supprimer($this->params['id'], $form);

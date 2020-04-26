@@ -60,7 +60,7 @@ ob_start();
 							</form>
 
 							<td class="td-suppr">
-								<a href="?target=admin&admTarg=type&action=delete&id=<?= $cat->getIdCat() ?>" class="btn btn-danger">Supprimer</a>
+								<a href="?target=admin&admTarg=cat&action=delete&id=<?= $cat->getIdCat() ?>" class="btn btn-danger">Supprimer</a>
 							</td>
 
 						</tr>
@@ -73,7 +73,7 @@ ob_start();
 					<tr>
 
 						<td>
-                            <?= $catForm->input('label', null, ['required' => 'required']); ?>
+                            <?= $formAddCat->input('label', null, ['required' => 'required']); ?>
 						<td class="td-ajout" colspan="2">
 							<button class="btn btn-success">Ajouter</button>
 						</td>
@@ -122,7 +122,7 @@ ob_start();
 					<tr>
 
 						<td>
-                            <?= $languageForm->input('label', null, ['required' => 'required']); ?>
+                            <?= $formAddLang->input('label', null, ['required' => 'required']); ?>
 						</td>
 
 						<td class="td-ajout" colspan="2">

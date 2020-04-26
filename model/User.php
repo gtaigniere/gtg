@@ -35,7 +35,7 @@ class User
     private $confirmed;
 
     /**
-     * Type constructor.
+     * User constructor.
      */
     public function __construct()
     {
