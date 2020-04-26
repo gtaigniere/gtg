@@ -27,23 +27,18 @@ if (isset($form) && $form instanceof Form) :
                     <div>
                         <?= $form->input('label', 'label :', ['required' => 'required']); ?>
                     </div>
-
                     <div class="areatext_recette">
                         <?= $form->textarea('infos', 'Infos :', ['rows' => '5', 'cols' => '50', 'required' => 'required']); ?>
                     </div>
-
                     <div>
                         <?= $form->input('pour', 'pour', ['required' => 'required']); ?>
                     </div>
-
                     <div class="areatext_recette">
                         <?= $form->textarea('ingredient', 'Ingrédients :', ['rows' => '10', 'cols' => '50', 'required' => 'required']); ?>
                     </div class="areatext_recette">
-
                     <div>
                         <?= $form->input('photo', 'Photo :', ['required' => 'required']); ?>
                     </div>
-
                     <div class="areatext_recette">
                         <?= $form->textarea('detail', 'Détail :', ['rows' => '20', 'cols' => '50', 'required' => 'required']); ?>
                     </div>
@@ -57,7 +52,7 @@ if (isset($form) && $form instanceof Form) :
             </form>
 
             <?php if ($isUpdate) : ?>
-                <a href="?target=admin&admTarg=recette&action=delete&id=<?= $form->getValue('idRec') ?>" class="btn btn-danger">Supprimer</a>
+                <a href="?target=admin&admTarg=recette&action=delete&id=<?= $form->getValue('id') ?>" class="btn btn-danger">Supprimer</a>
             <?php endif; ?>
 
         </section>

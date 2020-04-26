@@ -1,7 +1,7 @@
 <?php
 
-use Model\Type;
-use Model\Rubric;
+use Form\RubricForm;
+use Form\TypeForm;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
@@ -41,21 +41,18 @@ ob_start();
 			</thead>
 			<tbody>
 
-				<?php foreach($types as $type) :
-					if ($type instanceof Type) : ?>
+				<?php foreach($typeForms as $typeForm) :
+					if ($typeForm instanceof TypeForm) : ?>
 
 						<tr>
 
 							<form action="?target=admin&admTarg=type&action=update" method="POST">
 
-								<td style="display: none;"><input type="hidden" name="idType"
-                                            value="<?= $type->getIdType() ?>"/></td>
+                                <?= $typeForm->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
-								<td><input type="text" name="label"
-                                           value="<?php if ($type->getLabel() != null) {
-										echo $type->getLabel();
-									} ?>"/></td>
-
+								<td>
+                                    <?= $typeForm->input('label', null, ['required' => 'required']); ?>
+                                </td>
 								<td class="td-modif">
 									<button class="btn btn-warning">Modifier</button>
 								</td>
@@ -63,7 +60,7 @@ ob_start();
 							</form>
 
 							<td class="td-suppr">
-								<a href="?target=admin&admTarg=type&action=delete&idType=<?= $type->getIdType() ?>" class="btn btn-danger">Supprimer</a>
+								<a href="?target=admin&admTarg=type&action=delete&id=<?= $type->getIdType() ?>" class="btn btn-danger">Supprimer</a>
 							</td>
 
 						</tr>
@@ -75,10 +72,9 @@ ob_start();
 				
 					<tr>
 
-						<td><input type="text" name="label" value="<?php if (isset($label)) {
-								echo $label;
-							} ?>" required /></td>
-
+						<td>
+                            <?= $formAddType->input('label', null, ['required' => 'required']); ?>
+                        </td>
 						<td class="td-ajout" colspan="2">
 							<button class="btn btn-success">Ajouter</button>
 						</td>
@@ -100,28 +96,29 @@ ob_start();
 			</thead>
 			<tbody>
 
-				<?php foreach($rubrics as $rubric) :
-					if ($rubric instanceof Rubric) : ?>
+				<?php foreach($rubForms as $rubForm) :
+					if ($rubForm instanceof RubricForm) : ?>
 
 						<tr>
 
 							<form action="?target=admin&admTarg=rubric&action=update" method="POST">
 
-								<td style="display: none;"><input type="hidden" name="idRub"
-                                            value="<?= $rubric->getIdRub() ?>"/></td>
+                                <?= $rubForm->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
-								<td><input type="text" name="label"
-                                           value="<?php if ($rubric->getLabel() != null) { echo $rubric->getLabel(); } ?>"/></td>
-
-								<td><input type="text" name="image"
-                                           value="<?php if ($rubric->getImage() != null) { echo $rubric->getImage(); } ?>"/></td>
-
-								<td class="td-modif"><button class="btn btn-warning">Modifier</button></td>
+								<td>
+                                    <?= $rubForm->input('label', null, ['required' => 'required']); ?>
+                                </td>
+								<td>
+                                    <?= $rubForm->input('image', null, ['required' => 'required']); ?>
+                                </td>
+								<td class="td-modif">
+                                    <button class="btn btn-warning">Modifier</button>
+                                </td>
 
 							</form>
 
 							<td class="td-suppr">
-                                <a href="?target=admin&admTarg=rubric&action=delete&idRub=<?= $rubric->getIdRub() ?>" class="btn btn-danger">Supprimer</a>
+                                <a href="?target=admin&admTarg=rubric&action=delete&id=<?= $rubric->getIdRub() ?>" class="btn btn-danger">Supprimer</a>
                             </td>
 
 						</tr>
@@ -133,15 +130,11 @@ ob_start();
 					<tr>
 
 						<td>
-							<input type="text" name="label"
-                                   value="<?php if (isset($label)) { echo $label; } ?>" required />
+                            <?= $formAddRub->input('label', null, ['required' => 'required']); ?>
 						</td>
-
 						<td>
-							<input type="text" name="image"
-                                   value="<?php if (isset($image)) { echo $image; } ?>" required />
+                            <?= $formAddRub->input('image', null, ['required' => 'required']); ?>
 						</td>
-
 						<td class="td-ajout" colspan="2">
                             <button class="btn btn-success">Ajouter</button>
                         </td>

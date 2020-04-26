@@ -1,8 +1,7 @@
 <?php
 
-use Html\Form;
-use Model\Cat;
-use Model\Language;
+use Form\CatForm;
+use Form\LanguageForm;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
@@ -42,25 +41,18 @@ ob_start();
 			</thead>
 			<tbody>
 
-				<?php foreach($forms as $form) :
-					if ($form instanceof Form) : ?>
+				<?php foreach($catForms as $catForm) :
+					if ($catForm instanceof CatForm) : ?>
 
 						<tr>
 
 							<form action="?target=admin&admTarg=cat&action=update" method="POST">
 
-								<td style="display: none;">
-                                    <?= $form->input('idCat', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
-<!--                                    <input type="hidden" name="idCat"-->
-<!--                                            value="--><?//= $cat->getIdCat() ?><!--"/></td>-->
+                                <?= $catForm->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
 								<td>
-                                    <?= $form->input('label', 'Label :', ['required' => 'required']); ?>
-<!--                                    <input type="text" name="label"-->
-<!--                                           value="--><?php //if ($cat->getLabel() != null) {
-//										echo $cat->getLabel();
-//									} ?><!--"/></td>-->
-
+                                    <?= $catForm->input('label', null, ['required' => 'required']); ?>
+                                </td>
 								<td class="td-modif">
 									<button class="btn btn-warning">Modifier</button>
 								</td>
@@ -68,7 +60,7 @@ ob_start();
 							</form>
 
 							<td class="td-suppr">
-								<a href="?target=admin&admTarg=type&action=delete&idCat=<?= $cat->getIdCat() ?>" class="btn btn-danger">Supprimer</a>
+								<a href="?target=admin&admTarg=type&action=delete&id=<?= $cat->getIdCat() ?>" class="btn btn-danger">Supprimer</a>
 							</td>
 
 						</tr>
@@ -81,11 +73,7 @@ ob_start();
 					<tr>
 
 						<td>
-                            <?= $form->input('label', 'Label :', ['required' => 'required']); ?>
-<!--                            <input type="text" name="label" value="--><?php //if (isset($label)) {
-//								echo $label;
-//							} ?><!--" required /></td>-->
-
+                            <?= $catForm->input('label', null, ['required' => 'required']); ?>
 						<td class="td-ajout" colspan="2">
 							<button class="btn btn-success">Ajouter</button>
 						</td>
@@ -106,29 +94,23 @@ ob_start();
 			</thead>
 			<tbody>
 
-				<?php foreach($languages as $language) :
-					if ($language instanceof Language) : ?>
+				<?php foreach($languageForms as $languageForm) :
+					if ($languageForm instanceof LanguageForm) : ?>
 
 						<tr>
 
 							<form action="?target=admin&admTarg=language&action=update" method="POST">
 
-								<td style="display: none;">
-                                    <?= $form->input('idRub', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
-<!--                                    <input type="hidden" name="idRub"-->
-<!--                                            value="--><?//= $language->getIdLang() ?><!--"/></td>-->
+                                <?= $languageForm->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
 								<td>
-                                    <?= $form->input('label', 'Label :', ['required' => 'required']); ?>
-<!--                                    <input type="text" name="label"-->
-<!--                                           value="--><?php //if ($language->getLabel() != null) { echo $language->getLabel(); } ?><!--"/></td>-->
-
+                                    <?= $languageForm->input('label', null, ['required' => 'required']); ?>
 								<td class="td-modif"><button class="btn btn-warning">Modifier</button></td>
 
 							</form>
 
 							<td class="td-suppr">
-                                <a href="?target=admin&admTarg=language&action=delete&idLang=<?= $language->getIdLang() ?>" class="btn btn-danger">Supprimer</a>
+                                <a href="?target=admin&admTarg=language&action=delete&id=<?= $language->getIdLang() ?>" class="btn btn-danger">Supprimer</a>
                             </td>
 
 						</tr>
@@ -140,9 +122,7 @@ ob_start();
 					<tr>
 
 						<td>
-                            <?= $form->input('label', 'Label :', ['required' => 'required']); ?>
-<!--							<input type="text" name="label"-->
-<!--                                   value="--><?php //if (isset($label)) { echo $label; } ?><!--" required />-->
+                            <?= $languageForm->input('label', null, ['required' => 'required']); ?>
 						</td>
 
 						<td class="td-ajout" colspan="2">

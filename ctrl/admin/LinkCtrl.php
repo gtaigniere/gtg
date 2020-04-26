@@ -151,7 +151,7 @@ class LinkCtrl extends Controller
         $idType = $form->getValue('idType');
         $type = is_numeric($idType) ? $this->typeManager->findOne((int)$idType) : null;
         $link->setType($type);
-        $link->setIdLink($form->getValue('idLink'));
+        $link->setIdLink($form->getValue('id'));
         $link = $this->linkManager->update($link);
         if ($link == null) {
             ErrorManager::add('Erreur lors de la modification du lien !');

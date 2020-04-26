@@ -4,7 +4,9 @@ namespace Ctrl\Admin;
 
 use Ctrl\Controller;
 use Html\Form;
+use Manager\CatManager;
 use Manager\LanguageManager;
+use Model\Cat;
 use Model\Language;
 use PDO;
 use Util\ErrorManager;
@@ -18,24 +20,18 @@ class LanguageCtrl extends Controller
     private $languageManager;
 
     /**
+     * @var CatManager
+     */
+    private $catManager;
+
+    /**
      * RubricCtrl constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
         $this->languageManager = new LanguageManager($db);
-    }
-
-    /**
-     * @param Language $language
-     * @return Form
-     */
-    public function languageToForm(Language $language): Form
-    {
-        $form = new Form();
-        $form->add('idLang', $language->getIdLang());
-        $form->add('label', $language->getLabel());
-        return $form;
+        $this->catManager = new CatManager($db);
     }
 
     /**
@@ -78,14 +74,12 @@ class LanguageCtrl extends Controller
      */
     public function supprimer(Form $form): void
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($form->getValue('validate') != null) {
-                $this->del($form->getValue('idRub'));
-            } else {
-                $this->validate($form->getDatas());
-            }
+        // Si on est en POST et que c'est validé
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
+            // Alors on supprime les données
+            $this->del($id);
         } else {
-            $this->unauthorizedMethod();
+            $this->validate([]);
         }
     }
 

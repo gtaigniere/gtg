@@ -53,25 +53,6 @@ class SnippetCtrl extends Controller
     }
 
     /**
-     * @param Snippet $snippet
-     * @return Form
-     */
-    public function snippetToForm(Snippet $snippet): Form
-    {
-        $form = new Form();
-        $form->add('idSnip', $snippet->getIdSnip());
-        $form->add('title', $snippet->getTitle());
-        $form->add('code', $snippet->getCode());
-        $form->add('dateCrea', $snippet->getDateCrea());
-        $form->add('comment', $snippet->getComment());
-        $form->add('requirement', $snippet->getRequirement());
-        $form->add('idLang', $snippet->getLanguage()->getIdLang());
-        $form->add('idUser', $snippet->getUser()->getIdUser());
-        $form->add('cats'); // Au secours
-        return $form;
-    }
-
-    /**
      * @return void
      */
     public function all(): void

@@ -116,6 +116,11 @@ a {
 	text-decoration: none;
 	color: black;
 }
+.alert {
+	width: auto;
+	border-radius: 8px;
+	align-self: center;
+}
 .btn-violet {
 	color: #fff;
 	background-color: #9932CC;
@@ -717,10 +722,6 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #section_snippet h1 {
 	padding-top: 0;
 }
-#section_snippet .alert {
-	border-radius: 8px;
-	align-self: center;
-}
 #section_snippet form {
 	align-self: center;
 	padding: 10px;
@@ -750,7 +751,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #section_snippet p {
 	font-size: 1.1rem;
 }
-#afterlast_p, #last_p {
+.tooLast_p {
 	margin-top: 15px;
 	align-self: center;
 }
@@ -772,12 +773,6 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-}
-.sect-adm .alert {
-	/* #sect-adm_links, sect-adm_users,
-		sect-adm_typsrubs, sect-adm_recettes  */
-	width: auto;
-	border-radius: 8px;
 }
 .sect-adm table {
 	/* sect-adm_links, sect-adm_users, sect-adm_recettes */
@@ -953,6 +948,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 #sect-adm_recette form button, #sect-adm_snippet form button {
 	margin-top: 15px;
+	margin-bottom: 15px;
 	align-self: center;
 	width: auto;
 	border-radius: 4px;
@@ -961,6 +957,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	margin-bottom: 15px;
 }
 #sect-adm_recette a:last-child {
+	margin: 20px 0;
 	border-radius: 4px;
 }
 /***** Fin Page Recette Admin et Snippet Admin *****/

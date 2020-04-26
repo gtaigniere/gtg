@@ -9,6 +9,9 @@ use Ctrl\RecetteCtrl;
 use Ctrl\RubricCtrl;
 use Ctrl\SnippetCtrl;
 use Ctrl\VnCtrl;
+use Ctrl\Admin\CatLangCtrl as AdmCatLngCtrl;
+use Ctrl\Admin\CatCtrl as AdmCatCtrl;
+use Ctrl\Admin\LanguageCtrl as AdmLngCtrl;
 use Ctrl\Admin\LinkCtrl as AdmLnkCtrl;
 use Ctrl\Admin\TypRubCtrl as AdmTypRubCtrl;
 use Ctrl\Admin\TypeCtrl as AdmTypCtrl;
@@ -214,6 +217,15 @@ class Router
                 case 'snippet':
                     $this->adminSnippet();
                     break;
+                case 'catAndLang':
+                    $this->catsAndLangs();
+                    break;
+                case 'cat':
+                    $this->adminCat();
+                    break;
+                case 'language':
+                    $this->adminLanguage();
+                    break;
                 default:
                     $this->adminLink();
             }
@@ -297,36 +309,24 @@ class Router
     private function addTyp(): void
     {
         $ctrl =  new AdmTypCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            $ctrl->ajouter($form);
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        $form = new Form($_POST);
+        $ctrl->ajouter($form);
     }
 
     private function updTyp(): void
     {
         $ctrl =  new AdmTypCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            $ctrl->modifier($form);
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        $form = new Form($_POST);
+        var_dump($form);
+        $ctrl->modifier($form);
     }
 
     private function delTyp(): void
     {
         $ctrl =  new AdmTypCtrl($this->db);
-        if (isset($this->params['idType'])) {
-            $form = new Form(
-                // Fusion
-                array_merge($_POST, ['idType' => $this->params['idType']])
-            );
-            $ctrl->supprimer($form);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }
@@ -361,36 +361,23 @@ class Router
     private function addRub(): void
     {
         $ctrl =  new AdmRubCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            $ctrl->ajouter($form);
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        $form = new Form($_POST);
+        $ctrl->ajouter($form);
     }
 
     private function updRub(): void
     {
         $ctrl =  new AdmRubCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            $ctrl->modifier($form);
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        $form = new Form($_POST);
+        $ctrl->modifier($form);
     }
 
     private function delRub(): void
     {
         $ctrl =  new AdmRubCtrl($this->db);
-        if (isset($this->params['idRub'])) {
-            $form = new Form(
-            // Fusion
-                array_merge($_POST, ['idRub' => $this->params['idRub']])
-            );
-            $ctrl->supprimer($form);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }
@@ -553,6 +540,103 @@ class Router
         $ctrl = new AdmSnipCtrl(($this->db));
         if (is_numeric($_GET['id'])) {
             $ctrl->supprimer($_GET['id'], new Form($_POST));
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function adminCat(): void
+    {
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'insert':
+                    $this->addCat();
+                    break;
+                case 'update':
+                    $this->updCat();
+                    break;
+                case 'delete':
+                    $this->delCat();
+                    break;
+                default:
+                    $this->catsAndLangs();
+            }
+        } else {
+            $this->catsAndLangs();
+        }
+    }
+
+    private function addCat(): void
+    {
+        $ctrl =  new AdmCatCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->ajouter($form);
+    }
+
+    private function updCat(): void
+    {
+        $ctrl =  new AdmCatCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->modifier($form);
+    }
+
+    private function delCat(): void
+    {
+        $ctrl =  new AdmTypCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function catsAndLangs(): void
+    {
+        (new AdmCatLngCtrl($this->db))->all();
+    }
+
+    private function adminLanguage(): void
+    {
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'insert':
+                    $this->addLang();
+                    break;
+                case 'update':
+                    $this->updLang();
+                    break;
+                case 'delete':
+                    $this->delLang();
+                    break;
+                default:
+                    $this->catsAndLangs();
+            }
+        } else {
+            $this->catsAndLangs();
+        }
+    }
+
+    private function addLang(): void
+    {
+        $ctrl =  new AdmLngCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->ajouter($form);
+    }
+
+    private function updLang(): void
+    {
+        $ctrl =  new AdmLngCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->modifier($form);
+    }
+
+    private function delLang(): void
+    {
+        $ctrl =  new AdmLngCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }

@@ -56,10 +56,13 @@ ob_start();
         </em></p>
 
 <!--        --><?php //if(isset($_SESSION['User']) && $_SESSION['User'] == 'gilleste') : ?>
-            <p id="last_p">
+            <p class="tooLast_p">
                 <a href="?target=admin&admTarg=snippet&action=insert"><button class="btn btn-success">Ajouter</button></a>
                 <a href="?target=admin&admTarg=snippet&action=update&id=<?= $snippet->getIdSnip() ?>"><button class="btn btn-warning">Modifier</button></a>
                 <a href="?target=admin&admTarg=snippet&action=delete&id=<?= $snippet->getIdSnip() ?>"><button class="btn btn-danger">Supprimer</button></a>
+            </p>
+            <p class="tooLast_p">
+                <a href="?target=admin&admTarg=catAndLang"><button class="btn btn-primary">Catégories et Langages</button></a>
             </p>
 <!--        --><?php //endif; ?>
 

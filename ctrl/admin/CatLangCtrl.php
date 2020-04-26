@@ -3,6 +3,8 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use Form\CatForm;
+use Form\LanguageForm;
 use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;
@@ -21,7 +23,7 @@ class CatLangCtrl extends Controller
     private $languageManager;
 
     /**
-     * @var LanguageManager
+     * @var SnippetManager
      */
     private $snippetManager;
 
@@ -43,7 +45,15 @@ class CatLangCtrl extends Controller
     {
         $snippets = $this->snippetManager->findAll();
         $cats = $this->catManager->findAll();
+        $catForms = [];
+        foreach($cats as $cat) {
+            $catForms[] = new CatForm($cat);
+        }
         $languages = $this->languageManager->findAll();
+        $languageForms = [];
+        foreach($languages as $language) {
+            $languageForms[] = new LanguageForm($language);
+        }
         require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }

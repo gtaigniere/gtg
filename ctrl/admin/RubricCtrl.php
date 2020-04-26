@@ -3,6 +3,8 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use Form\RubricForm;
+use Form\TypeForm;
 use Html\Form;
 use Manager\RubricManager;
 use Manager\TypeManager;
@@ -34,32 +36,21 @@ class RubricCtrl extends Controller
     }
 
     /**
-     * @param Rubric $rubric
-     * @return Form
-     */
-    public function rubricToForm(Rubric $rubric): Form
-    {
-        $form = new Form();
-        $form->add('idRub', $rubric->getIdRub());
-        $form->add('label', $rubric->getLabel());
-        $form->add('image', $rubric->getImage());
-        return $form;
-    }
-
-    /**
      * @param Form $form
      * @return void
      */
     public function ajouter(Form $form): void
     {
         // Si le formulaire est validé
-        if (isset($_POST['validate'])) {
-            // Alors on persiste les données
-            $this->add($form);
-        }
-        // Sinon on le valide
-        else {
-            $this->validate($_POST);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($form->getValue('validate') != null) {
+                // Alors on persiste les données
+                $this->add($form);
+            } else {
+                $this->validate($form->getDatas());
+            }
+        } else {
+            $this->unauthorizedMethod();
         }
     }
 
@@ -69,29 +60,32 @@ class RubricCtrl extends Controller
      */
     public function modifier(Form $form): void
     {
-        // Si le formulaire est validé
-        if (isset($_POST['validate'])) {
-            // Alors on persiste les données
-            $this->upd($form);
-        } // Sinon on le valide
-        else {
-            $this->validate($_POST);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Si le formulaire est validé
+            if ($form->getValue('validate') != null) {
+                // Alors on persiste les données
+                $this->upd($form);
+            } else {
+                $this->validate($form->getDatas());
+            }
+        } else {
+            $this->unauthorizedMethod();
         }
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function supprimer(Form $form): void
+    public function supprimer(int $id, Form $form): void
     {
         // Si on est en POST et que c'est validé
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
             // Alors on supprime les données
-            $this->del($form->getValue('idRub'));
-        } // Sinon on le valide
-        else {
-            $this->validate(['idRub' => $form->getValue('idRub')]);
+            $this->del($id);
+        } else {
+            $this->validate([]);
         }
     }
 
@@ -111,9 +105,19 @@ class RubricCtrl extends Controller
             SuccessManager::add('La rubrique a été ajouté avec succès.');
         }
         $rubrics = $this->rubricManager->findAll();
+        $rubForms = [];
+        foreach($rubrics as $rubric) {
+            $rubForms[] = new RubricForm($rubric);
+        }
+        $formAddType = new Form();
         $types = $this->typeManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $typeForms = [];
+        foreach($types as $type) {
+            $typeForms[] = new TypeForm($type);
+        }
+        $formAddRub = new Form();
+        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -125,7 +129,7 @@ class RubricCtrl extends Controller
         $rubric = new Rubric();
         $rubric->setLabel($form->getValue('label'));
         $rubric->setImage($form->getValue('image'));
-        $rubric->setIdRub($form->getValue('idRub'));
+        $rubric->setIdRub($form->getValue('id'));
         $rubric = $this->rubricManager->update($rubric);
         if ($rubric == null) {
             ErrorManager::add('Erreur lors de la modification de la rubrique !');
@@ -133,7 +137,17 @@ class RubricCtrl extends Controller
             SuccessManager::add('La rubrique a été modifié avec succès.');
         }
         $rubrics = $this->rubricManager->findAll();
+        $rubForms = [];
+        foreach($rubrics as $rubric) {
+            $rubForms[] = new RubricForm($rubric);
+        }
+        $formAddType = new Form();
         $types = $this->typeManager->findAll();
+        $typeForms = [];
+        foreach($types as $type) {
+            $typeForms[] = new TypeForm($type);
+        }
+        $formAddRub = new Form();
         require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
         require_once (ROOT_DIR . 'view/template.php');
     }
@@ -151,7 +165,17 @@ class RubricCtrl extends Controller
             SuccessManager::add('La rubrique a été supprimé avec succès.');
         }
         $rubrics = $this->rubricManager->findAll();
+        $rubForms = [];
+        foreach($rubrics as $rubric) {
+            $rubForms[] = new RubricForm($rubric);
+        }
+        $formAddType = new Form();
         $types = $this->typeManager->findAll();
+        $typeForms = [];
+        foreach($types as $type) {
+            $typeForms[] = new TypeForm($type);
+        }
+        $formAddRub = new Form();
         require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
         require_once (ROOT_DIR . 'view/template.php');
     }

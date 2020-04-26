@@ -1,7 +1,6 @@
 <?php
 
 use Html\Form;
-use Model\Link;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
@@ -51,12 +50,14 @@ ob_start();
 
                         <form action="?target=admin&admTarg=link&action=update" method="POST">
 
-                            <?= $form->input('idLink', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
+                            <?= $form->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
                             <td>
                                 <?= $form->input('label', null, ['required' => 'required']); ?>
+                            </td>
                             <td>
                                 <?= $form->input('adrOrFile', null, ['required' => 'required']); ?>
+                            </td>
                             <td>
                                 <?php
                                 $options = [];
@@ -66,7 +67,6 @@ ob_start();
                                 ?>
                                 <?= $form->select('idRub', $options, null, '--null--') ?>
                             </td>
-
                             <td>
                                 <?php
                                 $options = [];
@@ -76,7 +76,6 @@ ob_start();
                                 ?>
                                 <?= $form->select('idType', $options, null, '--null--') ?>
                             </td>
-
                             <td class="td-modif">
                                 <button class="btn btn-warning">Modifier</button>
                             </td>
@@ -108,7 +107,6 @@ ob_start();
                         ?>
                         <?= $formAdd->select('idRub', $options, null, 'Choose an option') ?>
                     </td>
-
                     <td>
                         <?php
                         $options = [];
@@ -118,7 +116,6 @@ ob_start();
                         ?>
                         <?= $formAdd->select('idType', $options, null, 'Choose an option') ?>
                     </td>
-
                     <td class="td-ajout" colspan="2">
                         <button class="btn btn-success">Ajouter</button>
                     </td>

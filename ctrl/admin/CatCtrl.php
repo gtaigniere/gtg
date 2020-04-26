@@ -5,7 +5,9 @@ namespace Ctrl\Admin;
 use Ctrl\Controller;
 use Html\Form;
 use Manager\CatManager;
+use Manager\LanguageManager;
 use Model\Cat;
+use Model\Language;
 use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
@@ -18,24 +20,18 @@ class CatCtrl extends Controller
     private $catManager;
 
     /**
+     * @var LanguageManager
+     */
+    private $languageManager;
+
+    /**
      * RubricCtrl constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
-        $this->catManager = new catManager($db);
-    }
-
-    /**
-     * @param Cat $cat
-     * @return Form
-     */
-    public function catToForm(Cat $cat): Form
-    {
-        $form = new Form();
-        $form->add('idCat', $cat->getIdCat());
-        $form->add('label', $cat->getLabel());
-        return $form;
+        $this->catManager = new CatManager($db);
+        $this->languageManager = new LanguageManager($db);
     }
 
     /**
@@ -44,8 +40,10 @@ class CatCtrl extends Controller
      */
     public function ajouter(Form $form): void
     {
+        // Si le formulaire est validé
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($form->getValue('validate') != null) {
+                // Alors on persiste les données
                 $this->add($form);
             } else {
                 $this->validate($form->getDatas());
@@ -62,7 +60,9 @@ class CatCtrl extends Controller
     public function modifier(Form $form): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Si le formulaire est validé
             if ($form->getValue('validate') != null) {
+                // Alors on persiste les données
                 $this->upd($form);
             } else {
                 $this->validate($form->getDatas());
@@ -78,14 +78,12 @@ class CatCtrl extends Controller
      */
     public function supprimer(Form $form): void
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($form->getValue('validate') != null) {
-                $this->del($form->getValue('idRub'));
-            } else {
-                $this->validate($form->getDatas());
-            }
+        // Si on est en POST et que c'est validé
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
+            // Alors on supprime les données
+            $this->del($id);
         } else {
-            $this->unauthorizedMethod();
+            $this->validate([]);
         }
     }
 
@@ -104,6 +102,7 @@ class CatCtrl extends Controller
             SuccessManager::add('La catégorie a été ajouté avec succès.');
         }
         $cats = $this->catManager->findAll();
+        $languages = $this->languageManager->findAll();
         require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
@@ -123,6 +122,7 @@ class CatCtrl extends Controller
             SuccessManager::add('La catégorie a été modifié avec succès.');
         }
         $cats = $this->catManager->findAll();
+        $languages = $this->languageManager->findAll();
         require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
@@ -140,6 +140,7 @@ class CatCtrl extends Controller
             SuccessManager::add('La catégorie a été supprimé avec succès.');
         }
         $cats = $this->catManager->findAll();
+        $languages = $this->languageManager->findAll();
         require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }

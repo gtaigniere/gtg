@@ -47,17 +47,13 @@ ob_start();
                         <tr>
 
                             <td style="display: none;"><?= $recette->getIdRec() ?>/td>
-
                             <td class="t-label"><?php if ($recette->getLabel() != null) { echo $recette->getLabel(); } ?></td>
-
                             <td><?php if ($recette->getPour() != null) { echo $recette->getPour(); } ?></td>
-
                             <td><?php if ($recette->getPhoto() != null) { echo $recette->getPhoto(); } ?></td>
 
                             <td class="td-modif">
                                 <a href="?target=admin&admTarg=recette&action=update&id=<?= $recette->getIdRec() ?>" class="btn btn-warning">Modifier</a>
                             </td>
-
                             <td class="td-suppr">
                                 <a href="?target=admin&admTarg=recette&action=delete&id=<?= $recette->getIdRec() ?>" class="btn btn-danger">Supprimer</a>
                             </td>
