@@ -96,7 +96,6 @@ class SnippetCtrl extends Controller
      */
     public function oneWithCats($id): ?Snippet
     {
-
 //        $assocs = $this->snippetManager->one($id);
 //        $snippet = new Snippet();
 //        $snippet->setIdSnip($assocs['idSnip']);

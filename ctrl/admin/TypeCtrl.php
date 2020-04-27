@@ -2,37 +2,22 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
-use Form\RubricForm;
 use Form\TypeForm;
 use Html\Form;
-use Manager\RubricManager;
-use Manager\TypeManager;
 use Model\Type;
 use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-class TypeCtrl extends Controller
+class TypeCtrl extends TypRubCtrl
 {
-    /**
-     * @var TypeManager
-     */
-    private $typeManager;
-
-    /**
-     * @var RubricManager
-     */
-    private $rubricManager;
-
     /**
      * TypeCtrl constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
-        $this->typeManager = new TypeManager($db);
-        $this->rubricManager = new RubricManager($db);
+        parent::__construct($db);
     }
 
     /**
@@ -103,20 +88,7 @@ class TypeCtrl extends Controller
         } else {
             SuccessManager::add('Le type a été ajouté avec succès.');
         }
-        $types = $this->typeManager->findAll();
-        $typeForms = [];
-        foreach($types as $type) {
-            $typeForms[] = new TypeForm($type);
-        }
-        $formAddType = new Form();
-        $rubrics = $this->rubricManager->findAll();
-        $rubForms = [];
-        foreach($rubrics as $rubric) {
-            $rubForms[] = new RubricForm($rubric);
-        }
-        $formAddRub = new Form();
-        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -134,20 +106,7 @@ class TypeCtrl extends Controller
         } else {
             SuccessManager::add('Le type a été modifié avec succès.');
         }
-        $types = $this->typeManager->findAll();
-        $typeForms = [];
-        foreach($types as $type) {
-            $typeForms[] = new TypeForm($type);
-        }
-        $formAddType = new Form();
-        $rubrics = $this->rubricManager->findAll();
-        $rubForms = [];
-        foreach($rubrics as $rubric) {
-            $rubForms[] = new RubricForm($rubric);
-        }
-        $formAddRub = new Form();
-        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -167,26 +126,7 @@ class TypeCtrl extends Controller
         foreach($types as $type) {
             $typeForms[] = new TypeForm($type);
         }
-        $formAddType = new Form();
-        $rubrics = $this->rubricManager->findAll();
-        $rubForms = [];
-        foreach($rubrics as $rubric) {
-            $rubForms[] = new RubricForm($rubric);
-        }
-        $formAddRub = new Form();
-        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once (ROOT_DIR . 'view/template.php');
-    }
-
-    /**
-     * @param array $datas
-     * @return void
-     */
-    public function validate(array $datas): void
-    {
-        // Vérifier le type des variables
-        require_once(ROOT_DIR . 'view/admin/validation.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
 }

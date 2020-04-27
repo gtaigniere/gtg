@@ -2,44 +2,21 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
-use Form\CatForm;
-use Form\LanguageForm;
 use Html\Form;
-use Manager\CatManager;
-use Manager\LanguageManager;
-use Manager\SnippetManager;
 use Model\Language;
 use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-class LanguageCtrl extends Controller
+class LanguageCtrl extends CatLangCtrl
 {
-    /**
-     * @var LanguageManager
-     */
-    private $languageManager;
-
-    /**
-     * @var CatManager
-     */
-    private $catManager;
-
-    /**
-     * @var SnippetManager
-     */
-    private $snippetManager;
-
     /**
      * LanguageCtrl constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
-        $this->languageManager = new LanguageManager($db);
-        $this->catManager = new CatManager($db);
-        $this->snippetManager = new SnippetManager($db);
+        parent::__construct($db);
     }
 
     /**
@@ -106,21 +83,7 @@ class LanguageCtrl extends Controller
         } else {
             SuccessManager::add('Le language a été ajouté avec succès.');
         }
-        $snippets = $this->snippetManager->findAll();
-        $languages = $this->languageManager->findAll();
-        $languageForms = [];
-        foreach($languages as $language) {
-            $languageForms[] = new LanguageForm($language);
-        }
-        $formAddLang = new Form();
-        $cats = $this->catManager->findAll();
-        $catForms = [];
-        foreach($cats as $cat) {
-            $catForms[] = new CatForm($cat);
-        }
-        $formAddCat = new Form();
-        require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->all();
     }
 
     /**
@@ -138,21 +101,7 @@ class LanguageCtrl extends Controller
         } else {
             SuccessManager::add('Le language a été modifié avec succès.');
         }
-        $snippets = $this->snippetManager->findAll();
-        $languages = $this->languageManager->findAll();
-        $languageForms = [];
-        foreach($languages as $language) {
-            $languageForms[] = new LanguageForm($language);
-        }
-        $formAddLang = new Form();
-        $cats = $this->catManager->findAll();
-        $catForms = [];
-        foreach($cats as $cat) {
-            $catForms[] = new CatForm($cat);
-        }
-        $formAddCat = new Form();
-        require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->all();
     }
 
     /**
@@ -167,32 +116,7 @@ class LanguageCtrl extends Controller
         } else {
             SuccessManager::add('Le language a été supprimé avec succès.');
         }
-        $snippets = $this->snippetManager->findAll();
-        $languages = $this->languageManager->findAll();
-        $languageForms = [];
-        foreach($languages as $language) {
-            $languageForms[] = new LanguageForm($language);
-        }
-        $formAddLang = new Form();
-        $cats = $this->catManager->findAll();
-        $catForms = [];
-        foreach($cats as $cat) {
-            $catForms[] = new CatForm($cat);
-        }
-        $formAddCat = new Form();
-        require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
-    }
-
-    /**
-     * @param array $datas
-     * @return void
-     */
-    public function validate(array $datas): void
-    {
-        // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
 }

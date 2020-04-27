@@ -15,12 +15,12 @@ class TypRubCtrl extends Controller
     /**
      * @var TypeManager
      */
-    private $typeManager;
+    protected $typeManager;
 
     /**
      * @var RubricManager
      */
-    private $rubricManager;
+    protected $rubricManager;
 
     /**
      * TypeCtrl constructor.
@@ -51,6 +51,17 @@ class TypRubCtrl extends Controller
         $formAddRub = new Form();
         require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
         require_once (ROOT_DIR . 'view/template.php');
+    }
+
+    /**
+     * @param array $datas
+     * @return void
+     */
+    public function validate(array $datas): void
+    {
+        // Vérifier le type des variables
+        require_once(ROOT_DIR . 'view/admin/validation.php');
+        require_once(ROOT_DIR . 'view/template.php');
     }
 
 }

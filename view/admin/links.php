@@ -95,9 +95,9 @@ ob_start();
                 <tr>
 
                     <td>
-                        <?= $formAdd->input('label', null, ['required' => 'required']); ?>
+                        <?= $formAddLink->input('label', null, ['required' => 'required']); ?>
                     <td>
-                        <?= $formAdd->input('adrOrFile', null, ['required' => 'required']); ?>
+                        <?= $formAddLink->input('adrOrFile', null, ['required' => 'required']); ?>
                     <td>
                         <?php
                         $options = [];
@@ -105,7 +105,7 @@ ob_start();
                             $options[$rubric->getIdRub()] = $rubric->getLabel();
                         }
                         ?>
-                        <?= $formAdd->select('idRub', $options, null, 'Choose an option') ?>
+                        <?= $formAddLink->select('idRub', $options, null, 'Choose an option') ?>
                     </td>
                     <td>
                         <?php
@@ -114,7 +114,7 @@ ob_start();
                             $options[$type->getIdType()] = $type->getLabel();
                         }
                         ?>
-                        <?= $formAdd->select('idType', $options, null, 'Choose an option') ?>
+                        <?= $formAddLink->select('idType', $options, null, 'Choose an option') ?>
                     </td>
                     <td class="td-ajout" colspan="2">
                         <button class="btn btn-success">Ajouter</button>

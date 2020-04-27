@@ -69,17 +69,6 @@ class RecetteManager extends Manager
     }
 
     /**
-     * @param int $id
-     * @return bool
-     */
-    public function delete(int $id): bool
-    {
-        $stmt = $this->db->prepare('DELETE FROM recette WHERE idRec = :id');
-        $stmt->execute([':id' => $id]);
-        return $stmt->rowCount() > 0;
-    }
-
-    /**
      * @param Recette $recette
      * @return Recette|null
      */
@@ -105,6 +94,17 @@ class RecetteManager extends Manager
             return $this->findOne($recette->getIdRec());
         }
         return null;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM recette WHERE idRec = :id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
 }

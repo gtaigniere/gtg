@@ -13,26 +13,15 @@ use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-class RubricCtrl extends Controller
+class RubricCtrl extends TypRubCtrl
 {
-    /**
-     * @var RubricManager
-     */
-    private $rubricManager;
-
-    /**
-     * @var TypeManager
-     */
-    private $typeManager;
-
     /**
      * RubricCtrl constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
-        $this->rubricManager = new rubricManager($db);
-        $this->typeManager = new typeManager($db);
+        parent::__construct($db);
     }
 
     /**
@@ -104,20 +93,7 @@ class RubricCtrl extends Controller
         } else {
             SuccessManager::add('La rubrique a été ajouté avec succès.');
         }
-        $rubrics = $this->rubricManager->findAll();
-        $rubForms = [];
-        foreach($rubrics as $rubric) {
-            $rubForms[] = new RubricForm($rubric);
-        }
-        $formAddType = new Form();
-        $types = $this->typeManager->findAll();
-        $typeForms = [];
-        foreach($types as $type) {
-            $typeForms[] = new TypeForm($type);
-        }
-        $formAddRub = new Form();
-        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -136,20 +112,7 @@ class RubricCtrl extends Controller
         } else {
             SuccessManager::add('La rubrique a été modifié avec succès.');
         }
-        $rubrics = $this->rubricManager->findAll();
-        $rubForms = [];
-        foreach($rubrics as $rubric) {
-            $rubForms[] = new RubricForm($rubric);
-        }
-        $formAddType = new Form();
-        $types = $this->typeManager->findAll();
-        $typeForms = [];
-        foreach($types as $type) {
-            $typeForms[] = new TypeForm($type);
-        }
-        $formAddRub = new Form();
-        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -164,30 +127,7 @@ class RubricCtrl extends Controller
         } else {
             SuccessManager::add('La rubrique a été supprimé avec succès.');
         }
-        $rubrics = $this->rubricManager->findAll();
-        $rubForms = [];
-        foreach($rubrics as $rubric) {
-            $rubForms[] = new RubricForm($rubric);
-        }
-        $formAddType = new Form();
-        $types = $this->typeManager->findAll();
-        $typeForms = [];
-        foreach($types as $type) {
-            $typeForms[] = new TypeForm($type);
-        }
-        $formAddRub = new Form();
-        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once (ROOT_DIR . 'view/template.php');
-    }
-
-    /**
-     * @param array $datas
-     */
-    public function validate(array $datas): void
-    {
-        // Vérifier le type des variables
-        require_once(ROOT_DIR . 'view/admin/validation.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
 }

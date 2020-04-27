@@ -58,17 +58,6 @@ class TypeManager extends Manager
     }
 
     /**
-     * @param int $id
-     * @return bool
-     */
-    public function delete(int $id): bool
-    {
-        $stmt = $this->db->prepare('DELETE FROM type WHERE idType = :id');
-        $stmt->execute([':id' => $id]);
-        return $stmt->rowCount() > 0;
-    }
-
-    /**
      * @param Type $type
      * @return Type|null
      */
@@ -79,6 +68,17 @@ class TypeManager extends Manager
             return $this->findOne($type->getIdType());
         }
         return null;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM type WHERE idType = :id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
 }

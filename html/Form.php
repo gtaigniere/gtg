@@ -56,17 +56,22 @@ class Form
     public function input(string $name, ?string $label = null, array $options = []): string
     {
         $params = '';
-        foreach ($options as $key => $value) {
-            $params .= ' ' . $key . '="' . $value .'"';
-        }
         if (!array_key_exists('type', $options)) {
-            $params .= ' type="text"';
+            $options['type'] = "text";
+        }
+        foreach ($options as $key => $value) {
+            $params .= ' ' . $key . '="' . $value . '"';
+        }
+        if ($options['type'] == "checkbox") {
+            $params .= $this->getValue($name) != null ? ' checked' : '';
+        } else {
+            $params .= '" value="' . $this->getValue($name) . '"';
         }
         $html = '';
         if ($label != null) {
             $html = '<label for="' . $name . '">' . $label . '</label>';
         }
-        return $html .= '<input id="' . $name . '" name="' . $name . '" value="' . $this->getValue($name) . '"' . $params . '>';
+        return $html .= '<input id="' . $name . '" name="' . $name . '"' . $params . '>';
     }
 
     /**

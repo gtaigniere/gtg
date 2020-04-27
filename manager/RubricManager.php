@@ -58,17 +58,6 @@ class RubricManager extends Manager
     }
 
     /**
-     * @param int $id
-     * @return bool
-     */
-    public function delete(int $id): bool
-    {
-        $stmt = $this->db->prepare('DELETE FROM rubric WHERE idRub = :id');
-        $stmt->execute([':id' => $id]);
-        return $stmt->rowCount() > 0;
-    }
-
-    /**
      * @param Rubric $rubric
      * @return Rubric|null
      */
@@ -79,6 +68,17 @@ class RubricManager extends Manager
             return $this->findOne($rubric->getIdRub());
         }
         return null;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM rubric WHERE idRub = :id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
 }

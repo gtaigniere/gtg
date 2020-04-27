@@ -257,16 +257,12 @@ class Router
 
     private function addLink(): void
     {
-        $ctrl = new AdmLnkCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->ajouter($form);
+        (new AdmLnkCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updLink(): void
     {
-        $ctrl = new AdmLnkCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->modifier($form);
+        (new AdmLnkCtrl($this->db))->modifier(new Form($_POST));
     }
 
     private function delLink(): void
@@ -317,7 +313,6 @@ class Router
     {
         $ctrl = new AdmTypCtrl($this->db);
         $form = new Form($_POST);
-        var_dump($form);
         $ctrl->modifier($form);
     }
 
@@ -406,37 +401,24 @@ class Router
 
     private function addUsr(): void
     {
-        $ctrl =  new AdmUsrCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            $ctrl->ajouter($form);
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        $ctrl = new AdmUsrCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->ajouter($form);
     }
 
     private function updUsr(): void
     {
-        $ctrl =  new AdmUsrCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            $ctrl->modifier($form);
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        $ctrl = new AdmUsrCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->modifier($form);
     }
 
     private function delUsr(): void
     {
-        $ctrl =  new AdmRubCtrl($this->db);
-        if (isset($this->params['idUser'])) {
-            $form = new Form(
-            // Fusion de 2 tableaux avec la fonction "array_merge"
-                array_merge($_POST, ['idUser' => $this->params['idUser']])
-            );
-            $ctrl->supprimer($form);
+        $ctrl = new AdmUsrCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }

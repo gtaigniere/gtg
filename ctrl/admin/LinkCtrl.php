@@ -53,7 +53,7 @@ class LinkCtrl extends Controller
         }
         $rubrics = $this->rubricManager->findAll();
         $types = $this->typeManager->findAll();
-        $formAdd = new Form();
+        $formAddLink = new Form();
         require_once(ROOT_DIR . 'view/admin/links.php');
         require_once(ROOT_DIR . 'view/template.php');
     }

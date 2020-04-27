@@ -117,9 +117,7 @@ a {
 	color: black;
 }
 .alert {
-	width: auto;
 	border-radius: 8px;
-	align-self: center;
 }
 .btn-violet {
 	color: #fff;
@@ -839,11 +837,14 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	justify-content: center;
 }
 /***** Debut Page Links Admin *****/
-#sect-adm_links {
-
+#sect-adm_links div:nth-child(2) {
+	width: auto;
 }
 /***** Fin Page Links Admin *****/
 /***** Debut Page Utilisateurs Admin *****/
+#sect-adm_users div:nth-child(2) {
+	width: auto;
+}
 #sect-adm_users .t-email {
 	width: 35%;
 }
@@ -865,6 +866,10 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	justify-content: space-around;
 	align-items: flex-start;
 	width: 100%;
+}
+#sect-adm_typsrubs div:first-child,
+#sect-adm_catslangs div:first-child {
+	width: auto;
 }
 #sect-adm_typsrubs table:first-child,
 #sect-adm_catslangs table:first-child {
@@ -890,6 +895,9 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 /***** Fin Page Types et Rubriques Admin
   	+ Catégories et Languages Admin *****/
 /***** Debut Page Recettes Admin *****/
+#sect-adm_recettes div:nth-child(2) {
+	width: auto;
+}
 #sect-adm_recettes th:last-child {
 	border-radius: 0 4px 4px 0;
 }
@@ -912,6 +920,9 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 /***** Debut Page Recette Admin et Snippet Admin *****/
 #sect-adm_recette, #sect-adm_snippet {
 	align-items: center;
+}
+#sect-adm_snippet div:nth-child(2) {
+	width: auto;
 }
 #sect-adm_recette form, #sect-adm_snippet form {
 	padding-bottom: 10px;

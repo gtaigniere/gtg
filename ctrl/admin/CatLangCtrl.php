@@ -16,17 +16,17 @@ class CatLangCtrl extends Controller
     /**
      * @var CatManager
      */
-    private $catManager;
+    protected $catManager;
 
     /**
      * @var LanguageManager
      */
-    private $languageManager;
+    protected $languageManager;
 
     /**
      * @var SnippetManager
      */
-    private $snippetManager;
+    protected $snippetManager;
 
     /**
      * TypeCtrl constructor.
@@ -59,6 +59,17 @@ class CatLangCtrl extends Controller
         $formAddLang = new Form();
         require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
+    }
+
+    /**
+     * @param array $datas
+     * @return void
+     */
+    public function validate(array $datas): void
+    {
+        // Vérifier le type des variables
+        require_once (ROOT_DIR . 'view/admin/validation.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }
