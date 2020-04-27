@@ -62,16 +62,17 @@ class UserCtrl extends Controller
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function modifier(Form $form): void
+    public function modifier(int $id, Form $form): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Si le formulaire est validé
             if ($form->getValue('validate') != null) {
                 // Alors on persiste les données
-                $this->upd($form);
+                $this->upd($id, $form);
             } else {
                 $this->validate($form->getDatas());
             }
@@ -107,7 +108,7 @@ class UserCtrl extends Controller
         $user->setEmail($form->getValue('email'));
         $user->setPwd(
             $form->getValue('pwd') != null ?
-                $form->getValue('pwd') : ''
+                $form->getValue('pwd') : 'default'
         );
         $user->setConfirmKey($form->getValue('confirmKey'));
         $user->setConfirmed(
@@ -124,24 +125,25 @@ class UserCtrl extends Controller
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function upd(Form $form): void
+    public function upd(int $id, Form $form): void
     {
         $user = new User();
         $user->setPseudo($form->getValue('pseudo'));
         $user->setEmail($form->getValue('email'));
         $user->setPwd(
             $form->getValue('pwd') != null ?
-                $form->getValue('pwd') : ''
+                $form->getValue('pwd') : 'default'
         );
         $user->setConfirmKey($form->getValue('confirmKey'));
         $user->setConfirmed(
             $form->getValue('confirmed') != null ?
                 true : false
         );
-        $user->setIdUser($form->getValue('id'));
+        $user->setIdUser($id);
         $user = $this->userManager->update($user);
         if ($user == null) {
             ErrorManager::add('Erreur lors de la modification de l\'utilisateur !');

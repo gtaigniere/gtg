@@ -409,8 +409,12 @@ class Router
     private function updUsr(): void
     {
         $ctrl = new AdmUsrCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->modifier($form);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->modifier($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
     }
 
     private function delUsr(): void

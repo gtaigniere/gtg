@@ -48,9 +48,7 @@ ob_start();
 
                     <tr>
 
-                        <form action="?target=admin&admTarg=user&action=update" method="POST">
-
-                            <?= $form->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
+                        <form action="?target=admin&admTarg=user&action=update&id=<?= $form->getValue('id') ?>" method="POST">
 
                             <td>
                                 <?= $form->input('pseudo', null, ['required' => 'required']); ?>
@@ -75,7 +73,7 @@ ob_start();
                         </form>
 
                         <td class="td-suppr">
-                            <a href="?target=admin&admTarg=user&action=delete&id=<?= $user->getIdUser() ?>" class="btn btn-danger">Supprimer</a>
+                            <a href="?target=admin&admTarg=user&action=delete&id=<?= $form->getValue('id') ?>" class="btn btn-danger">Supprimer</a>
                         </td>
 
                     </tr>
