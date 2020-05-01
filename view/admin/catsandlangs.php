@@ -46,7 +46,7 @@ ob_start();
 
 						<tr>
 
-							<form action="?target=admin&admTarg=cat&action=update" method="POST">
+							<form action="?target=admin&admTarg=cat&action=update&id=<?= $catForm->getValue('id') ?>" method="POST">
 
                                 <?= $catForm->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
@@ -60,7 +60,7 @@ ob_start();
 							</form>
 
 							<td class="td-suppr">
-								<a href="?target=admin&admTarg=cat&action=delete&id=<?= $cat->getIdCat() ?>" class="btn btn-danger">Supprimer</a>
+								<a href="?target=admin&admTarg=cat&action=delete&id=<?= $catForm->getValue('id') ?>" class="btn btn-danger">Supprimer</a>
 							</td>
 
 						</tr>
@@ -99,7 +99,7 @@ ob_start();
 
 						<tr>
 
-							<form action="?target=admin&admTarg=language&action=update" method="POST">
+							<form action="?target=admin&admTarg=language&action=update&id=<?= $languageForm->getValue('id') ?>" method="POST">
 
                                 <?= $languageForm->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
@@ -110,7 +110,7 @@ ob_start();
 							</form>
 
 							<td class="td-suppr">
-                                <a href="?target=admin&admTarg=language&action=delete&id=<?= $language->getIdLang() ?>" class="btn btn-danger">Supprimer</a>
+                                <a href="?target=admin&admTarg=language&action=delete&id=<?= $languageForm->getValue('id') ?>" class="btn btn-danger">Supprimer</a>
                             </td>
 
 						</tr>

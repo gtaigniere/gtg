@@ -187,29 +187,30 @@ class SnippetManager extends Manager
 
     /**
      *
-     * @param Form $form
+     * @param Snippet $snippet
      * @return Snippet|null
      * @throws Exception
      */
-    public function insert(Form $form): ?Snippet
+    public function insert(Snippet $snippet): ?Snippet
     {
         $stmt = $this->db->prepare(
-            'INSERT INTO snippet (title, code, dateCrea, comment, requirement, idUser, idLang)
+            'INSERT INTO snippet (title, code, dateCrea, comment, requirement, idLang, idUser)
                         VALUES (:title, :code, :dateCrea, :comment, :requirement, :idLang, :idUser)');
         if ($stmt->execute(
             [
-                ':title' => $form->getValue('title'),
-                ':code' => $form->getValue('code'),
+                ':title' => $snippet->getTitle(),
+                ':code' => $snippet->getCode(),
                 ':dateCrea' => (new DateTime())->format('Y-m-d H:i:s'),
-                ':comment' => $form->getValue('comment') != null ? $form->getValue('comment') : null,
-                ':requirement' => $form->getValue('requirement') != null ? $form->getValue('requirement') : null,
-                ':idLang' => $form->getValue('language') != null ? $form->getValue('language') : null,
-                ':idUser' => AuthService::getUser()->getIdUser()
+                ':comment' => $snippet->getComment() != null ? $snippet->getComment() : null,
+                ':requirement' => $snippet->getRequirement() != null ? $snippet->getRequirement() : null,
+                ':idLang' => $snippet->getLanguage() != null ? $snippet->getLanguage()->getIdLang() : null,
+                ':idUser' => $snippet->getUser()->getIdUser()
             ]
         )) {
             $id = $this->db->lastInsertId();
-            foreach($form->getValue('cats') as $idCat) {
-                $this->addCatForSnip($id, $idCat);
+            $cats = $snippet->getCats();
+            foreach ($cats as $cat) {
+                $this->addCatForSnip($id, $cat->getIdCat());
             }
             return $this->findOne($id);
         }
@@ -224,19 +225,26 @@ class SnippetManager extends Manager
     {
         $stmt = $this->db->prepare(
             'UPDATE snippet
-                        SET title=:title, dateCrea=:dateCrea, comment=:comment, requirement=:requirement, idLang=:idLang, idUser=:idUser
+                        SET title=:title, code=:code, dateCrea=:dateCrea, comment=:comment, requirement=:requirement, idLang=:idLang, idUser=:idUser
                         WHERE idSnip=:id');
         if ($stmt->execute(
             [
                 ':title' => $snippet->getTitle(),
-                ':dateCrea' => $snippet->getDateCrea(),
+                ':code' => $snippet->getCode(),
+                ':dateCrea' => $snippet->getDateCrea()->format('Y-m-d H:i:s'),
                 ':comment' => $snippet->getComment() != null ? $snippet->getComment() : null,
                 ':requirement' => $snippet->getRequirement() != null ? $snippet->getRequirement() : null,
-                ':language' => $snippet->getLanguage() != null ? $snippet->getLanguage() : null,
-                ':user' => $snippet->getUser(),
+                ':idLang' => $snippet->getLanguage() != null ? $snippet->getLanguage()->getIdLang() : null,
+                ':idUser' => $snippet->getUser()->getIdUser(),
                 ':id' => $snippet->getIdSnip()
             ]
         )) {
+            $id = $snippet->getIdSnip();
+            $this->supCatsForSnip($id);
+            $cats = $snippet->getCats();
+            foreach ($cats as $cat) {
+                $this->addCatForSnip($id, $cat->getIdCat());
+            }
             return $this->findOne($snippet->getIdSnip());
         }
         return null;

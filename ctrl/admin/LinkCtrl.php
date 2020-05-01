@@ -54,8 +54,8 @@ class LinkCtrl extends Controller
         $rubrics = $this->rubricManager->findAll();
         $types = $this->typeManager->findAll();
         $formAddLink = new Form();
-        require_once(ROOT_DIR . 'view/admin/links.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        require_once (ROOT_DIR . 'view/admin/links.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -78,16 +78,17 @@ class LinkCtrl extends Controller
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function modifier(Form $form): void
+    public function modifier(int $id, Form $form): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Si le formulaire est validé
             if ($form->getValue('validate') != null) {
                 // Alors on persiste les données
-                $this->upd($form);
+                $this->upd($id, $form);
             } else {
                 $this->validate($form->getDatas());
             }
@@ -137,10 +138,11 @@ class LinkCtrl extends Controller
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function upd(Form $form): void
+    public function upd(int $id, Form $form): void
     {
         $link = new Link();
         $link->setLabel($form->getValue('label'));
@@ -151,7 +153,7 @@ class LinkCtrl extends Controller
         $idType = $form->getValue('idType');
         $type = is_numeric($idType) ? $this->typeManager->findOne((int)$idType) : null;
         $link->setType($type);
-        $link->setIdLink($form->getValue('id'));
+        $link->setIdLink($id);
         $link = $this->linkManager->update($link);
         if ($link == null) {
             ErrorManager::add('Erreur lors de la modification du lien !');
@@ -182,8 +184,8 @@ class LinkCtrl extends Controller
     public function validate(array $datas)
     {
         // Vérifier le type des variables
-        require_once(ROOT_DIR . 'view/admin/validation.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        require_once (ROOT_DIR . 'view/admin/validation.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }

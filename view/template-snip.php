@@ -89,26 +89,32 @@ use Model\Snippet;
             
             <aside id="navcol">
                 <h1>Recherches</h1>
-                <ul class="ul_title">Languages
-                    <li><a href=".">Tous les langages</a></li>
-                    <?php foreach($languages as $language) : ?>
-                        <li><a href="">
-                            <?php if($language instanceof Language) {
-                                echo $language->getLabel();
-                            } ?>
-                        </a></li>
-                    <?php endforeach; ?>
-                </ul>
-                <ul class="ul_title">Catégories
-                    <li><a href=".">Toutes les catégories</a></li>
-                    <?php foreach($cats as $cat) : ?>
-                        <li><a href="">
-                            <?php if($cat instanceof Cat) {
-                                echo $cat->getLabel();
-                            } ?>
-                        </a></li>
-                    <?php endforeach; ?>
-                </ul>
+
+                <h2 class="ul-title">Langages</h2>
+
+<!--                <ul class="ul_title">Langages-->
+<!--                    <li><a href=".">Tous les langages</a></li>-->
+<!--                    --><?php //foreach($languages as $language) : ?>
+<!--                        <li><a href="">-->
+<!--                            --><?php //if($language instanceof Language) {
+//                                echo $language->getLabel();
+//                            } ?>
+<!--                        </a></li>-->
+<!--                    --><?php //endforeach; ?>
+<!--                </ul>-->
+
+                <h2 class="ul_title">Catégories</h2>
+
+<!--                <ul class="ul_title">Catégories-->
+<!--                    <li><a href=".">Toutes les catégories</a></li>-->
+<!--                    --><?php //foreach($cats as $cat) : ?>
+<!--                        <li><a href="">-->
+<!--                            --><?php //if($cat instanceof Cat) {
+//                                echo $cat->getLabel();
+//                            } ?>
+<!--                        </a></li>-->
+<!--                    --><?php //endforeach; ?>
+<!--                </ul>-->
             </aside>
 
             <aside id="listsnippets">
@@ -116,10 +122,10 @@ use Model\Snippet;
                 <ul>
                     <?php foreach($snippets as $snippet) : ?>
                         <?php if ($snippet instanceof Snippet) : ?>
-                        <a href="">
+                        <a href="?target=snippet&id=<?= $snippet->getIdSnip() ?>">
                             <li class="">
                                 <h2><?= $snippet->getTitle() ?></h2>
-                                <p><?= $snippet->getLanguage()->getLabel() ?></p>
+                                <p><?= $snippet->getLanguage() != null ? $snippet->getLanguage()->getLabel() : 'Pas de langage' ?></p>
                                 <p><?= $snippet->getDateCrea()->format('d-m-Y') ?></p>
                             </li>
                         </a>

@@ -2,6 +2,7 @@
 
 namespace Ctrl;
 
+use Exception;
 use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;
@@ -72,8 +73,9 @@ class SnippetCtrl extends Controller
 
     /**
      * @return void
+     * @throws Exception
      */
-    public function last(int $id): void
+    public function last(): void
     {
 //        $snippets = $this->snippetManager->findAll();
 //        $snippet = $this->snippetManager->findOne($id);
@@ -116,6 +118,7 @@ class SnippetCtrl extends Controller
     /**
      * @param $id
      * @return Snippet|null
+     * @throws Exception
      */
     public function lastWithCats($id): ?Snippet
     {

@@ -1,8 +1,7 @@
 <?php
 
 $title = 'Snippets';
-$h1 = 'Tous les snippets';
-$h2 = 'Un snippet';
+$h1 = 'Un snippet';
 
 use Model\Cat;
 use Model\Snippet;
@@ -15,7 +14,7 @@ ob_start();
 
 <section id="section_snippet">
 
-    <h1><?= $h2; ?></h1>
+    <h1><?= $h1; ?></h1>
 
     <?php
     foreach (SuccessManager::getMessages() as $message) : ?>
@@ -37,15 +36,19 @@ ob_start();
 
         <h2 id="titlesnippet"><?= $snippet->getTitle() ?></h2>
 
-        <p><?= $snippet->getLanguage()->getLabel() ?></p>
-        <pre>
-            <code class="<?= $snippet->getLanguage()->getLabel(); ?>">
-                <?= $snippet->getCode() ?>
-            </code>
-        </pre>
+        <p><?= $snippet->getLanguage() != null ? $snippet->getLanguage()->getLabel() : 'Pas de langage' ?></p>
+        <pre><code class="<?= $snippet->getLanguage() != null ?
+                $snippet->getLanguage()->getLabel() :
+                '' ?>"><?= $snippet->getCode() ?></code></pre>
         <p><?= $snippet->getDateCrea()->format('d-m-Y H:i') ?></p>
+
+        <?php if (!empty($snippet->getComment())) : ?>
         <p><?= $snippet->getComment() ?></p>
+        <?php
+        endif;
+        if (!empty($snippet->getRequirement())) : ?>
         <p><?= $snippet->getRequirement() ?></p>
+         <?php endif; ?>
         <p><?= $snippet->getUser()->getPseudo() ?></p>
 
         <p>Catégorie(s) : <em id="cat">

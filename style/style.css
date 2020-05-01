@@ -100,6 +100,7 @@ h6 => 0.67em	=> 10.5px */
 	--sitExtAside: #F1E6E6;
 	--recAside: #DBE9CD;
 	--liSnippets: #007BBF; /* Bleu href */
+	--lititleSnippet: #00FF00; /* Vert */
 	--violet: #9932CC;
 }
 /********** Fin Variables **********/
@@ -708,6 +709,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	text-align: left;
 	font-size: 1.1rem;
 	font-weight: bold;
+	color: var(--lititleSnippet);
 }
 #section_snippet {
 	display: flex;
@@ -719,6 +721,10 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 #section_snippet h1 {
 	padding-top: 0;
+}
+#section_snippet div:nth-child(2) {
+	margin-left: auto;
+	margin-right: auto;
 }
 #section_snippet form {
 	align-self: center;
@@ -868,7 +874,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	width: 100%;
 }
 #sect-adm_typsrubs div:first-child,
-#sect-adm_catslangs div:first-child {
+#sect-adm_catslangs div:nth-child(2) {
 	width: auto;
 }
 #sect-adm_typsrubs table:first-child,

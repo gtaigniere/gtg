@@ -46,7 +46,7 @@ ob_start();
 
 						<tr>
 
-							<form action="?target=admin&admTarg=type&action=update" method="POST">
+							<form action="?target=admin&admTarg=type&action=update&id=<?= $typeForm->getValue('id') ?>" method="POST">
 
                                 <?= $typeForm->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
@@ -60,7 +60,7 @@ ob_start();
 							</form>
 
 							<td class="td-suppr">
-								<a href="?target=admin&admTarg=type&action=delete&id=<?= $type->getIdType() ?>" class="btn btn-danger">Supprimer</a>
+								<a href="?target=admin&admTarg=type&action=delete&id=<?= $typeForm->getValue('id') ?>" class="btn btn-danger">Supprimer</a>
 							</td>
 
 						</tr>
@@ -101,7 +101,7 @@ ob_start();
 
 						<tr>
 
-							<form action="?target=admin&admTarg=rubric&action=update" method="POST">
+							<form action="?target=admin&admTarg=rubric&action=update&id=<?= $rubForm->getValue('id') ?>" method="POST">
 
                                 <?= $rubForm->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
@@ -118,7 +118,7 @@ ob_start();
 							</form>
 
 							<td class="td-suppr">
-                                <a href="?target=admin&admTarg=rubric&action=delete&id=<?= $rubric->getIdRub() ?>" class="btn btn-danger">Supprimer</a>
+                                <a href="?target=admin&admTarg=rubric&action=delete&id=&id=<?= $rubForm->getValue('id') ?>" class="btn btn-danger">Supprimer</a>
                             </td>
 
 						</tr>

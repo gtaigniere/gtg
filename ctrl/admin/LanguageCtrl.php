@@ -37,14 +37,15 @@ class LanguageCtrl extends CatLangCtrl
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function modifier(Form $form): void
+    public function modifier(int $id, Form $form): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($form->getValue('validate') != null) {
-                $this->upd($form);
+                $this->upd($id, $form);
             } else {
                 $this->validate($form->getDatas());
             }
@@ -87,14 +88,15 @@ class LanguageCtrl extends CatLangCtrl
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function upd(Form $form): void
+    public function upd(int$id, Form $form): void
     {
         $language = new Language();
         $language->setLabel($form->getValue('label'));
-        $language->setIdLang($form->getValue('id'));
+        $language->setIdLang($id);
         $language = $this->languageManager->update($language);
         if ($language == null) {
             ErrorManager::add('Erreur lors de la modification du language !');

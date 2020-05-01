@@ -17,7 +17,7 @@ if (isset($form) && $form instanceof Form) :
                 <form method="POST">
 
                     <div>
-                        <?= $form->input('idSnip', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
+                        <?= $form->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
                     </div>
 
                     <div>
@@ -49,12 +49,12 @@ if (isset($form) && $form instanceof Form) :
                                 $options[$language->getIdLang()] = $language->getLabel();
                             }
                         ?>
-                        <?= $form->select('language', $options, 'Language :', $action == 'insert' ? 'Choose an option' : '--null--') ?>
+                        <?= $form->select('idLang', $options, 'Language :', $action == 'insert' ? 'Choose an option' : '--null--') ?>
                     </div>
 
                     <?php if ($action != 'insert') : ?>
                         <div>
-                            <?= $form->input('user', 'Créé par :', ['readonly' => 'readonly']); ?>
+                            <?= $form->input('pseudo', 'Créé par :', ['readonly' => 'readonly']); ?>
                         </div>
                     <?php endif; ?>
 

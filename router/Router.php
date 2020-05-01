@@ -262,7 +262,13 @@ class Router
 
     private function updLink(): void
     {
-        (new AdmLnkCtrl($this->db))->modifier(new Form($_POST));
+        $ctrl = new AdmLnkCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->modifier($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
     }
 
     private function delLink(): void
@@ -304,16 +310,18 @@ class Router
 
     private function addTyp(): void
     {
-        $ctrl = new AdmTypCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->ajouter($form);
+        (new AdmTypCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updTyp(): void
     {
         $ctrl = new AdmTypCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->modifier($form);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->modifier($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
     }
 
     private function delTyp(): void
@@ -355,16 +363,18 @@ class Router
 
     private function addRub(): void
     {
-        $ctrl = new AdmRubCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->ajouter($form);
+        (new AdmRubCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updRub(): void
     {
         $ctrl = new AdmRubCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->modifier($form);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->modifier($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
     }
 
     private function delRub(): void
@@ -401,9 +411,7 @@ class Router
 
     private function addUsr(): void
     {
-        $ctrl = new AdmUsrCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->ajouter($form);
+        (new AdmUsrCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updUsr(): void
@@ -514,8 +522,8 @@ class Router
     private function updSnip(): void
     {
         $ctrl = new AdmSnipCtrl($this->db);
-        if (is_numeric($_GET['id'])) {
-            $ctrl->modifier($_GET['id'], new Form($_POST));
+        if (array_key_exists('id', $this->params) && is_numeric($this->params['id'])) {
+            $ctrl->modifier($this->params['id'], new Form($_POST));
         } else {
             $ctrl->notFound();
         }
@@ -524,8 +532,9 @@ class Router
     private function delSnip(): void
     {
         $ctrl = new AdmSnipCtrl(($this->db));
-        if (is_numeric($_GET['id'])) {
-            $ctrl->supprimer($_GET['id'], new Form($_POST));
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }
@@ -554,16 +563,18 @@ class Router
 
     private function addCat(): void
     {
-        $ctrl = new AdmCatCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->ajouter($form);
+        (new AdmCatCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updCat(): void
     {
         $ctrl = new AdmCatCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->modifier($form);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->modifier($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
     }
 
     private function delCat(): void
@@ -605,16 +616,18 @@ class Router
 
     private function addLang(): void
     {
-        $ctrl = new AdmLngCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->ajouter($form);
+        (new AdmLngCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updLang(): void
     {
         $ctrl = new AdmLngCtrl($this->db);
-        $form = new Form($_POST);
-        $ctrl->modifier($form);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->modifier($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
     }
 
     private function delLang(): void

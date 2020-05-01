@@ -40,16 +40,17 @@ class TypeCtrl extends TypRubCtrl
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function modifier(Form $form): void
+    public function modifier(int $id, Form $form): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Si le formulaire est validé
             if ($form->getValue('validate') != null) {
                 // Alors on persiste les données
-                $this->upd($form);
+                $this->upd($id, $form);
             } else {
                 $this->validate($form->getDatas());
             }
@@ -92,14 +93,15 @@ class TypeCtrl extends TypRubCtrl
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    private function upd(Form $form): void
+    private function upd(int $id, Form $form): void
     {
         $type = new Type();
         $type->setLabel($form->getValue('label'));
-        $type->setIdType($form->getValue('id'));
+        $type->setIdType($id);
         $type = $this->typeManager->update($type);
         if ($type == null) {
             ErrorManager::add('Erreur lors de la modification du type !');

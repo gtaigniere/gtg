@@ -39,16 +39,17 @@ class CatCtrl extends CatLangCtrl
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function modifier(Form $form): void
+    public function modifier(int $id, Form $form): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Si le formulaire est validé
             if ($form->getValue('validate') != null) {
                 // Alors on persiste les données
-                $this->upd($form);
+                $this->upd($id, $form);
             } else {
                 $this->validate($form->getDatas());
             }
@@ -91,14 +92,15 @@ class CatCtrl extends CatLangCtrl
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function upd(Form $form): void
+    public function upd(int $id, Form $form): void
     {
         $cat = new Cat();
         $cat->setLabel($form->getValue('label'));
-        $cat->setIdCat($form->getValue('id'));
+        $cat->setIdCat($id);
         $cat = $this->catManager->update($cat);
         if ($cat == null) {
             ErrorManager::add('Erreur lors de la modification de la catégorie !');

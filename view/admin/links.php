@@ -48,7 +48,7 @@ ob_start();
 
                     <tr>
 
-                        <form action="?target=admin&admTarg=link&action=update" method="POST">
+                        <form action="?target=admin&admTarg=link&action=update&id=<?= $form->getValue('id') ?>" method="POST">
 
                             <?= $form->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
@@ -83,7 +83,7 @@ ob_start();
                         </form>
 
                         <td class="td-suppr">
-                            <a href="?target=admin&admTarg=link&action=delete&id=<?= $link->getIdLink() ?>" class="btn btn-danger">Supprimer</a>
+                            <a href="?target=admin&admTarg=link&action=delete&id=<?= $form->getValue('id') ?>" class="btn btn-danger">Supprimer</a>
                         </td>
 
                     </tr>

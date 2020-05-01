@@ -44,16 +44,17 @@ class RubricCtrl extends TypRubCtrl
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function modifier(Form $form): void
+    public function modifier(int $id, Form $form): void
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Si le formulaire est validé
             if ($form->getValue('validate') != null) {
                 // Alors on persiste les données
-                $this->upd($form);
+                $this->upd($id, $form);
             } else {
                 $this->validate($form->getDatas());
             }
@@ -97,15 +98,16 @@ class RubricCtrl extends TypRubCtrl
     }
 
     /**
+     * @param int $id
      * @param Form $form
      * @return void
      */
-    public function upd(Form $form): void
+    public function upd(int $id, Form $form): void
     {
         $rubric = new Rubric();
         $rubric->setLabel($form->getValue('label'));
         $rubric->setImage($form->getValue('image'));
-        $rubric->setIdRub($form->getValue('id'));
+        $rubric->setIdRub($id);
         $rubric = $this->rubricManager->update($rubric);
         if ($rubric == null) {
             ErrorManager::add('Erreur lors de la modification de la rubrique !');

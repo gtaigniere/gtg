@@ -3,6 +3,7 @@
 namespace Model;
 
 use DateTime;
+use Exception;
 
 class Snippet
 {
@@ -115,11 +116,18 @@ class Snippet
     }
 
     /**
-     * @param string $dateCrea
+     * @param DateTime|string $dateCrea
+     * @throws Exception
      */
-    public function setDateCrea(string $dateCrea): void
+    public function setDateCrea($dateCrea): void
     {
-        $this->dateCrea = DateTime::createFromFormat('Y-m-d H:i:s', $dateCrea);
+        if ($dateCrea instanceof DateTime) {
+            $this->dateCrea;
+        } elseif (is_string($dateCrea)) {
+            $this->dateCrea = DateTime::createFromFormat('Y-m-d H:i:s', $dateCrea);
+        } else {
+            throw new Exception('Une date au format Datetime ou string doit être fournie !');
+        }
     }
 
     /**
@@ -155,9 +163,9 @@ class Snippet
     }
 
     /**
-     * @return Language
+     * @return Language|null
      */
-    public function getLanguage(): Language
+    public function getLanguage(): ?Language
     {
         return $this->language;
     }

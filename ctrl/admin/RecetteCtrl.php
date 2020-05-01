@@ -33,8 +33,8 @@ class RecetteCtrl extends Controller
     public function all(): void
     {
         $recettes = $this->recetteManager->findAll();
-        require(ROOT_DIR . 'view/admin/recettes.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        require_once (ROOT_DIR . 'view/admin/recettes.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -52,8 +52,8 @@ class RecetteCtrl extends Controller
                 $this->validate($form->getDatas());
             }
         } else {
-            require_once(ROOT_DIR . 'view/admin/recette.php');
-            require_once(ROOT_DIR . 'view/template.php');
+            require_once (ROOT_DIR . 'view/admin/recette.php');
+            require_once (ROOT_DIR . 'view/template.php');
         }
     }
 
@@ -169,8 +169,8 @@ class RecetteCtrl extends Controller
     public function validate(array $datas): void
     {
         // Vérifier le type des variables
-        require_once(ROOT_DIR . 'view/admin/validation.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        require_once (ROOT_DIR . 'view/admin/validation.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }

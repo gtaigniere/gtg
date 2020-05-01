@@ -40,9 +40,9 @@ class Form
 
     /**
      * @param string $key
-     * @return string|null
+     * @return array|string|null
      */
-    public function getValue(string $key)
+    public function getValue($key)
     {
         return array_key_exists($key, $this->datas) ? $this->datas[$key] : null;
     }
