@@ -2,7 +2,6 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
 use Html\Form;
 use Model\Cat;
 use PDO;

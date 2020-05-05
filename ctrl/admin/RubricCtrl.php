@@ -2,12 +2,7 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
-use Form\RubricForm;
-use Form\TypeForm;
 use Html\Form;
-use Manager\RubricManager;
-use Manager\TypeManager;
 use Model\Rubric;
 use PDO;
 use Util\ErrorManager;

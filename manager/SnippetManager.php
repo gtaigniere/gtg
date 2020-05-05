@@ -5,6 +5,7 @@ namespace Manager;
 use DateTime;
 use Html\Form;
 use Exception;
+use Model\Cat;
 use Model\Snippet;
 use PDO;
 use Service\AuthService;
@@ -223,6 +224,7 @@ class SnippetManager extends Manager
      */
     public function update(Snippet $snippet): ?Snippet
     {
+        $oldSnippet = $this->findOne($snippet->getIdSnip());
         $stmt = $this->db->prepare(
             'UPDATE snippet
                         SET title=:title, code=:code, dateCrea=:dateCrea, comment=:comment, requirement=:requirement, idLang=:idLang, idUser=:idUser
@@ -240,10 +242,20 @@ class SnippetManager extends Manager
             ]
         )) {
             $id = $snippet->getIdSnip();
-            $this->supCatsForSnip($id);
-            $cats = $snippet->getCats();
-            foreach ($cats as $cat) {
-                $this->addCatForSnip($id, $cat->getIdCat());
+            $idOldCats = array_map(function(Cat $cat) {
+                    return $cat->getIdCat();
+            }, $oldSnippet->getCats());
+//            $this->supCatsForSnip($id);
+            $idNewCats = array_map(function(Cat $cat) {
+                return $cat->getIdCat();
+            }, $snippet->getCats());
+            $toDels = array_diff($idOldCats, $idNewCats);
+            foreach ($toDels as $toDel) {
+                $this->supCatForSnip($id, $toDel);
+            }
+            $toAdds = array_diff($idNewCats, $idOldCats);
+            foreach ($toAdds as $toAdd) {
+                $this->addCatForSnip($id, $toAdd);
             }
             return $this->findOne($snippet->getIdSnip());
         }
@@ -262,11 +274,11 @@ class SnippetManager extends Manager
     }
 
     /**
-     * @param $idSnip
-     * @param $idCat
+     * @param int $idSnip
+     * @param int $idCat
      * @return int
      */
-    public function addCatForSnip($idSnip, $idCat): int
+    public function addCatForSnip(int $idSnip, int $idCat): int
     {
         $stmt = $this->db->prepare(
             'INSERT INTO snipcat (idSnip, idCat)
@@ -276,10 +288,22 @@ class SnippetManager extends Manager
     }
 
     /**
-     * @param $id
+     * @param int $idSnip
+     * @param int $idCat
      * @return int
      */
-    public function supCatsForSnip($id): int
+    public function supCatForSnip(int $idSnip, int $idCat): int
+    {
+        $stmt = $this->db->prepare('DELETE FROM snipcat WHERE idSnip=:idSnip AND idCat=:idCat');
+        $stmt->execute([':idSnip' => $idSnip, ':idCat' => $idCat]);
+        return $stmt->rowCount() > 0;
+    }
+
+    /**
+     * @param int $id
+     * @return int
+     */
+    public function supCatsForSnip(int $id): int
     {
         $stmt = $this->db->prepare('DELETE FROM snipcat WHERE idSnip=:id');
         $stmt->execute([':id' => $id]);
@@ -301,6 +325,61 @@ class SnippetManager extends Manager
         $cats = $this->catManager->CatsBySnip($assocs['idSnip']);
         $snippet->setCats($cats);
         return $snippet;
+    }
+
+    /**
+     * @param string $chaine
+     * @param array $idLangs
+     * @param array $idCats
+     * @return array|null
+     */
+    public function research(string $chaine, array $idLangs, array $idCats): ?array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT s.* FROM snippet s
+            JOIN snipcat sc ON sc.idSnip = s.idSnip
+            WHERE (s.code = :chaine OR s.comment = :chaine OR s.requirement = :chaine) 
+            AND (s.idLang = :idLang( OR s.idLang = :idLang)( OR s.idLang = :idLang))
+            AND (sc.idCat = :idCat( AND sc.idCat = :$idCat)( AND sc.idCat = :idCat))');
+        $stmt->bindParam(':idLang1' => $idLang1);
+        $stmt->bindParam(':idLang2' => $idLang2);
+        $stmt->bindParam(':idLang3' => $idLang3);
+        $stmt->bindParam(':idCat1' => $idCat1);
+        $stmt->bindParam(':idCat2' => $idCat2);
+        $stmt->bindParam(':idCat3' => $idCat3);
+        $stmt->bindParam(':chaine' => $chaine);
+        $stmt->execute();
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
+        }
+        return $objs;
+    }
+
+    /**
+     * @param array $request
+     * @return array|null
+     */
+    public function findFirst(array $request): ?array
+    {
+        $stmt = $this->db->prepare(
+            'SELECT s.* FROM snippet s
+            JOIN snipcat sc ON sc.idSnip = s.idSnip
+            WHERE (s.code = :chaine OR s.comment = :chaine OR s.requirement = :chaine) 
+            AND (s.idLang = :idLang( OR s.idLang = :idLang)( OR s.idLang = :idLang))
+            AND (sc.idCat = :idCat( AND sc.idCat = :$idCat)( AND sc.idCat = :idCat))
+            ORDER BY s.idSnip ASC LIMIT 1');
+        $stmt->bindParam(':idLang1' => $idLang1);
+        $stmt->bindParam(':idLang2' => $idLang2);
+        $stmt->bindParam(':idLang3' => $idLang3);
+        $stmt->bindParam(':idCat1' => $idCat1);
+        $stmt->bindParam(':idCat2' => $idCat2);
+        $stmt->bindParam(':idCat3' => $idCat3);
+        $stmt->bindParam(':chaine' => $chaine);
+        $stmt->execute();
+        $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $assocs ? $this->convInObj($assocs) : null;
     }
 
 }

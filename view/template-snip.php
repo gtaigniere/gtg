@@ -1,5 +1,6 @@
 <?php
 
+use Html\Form;
 use Model\Cat;
 use Model\Language;
 use Model\Snippet;
@@ -90,31 +91,47 @@ use Model\Snippet;
             <aside id="navcol">
                 <h1>Recherches</h1>
 
-                <h2 class="ul-title">Langages</h2>
+                <form action="?target=snippet&action=search" method="GET">
 
-<!--                <ul class="ul_title">Langages-->
-<!--                    <li><a href=".">Tous les langages</a></li>-->
-<!--                    --><?php //foreach($languages as $language) : ?>
-<!--                        <li><a href="">-->
-<!--                            --><?php //if($language instanceof Language) {
-//                                echo $language->getLabel();
-//                            } ?>
-<!--                        </a></li>-->
-<!--                    --><?php //endforeach; ?>
-<!--                </ul>-->
+                <?php if ($searchForm instanceof Form) : ?>
 
-                <h2 class="ul_title">Catégories</h2>
+                    <div>
+                        <?= $searchForm->input('search', null); ?>
+                    </div>
 
-<!--                <ul class="ul_title">Catégories-->
-<!--                    <li><a href=".">Toutes les catégories</a></li>-->
-<!--                    --><?php //foreach($cats as $cat) : ?>
-<!--                        <li><a href="">-->
-<!--                            --><?php //if($cat instanceof Cat) {
-//                                echo $cat->getLabel();
-//                            } ?>
-<!--                        </a></li>-->
-<!--                    --><?php //endforeach; ?>
-<!--                </ul>-->
+                    <div>
+                        <h2>Langages</h2>
+                        <?php
+                        $values = [];
+                        foreach($languages as $language) {
+                            if ($language instanceof Language) {
+                                $values[$language->getIdLang()] = $language->getLabel();
+                            }
+                        }
+                        ?>
+                        <?= $searchForm->select('langages', $values, null, 'Choose option(s)', [], true) ?>
+                    </div>
+
+                    <div>
+                        <h2>Catégories</h2>
+                        <?php
+                        $values = [];
+                        $values['0'] = 'Toutes les catégories';
+                        foreach($cats as $cat) {
+                            if ($cat instanceof Cat) {
+                                $values[$cat->getIdCat()] = $cat->getLabel();
+                            }
+                        }
+                        ?>
+                        <?= $searchForm->select('cats', $values, null, 'Choose option(s)', [], true); ?>
+                    </div>
+
+                <?php endif; ?>
+
+                <button class="btn btn-info">Chercher</button>
+
+                </form>
+
             </aside>
 
             <aside id="listsnippets">

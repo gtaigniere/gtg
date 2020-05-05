@@ -57,7 +57,7 @@ class Form
     {
         $params = '';
         if (!array_key_exists('type', $options)) {
-            $options['type'] = "text";
+            $options['type'] = 'text';
         }
         foreach ($options as $key => $value) {
             $params .= ' ' . $key . '="' . $value . '"';
@@ -65,7 +65,7 @@ class Form
         if ($options['type'] == "checkbox") {
             $params .= $this->getValue($name) != null ? ' checked' : '';
         } else {
-            $params .= '" value="' . $this->getValue($name) . '"';
+            $params .= ' value="' . $this->getValue($name) . '"';
         }
         $html = '';
         if ($label != null) {
@@ -99,9 +99,10 @@ class Form
      * @param string|null $label Etiquette texte du champ
      * @param string|null $defaultOption
      * @param array $options
+     * @param bool $multiple
      * @return string
      */
-    public function select(string $name, array $values, ?string $label = null, ?string $defaultOption = null, array $options = []): string
+    public function select(string $name, array $values, ?string $label = null, ?string $defaultOption = null, array $options = [], bool $multiple = false): string
     {
         $params = '';
         foreach($options as $key => $value) {
@@ -112,7 +113,7 @@ class Form
         if ($label != null ) {
             $html .= '<label for="' . $name . '">' . $label . '</label>';
         }
-        $html .= '<select id="' . $name . '" name="' . $name . '"' . $params . '>';
+        $html .= '<select id="' . $name . '"' . $params . ' name="' . $name . ($multiple ? '[]" multiple >' : '" >');
         if ($defaultOption != null) {
             $html .= '<option value=""> ' . $defaultOption . '</option>';
         }
@@ -120,7 +121,7 @@ class Form
             // $this->getValue('language') renvoi l'id du language à sélectionner
             // $this->getValue('cats') renvoi un tableau contenant les ids des catégories à sélectionner
             $selected = is_array($selecteds) ? in_array($key, $selecteds) : $selecteds == $key ;
-            $html .= '<option value="' . $key . '"' . ($selected ? 'selected' : '') . '>' . $value . '</option>';
+            $html .= '<option value="' . $key . '"' . ($selected ? ' selected' : '') . '>' . $value . '</option>';
         }
         return $html .= '</select>';
     }

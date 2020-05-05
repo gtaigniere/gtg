@@ -44,12 +44,12 @@ if (isset($form) && $form instanceof Form) :
 
                     <div>
                         <?php
-                            $options = [];
+                            $values = [];
                             foreach($languages as $language) {
-                                $options[$language->getIdLang()] = $language->getLabel();
+                                $values[$language->getIdLang()] = $language->getLabel();
                             }
                         ?>
-                        <?= $form->select('idLang', $options, 'Language :', $action == 'insert' ? 'Choose an option' : '--null--') ?>
+                        <?= $form->select('idLang', $values, 'Language :', $action == 'insert' ? 'Choose an option' : '--null--') ?>
                     </div>
 
                     <?php if ($action != 'insert') : ?>
@@ -60,12 +60,12 @@ if (isset($form) && $form instanceof Form) :
 
                     <div class="areatext_snippet">
                         <?php
-                            $options = [];
+                            $values = [];
                             foreach($cats as $cat) {
-                                $options[$cat->getIdCat()] = $cat->getLabel();
+                                $values[$cat->getIdCat()] = $cat->getLabel();
                             }
-                            echo $form->select('cats[]', $options, 'Catégorie(s) :', $action == 'insert' ? 'Choose an option' : '--null--', ['multiple' => 'multiple']);
                         ?>
+                        <?= $form->select('cats', $values, 'Catégorie(s) :', $action == 'insert' ? 'Choose option(s)' : '--null--', [], true); ?>
                     </div>
 
                     <?php if ($action == 'insert') : ?>

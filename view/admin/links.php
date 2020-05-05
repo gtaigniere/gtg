@@ -60,21 +60,21 @@ ob_start();
                             </td>
                             <td>
                                 <?php
-                                $options = [];
+                                $values = [];
                                 foreach($rubrics as $rubric) {
-                                    $options[$rubric->getIdRub()] = $rubric->getLabel();
+                                    $values[$rubric->getIdRub()] = $rubric->getLabel();
                                 }
                                 ?>
-                                <?= $form->select('idRub', $options, null, '--null--') ?>
+                                <?= $form->select('idRub', $values, null, '--null--') ?>
                             </td>
                             <td>
                                 <?php
-                                $options = [];
+                                $values = [];
                                 foreach($types as $type) {
-                                    $options[$type->getIdType()] = $type->getLabel();
+                                    $values[$type->getIdType()] = $type->getLabel();
                                 }
                                 ?>
-                                <?= $form->select('idType', $options, null, '--null--') ?>
+                                <?= $form->select('idType', $values, null, '--null--') ?>
                             </td>
                             <td class="td-modif">
                                 <button class="btn btn-warning">Modifier</button>
@@ -100,21 +100,21 @@ ob_start();
                         <?= $formAddLink->input('adrOrFile', null, ['required' => 'required']); ?>
                     <td>
                         <?php
-                        $options = [];
+                        $values = [];
                         foreach($rubrics as $rubric) {
-                            $options[$rubric->getIdRub()] = $rubric->getLabel();
+                            $values[$rubric->getIdRub()] = $rubric->getLabel();
                         }
                         ?>
-                        <?= $formAddLink->select('idRub', $options, null, 'Choose an option') ?>
+                        <?= $formAddLink->select('idRub', $values, null, 'Choose an option') ?>
                     </td>
                     <td>
                         <?php
-                        $options = [];
+                        $values = [];
                         foreach($types as $type) {
-                            $options[$type->getIdType()] = $type->getLabel();
+                            $values[$type->getIdType()] = $type->getLabel();
                         }
                         ?>
-                        <?= $formAddLink->select('idType', $options, null, 'Choose an option') ?>
+                        <?= $formAddLink->select('idType', $values, null, 'Choose an option') ?>
                     </td>
                     <td class="td-ajout" colspan="2">
                         <button class="btn btn-success">Ajouter</button>

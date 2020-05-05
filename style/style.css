@@ -668,23 +668,38 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #navcol {
 	display: flex;
 	flex-direction: column;
-	padding: 12px;
+	padding: 12px 0;
 	width: 18%;
 	min-width: 220px;
+}
+#navcol form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 10px;
 }
 #navcol h1 {
 	padding-top: 10px;
 	font-size: 1.6rem;
 }
-.ul_title {
+#navcol h2 {
+	margin-top: 15px;
+	padding-left: 10px;
 	font-size: 1.2rem;
+	text-align: left;
 }
-#navcol li {
-	padding-left: 8px;
-	font-size: 1.1rem;
+#navcol div {
+	padding-left: 10px;
+	padding-right: 10px;
+	width:100%;
 }
-#navcol a {
-	color: var(--liSnippets);
+#navcol input, #navcol select {
+	width: 100%;
+	border-radius: 6px;
+}
+#navcol button {
+	margin: 20px auto;
+	border-radius: 4px;
 }
 #listsnippets {
 	display: flex;

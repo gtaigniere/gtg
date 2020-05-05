@@ -3,6 +3,7 @@
 namespace Ctrl;
 
 use Exception;
+use Html\Form;
 use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;
@@ -49,6 +50,7 @@ class SnippetCtrl extends Controller
      */
     public function all(): void
     {
+        $searchForm = new Form();
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
@@ -63,6 +65,7 @@ class SnippetCtrl extends Controller
      */
     public function one(int $id): void
     {
+        $searchForm = new Form();
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
@@ -72,74 +75,23 @@ class SnippetCtrl extends Controller
     }
 
     /**
-     * @return void
-     * @throws Exception
+     * @param array $request
      */
-    public function last(): void
+    public function search(array $request): void
     {
-//        $snippets = $this->snippetManager->findAll();
-//        $snippet = $this->snippetManager->findOne($id);
-        $snippet = $this->lastWithCats();
+
+
+        $searchForm = new Form();
+        $languages = $this->languageManager->findAll();
+        $cats = $this->catManager->findAll();
+        $result = $this->snippetManager->research($request);
+        $resultFirst = $this->snippetManager->findFirst();
         require_once (ROOT_DIR . 'view/snippet.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }
 
     /**
-     * @return void
-     */
-    public function allWithCats(): void
-    {
-        $snippets = $this->snippetManager->all();
-    }
-
-    /**
-     * @param $id
-     * @return Snippet|null
-     */
-    public function oneWithCats($id): ?Snippet
-    {
-//        $assocs = $this->snippetManager->one($id);
-//        $snippet = new Snippet();
-//        $snippet->setIdSnip($assocs['idSnip']);
-//        $snippet->setTitle($assocs['title']);
-//        $snippet->setCode($assocs['code']);
-//        $snippet->setDateCrea($assocs['dateCrea']);
-//        $snippet->setComment($assocs['comment']);
-//        $snippet->setRequirement($assocs['requirement']);
-//        $language = $this->languageManager->findOne($assocs['idLang']);
-//        $snippet->setLanguage($language);
-//        $user = $this->userManager->findOneForSnippet($assocs['idUser']);
-//        $snippet->setUser($user);
-//        $cats = $this->catManager->CatsBySnip($id);
-//        $snippet->setCats($cats);
-        $snippet = $this->snippetManager->all();
-    }
-
-    /**
-     * @param $id
-     * @return Snippet|null
-     * @throws Exception
-     */
-    public function lastWithCats($id): ?Snippet
-    {
-        $assocs = $this->snippetManager->last($id);
-        $snippet = new Snippet();
-        $snippet->setIdSnip($assocs['idSnip']);
-        $snippet->setTitle($assocs['title']);
-        $snippet->setCode($assocs['code']);
-        $snippet->setDateCrea($assocs['dateCrea']);
-        $snippet->setComment($assocs['comment']);
-        $snippet->setRequirement($assocs['requirement']);
-        $language = $this->languageManager->findOne($assocs['idLang']);
-        $snippet->setLanguage($language);
-        $user = $this->userManager->findOneForSnippet($assocs['idUser']);
-        $snippet->setUser($user);
-        $cats = $this->catManager->CatsBySnip($id);
-        $snippet->setCats($cats);
-        return $snippet;
-    }
-
-    /**
+     * @param int $id
      * @return void
      */
     public function allByLang(int $id): void
@@ -151,6 +103,7 @@ class SnippetCtrl extends Controller
     }
 
     /**
+     * @param int $id
      * @return void
      */
     public function allByCat(int $id): void

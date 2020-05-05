@@ -11,6 +11,7 @@ use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;
 use Manager\UserManager;
+use Model\Cat;
 use Model\Language;
 use Model\Snippet;
 use Model\UserForSnip;
@@ -59,6 +60,7 @@ class SnippetCtrl extends Controller
      */
     public function all(): void
     {
+        $searchForm = new Form();
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
@@ -83,6 +85,7 @@ class SnippetCtrl extends Controller
                 $this->validate($form->getDatas());
             }
         } else {
+            $searchForm = new Form();
             $languages = $this->languageManager->findAll();
             $cats = $this->catManager->findAll();
             $snippets = $this->snippetManager->findAll();
@@ -109,6 +112,7 @@ class SnippetCtrl extends Controller
         } else {
             $snippet = $this->snippetManager->findOne($id);
             if ($snippet != null) {
+                $searchForm = new Form();
                 $form = new SnippetForm($snippet);
                 $language = new Language();
                 $language = $form->getValue('idLang');
@@ -146,6 +150,7 @@ class SnippetCtrl extends Controller
         } else {
             $snippet = $this->snippetManager->findOne($id);
             if ($snippet != null) {
+                $searchForm = new Form();
                 $form = new SnippetForm($snippet);
                 $languages = $this->languageManager->findAll();
                 $cats = $this->catManager->findAll();
@@ -196,6 +201,7 @@ class SnippetCtrl extends Controller
         } else {
             SuccessManager::add('Le snippet a été ajouté avec succès.');
         }
+        $searchForm = new Form();
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
@@ -238,6 +244,7 @@ class SnippetCtrl extends Controller
             } else {
                 SuccessManager::add('Le snippet a été modifié avec succès.');
             }
+            $searchForm = new Form();
             $languages = $this->languageManager->findAll();
             $cats = $this->catManager->findAll();
             $snippets = $this->snippetManager->findAll();
@@ -262,6 +269,7 @@ class SnippetCtrl extends Controller
         } catch(PDOException $e) {
             ErrorManager::add('Erreur lors de la suppression du snippet !');
         }
+        $searchForm = new Form();
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();

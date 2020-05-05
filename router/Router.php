@@ -147,15 +147,18 @@ class Router
     {
         if (isset($this->params['action'])) {
             switch ($this->params['action']) {
-                case 'lang':
-                    $this->snipByLang();
+                case 'search':
+                    $this->snipSearch();
                     break;
-                case 'cat':
-                    $this->snipByCat();
-                    break;
-                case 'langAndCat':
-                    $this->snipByLangAndCat();
-                    break;
+//                case 'lang':
+//                    $this->snipByLang();
+//                    break;
+//                case 'cat':
+//                    $this->snipByCat();
+//                    break;
+//                case 'langAndCat':
+//                    $this->snipByLangAndCat();
+//                    break;
                 default:
                     $this->snippets();
             }
@@ -174,22 +177,14 @@ class Router
         }
     }
 
-    private function snipByLang(): void
+    private function snipSearch(): void
     {
         $ctrl = new SnippetCtrl($this->db);
-        $ctrl->allByLang();
-    }
-
-    private function snipByCat(): void
-    {
-        $ctrl = new SnippetCtrl($this->db);
-        $ctrl->allByCat();
-    }
-
-    private function snipByLangAndCat(): void
-    {
-        $ctrl = new SnippetCtrl($this->db);
-        $ctrl->allByLangAndCat();
+        if (!empty($this->params)) {
+            $ctrl->search($this->params);
+        } else {
+            $this->snippets();
+        }
     }
 
     private function admin(): void
