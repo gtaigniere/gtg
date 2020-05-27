@@ -49,7 +49,7 @@ class LanguageManager extends Manager
     public function insert(Language $language): ?Language
     {
         $stmt = $this->db->prepare('INSERT INTO language (label) VALUES (:label)');
-        if ($stmt->execute([':label' => $language->getLabel()])) {
+        if ($stmt->execute([':label' => htmlentities($language->getLabel())])) {
             $id = $this->db->lastInsertId();
             return $this->findOne($id);
         }
@@ -74,7 +74,7 @@ class LanguageManager extends Manager
     public function update(Language $language): ?Language
     {
         $stmt = $this->db->prepare('UPDATE language SET label=:label WHERE idLang=:id');
-        if ($stmt->execute([':label' => $language->getLabel(), ':id' => $language->getIdLang()])) {
+        if ($stmt->execute([':label' => htmlentities($language->getLabel()), ':id' => $language->getIdLang()])) {
             return $this->findOne($language->getIdLang());
         }
         return null;
