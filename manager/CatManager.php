@@ -67,7 +67,7 @@ class CatManager extends Manager
     public function insert(Cat $cat): ?Cat
     {
         $stmt = $this->db->prepare('INSERT INTO cat (label) VALUES (:label)');
-        if ($stmt->execute([':label' => $cat->getLabel()])) {
+        if ($stmt->execute([':label' => htmlentities($cat->getLabel())])) {
             $id = $this->db->lastInsertId();
             return $this->findOne($id);
         }
@@ -92,7 +92,7 @@ class CatManager extends Manager
     public function update(Cat $cat): ?Cat
     {
         $stmt = $this->db->prepare('UPDATE cat SET label=:label WHERE idCat=:id');
-        if ($stmt->execute([':label' => $cat->getLabel(), ':id' => $cat->getIdCat()])) {
+        if ($stmt->execute([':label' => htmlentities($cat->getLabel()), ':id' => $cat->getIdCat()])) {
             return $this->findOne($cat->getIdCat());
         }
         return null;
