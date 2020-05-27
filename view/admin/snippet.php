@@ -1,89 +1,73 @@
 <?php
 
-use Html\Form;
+use Model\Cat;
+use Model\Snippet;
+use Util\ErrorManager;
+use Util\SuccessManager;
+
+$h1 = 'Un snippet';
 
 ob_start();
 
-if (isset($form) && $form instanceof Form) :
-
 ?>
 
-        <section id="sect-adm_snippet">
+<section id="section_snippet">
 
-            <h1>
-                <?= ($action == 'insert') ? 'Ajout d\'un snippet' : $form->getValue('titre'); ?>
-            </h1>
+    <h1><?= $h1; ?></h1>
 
-                <form method="POST">
+    <?php
+    foreach (SuccessManager::getMessages() as $message) : ?>
+        <div class="alert alert-success" role="alert">
+            <?= $message ?>
+        </div>
+    <?php endforeach;
+    SuccessManager::destroy();
 
-                    <div>
-                        <?= $form->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
-                    </div>
+    foreach (ErrorManager::getMessages() as $message) : ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $message ?>
+        </div>
+    <?php endforeach;
+    ErrorManager::destroy();
+    ?>
 
-                    <div>
-                        <?= $form->input('title', 'Titre :', ['required' => 'required']); ?>
-                    </div>
+    <?php if ($snippet instanceof Snippet) : ?>
 
-                    <div class="areatext_snippet">
-                        <?= $form->textarea('code', 'Code :', ['rows' => '10', 'cols' => '50', 'required' => 'required']); ?>
-                    </div>
+        <h2 id="titlesnippet"><?= $snippet->getTitle() ?></h2>
 
-                    <?php if ($action != 'insert') : ?>
-                        <div>
-                            <?= $form->input('dateCrea', 'Date de création :', ['readonly' => 'readonly']); ?>
-                        </div>
-                    <?php endif; ?>
+        <p><?= $snippet->getLanguage() != null ? $snippet->getLanguage()->getLabel() : 'Pas de langage' ?></p>
+        <pre><code class="<?= $snippet->getLanguage() != null ?
+                $snippet->getLanguage()->getLabel() :
+                '' ?>"><?= $snippet->getCode() ?></code></pre>
+        <p><?= $snippet->getDateCrea()->format('d-m-Y H:i') ?></p>
 
-                    <div class="areatext_snippet">
-                        <?= $form->textarea('comment', 'Commentaire :', ['rows' => '5', 'cols' => '50']); ?>
-                    </div>
+        <?php if (!empty($snippet->getComment())) : ?>
+        <p><?= $snippet->getComment() ?></p>
+        <?php
+        endif;
+        if (!empty($snippet->getRequirement())) : ?>
+        <p><?= $snippet->getRequirement() ?></p>
+         <?php endif; ?>
+        <p><?= $snippet->getUser()->getPseudo() ?></p>
 
-                    <div class="areatext_snippet">
-                        <?= $form->textarea('requirement', 'Prérequis :', ['rows' => '2', 'cols' => '50']); ?>
-                    </div>
+        <p>Catégorie(s) : <em id="cat">
+            <?= join(' | ', array_map(function (Cat $cat) {
+                    return $cat->getLabel();
+                }, $snippet->getCats()));
+            ?>
+        </em></p>
 
-                    <div>
-                        <?php
-                            $values = [];
-                            foreach($languages as $language) {
-                                $values[$language->getIdLang()] = $language->getLabel();
-                            }
-                        ?>
-                        <?= $form->select('idLang', $values, 'Language :', $action == 'insert' ? 'Choose an option' : '--null--') ?>
-                    </div>
+        <p class="tooLast_p">
+            <a href="?target=admin&admTarg=snippet&action=insert"><button class="btn btn-success">Ajouter</button></a>
+            <a href="?target=admin&admTarg=snippet&action=update&id=<?= $snippet->getIdSnip() ?>"><button class="btn btn-warning">Modifier</button></a>
+            <a href="?target=admin&admTarg=snippet&action=delete&id=<?= $snippet->getIdSnip() ?>"><button class="btn btn-danger">Supprimer</button></a>
+        </p>
+        <p class="tooLast_p">
+            <a href="?target=admin&admTarg=catAndLang"><button class="btn btn-primary">Catégories et Langages</button></a>
+        </p>
 
-                    <?php if ($action != 'insert') : ?>
-                        <div>
-                            <?= $form->input('pseudo', 'Créé par :', ['readonly' => 'readonly']); ?>
-                        </div>
-                    <?php endif; ?>
+    <?php endif; ?>
 
-                    <div class="areatext_snippet">
-                        <?php
-                            $values = [];
-                            foreach($cats as $cat) {
-                                $values[$cat->getIdCat()] = $cat->getLabel();
-                            }
-                        ?>
-                        <?= $form->select('cats', $values, 'Catégorie(s) :', $action == 'insert' ? 'Choose option(s)' : '--null--', [], true); ?>
-                    </div>
+</section>
 
-                    <?php if ($action == 'insert') : ?>
-                        <button class="btn btn-success">Ajouter</button>
-                    <?php elseif ($action == 'update') : ?>
-                        <button class="btn btn-warning">Modifier</button>
-                    <?php elseif ($action == 'delete') : ?>
-                        <button class="btn btn-danger">Supprimer</button>
-                    <?php endif; ?>
-
-            </form>
-
-        </section>
-
-<?php
-
-endif;
-
-$section = ob_get_clean();
-
-?>
+<?php $section = ob_get_clean(); ?>

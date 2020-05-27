@@ -115,12 +115,12 @@ class Form
         }
         $html .= '<select id="' . $name . '"' . $params . ' name="' . $name . ($multiple ? '[]" multiple >' : '" >');
         if ($defaultOption != null) {
-            $html .= '<option value=""> ' . $defaultOption . '</option>';
+            $html .= '<option value=""' . (empty($selecteds) ? ' selected' : '') . '>' . $defaultOption . '</option>';
         }
         foreach($values as $key => $value) {
             // $this->getValue('language') renvoi l'id du language à sélectionner
             // $this->getValue('cats') renvoi un tableau contenant les ids des catégories à sélectionner
-            $selected = is_array($selecteds) ? in_array($key, $selecteds) : $selecteds == $key ;
+            $selected = is_array($selecteds) ? in_array($key, $selecteds) : $selecteds === $key;
             $html .= '<option value="' . $key . '"' . ($selected ? ' selected' : '') . '>' . $value . '</option>';
         }
         return $html .= '</select>';

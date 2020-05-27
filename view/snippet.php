@@ -1,12 +1,11 @@
 <?php
 
-$title = 'Snippets';
-$h1 = 'Un snippet';
-
 use Model\Cat;
 use Model\Snippet;
 use Util\ErrorManager;
 use Util\SuccessManager;
+
+$h1 = 'Un snippet';
 
 ob_start();
 
@@ -57,17 +56,6 @@ ob_start();
                 }, $snippet->getCats()));
             ?>
         </em></p>
-
-<!--        --><?php //if(isset($_SESSION['User']) && $_SESSION['User'] == 'gilleste') : ?>
-            <p class="tooLast_p">
-                <a href="?target=admin&admTarg=snippet&action=insert"><button class="btn btn-success">Ajouter</button></a>
-                <a href="?target=admin&admTarg=snippet&action=update&id=<?= $snippet->getIdSnip() ?>"><button class="btn btn-warning">Modifier</button></a>
-                <a href="?target=admin&admTarg=snippet&action=delete&id=<?= $snippet->getIdSnip() ?>"><button class="btn btn-danger">Supprimer</button></a>
-            </p>
-            <p class="tooLast_p">
-                <a href="?target=admin&admTarg=catAndLang"><button class="btn btn-primary">Catégories et Langages</button></a>
-            </p>
-<!--        --><?php //endif; ?>
 
     <?php endif; ?>
 

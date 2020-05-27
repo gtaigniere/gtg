@@ -288,6 +288,15 @@ INSERT INTO snippet (idSnip, title, code, dateCrea, comment, requirement, idLang
     (NULL, 'Test ajout', 'var $add = "Ajout d\'un snippet";console.log($add...', '2020-02-09 12:31:40', '', '', 2, 1),
     (NULL, 'Debugage', '<?phg debugueur ?>', '2020-02-08 07:31:20', NULL, NULL, 1, 2);
 
+-- Sélection des snippets n'ayant pas de catégorie
+SELECT s.* FROM snippet s WHERE NOT EXISTS (
+        SELECT 1 FROM snipcat sc WHERE sc.idSnip = s.idSnip
+    );
+-- ou
+SELECT s.* FROM snippet s WHERE s.idSnip NOT IN (
+    SELECT sc.idSnip FROM snipcat sc
+);
+
 -- --------------------------------------------------------
 
 --

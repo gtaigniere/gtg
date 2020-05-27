@@ -2,13 +2,12 @@
 
 namespace Ctrl;
 
-use Exception;
+use Form\SearchForm;
 use Html\Form;
 use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;
 use Manager\UserManager;
-use Model\Snippet;
 use PDO;
 
 class SnippetCtrl extends Controller
@@ -50,7 +49,8 @@ class SnippetCtrl extends Controller
      */
     public function all(): void
     {
-        $searchForm = new Form();
+        $search = false;
+        $searchForm = new SearchForm();
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
@@ -65,6 +65,7 @@ class SnippetCtrl extends Controller
      */
     public function one(int $id): void
     {
+        $search = false;
         $searchForm = new Form();
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
@@ -75,54 +76,18 @@ class SnippetCtrl extends Controller
     }
 
     /**
-     * @param array $request
+     * @param SearchForm $searchForm
      */
-    public function search(array $request): void
+    public function search(SearchForm $searchForm): void
     {
-
-
-        $searchForm = new Form();
+        $search = true;
+        $chaine = $searchForm->getValue('search');
+        $idLangs = $searchForm->getValue('languages') != null ? $searchForm->getValue('languages') : [];
+        $idCats = $searchForm->getValue('cats') ? $searchForm->getValue('cats') : [];
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
-        $result = $this->snippetManager->research($request);
-        $resultFirst = $this->snippetManager->findFirst();
-        require_once (ROOT_DIR . 'view/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
-    }
-
-    /**
-     * @param int $id
-     * @return void
-     */
-    public function allByLang(int $id): void
-    {
-//        $snippets = $this->snippetManager->findByLang($id);
-//        $snippet = $this->snippetManager->findLastByLang($id);
-        require_once (ROOT_DIR . 'view/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
-    }
-
-    /**
-     * @param int $id
-     * @return void
-     */
-    public function allByCat(int $id): void
-    {
-//        $snippets = $this->snippetManager->findByCat($id);
-//        $snippet = $this->snippetManager->findLastByCat($id);
-        require_once (ROOT_DIR . 'view/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
-    }
-
-    /**
-     * @param int $idCat
-     * @param int $idLang
-     * @return void
-     */
-    public function allByLangAndCat(int $idLang, int $idCat): void
-    {
-//        $snippets = $this->snippetManager->findByLangAndCat($idLang, $idCat);
-//        $snippet = $this->snippetManager->findLastByLangAndCat($idLang, $idCat);
+        $snippets = $this->snippetManager->research($chaine, $idLangs, $idCats);
+        $snippet = $this->snippetManager->research($chaine, $idLangs, $idCats, true);
         require_once (ROOT_DIR . 'view/snippet.php');
         require_once (ROOT_DIR . 'view/template-snip.php');
     }

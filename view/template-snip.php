@@ -5,6 +5,8 @@ use Model\Cat;
 use Model\Language;
 use Model\Snippet;
 
+$listSnippets = $search ? 'Tous' : 'Trouvé(s)';
+
 ?>
 
 <!DOCTYPE html>
@@ -91,10 +93,12 @@ use Model\Snippet;
             <aside id="navcol">
                 <h1>Recherches</h1>
 
-                <form action="?target=snippet&action=search" method="GET">
+                <form action="index.php" method="GET">
 
-                <?php if ($searchForm instanceof Form) : ?>
-
+                <?php if ($searchForm instanceof Form) :
+                    echo $searchForm->input('target', null, ['type' => 'hidden']);
+                    echo $searchForm->input('action', null, ['type' => 'hidden']);
+                ?>
                     <div>
                         <?= $searchForm->input('search', null); ?>
                     </div>
@@ -108,22 +112,20 @@ use Model\Snippet;
                                 $values[$language->getIdLang()] = $language->getLabel();
                             }
                         }
-                        ?>
-                        <?= $searchForm->select('langages', $values, null, 'Choose option(s)', [], true) ?>
+                        echo $searchForm->select('languages', $values, null, 'Tous', [], true) ?>
                     </div>
 
                     <div>
                         <h2>Catégories</h2>
                         <?php
                         $values = [];
-                        $values['0'] = 'Toutes les catégories';
+                        $values['0'] = 'Sans catégorie';
                         foreach($cats as $cat) {
                             if ($cat instanceof Cat) {
                                 $values[$cat->getIdCat()] = $cat->getLabel();
                             }
                         }
-                        ?>
-                        <?= $searchForm->select('cats', $values, null, 'Choose option(s)', [], true); ?>
+                        echo $searchForm->select('cats', $values, null, 'Toutes', [], true); ?>
                     </div>
 
                 <?php endif; ?>
@@ -135,7 +137,7 @@ use Model\Snippet;
             </aside>
 
             <aside id="listsnippets">
-                <h1>Liste snippets</h1>
+                <h1><?= $listSnippets ?></h1>
                 <ul>
                     <?php foreach($snippets as $snippet) : ?>
                         <?php if ($snippet instanceof Snippet) : ?>

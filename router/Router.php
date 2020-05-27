@@ -19,6 +19,7 @@ use Ctrl\Admin\RubricCtrl as AdmRubCtrl;
 use Ctrl\Admin\SnippetCtrl as AdmSnipCtrl;
 use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
+use Form\SearchForm;
 use Html\Form;
 use PDO;
 
@@ -150,15 +151,6 @@ class Router
                 case 'search':
                     $this->snipSearch();
                     break;
-//                case 'lang':
-//                    $this->snipByLang();
-//                    break;
-//                case 'cat':
-//                    $this->snipByCat();
-//                    break;
-//                case 'langAndCat':
-//                    $this->snipByLangAndCat();
-//                    break;
                 default:
                     $this->snippets();
             }
@@ -181,9 +173,10 @@ class Router
     {
         $ctrl = new SnippetCtrl($this->db);
         if (!empty($this->params)) {
-            $ctrl->search($this->params);
+            $form = new SearchForm($this->params);
+            $ctrl->search($form);
         } else {
-            $this->snippets();
+            $ctrl->all();
         }
     }
 
@@ -492,6 +485,9 @@ class Router
     {
         if (isset($this->params['action'])) {
             switch ($this->params['action']) {
+                case 'search':
+                    $this->searchSnip();
+                    break;
                 case 'insert':
                     $this->addSnip();
                     break;
@@ -505,7 +501,28 @@ class Router
                     $this->snippets();
             }
         } else {
-            $this->snippets();
+            $this->admSnippets();
+        }
+    }
+
+    private function admSnippets(): void
+    {
+        $ctrl = new AdmSnipCtrl($this->db);
+        if (isset($this->params['id'])) {
+            $ctrl->one($this->params['id']);
+        } else {
+            $ctrl->all();
+        }
+    }
+
+    private function searchSnip(): void
+    {
+        $ctrl = new AdmSnipCtrl($this->db);
+        if (!empty($this->params)) {
+            $form = new SearchForm($this->params);
+            $ctrl->search($form);
+        } else {
+            $ctrl->all();
         }
     }
 

@@ -5,6 +5,7 @@ namespace Ctrl\Admin;
 use Ctrl\Controller;
 use Form\CatForm;
 use Form\LanguageForm;
+use Form\SearchForm;
 use Html\Form;
 use Manager\CatManager;
 use Manager\LanguageManager;
@@ -44,6 +45,8 @@ class CatLangCtrl extends Controller
      */
     public function all(): void
     {
+        $search = false;
+        $searchForm = new SearchForm();
         $snippets = $this->snippetManager->findAll();
         $cats = $this->catManager->findAll();
         $catForms = [];

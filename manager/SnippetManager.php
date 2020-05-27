@@ -3,12 +3,11 @@
 namespace Manager;
 
 use DateTime;
-use Html\Form;
+use Form\SearchForm;
 use Exception;
 use Model\Cat;
 use Model\Snippet;
 use PDO;
-use Service\AuthService;
 
 class SnippetManager extends Manager
 {
@@ -199,11 +198,11 @@ class SnippetManager extends Manager
                         VALUES (:title, :code, :dateCrea, :comment, :requirement, :idLang, :idUser)');
         if ($stmt->execute(
             [
-                ':title' => $snippet->getTitle(),
-                ':code' => $snippet->getCode(),
+                ':title' => htmlentities($snippet->getTitle()),
+                ':code' => htmlentities($snippet->getCode()),
                 ':dateCrea' => (new DateTime())->format('Y-m-d H:i:s'),
-                ':comment' => $snippet->getComment() != null ? $snippet->getComment() : null,
-                ':requirement' => $snippet->getRequirement() != null ? $snippet->getRequirement() : null,
+                ':comment' => $snippet->getComment() != null ? htmlentities($snippet->getComment()) : null,
+                ':requirement' => $snippet->getRequirement() != null ? htmlentities($snippet->getRequirement()) : null,
                 ':idLang' => $snippet->getLanguage() != null ? $snippet->getLanguage()->getIdLang() : null,
                 ':idUser' => $snippet->getUser()->getIdUser()
             ]
@@ -231,11 +230,11 @@ class SnippetManager extends Manager
                         WHERE idSnip=:id');
         if ($stmt->execute(
             [
-                ':title' => $snippet->getTitle(),
-                ':code' => $snippet->getCode(),
+                ':title' => htmlentities($snippet->getTitle()),
+                ':code' => htmlentities($snippet->getCode()),
                 ':dateCrea' => $snippet->getDateCrea()->format('Y-m-d H:i:s'),
-                ':comment' => $snippet->getComment() != null ? $snippet->getComment() : null,
-                ':requirement' => $snippet->getRequirement() != null ? $snippet->getRequirement() : null,
+                ':comment' => $snippet->getComment() != null ? htmlentities($snippet->getComment()) : null,
+                ':requirement' => $snippet->getRequirement() != null ? htmlentities($snippet->getRequirement()) : null,
                 ':idLang' => $snippet->getLanguage() != null ? $snippet->getLanguage()->getIdLang() : null,
                 ':idUser' => $snippet->getUser()->getIdUser(),
                 ':id' => $snippet->getIdSnip()
@@ -328,58 +327,83 @@ class SnippetManager extends Manager
     }
 
     /**
-     * @param string $chaine
-     * @param array $idLangs
-     * @param array $idCats
-     * @return array|null
+     * Création de la requète de recherche
+     * @param string $chaine Chaine de caractères recherchée dans les champs
+     * code, comment, et requirement de la table snippet
+     * @param array $idLangs Tableau contenant les différents ids des langages recherchés
+     * @param array $idCats Tableau contenant les différents ids des catégories recherchées
+     * @return string
      */
-    public function research(string $chaine, array $idLangs, array $idCats): ?array
+    private function createRequest(string $chaine, array $idLangs, array $idCats): string
     {
-        $stmt = $this->db->prepare(
-            'SELECT s.* FROM snippet s
-            JOIN snipcat sc ON sc.idSnip = s.idSnip
-            WHERE (s.code = :chaine OR s.comment = :chaine OR s.requirement = :chaine) 
-            AND (s.idLang = :idLang( OR s.idLang = :idLang)( OR s.idLang = :idLang))
-            AND (sc.idCat = :idCat( AND sc.idCat = :$idCat)( AND sc.idCat = :idCat))');
-        $stmt->bindParam(':idLang1' => $idLang1);
-        $stmt->bindParam(':idLang2' => $idLang2);
-        $stmt->bindParam(':idLang3' => $idLang3);
-        $stmt->bindParam(':idCat1' => $idCat1);
-        $stmt->bindParam(':idCat2' => $idCat2);
-        $stmt->bindParam(':idCat3' => $idCat3);
-        $stmt->bindParam(':chaine' => $chaine);
-        $stmt->execute();
+        $wheres = [];
+        $req = 'SELECT s.* FROM snippet s ';
+        if (!empty($idCats)) {
+            // Cas 1 : Uniquement 'Sans catégorie' de sélectionné
+            if (count($idCats) == 1 && in_array(SearchForm::WITHOUT_CAT, $idCats)) {
+                $wheres[] = 'NOT EXISTS (SELECT 1 FROM snipcat sc WHERE sc.idSnip = s.idSnip) ';
+            } else {
+                // Cas 2 : Plusieurs catégories sélectionnées
+                // Ajout du filtre de catégorie
+                $req .= 'JOIN snipcat sc ON sc.idSnip = s.idSnip ';
+                foreach ($idCats as $idCat) {
+                    if ($idCat != SearchForm::WITHOUT_CAT) {
+                        $wheres[] = 'sc.idCat = ? ';
+                    }
+                }
+            }
+        }
+        if (!empty($idLangs)) {
+            $langs = [];
+            // Ajout du filtre de langage
+            foreach ($idLangs as $idLang) {
+                $langs[] = 's.idLang = ? ';
+            }
+            $wheres[] = '(' . join(' OR ', $langs) . ') ';
+        }
+        // Ajout du filtre par rapport à la chiane fournie
+        if (!empty($chaine)) {
+            $wheres[] = '(s.code LIKE ? OR s.comment LIKE ? OR s.requirement LIKE ?)';
+        }
+        $req .= !empty($wheres) ? 'WHERE ' . join(' AND ', $wheres) : '';
+        return $req;
+    }
+
+    /**
+     * Permet de rechercher des snippets en fonction d'une chaine de caractères, d'un language, et de catégories
+     * @param string $chaine Chaine de caractères recherchée dans les champs code, comment, et requirement
+     * @param array $idLangs Tableau contenant les différents ids des langages recherchés
+     * @param array $idCats Tableau contenant les différents ids des catégories recherchées
+     * @param bool $one Si true, renvoit le premier snippet, par ordre croissant d'id du résultat de la recherche
+     * sinon renvoit tous les snippets correspondant aux critères de la recherche
+     * @return Snippet[]|Snippet|null
+     */
+    public function research(string $chaine, array $idLangs, array $idCats, bool $one = false)
+    {
+        $chaines = [];
+        if ($chaine != null && $chaine != '') {
+            $chaine = '%' . $chaine . '%';
+            $chaines = [$chaine, $chaine, $chaine];
+        }
+        // Création de la liste des paramètres à transmettre à la requète
+        $params = array_merge(array_diff($idCats, [SearchForm::WITHOUT_CAT]), $idLangs, $chaines);
+        // Si on veut juste le premier snippet du résultat alors on va ajouter la partie avec l'ORDER BY
+        if ($one) {
+            $req = $this->createRequest($chaine, $idLangs, $idCats) . ' ORDER BY s.idSnip ASC LIMIT 1';
+            $stmt = $this->db->prepare($req);
+            $stmt->execute($params);
+            $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $assocs ? $this->convInObj($assocs) : null;
+        }
+        $req = $this->createRequest($chaine, $idLangs, $idCats);
+        $stmt = $this->db->prepare($req);
+        $stmt->execute($params);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $objs = [];
         foreach ($results as $assocs) {
             $objs[] = $this->convInObj($assocs);
         }
         return $objs;
-    }
-
-    /**
-     * @param array $request
-     * @return array|null
-     */
-    public function findFirst(array $request): ?array
-    {
-        $stmt = $this->db->prepare(
-            'SELECT s.* FROM snippet s
-            JOIN snipcat sc ON sc.idSnip = s.idSnip
-            WHERE (s.code = :chaine OR s.comment = :chaine OR s.requirement = :chaine) 
-            AND (s.idLang = :idLang( OR s.idLang = :idLang)( OR s.idLang = :idLang))
-            AND (sc.idCat = :idCat( AND sc.idCat = :$idCat)( AND sc.idCat = :idCat))
-            ORDER BY s.idSnip ASC LIMIT 1');
-        $stmt->bindParam(':idLang1' => $idLang1);
-        $stmt->bindParam(':idLang2' => $idLang2);
-        $stmt->bindParam(':idLang3' => $idLang3);
-        $stmt->bindParam(':idCat1' => $idCat1);
-        $stmt->bindParam(':idCat2' => $idCat2);
-        $stmt->bindParam(':idCat3' => $idCat3);
-        $stmt->bindParam(':chaine' => $chaine);
-        $stmt->execute();
-        $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $assocs ? $this->convInObj($assocs) : null;
     }
 
 }
