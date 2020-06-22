@@ -94,6 +94,17 @@ class Form
     }
 
     /**
+     * Renvoi un tableau contenant le ou les élément(s) sélectionné(s) pour le champ de type select "$name"
+     * @param string $name Correspond au nom du champ du select
+     * @return array
+     */
+    private function getSelectedValues(string $name) :array
+    {
+        $selecteds = $this->getValue($name);
+        return is_array($selecteds) ? $selecteds : [$selecteds];
+    }
+
+    /**
      * @param string $name Clef du tableau $datas
      * @param array $values
      * @param string|null $label Etiquette texte du champ
@@ -108,7 +119,7 @@ class Form
         foreach($options as $key => $value) {
             $params .= ' ' . $key . '="' . $value . '"';
         }
-        $selecteds = $this->getValue($name);
+        $selecteds = $this->getSelectedValues($name); // Récupération de la liste des ids des éléments à sélectionner
         $html = '';
         if ($label != null ) {
             $html .= '<label for="' . $name . '">' . $label . '</label>';
@@ -120,8 +131,7 @@ class Form
         foreach($values as $key => $value) {
             // $this->getValue('language') renvoi l'id du language à sélectionner
             // $this->getValue('cats') renvoi un tableau contenant les ids des catégories à sélectionner
-            $selected = is_array($selecteds) ? in_array($key, $selecteds) : $selecteds === $key;
-            $html .= '<option value="' . $key . '"' . ($selected ? ' selected' : '') . '>' . $value . '</option>';
+            $html .= '<option value="' . $key . '"' . (in_array($key, $selecteds) ? ' selected' : '') . '>' . $value . '</option>';
         }
         return $html .= '</select>';
     }
