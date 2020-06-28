@@ -1,6 +1,7 @@
 <?php
 
 use Html\Form;
+use Util\ErrorManager;
 
 ob_start();
 
@@ -15,6 +16,14 @@ if (isset($form) && $form instanceof Form) :
             <h1>
                 <?= ($isUpdate) ? $form->getValue('label') : 'Ajout d\'une recette'; ?>
             </h1>
+
+            <?php foreach (ErrorManager::getMessages() as $message) : ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $message ?>
+                </div>
+            <?php endforeach;
+            ErrorManager::destroy();
+            ?>
 
                 <form method="POST">
 

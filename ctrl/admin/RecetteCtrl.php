@@ -3,6 +3,7 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use Exception\PourNotNumericException;
 use Form\RecetteForm;
 use Html\Form;
 use Manager\RecetteManager;
@@ -58,9 +59,21 @@ class RecetteCtrl extends Controller
     }
 
     /**
+     * Renvoi sur le formulaire de recette dans le cas d'un problème de saisie
+     * Les valeurs incorrectes doivent être au préalable supprimées du formulaire transmis
+     * @param Form $form Les valeurs de ce formulaire seront présentés dans le formulaire HTML
+     */
+    public function modifierAvantAjouter(Form $form)
+    {
+        require_once ROOT_DIR . 'view/admin/recette.php';
+        require_once ROOT_DIR . 'view/template.php';
+    }
+
+    /**
      * @param int $id
      * @param Form $form
      * @return void
+     * @throws PourNotNumericException
      */
     public function modifier(int $id, Form $form): void
     {
@@ -86,6 +99,7 @@ class RecetteCtrl extends Controller
      * @param int $id
      * @param Form $form
      * @return void
+     * @throws PourNotNumericException
      */
     public function supprimer(int $id, Form $form): void
     {

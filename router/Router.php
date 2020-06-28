@@ -2,6 +2,7 @@
 
 namespace Router;
 
+use Ctrl\AuthCtrl;
 use Ctrl\Controller;
 use Ctrl\HomeCtrl;
 use Ctrl\LinkCtrl;
@@ -19,9 +20,12 @@ use Ctrl\Admin\RubricCtrl as AdmRubCtrl;
 use Ctrl\Admin\SnippetCtrl as AdmSnipCtrl;
 use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
+use Exception\PourNotNumericException;
+use Form\RecetteForm;
 use Form\SearchForm;
 use Html\Form;
 use PDO;
+use Util\ErrorManager;
 
 class Router
 {
@@ -73,6 +77,9 @@ class Router
                     break;
                 case 'snippet':
                     $this->snippet();
+                    break;
+                case 'auth':
+                    $this->auth();
                     break;
                 case 'admin':
                     $this->admin();
@@ -178,6 +185,34 @@ class Router
         } else {
             $ctrl->all();
         }
+    }
+
+    private function auth(): void
+    {
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'subscribe':
+                    $this->subscribe();
+                    break;
+                case 'loginForm':
+                    $this->loginForm();
+                    break;
+                default:
+                    (new RubricCtrl($this->db))->index();
+            }
+        } else {
+            (new RubricCtrl($this->db))->index();
+        }
+    }
+
+    public function subscribe()
+    {
+        (new AuthCtrl($this->db))->subscribe();
+    }
+
+    public function loginForm()
+    {
+        (new AuthCtrl($this->db))->loginForm();
     }
 
     private function admin(): void
@@ -452,14 +487,30 @@ class Router
 
     private function addRec(): void
     {
-        (new AdmRecCtrl($this->db))->ajouter(new Form($_POST));
+        try {
+            (new AdmRecCtrl($this->db))->ajouter(new RecetteForm($_POST));
+        } catch (PourNotNumericException $e) {
+            ErrorManager::add('Le champ \'pour\' doit contenir une valeur numérique !');
+            $valuesWithErrors = array_diff_key($_POST, ['pour' => '']); // Copie des valeurs transmises en supprimant la clef 'pour'
+            $form = new Form($valuesWithErrors);
+            $ctrl = new AdmRecCtrl($this->db);
+            $ctrl->modifierAvantAjouter($form);
+        }
     }
 
     private function updRec(): void
     {
         $ctrl = new AdmRecCtrl($this->db);
         if (array_key_exists('id', $this->params) && is_numeric($this->params['id'])) {
-            $ctrl->modifier($this->params['id'], new Form($_POST));
+            try {
+                $ctrl->modifier($this->params['id'], new RecetteForm($_POST));
+            } catch (PourNotNumericException $e) {
+                ErrorManager::add('Le champ \'pour\' doit contenir une valeur numérique !');
+                $valuesWithErrors = array_diff_key($_POST, ['pour' => '']); // Copie des valeurs transmises en supprimant la clef 'pour'
+                $form = new Form($valuesWithErrors);
+                $ctrl = new AdmRecCtrl($this->db);
+                $ctrl->modifierAvantAjouter($form);
+            }
         } else {
             $ctrl->notFound();
         }
