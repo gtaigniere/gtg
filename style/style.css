@@ -861,6 +861,9 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #sect-adm_links div:nth-child(2) {
 	width: auto;
 }
+#sect-adm_links select {
+	width: calc(100% - 8px);
+}
 /***** Fin Page Links Admin *****/
 /***** Debut Page Utilisateurs Admin *****/
 #sect-adm_users div:nth-child(2) {
@@ -881,16 +884,15 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #sect-adm_catslangs {
 	width: 56%;
 }
+#sect-adm_typsrubs .alert {
+	width: auto;
+}
 #sect-adm_typsrubs div, #sect-adm_catslangs div {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: flex-start;
 	width: 100%;
-}
-#sect-adm_typsrubs div:first-child,
-#sect-adm_catslangs div:nth-child(2) {
-	width: auto;
 }
 #sect-adm_typsrubs table:first-child,
 #sect-adm_catslangs table:first-child {

@@ -1,7 +1,6 @@
 <?php
 
 use Html\Form;
-use Model\User;
 use Util\ErrorManager;
 use Util\SuccessManager;
 

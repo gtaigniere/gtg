@@ -5,7 +5,7 @@ use Model\Cat;
 use Model\Language;
 use Model\Snippet;
 
-$listSnippets = $search ? 'Tous' : 'Trouvé(s)';
+$listSnippets = $search ? 'Trouvé(s)' : 'Tous';
 
 ?>
 

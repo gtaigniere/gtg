@@ -64,6 +64,7 @@ ob_start();
         </p>
         <p class="tooLast_p">
             <a href="?target=admin&admTarg=catAndLang"><button class="btn btn-primary">Catégories et Langages</button></a>
+            <a href="?target=admin&admTarg=link"><button class="btn btn-primary">Liens</button></a>
         </p>
 
     <?php endif; ?>
