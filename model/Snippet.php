@@ -131,7 +131,7 @@ class Snippet
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getComment(): ?string
     {
@@ -139,7 +139,7 @@ class Snippet
     }
 
     /**
-     * @param string $comment
+     * @param string|null $comment
      */
     public function setComment(?string $comment): void
     {
@@ -147,7 +147,7 @@ class Snippet
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRequirement(): ?string
     {
@@ -155,7 +155,7 @@ class Snippet
     }
 
     /**
-     * @param string $requirement
+     * @param string|null $requirement
      */
     public function setRequirement(?string $requirement): void
     {
