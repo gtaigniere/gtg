@@ -13,10 +13,11 @@
                     <input type="hidden" name="<?= $name . '[]' ?>" value="<?= $val ?>">
                 <?php endforeach;
             endif; ?>
-
         <?php endforeach; ?>
+        <!-- Permet d'indiquer que le formulaire a été validé -->
+        <input type="hidden" name="validate" value="true">
         <p>Etes-vous sûr ?</p>
-        <input class="btn btn-success" type="submit" name="validate" value="Confirmer">
+        <input class="btn btn-success" type="submit" value="Confirmer">
     </form>
 
 </section>
