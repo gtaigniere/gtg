@@ -54,12 +54,12 @@ class RecetteManager extends Manager
         );
         if ($stmt->execute(
             [
-                ':label' => $recette->getLabel(),
-                ':infos' => $recette->getInfos(),
-                ':pour' => $recette->getPour(),
-                ':ingredient' => $recette->getIngredient(),
-                ':photo' => $recette->getPhoto(),
-                ':detail' => $recette->getDetail()
+                ':label' => htmlentities($recette->getLabel()),
+                ':infos' => htmlentities($recette->getInfos()),
+                ':pour' => htmlentities($recette->getPour()),
+                ':ingredient' => htmlentities($recette->getIngredient()),
+                ':photo' => htmlentities($recette->getPhoto()),
+                ':detail' => htmlentities($recette->getDetail())
             ]
         )) {
             $id = $this->db->lastInsertId();
@@ -74,7 +74,6 @@ class RecetteManager extends Manager
      */
     public function update(Recette $recette): ?Recette
     {
-        $this->db->exec("set names utf8");
         $stmt = $this->db->prepare(
             'UPDATE recette
                         SET label=:label, infos=:infos, pour=:pour, ingredient=:ingredient, photo=:photo, detail=:detail
@@ -82,12 +81,12 @@ class RecetteManager extends Manager
         );
         if ($stmt->execute(
             [
-                ':label' => $recette->getLabel(),
-                ':infos' => $recette->getInfos(),
-                ':pour' => $recette->getPour(),
-                ':ingredient' => $recette->getIngredient(),
-                ':photo' => $recette->getPhoto(),
-                ':detail' => $recette->getDetail(),
+                ':label' => htmlentities($recette->getLabel()),
+                ':infos' => htmlentities($recette->getInfos()),
+                ':pour' => htmlentities($recette->getPour()),
+                ':ingredient' => htmlentities($recette->getIngredient()),
+                ':photo' => htmlentities($recette->getPhoto()),
+                ':detail' => htmlentities($recette->getDetail()),
                 ':id' => $recette->getIdRec()
             ]
         )) {

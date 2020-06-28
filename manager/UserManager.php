@@ -67,11 +67,11 @@ class UserManager extends Manager
         );
         if ($stmt->execute(
             [
-                ':pseudo' => $user->getPseudo(),
-                ':email' => $user->getEmail(),
-                ':pwd' => $user->getPwd(),
-                ':confirmKey' => $user->getConfirmKey(),
-                ':confirmed' => $user->isConfirmed() ? 1 : 0
+                ':pseudo' => htmlentities($user->getPseudo()),
+                ':email' => htmlentities($user->getEmail()),
+                ':pwd' => htmlentities($user->getPwd()),
+                ':confirmKey' => htmlentities($user->getConfirmKey()),
+                ':confirmed' => htmlentities($user->isConfirmed()) ? 1 : 0
             ]
         )) {
             $id = $this->db->lastInsertId();
@@ -91,15 +91,15 @@ class UserManager extends Manager
                         SET pseudo=:pseudo, email=:email, pwd=:pwd, confirmKey=:confirmKey, confirmed=:confirmed
                         WHERE idUser=:id'
         );
-        $pseudo = $user->getPseudo();
+        $pseudo = htmlentities($user->getPseudo());
         $stmt->bindParam(':pseudo', $pseudo);
-        $email = $user->getEmail();
+        $email = htmlentities($user->getEmail());
         $stmt->bindParam(':email', $email);
-        $pwd = $user->getPwd();
+        $pwd = htmlentities($user->getPwd());
         $stmt->bindParam(':pwd', $pwd);
-        $confirmKey = $user->getConfirmKey();
+        $confirmKey = htmlentities($user->getConfirmKey());
         $stmt->bindParam(':confirmKey', $confirmKey);
-        $isConfirmed = $user->isConfirmed();
+        $isConfirmed = htmlentities($user->isConfirmed());
         $stmt->bindParam(':confirmed', $isConfirmed, PDO::PARAM_BOOL);
         $idUser = $user->getIdUser();
         $stmt->bindParam(':id', $idUser);

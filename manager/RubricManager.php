@@ -50,7 +50,7 @@ class RubricManager extends Manager
     public function insert(Rubric $rubric): ?Rubric
     {
         $stmt = $this->db->prepare('INSERT INTO rubric (label, image) VALUES (:label, :image)');
-        if ($stmt->execute([':label' => $rubric->getLabel(), ':image' => $rubric->getImage()])) {
+        if ($stmt->execute([':label' => htmlentities($rubric->getLabel()), ':image' => htmlentities($rubric->getImage())])) {
             $id = $this->db->lastInsertId();
             return $this->findOne($id);
         }
@@ -64,7 +64,7 @@ class RubricManager extends Manager
     public function update(Rubric $rubric): ?Rubric
     {
         $stmt = $this->db->prepare('UPDATE rubric SET label=:label, image=:image WHERE idRub=:id');
-        if ($stmt->execute([':label' => $rubric->getLabel(), ':image' => $rubric->getImage(), ':id' => $rubric->getIdRub()])) {
+        if ($stmt->execute([':label' => htmlentities($rubric->getLabel()), ':image' => htmlentities($rubric->getImage()), ':id' => $rubric->getIdRub()])) {
             return $this->findOne($rubric->getIdRub());
         }
         return null;

@@ -50,7 +50,7 @@ class TypeManager extends Manager
     public function insert(Type $type): ?Type
     {;
         $stmt = $this->db->prepare('INSERT INTO type (label) VALUES (:label)');
-        if ($stmt->execute([':label' => $type->getLabel()])) {
+        if ($stmt->execute([':label' => htmlentities($type->getLabel())])) {
             $id = $this->db->lastInsertId();
             return $this->findOne($id);
         }
@@ -64,7 +64,7 @@ class TypeManager extends Manager
     public function update(Type $type): ?Type
     {
         $stmt = $this->db->prepare('UPDATE type SET label=:label WHERE idType=:id');
-        if ($stmt->execute([':label' => $type->getLabel(), ':id' => $type->getIdType()])) {
+        if ($stmt->execute([':label' => htmlentities($type->getLabel()), ':id' => $type->getIdType()])) {
             return $this->findOne($type->getIdType());
         }
         return null;
