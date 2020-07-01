@@ -5,15 +5,13 @@ use Model\Snippet;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-$h1 = 'Un snippet';
-
 ob_start();
 
 ?>
 
 <section id="section_snippet">
 
-    <h1><?= $h1; ?></h1>
+    <h1><?= !empty($snippets) ? 'Un snippet' : 'Pas de snippet'; ?></h1>
 
     <?php
     foreach (SuccessManager::getMessages() as $message) : ?>

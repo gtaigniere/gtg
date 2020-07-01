@@ -21,6 +21,7 @@ use Ctrl\Admin\SnippetCtrl as AdmSnipCtrl;
 use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
 use Exception\PourNotNumericException;
+use Form\AdmSearchForm;
 use Form\RecetteForm;
 use Form\SearchForm;
 use Html\Form;
@@ -537,7 +538,7 @@ class Router
         if (isset($this->params['action'])) {
             switch ($this->params['action']) {
                 case 'search':
-                    $this->searchSnip();
+                    $this->adminSnipSearch();
                     break;
                 case 'insert':
                     $this->addSnip();
@@ -566,11 +567,11 @@ class Router
         }
     }
 
-    private function searchSnip(): void
+    private function adminSnipSearch(): void
     {
         $ctrl = new AdmSnipCtrl($this->db);
         if (!empty($this->params)) {
-            $form = new SearchForm($this->params);
+            $form = new AdmSearchForm($this->params);
             $ctrl->search($form);
         } else {
             $ctrl->all();

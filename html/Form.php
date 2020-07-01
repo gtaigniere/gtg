@@ -9,6 +9,8 @@ class Form
      */
     private $datas;
 
+    const DEFAULT_VALUE = '';
+
     /**
      * Form constructor.
      * @param array $datas
@@ -126,7 +128,7 @@ class Form
         }
         $html .= '<select id="' . $name . '"' . $params . ' name="' . $name . ($multiple ? '[]" multiple >' : '" >');
         if ($defaultOption != null) {
-            $html .= '<option value=""' . (empty($selecteds) ? ' selected' : '') . '>' . $defaultOption . '</option>';
+            $html .= '<option value="' . self::DEFAULT_VALUE . '"' . (empty($selecteds) ? ' selected' : '') . '>' . $defaultOption . '</option>';
         }
         foreach($values as $key => $value) {
             // $this->getValue('language') renvoi l'id du language à sélectionner

@@ -1,11 +1,10 @@
 <?php
 
+use Form\SearchForm;
 use Html\Form;
 use Model\Cat;
 use Model\Language;
 use Model\Snippet;
-
-$listSnippets = $search ? 'Trouvé(s)' : 'Tous';
 
 ?>
 
@@ -38,11 +37,6 @@ $listSnippets = $search ? 'Trouvé(s)' : 'Tous';
                 <div>
                     <a class="ws-nowrap" href="?target=autres_sites">Autres sites</a>
                 </div>
-
-                <!--
-                        <input id="zone_recherche" type="text" name="recherche" placeholder="Chercher" autofocus>
-                        <button id="btn_recherche" type="submit"><img src="<?php //echo MYSITE_PATH; ?>img/icons/loupe.png" alt="Bouton loupe" title="Lancez la recherche"></button>
-                        -->
 
                 <?php if (!isset($_SESSION['User'])) : ?>
                     <div><a href="?target=auth&action=subscribe"><button id="button_inscription">Inscription</button></a></div>
@@ -119,7 +113,7 @@ $listSnippets = $search ? 'Trouvé(s)' : 'Tous';
                         <h2>Catégories</h2>
                         <?php
                         $values = [];
-                        $values['0'] = 'Sans catégorie';
+                        $values[SearchForm::WITHOUT_CAT] = 'Sans catégorie';
                         foreach($cats as $cat) {
                             if ($cat instanceof Cat) {
                                 $values[$cat->getIdCat()] = $cat->getLabel();
@@ -137,7 +131,12 @@ $listSnippets = $search ? 'Trouvé(s)' : 'Tous';
             </aside>
 
             <aside id="listsnippets">
-                <h1><?= $listSnippets ?></h1>
+
+                <h1><?= !empty($snippets) ? ($search ? 'Trouvé(s)' : 'Tous') : 'Aucun'; ?></h1>
+                <?php
+                    if (!empty($snippets)) :
+                ?>
+
                 <ul>
                     <?php foreach($snippets as $snippet) : ?>
                         <?php if ($snippet instanceof Snippet) : ?>
@@ -151,6 +150,8 @@ $listSnippets = $search ? 'Trouvé(s)' : 'Tous';
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
+                <?php endif; ?>
+
             </aside>
 
             <?= $section; ?>
