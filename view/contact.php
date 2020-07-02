@@ -1,6 +1,6 @@
 <?php
 
-use Form\ContactForm;
+use Html\Form;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
@@ -28,26 +28,26 @@ ob_start();
         ErrorManager::destroy();
         ?>
 
-        <?php if ($contactForm instanceof ContactForm) : ?>
+        <?php if ($form instanceof Form) : ?>
 
         <form class="form_contact" action="index.php" method="POST">
 
 
 
             <div>
-                <?= $contactForm->input('firstname', 'Prénom :', ['required' => 'required']); ?>
+                <?= $form->input('firstname', 'Prénom :', ['required' => 'required']); ?>
             </div>
 
             <div>
-                <?= $contactForm->input('mail', 'Mail :', ['type' => 'email', 'required' => 'required']); ?>
+                <?= $form->input('mail', 'Mail :', ['type' => 'email', 'required' => 'required']); ?>
             </div>
 
             <div>
-                <?= $contactForm->input('object', 'Objet :', ['required' => 'required']); ?>
+                <?= $form->input('object', 'Objet :', ['required' => 'required']); ?>
             </div>
 
             <div class="message_contact">
-                <?= $contactForm->textarea('message', 'Message :', ['class' => 'contact', 'rows' => '8', 'maxlength' => '400', 'required' => 'required']); ?>
+                <?= $form->textarea('message', 'Message :', ['class' => 'contact', 'rows' => '8', 'maxlength' => '400', 'required' => 'required']); ?>
             </div>
 
             <button class="btn btn-info">Envoyer</button>

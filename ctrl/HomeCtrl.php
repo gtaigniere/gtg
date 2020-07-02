@@ -2,7 +2,7 @@
 
 namespace Ctrl;
 
-use Form\ContactForm;
+use html\Form;
 
 class HomeCtrl extends Controller
 {
@@ -24,10 +24,10 @@ class HomeCtrl extends Controller
     }
 
     /**
-     * @param ContactForm $contactForm
+     * @param Form $form
      * @return void
      */
-    public function contact(ContactForm $contactForm): void
+    public function contact(Form $form): void
     {
         require_once ROOT_DIR . 'view/contact.php';
         require_once ROOT_DIR . 'view/template.php';

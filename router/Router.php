@@ -122,11 +122,11 @@ class Router
 
     private function contact(): void
     {
-        $contactForm = new ContactForm($_POST);
-        if (empty($contactForm) || (isset($this->params['datas']) && empty($this->params['datas']))) {
-            (new HomeCtrl())->contact($contactForm);
+        $form = new Form($_POST);
+        if (empty($form) || empty($this->params['datas'])) {
+            (new HomeCtrl())->contact($form);
         } else {
-            var_dump($contactForm);
+            var_dump($form);
         }
     }
 
