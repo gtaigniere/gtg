@@ -27,7 +27,7 @@ class SnippetManager extends Manager
     private $catManager;
 
     /**
-     * PhotoManager constructor.
+     * SnippetManager constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)

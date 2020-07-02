@@ -6,7 +6,6 @@ use Ctrl\Controller;
 use DateTime;
 use Exception;
 use Form\AdmSearchForm;
-use Form\SearchForm;
 use Form\SnippetForm;
 use Html\Form;
 use Manager\CatManager;

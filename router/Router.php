@@ -12,6 +12,7 @@ use Ctrl\SnippetCtrl;
 use Ctrl\VnCtrl;
 use Ctrl\Admin\CatLangCtrl as AdmCatLngCtrl;
 use Ctrl\Admin\CatCtrl as AdmCatCtrl;
+use Ctrl\Admin\ContactCtrl as AdmContCtrl;
 use Ctrl\Admin\LanguageCtrl as AdmLngCtrl;
 use Ctrl\Admin\LinkCtrl as AdmLnkCtrl;
 use Ctrl\Admin\TypRubCtrl as AdmTypRubCtrl;
@@ -22,6 +23,7 @@ use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
 use Exception\PourNotNumericException;
 use Form\AdmSearchForm;
+use Form\ContactForm;
 use Form\RecetteForm;
 use Form\SearchForm;
 use Html\Form;
@@ -120,7 +122,12 @@ class Router
 
     private function contact(): void
     {
-        (new HomeCtrl())->contact();
+        $contactForm = new ContactForm($_POST);
+        if (empty($contactForm) || (isset($this->params['datas']) && empty($this->params['datas']))) {
+            (new HomeCtrl())->contact($contactForm);
+        } else {
+            var_dump($contactForm);
+        }
     }
 
     private function notFound(): void
@@ -220,6 +227,9 @@ class Router
     {
         if (isset($this->params['admTarg'])) {
             switch ($this->params['admTarg']) {
+                case 'contact':
+                    $this->adminContact();
+                    break;
                 case 'link':
                     $this->adminLink();
                     break;
@@ -256,6 +266,45 @@ class Router
         } else {
             $this->adminLink();
         }
+    }
+
+    private function adminContact(): void
+    {
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'insert':
+                    $this->addContact();
+                    break;
+                case 'delete':
+                    $this->delContact();
+                    break;
+                default:
+                    $this->contacts();
+            }
+        } else {
+            $this->contacts();
+        }
+    }
+
+    private function addContact(): void
+    {
+        (new AdmContCtrl($this->db))->ajouter(new Form($_POST));
+    }
+
+    private function delContact(): void
+    {
+        $ctrl = new AdmContCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function contacts(): void
+    {
+        (new AdmContCtrl($this->db))->all();
     }
 
     private function adminLink(): void

@@ -323,3 +323,26 @@ INSERT INTO snipcat (idSnip, idCat) VALUES
     (6, 1),
     (7, 2),
     (7, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contact`
+--
+CREATE TABLE contact (
+     idCont INT NOT NULL AUTO_INCREMENT,
+     firstname VARCHAR(40) NOT NULL,
+     mail VARCHAR(50) COLLATE utf8_general_ci NOT NULL,
+     object VARCHAR(80) COLLATE utf8_general_ci NOT NULL,
+     received DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     message TEXT COLLATE utf8_general_ci NOT NULL,
+     PRIMARY KEY (idCont)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Contenu de la table `contact`
+--
+INSERT INTO contact (idCont, firstname, mail, object, received, message) VALUES
+(NULL, 'Dylan', 'dylan@free.fr', 'Question sur PHP', '2020-06-15 11:32:17', 'Bonjour, peut on faire un constructeur en PHP ?'),
+(NULL, 'Bruno', 'bruno@bbox.fr', 'Tableaux en JavaScript', '2019-09-25 12:55:47', 'Bjr, possible de me dire si cette ligne vous parait ok ?'),
+(NULL, 'Dylan', 'Maxime@yahoo.com', 'Python en backend', '2020-07-10 16:52:35', 'Avez-vous des connaissances en Python ?');

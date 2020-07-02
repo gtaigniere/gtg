@@ -611,6 +611,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 #section_inscription form, #section_connexion form,
 #section_contact form {
+	margin-bottom: 10px;
 	padding-bottom: 10px;
 	display: flex;
 	flex-direction: column;
@@ -656,7 +657,6 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	display: flex;
 }
 #section_contact textarea {
-	margin-left: 5px;
 	background-color: var(--fndTxtArea);
 	border-radius: 6px;
 	width: 40%;
@@ -857,6 +857,9 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	display: flex;
 	justify-content: center;
 }
+/***** Debut Page Contacts Admin *****/
+
+/***** Fin Page Contacts Admin *****/
 /***** Debut Page Links Admin *****/
 #sect-adm_links div:nth-child(2) {
 	width: auto;

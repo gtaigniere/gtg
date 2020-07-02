@@ -128,6 +128,9 @@ ob_start();
         </table>
 
         <p>
+            <a href="?target=admin&admTarg=contact">
+                <button class="btn btn-primary">Contacts</button>
+            </a>
             <a href="?target=admin&admTarg=user">
                 <button class="btn btn-primary">Utilisateurs</button>
             </a>

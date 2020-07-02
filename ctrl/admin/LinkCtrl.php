@@ -4,7 +4,6 @@ namespace Ctrl\Admin;
 
 use Ctrl\Controller;
 use Form\LinkForm;
-use Form\SearchForm;
 use Html\Form;
 use Manager\LinkManager;
 use Manager\RubricManager;

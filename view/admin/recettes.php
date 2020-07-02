@@ -77,6 +77,9 @@ ob_start();
             </p>
 
             <p>
+                <a href="?target=admin&admTarg=contact">
+                    <button class="btn btn-primary">Contacts</button>
+                </a>
                 <a href="?target=admin&admTarg=link">
                     <button class="btn btn-primary">Liens</button>
                 </a>

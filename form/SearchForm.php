@@ -17,7 +17,7 @@ class SearchForm extends Form
         $datas['cats'] = array_key_exists('cats', $datas) && is_array($datas['cats']) ? static::sanitize($datas['cats']) : self::DEFAULT_VALUE;
         $datas['languages'] = array_key_exists('languages', $datas) && is_array($datas['languages']) ? static::sanitize($datas['languages']) : self::DEFAULT_VALUE;
         parent::__construct($datas);
-//        // Ces paramètres sont utilisés pour le routage et sont destinés à être mis en forme dans des inputs cachés
+        // Ces paramètres sont utilisés pour le routage et sont destinés à être mis en forme dans des inputs cachés
            $this->add('target', 'snippet');
            $this->add('action', 'search');
     }
