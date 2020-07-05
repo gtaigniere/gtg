@@ -3,6 +3,8 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use DateTime;
+use Form\ContactForm;
 use Html\Form;
 use Manager\ContactManager;
 use Model\Contact;
@@ -38,6 +40,39 @@ class ContactCtrl extends Controller
 //        }
         require_once (ROOT_DIR . 'view/admin/contacts.php');
         require_once (ROOT_DIR . 'view/template.php');
+    }
+
+    /**
+     * @param $id
+     * @return Contact|null
+     */
+    public function one($id): ?Contact
+    {
+        return $this->contactManager->findOne($id);
+    }
+
+    /**
+     * @param int $id
+     * @param Form $form
+     */
+    public function repondre(int $id, Form $form)
+    {
+        $messageContact = $this->one($id);
+        $contactForm = new ContactForm($messageContact);
+        require_once (ROOT_DIR . 'view/admin/reply.php');
+        require_once (ROOT_DIR . 'view/template.php');
+    }
+
+    /**
+     * @param Form $form
+     */
+    public function envRep(Form $form)
+    {
+        $header = "MIME-Version: 1.0\r\n";
+        $header .= 'From:"gtg.fr"'."\n";
+        $header .= 'Content-Type:text/html; charset="utf-8"'."\n";
+        $header .= 'Content-Transfer-Encoding: 8bit';
+        mail($form->getValue('mail'), $form->getValue('object'), $form->getValue('message'), $header);
     }
 
     /**
@@ -84,9 +119,10 @@ class ContactCtrl extends Controller
         $contact = new Contact();
         $contact->setFirstname($form->getValue('firstname'));
         $contact->setMail($form->getValue('mail'));
-        $contact->setObject('object');
-        $contact->setReceived('received');
-        $contact->setMessage('message');
+        $contact->setObject($form->getValue('object'));
+        $contact->setReceived(new DateTime());
+        $contact->setMessage($form->getValue('message'));
+        $this->contactManager->insert($contact);
         if ($contact == null) {
             ErrorManager::add('Erreur lors de l\'ajout du message de contact !');
         } else {

@@ -8,7 +8,7 @@ ob_start();
 
 ?>
 
-    <section id="sect-adm_contacts">
+    <section id="sect-adm_contact">
 
         <h1>Messages de contact</h1>
 
@@ -31,11 +31,18 @@ ob_start();
         <?php foreach($contacts as $contact) :
             if ($contact instanceof Contact) : ?>
 
-            <p><?= $contact->getFirstname(); ?></p>
-            <p><?= $contact->getMail(); ?></p>
-            <p><?= $contact->getObject(); ?></p>
-            <p><?= $contact->getReceived()->format('d-m-Y H:i'); ?></p>
-            <p><?= $contact->getMessage(); ?></p>
+            <div class="contact">
+                <p class="firstname"><?= $contact->getFirstname(); ?></p>
+                <p class="mail"><?= $contact->getMail(); ?></p>
+                <p><?= $contact->getObject(); ?></p>
+                <p><?= $contact->getReceived()->format('d-m-Y H:i'); ?></p>
+                <p><?= $contact->getMessage(); ?></p>
+
+                <p>
+                    <a href="?target=admin&admTarg=contact&action=reply&id=<?= $contact->getIdCont(); ?>"><button class="btn btn-secondary">Répondre</button></a>
+                    <a href="?target=admin&admTarg=contact&action=delete&id=<?= $contact->getIdCont(); ?>"><button class="btn btn-danger">Supprimer</button></a>
+                </p>
+            </div>
 
             <?php endif;
         endforeach; ?>

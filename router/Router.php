@@ -123,11 +123,7 @@ class Router
     private function contact(): void
     {
         $form = new Form($_POST);
-        if (empty($form) || empty($this->params['datas'])) {
-            (new HomeCtrl())->contact($form);
-        } else {
-            var_dump($form);
-        }
+        (new HomeCtrl())->contact($form);
     }
 
     private function notFound(): void
@@ -272,6 +268,12 @@ class Router
     {
         if (isset($this->params['action'])) {
             switch ($this->params['action']) {
+                case 'reply':
+                    $this->repContact();
+                    break;
+                case 'sendReply':
+                    $this->sendReply();
+                    break;
                 case 'insert':
                     $this->addContact();
                     break;
@@ -286,9 +288,30 @@ class Router
         }
     }
 
+    private function repContact(): void
+    {
+        $ctrl = new AdmContCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->repondre($this->params['id'], $form);
+
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function sendReply(): void
+    {
+        $ctrl = new AdmContCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->envRep($form);
+    }
+
     private function addContact(): void
     {
-        (new AdmContCtrl($this->db))->ajouter(new Form($_POST));
+        $ctrl = new AdmContCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->ajouter($form);
     }
 
     private function delContact(): void

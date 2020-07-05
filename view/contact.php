@@ -30,9 +30,7 @@ ob_start();
 
         <?php if ($form instanceof Form) : ?>
 
-        <form class="form_contact" action="index.php" method="POST">
-
-
+        <form class="form_contact" action="?target=admin&admTarg=contact&action=insert" method="POST">
 
             <div>
                 <?= $form->input('firstname', 'Prénom :', ['required' => 'required']); ?>
