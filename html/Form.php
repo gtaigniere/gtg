@@ -80,7 +80,6 @@ class Form
     * @param string $name
     * @param string|null $label
     * @param array $options
-     * @param string $value
     * @return string
     */
     public function textarea(string $name, ?string $label = null, array $options = []): string
@@ -93,7 +92,7 @@ class Form
         if ($label != null ) {
             $html .= '<label for="' . $name . '">' . $label . '</label>';
         }
-        return $html .= '<textarea id="' . $name . '" name="' . $name . '"' . $params .'>' . $this->getValue($name) .'</textarea>';
+        return $html .= '<textarea id="' . $name . '" name="' . $name . '"' . $params .'>' . $this->getValue($name) . '</textarea>';
     }
 
     /**

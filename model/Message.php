@@ -5,12 +5,12 @@ namespace Model;
 use DateTime;
 use Exception;
 
-class Contact
+class Message
 {
     /**
      * @var int
      */
-    private $idCont;
+    private $id;
 
     /**
      * @var string
@@ -47,17 +47,17 @@ class Contact
     /**
      * @return int
      */
-    public function getIdCont(): int
+    public function getId(): int
     {
-        return $this->idCont;
+        return $this->id;
     }
 
     /**
-     * @param int $idCont
+     * @param int $id
      */
-    public function setIdCont(int $idCont): void
+    public function setId(int $id): void
     {
-        $this->idCont = $idCont;
+        $this->id = $id;
     }
 
     /**
@@ -109,15 +109,15 @@ class Contact
     }
 
     /**
-     * @return DateTime
+     * @return DateTime|null
      */
-    public function getReceived(): DateTime
+    public function getReceived(): ?DateTime
     {
         return $this->received;
     }
 
     /**
-     * @param DateTime|string $received
+     * @param DateTime|string|null $received
      * @throws Exception
      */
     public function setReceived($received): void

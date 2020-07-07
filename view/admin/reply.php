@@ -33,19 +33,15 @@ ob_start();
         <form class="form_contact" action="?target=admin&admTarg=contact&action=sendReply" method="POST">
 
             <div>
-                <?= $form->input('mail', 'Mail :', ['type' => 'email', 'value' => $contactForm->getValue('mail'),'required' => 'required']); ?>
+                <?= $form->input('mail', 'Mail :', ['type' => 'email', 'required' => 'required']); ?>
             </div>
 
             <div>
-                <?= $form->input('object', 'Objet :', ['value' => 'rep->' . $contactForm->getValue('object'), 'required' => 'required']); ?>
+                <?= $form->input('object', 'Objet :', ['required' => 'required']); ?>
             </div>
 
             <div class="message_reply">
-                <?= $form->textarea('message', 'Message :', ['class' => 'contact', 'rows' => '8', 'maxlength' => '800', 'required' => 'required',
-                    'placeholder' => $contactForm->getValue('firstname') . PHP_EOL .
-                    $contactForm->getValue('received') . PHP_EOL .
-                    $contactForm->getValue('object') . PHP_EOL .
-                    $contactForm->getValue('message') . PHP_EOL]); ?>
+                <?= $form->textarea('message', 'Message :', ['class' => 'contact', 'rows' => '8', 'required' => 'required']); ?>
             </div>
 
             <button class="btn btn-info">Envoyer</button>

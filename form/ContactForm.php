@@ -3,18 +3,18 @@
 namespace Form;
 
 use Html\Form;
-use Model\Contact;
+use Model\Message;
 
 class ContactForm extends Form
 {
     /**
      * ContactForm constructor.
-     * @param Contact $contact
+     * @param Message $contact
      */
-    public function __construct(Contact $contact)
+    public function __construct(Message $contact)
     {
         parent::__construct();
-        $this->add('id', $contact->getIdCont());
+        $this->add('id', $contact->getId());
         $this->add('firstname', $contact->getFirstname());
         $this->add('mail', $contact->getMail());
         $this->add('object', $contact->getObject());

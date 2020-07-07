@@ -5,9 +5,10 @@ namespace Ctrl\Admin;
 use Ctrl\Controller;
 use DateTime;
 use Form\ContactForm;
+use Form\ResponseForm;
 use Html\Form;
-use Manager\ContactManager;
-use Model\Contact;
+use Manager\MessageManager;
+use Model\Message;
 use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
@@ -15,7 +16,7 @@ use Util\SuccessManager;
 class ContactCtrl extends Controller
 {
     /**
-     * @var ContactManager
+     * @var MessageManager
      */
     private $contactManager;
 
@@ -25,7 +26,7 @@ class ContactCtrl extends Controller
      */
     public function __construct(PDO $db)
     {
-        $this->contactManager = new ContactManager($db);
+        $this->contactManager = new MessageManager($db);
     }
 
     /**
@@ -44,21 +45,20 @@ class ContactCtrl extends Controller
 
     /**
      * @param $id
-     * @return Contact|null
+     * @return Message|null
      */
-    public function one($id): ?Contact
+    public function one($id): ?Message
     {
         return $this->contactManager->findOne($id);
     }
 
     /**
      * @param int $id
-     * @param Form $form
      */
-    public function repondre(int $id, Form $form)
+    public function repondre(int $id)
     {
         $messageContact = $this->one($id);
-        $contactForm = new ContactForm($messageContact);
+        $form = new ResponseForm($messageContact);
         require_once (ROOT_DIR . 'view/admin/reply.php');
         require_once (ROOT_DIR . 'view/template.php');
     }
@@ -116,7 +116,7 @@ class ContactCtrl extends Controller
      */
     public function add(Form $form): void
     {
-        $contact = new Contact();
+        $contact = new Message();
         $contact->setFirstname($form->getValue('firstname'));
         $contact->setMail($form->getValue('mail'));
         $contact->setObject($form->getValue('object'));

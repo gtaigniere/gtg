@@ -1,6 +1,6 @@
 <?php
 
-use Model\Contact;
+use Model\Message;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
@@ -29,7 +29,7 @@ ob_start();
         ?>
 
         <?php foreach($contacts as $contact) :
-            if ($contact instanceof Contact) : ?>
+            if ($contact instanceof Message) : ?>
 
             <div class="contact">
                 <p class="firstname"><?= $contact->getFirstname(); ?></p>
@@ -39,8 +39,8 @@ ob_start();
                 <p><?= $contact->getMessage(); ?></p>
 
                 <p>
-                    <a href="?target=admin&admTarg=contact&action=reply&id=<?= $contact->getIdCont(); ?>"><button class="btn btn-secondary">Répondre</button></a>
-                    <a href="?target=admin&admTarg=contact&action=delete&id=<?= $contact->getIdCont(); ?>"><button class="btn btn-danger">Supprimer</button></a>
+                    <a href="?target=admin&admTarg=contact&action=reply&id=<?= $contact->getId(); ?>"><button class="btn btn-secondary">Répondre</button></a>
+                    <a href="?target=admin&admTarg=contact&action=delete&id=<?= $contact->getId(); ?>"><button class="btn btn-danger">Supprimer</button></a>
                 </p>
             </div>
 

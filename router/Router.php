@@ -292,8 +292,7 @@ class Router
     {
         $ctrl = new AdmContCtrl($this->db);
         if (array_key_exists('id', $this->params)) {
-            $form = new Form($_POST);
-            $ctrl->repondre($this->params['id'], $form);
+            $ctrl->repondre($this->params['id']);
 
         } else {
             $ctrl->notFound();
