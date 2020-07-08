@@ -4,7 +4,6 @@ namespace Manager;
 
 use Model\type;
 use PDO;
-use PDOException;
 
 class TypeManager extends Manager
 {
@@ -23,18 +22,13 @@ class TypeManager extends Manager
      */
     public function findAll(): array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->query('SELECT * FROM type');
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->query('SELECT * FROM type');
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
@@ -43,15 +37,10 @@ class TypeManager extends Manager
      */
     public function findOne(int $id): ?Type
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT * FROM type WHERE idType = :id');
-            $stmt->execute([':id' => $id]);
-            $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $assocs ? $this->convInObj($assocs) : null;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+        $stmt = $this->db->prepare('SELECT * FROM type WHERE idType = :id');
+        $stmt->execute([':id' => $id]);
+        $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $assocs ? $this->convInObj($assocs) : null;
     }
 
     /**
@@ -59,34 +48,13 @@ class TypeManager extends Manager
      * @return Type|null
      */
     public function insert(Type $type): ?Type
-    {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('INSERT INTO type (label) VALUES (:label)');
-            if ($stmt->execute([':label' => $type->getLabel()])) {
-                $id = $this->db->lastInsertId();
-                return $this->findOne($id);
-            }
-            return null;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+    {;
+        $stmt = $this->db->prepare('INSERT INTO type (label) VALUES (:label)');
+        if ($stmt->execute([':label' => htmlentities($type->getLabel())])) {
+            $id = $this->db->lastInsertId();
+            return $this->findOne($id);
         }
-    }
-
-    /**
-     * @param int $id
-     * @return bool
-     */
-    public function delete(int $id): bool
-    {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('DELETE FROM type WHERE idType = :id');
-            $stmt->execute([':id' => $id]);
-            return $stmt->rowCount() > 0;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+        return null;
     }
 
     /**
@@ -95,16 +63,22 @@ class TypeManager extends Manager
      */
     public function update(Type $type): ?Type
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('UPDATE type SET label=:label WHERE idType=:id');
-            if ($stmt->execute([':label' => $type->getLabel(), ':id' => $type->getIdType()])) {
-                return $this->findOne($type->getIdType());
-            }
-            return null;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('UPDATE type SET label=:label WHERE idType=:id');
+        if ($stmt->execute([':label' => htmlentities($type->getLabel()), ':id' => $type->getIdType()])) {
+            return $this->findOne($type->getIdType());
         }
+        return null;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM type WHERE idType = :id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
 }

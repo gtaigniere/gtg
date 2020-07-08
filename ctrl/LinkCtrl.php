@@ -43,6 +43,7 @@ class LinkCtrl extends Controller
     /**
      * Permet d'ouvrir un lien dont l'id est passé en paramètres
      * @param int $id
+     * @return void
      */
     public function open(int $id): void
     {

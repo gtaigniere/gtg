@@ -15,6 +15,7 @@ class SuccessManager
 
     /**
      * @param string $message
+     * @return void
      */
     public static function add(string $message): void
     {
@@ -26,6 +27,7 @@ class SuccessManager
 
     /**
      * Détruit le tableau de messages
+     * @return void
      */
     public static function destroy(): void
     {

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Form;
-
 
 use Html\Form;
 use Model\Cat;
@@ -25,8 +23,8 @@ class SnippetForm extends Form
                     'dateCrea' => $snippet->getDateCrea()->format('d-m-Y H:i:s'),
                     'comment' => $snippet->getComment(),
                     'requirement' => $snippet->getRequirement(),
-                    'language' => $snippet->getLanguage()->getIdLang(),
-                    'user' => $snippet->getUser()->getIdUser(),
+                    'idLang' => $snippet->getLanguage() != null ? $snippet->getLanguage()->getIdLang() : null,
+                    'idUser' => $snippet->getUser() != null ? $snippet->getUser()->getIdUser() : null,
                     'cats' =>
                         array_map(function (Cat $cat) {
                             return $cat->getIdCat();
@@ -38,4 +36,5 @@ class SnippetForm extends Form
             parent::__construct($snippet);
         }
     }
+
 }

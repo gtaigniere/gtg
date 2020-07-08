@@ -2,6 +2,7 @@
 
 namespace Router;
 
+use Ctrl\AuthCtrl;
 use Ctrl\Controller;
 use Ctrl\HomeCtrl;
 use Ctrl\LinkCtrl;
@@ -9,6 +10,10 @@ use Ctrl\RecetteCtrl;
 use Ctrl\RubricCtrl;
 use Ctrl\SnippetCtrl;
 use Ctrl\VnCtrl;
+use Ctrl\Admin\CatLangCtrl as AdmCatLngCtrl;
+use Ctrl\Admin\CatCtrl as AdmCatCtrl;
+use Ctrl\Admin\ContactCtrl as AdmContCtrl;
+use Ctrl\Admin\LanguageCtrl as AdmLngCtrl;
 use Ctrl\Admin\LinkCtrl as AdmLnkCtrl;
 use Ctrl\Admin\TypRubCtrl as AdmTypRubCtrl;
 use Ctrl\Admin\TypeCtrl as AdmTypCtrl;
@@ -16,8 +21,14 @@ use Ctrl\Admin\RubricCtrl as AdmRubCtrl;
 use Ctrl\Admin\SnippetCtrl as AdmSnipCtrl;
 use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
+use Exception\PourNotNumericException;
+use Form\AdmSearchForm;
+use Form\ContactForm;
+use Form\RecetteForm;
+use Form\SearchForm;
 use Html\Form;
 use PDO;
+use Util\ErrorManager;
 
 class Router
 {
@@ -70,6 +81,9 @@ class Router
                 case 'snippet':
                     $this->snippet();
                     break;
+                case 'auth':
+                    $this->auth();
+                    break;
                 case 'admin':
                     $this->admin();
                     break;
@@ -108,7 +122,8 @@ class Router
 
     private function contact(): void
     {
-        (new HomeCtrl())->contact();
+        $form = new Form($_POST);
+        (new HomeCtrl())->contact($form);
     }
 
     private function notFound(): void
@@ -144,14 +159,8 @@ class Router
     {
         if (isset($this->params['action'])) {
             switch ($this->params['action']) {
-                case 'lang':
-                    $this->snipByLang();
-                    break;
-                case 'cat':
-                    $this->snipByCat();
-                    break;
-                case 'langAndCat':
-                    $this->snipByLangAndCat();
+                case 'search':
+                    $this->snipSearch();
                     break;
                 default:
                     $this->snippets();
@@ -171,28 +180,52 @@ class Router
         }
     }
 
-    private function snipByLang(): void
+    private function snipSearch(): void
     {
         $ctrl = new SnippetCtrl($this->db);
-        $ctrl->allByLang();
+        if (!empty($this->params)) {
+            $form = new SearchForm($this->params);
+            $ctrl->search($form);
+        } else {
+            $ctrl->all();
+        }
     }
 
-    private function snipByCat(): void
+    private function auth(): void
     {
-        $ctrl = new SnippetCtrl($this->db);
-        $ctrl->allByCat();
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'subscribe':
+                    $this->subscribe();
+                    break;
+                case 'loginForm':
+                    $this->loginForm();
+                    break;
+                default:
+                    (new RubricCtrl($this->db))->index();
+            }
+        } else {
+            (new RubricCtrl($this->db))->index();
+        }
     }
 
-    private function snipByLangAndCat(): void
+    public function subscribe()
     {
-        $ctrl = new SnippetCtrl($this->db);
-        $ctrl->allByLangAndCat();
+        (new AuthCtrl($this->db))->subscribe();
+    }
+
+    public function loginForm()
+    {
+        (new AuthCtrl($this->db))->loginForm();
     }
 
     private function admin(): void
     {
         if (isset($this->params['admTarg'])) {
             switch ($this->params['admTarg']) {
+                case 'contact':
+                    $this->adminContact();
+                    break;
                 case 'link':
                     $this->adminLink();
                     break;
@@ -214,12 +247,86 @@ class Router
                 case 'snippet':
                     $this->adminSnippet();
                     break;
+                case 'catAndLang':
+                    $this->catsAndLangs();
+                    break;
+                case 'cat':
+                    $this->adminCat();
+                    break;
+                case 'language':
+                    $this->adminLanguage();
+                    break;
                 default:
                     $this->adminLink();
             }
         } else {
             $this->adminLink();
         }
+    }
+
+    private function adminContact(): void
+    {
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'reply':
+                    $this->repContact();
+                    break;
+                case 'sendReply':
+                    $this->sendReply();
+                    break;
+                case 'insert':
+                    $this->addContact();
+                    break;
+                case 'delete':
+                    $this->delContact();
+                    break;
+                default:
+                    $this->contacts();
+            }
+        } else {
+            $this->contacts();
+        }
+    }
+
+    private function repContact(): void
+    {
+        $ctrl = new AdmContCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $ctrl->repondre($this->params['id']);
+
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function sendReply(): void
+    {
+        $ctrl = new AdmContCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->envRep($form);
+    }
+
+    private function addContact(): void
+    {
+        $ctrl = new AdmContCtrl($this->db);
+        $form = new Form($_POST);
+        $ctrl->ajouter($form);
+    }
+
+    private function delContact(): void
+    {
+        $ctrl = new AdmContCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function contacts(): void
+    {
+        (new AdmContCtrl($this->db))->all();
     }
 
     private function adminLink(): void
@@ -245,55 +352,26 @@ class Router
 
     private function addLink(): void
     {
-        $ctrl = new AdmLnkCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            // Si le formulaire est validé
-            if (isset($_POST['validate'])) {
-                // Alors on persiste les données
-                $ctrl->add($form);
-            }
-            // Sinon on le valide
-            else {
-                $ctrl->validate($_POST);
-            }
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        (new AdmLnkCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updLink(): void
     {
         $ctrl = new AdmLnkCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (array_key_exists('id', $this->params)) {
             $form = new Form($_POST);
-            // Si le formulaire est validé
-            if (isset($_POST['validate'])) {
-                // Alors on persiste les données
-                $ctrl->upd($form);
-            } // Sinon on le valide
-            else {
-                $ctrl->validate($_POST);
-            }
+            $ctrl->modifier($this->params['id'], $form);
         } else {
-            $ctrl->unauthorizedMethod();
+            $ctrl->notFound();
         }
     }
 
     private function delLink(): void
     {
         $ctrl = new AdmLnkCtrl($this->db);
-        if (isset($this->params['idLink'])) {
-            // Si on est en POST et que c'est validé
-            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['validate'])) {
-                // Alors on supprime les données
-                $ctrl->del($this->params['idLink']);
-            } // Sinon on le valide
-            else {
-                $ctrl->validate($_POST);
-            }
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }
@@ -327,37 +405,26 @@ class Router
 
     private function addTyp(): void
     {
-        $ctrl =  new AdmTypCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            $ctrl->ajouter($form);
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        (new AdmTypCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updTyp(): void
     {
-        $ctrl =  new AdmTypCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $ctrl = new AdmTypCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
             $form = new Form($_POST);
-            $ctrl->modifier($form);
+            $ctrl->modifier($this->params['id'], $form);
         } else {
-            $ctrl->unauthorizedMethod();
+            $ctrl->notFound();
         }
     }
 
     private function delTyp(): void
     {
-        $ctrl =  new AdmTypCtrl($this->db);
-        if (isset($this->params['idType'])) {
-            $form = new Form(
-                // Fusion
-                array_merge($_POST, ['idType' => $this->params['idType']])
-            );
-            $ctrl->supprimer($form);
+        $ctrl = new AdmTypCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }
@@ -391,37 +458,26 @@ class Router
 
     private function addRub(): void
     {
-        $ctrl =  new AdmRubCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            $ctrl->ajouter($form);
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        (new AdmRubCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updRub(): void
     {
-        $ctrl =  new AdmRubCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $ctrl = new AdmRubCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
             $form = new Form($_POST);
-            $ctrl->modifier($form);
+            $ctrl->modifier($this->params['id'], $form);
         } else {
-            $ctrl->unauthorizedMethod();
+            $ctrl->notFound();
         }
     }
 
     private function delRub(): void
     {
-        $ctrl =  new AdmRubCtrl($this->db);
-        if (isset($this->params['idRub'])) {
-            $form = new Form(
-            // Fusion
-                array_merge($_POST, ['idRub' => $this->params['idRub']])
-            );
-            $ctrl->supprimer($form);
+        $ctrl = new AdmRubCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }
@@ -450,37 +506,26 @@ class Router
 
     private function addUsr(): void
     {
-        $ctrl =  new AdmUsrCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $form = new Form($_POST);
-            $ctrl->ajouter($form);
-        } else {
-            $ctrl->unauthorizedMethod();
-        }
+        (new AdmUsrCtrl($this->db))->ajouter(new Form($_POST));
     }
 
     private function updUsr(): void
     {
-        $ctrl =  new AdmUsrCtrl($this->db);
-        // Si on est en POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $ctrl = new AdmUsrCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
             $form = new Form($_POST);
-            $ctrl->modifier($form);
+            $ctrl->modifier($this->params['id'], $form);
         } else {
-            $ctrl->unauthorizedMethod();
+            $ctrl->notFound();
         }
     }
 
     private function delUsr(): void
     {
-        $ctrl =  new AdmRubCtrl($this->db);
-        if (isset($this->params['idUser'])) {
-            $form = new Form(
-            // Fusion de 2 tableaux avec la fonction "array_merge"
-                array_merge($_POST, ['idUser' => $this->params['idUser']])
-            );
-            $ctrl->supprimer($form);
+        $ctrl = new AdmUsrCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }
@@ -514,14 +559,30 @@ class Router
 
     private function addRec(): void
     {
-        (new AdmRecCtrl($this->db))->ajouter(new Form($_POST));
+        try {
+            (new AdmRecCtrl($this->db))->ajouter(new RecetteForm($_POST));
+        } catch (PourNotNumericException $e) {
+            ErrorManager::add('Le champ \'pour\' doit contenir une valeur numérique !');
+            $valuesWithErrors = array_diff_key($_POST, ['pour' => '']); // Copie des valeurs transmises en supprimant la clef 'pour'
+            $form = new Form($valuesWithErrors);
+            $ctrl = new AdmRecCtrl($this->db);
+            $ctrl->modifierAvantAjouter($form);
+        }
     }
 
     private function updRec(): void
     {
         $ctrl = new AdmRecCtrl($this->db);
-        if (is_numeric($_GET['idRec'])) {
-            $ctrl->modifier($_GET['idRec'], new Form($_POST));
+        if (array_key_exists('id', $this->params) && is_numeric($this->params['id'])) {
+            try {
+                $ctrl->modifier($this->params['id'], new RecetteForm($_POST));
+            } catch (PourNotNumericException $e) {
+                ErrorManager::add('Le champ \'pour\' doit contenir une valeur numérique !');
+                $valuesWithErrors = array_diff_key($_POST, ['pour' => '']); // Copie des valeurs transmises en supprimant la clef 'pour'
+                $form = new Form($valuesWithErrors);
+                $ctrl = new AdmRecCtrl($this->db);
+                $ctrl->modifierAvantAjouter($form);
+            }
         } else {
             $ctrl->notFound();
         }
@@ -530,8 +591,9 @@ class Router
     private function delRec(): void
     {
         $ctrl = new AdmRecCtrl(($this->db));
-        if (is_numeric($_GET['idRec'])) {
-            $ctrl->supprimer($_GET['idRec'], new Form($_POST));
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }
@@ -546,6 +608,9 @@ class Router
     {
         if (isset($this->params['action'])) {
             switch ($this->params['action']) {
+                case 'search':
+                    $this->adminSnipSearch();
+                    break;
                 case 'insert':
                     $this->addSnip();
                     break;
@@ -559,7 +624,28 @@ class Router
                     $this->snippets();
             }
         } else {
-            $this->snippets();
+            $this->admSnippets();
+        }
+    }
+
+    private function admSnippets(): void
+    {
+        $ctrl = new AdmSnipCtrl($this->db);
+        if (isset($this->params['id'])) {
+            $ctrl->one($this->params['id']);
+        } else {
+            $ctrl->all();
+        }
+    }
+
+    private function adminSnipSearch(): void
+    {
+        $ctrl = new AdmSnipCtrl($this->db);
+        if (!empty($this->params)) {
+            $form = new AdmSearchForm($this->params);
+            $ctrl->search($form);
+        } else {
+            $ctrl->all();
         }
     }
 
@@ -571,8 +657,8 @@ class Router
     private function updSnip(): void
     {
         $ctrl = new AdmSnipCtrl($this->db);
-        if (is_numeric($_GET['id'])) {
-            $ctrl->modifier($_GET['id'], new Form($_POST));
+        if (array_key_exists('id', $this->params) && is_numeric($this->params['id'])) {
+            $ctrl->modifier($this->params['id'], new Form($_POST));
         } else {
             $ctrl->notFound();
         }
@@ -581,8 +667,110 @@ class Router
     private function delSnip(): void
     {
         $ctrl = new AdmSnipCtrl(($this->db));
-        if (is_numeric($_GET['id'])) {
-            $ctrl->supprimer($_GET['id'], new Form($_POST));
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function adminCat(): void
+    {
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'insert':
+                    $this->addCat();
+                    break;
+                case 'update':
+                    $this->updCat();
+                    break;
+                case 'delete':
+                    $this->delCat();
+                    break;
+                default:
+                    $this->catsAndLangs();
+            }
+        } else {
+            $this->catsAndLangs();
+        }
+    }
+
+    private function addCat(): void
+    {
+        (new AdmCatCtrl($this->db))->ajouter(new Form($_POST));
+    }
+
+    private function updCat(): void
+    {
+        $ctrl = new AdmCatCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->modifier($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function delCat(): void
+    {
+        $ctrl = new AdmCatCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function catsAndLangs(): void
+    {
+        (new AdmCatLngCtrl($this->db))->all();
+    }
+
+    private function adminLanguage(): void
+    {
+        if (isset($this->params['action'])) {
+            switch ($this->params['action']) {
+                case 'insert':
+                    $this->addLang();
+                    break;
+                case 'update':
+                    $this->updLang();
+                    break;
+                case 'delete':
+                    $this->delLang();
+                    break;
+                default:
+                    $this->catsAndLangs();
+            }
+        } else {
+            $this->catsAndLangs();
+        }
+    }
+
+    private function addLang(): void
+    {
+        (new AdmLngCtrl($this->db))->ajouter(new Form($_POST));
+    }
+
+    private function updLang(): void
+    {
+        $ctrl = new AdmLngCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->modifier($this->params['id'], $form);
+        } else {
+            $ctrl->notFound();
+        }
+    }
+
+    private function delLang(): void
+    {
+        $ctrl = new AdmLngCtrl($this->db);
+        if (array_key_exists('id', $this->params)) {
+            $form = new Form($_POST);
+            $ctrl->supprimer($this->params['id'], $form);
         } else {
             $ctrl->notFound();
         }

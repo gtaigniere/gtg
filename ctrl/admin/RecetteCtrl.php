@@ -3,6 +3,8 @@
 namespace Ctrl\Admin;
 
 use Ctrl\Controller;
+use Exception\PourNotNumericException;
+use Form\RecetteForm;
 use Html\Form;
 use Manager\RecetteManager;
 use Model\Recette;
@@ -32,8 +34,8 @@ class RecetteCtrl extends Controller
     public function all(): void
     {
         $recettes = $this->recetteManager->findAll();
-        require(ROOT_DIR . 'view/admin/recettes.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        require_once (ROOT_DIR . 'view/admin/recettes.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -47,26 +49,31 @@ class RecetteCtrl extends Controller
             if ($form->getValue('validate') != null) {
                 // Alors on persiste les données
                 $this->add($form);
-            } // Sinon on le valide
-            else {
-                $this->validate([
-                    'label' => $form->getValue('label'),
-                    'infos' => $form->getValue('infos'),
-                    'pour' => $form->getValue('pour'),
-                    'ingredient' => $form->getValue('ingredient'),
-                    'photo' => $form->getValue('photo'),
-                    'detail' => $form->getValue('detail')
-                ]);
+            } else {
+                $this->validate($form->getDatas());
             }
         } else {
-            require_once(ROOT_DIR . 'view/admin/recette.php');
-            require_once(ROOT_DIR . 'view/template.php');
+            require_once (ROOT_DIR . 'view/admin/recette.php');
+            require_once (ROOT_DIR . 'view/template.php');
         }
+    }
+
+    /**
+     * Renvoi sur le formulaire de recette dans le cas d'un problème de saisie
+     * Les valeurs incorrectes doivent être au préalable supprimées du formulaire transmis
+     * @param Form $form Les valeurs de ce formulaire seront présentés dans le formulaire HTML
+     */
+    public function modifierAvantAjouter(Form $form)
+    {
+        require_once ROOT_DIR . 'view/admin/recette.php';
+        require_once ROOT_DIR . 'view/template.php';
     }
 
     /**
      * @param int $id
      * @param Form $form
+     * @return void
+     * @throws PourNotNumericException
      */
     public function modifier(int $id, Form $form): void
     {
@@ -79,15 +86,7 @@ class RecetteCtrl extends Controller
         } else {
             $recette = $this->recetteManager->findOne($id);
             if ($recette != null) {
-                $form = new Form([
-                    'label' => $recette->getLabel(),
-                    'infos' => $recette->getInfos(),
-                    'pour' => $recette->getPour(),
-                    'ingredient' => $recette->getIngredient(),
-                    'photo' => $recette->getPhoto(),
-                    'detail' => $recette->getDetail(),
-                    'idRec' => $recette->getIdRec()
-                ]);
+                $form = new RecetteForm($recette);
                 require_once ROOT_DIR . 'view/admin/recette.php';
                 require_once ROOT_DIR . 'view/template.php';
             } else {
@@ -99,6 +98,8 @@ class RecetteCtrl extends Controller
     /**
      * @param int $id
      * @param Form $form
+     * @return void
+     * @throws PourNotNumericException
      */
     public function supprimer(int $id, Form $form): void
     {
@@ -107,15 +108,8 @@ class RecetteCtrl extends Controller
         } else {
             $recette = $this->recetteManager->findOne($id);
             if ($recette != null) {
-                $this->validate([
-                    'idRec' => $recette->getIdRec(),
-                    'label' => $recette->getLabel(),
-                    'infos' => $recette->getInfos(),
-                    'pour' => $recette->getPour(),
-                    'ingredient' => $recette->getIngredient(),
-                    'photo' => $recette->getPhoto(),
-                    'detail' => $recette->getDetail()
-                ]);
+                $form = new RecetteForm($recette);
+                $this->validate($form->getDatas());
             } else {
                 $this->notFound();
             }
@@ -141,9 +135,7 @@ class RecetteCtrl extends Controller
         } else {
             SuccessManager::add('La recette a été ajouté avec succès.');
         }
-        $recettes = $this->recetteManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/recettes.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -159,16 +151,14 @@ class RecetteCtrl extends Controller
         $recette->setIngredient($form->getValue('ingredient'));
         $recette->setPhoto($form->getValue('photo'));
         $recette->setDetail($form->getValue('detail'));
-        $recette->setIdRec($form->getValue('idRec'));
+        $recette->setIdRec($form->getValue('id'));
         $recette = $this->recetteManager->update($recette);
         if ($recette == null) {
             ErrorManager::add('Erreur lors de la modification de la recette !');
         } else {
             SuccessManager::add('La recette a été modifié avec succès.');
         }
-        $recettes = $this->recetteManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/recettes.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -183,18 +173,18 @@ class RecetteCtrl extends Controller
         } else {
             SuccessManager::add('La recette a été supprimé avec succès.');
         }
-        $recettes = $this->recetteManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/recettes.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
      * @param array $datas
+     * @return void
      */
     public function validate(array $datas): void
     {
         // Vérifier le type des variables
-        require_once(ROOT_DIR . 'view/admin/validation.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        require_once (ROOT_DIR . 'view/admin/validation.php');
+        require_once (ROOT_DIR . 'view/template.php');
     }
+
 }

@@ -1,5 +1,7 @@
 <?php
 
+use Form\SearchForm;
+use Html\Form;
 use Model\Cat;
 use Model\Language;
 use Model\Snippet;
@@ -35,11 +37,6 @@ use Model\Snippet;
                 <div>
                     <a class="ws-nowrap" href="?target=autres_sites">Autres sites</a>
                 </div>
-
-                <!--
-                        <input id="zone_recherche" type="text" name="recherche" placeholder="Chercher" autofocus>
-                        <button id="btn_recherche" type="submit"><img src="<?php //echo MYSITE_PATH; ?>img/icons/loupe.png" alt="Bouton loupe" title="Lancez la recherche"></button>
-                        -->
 
                 <?php if (!isset($_SESSION['User'])) : ?>
                     <div><a href="?target=auth&action=subscribe"><button id="button_inscription">Inscription</button></a></div>
@@ -89,43 +86,72 @@ use Model\Snippet;
             
             <aside id="navcol">
                 <h1>Recherches</h1>
-                <ul class="ul_title">Languages
-                    <li><a href=".">Tous les langages</a></li>
-                    <?php foreach($languages as $language) : ?>
-                        <li><a href="">
-                            <?php if($language instanceof Language) {
-                                echo $language->getLabel();
-                            } ?>
-                        </a></li>
-                    <?php endforeach; ?>
-                </ul>
-                <ul class="ul_title">Catégories
-                    <li><a href=".">Toutes les catégories</a></li>
-                    <?php foreach($cats as $cat) : ?>
-                        <li><a href="">
-                            <?php if($cat instanceof Cat) {
-                                echo $cat->getLabel();
-                            } ?>
-                        </a></li>
-                    <?php endforeach; ?>
-                </ul>
+
+                <form action="index.php" method="GET">
+
+                <?php if ($searchForm instanceof Form) :
+                    echo $searchForm->input('target', null, ['type' => 'hidden']);
+                    echo $searchForm->input('action', null, ['type' => 'hidden']);
+                ?>
+                    <div>
+                        <?= $searchForm->input('search', null); ?>
+                    </div>
+
+                    <div>
+                        <h2>Langages</h2>
+                        <?php
+                        $values = [];
+                        foreach($languages as $language) {
+                            if ($language instanceof Language) {
+                                $values[$language->getIdLang()] = $language->getLabel();
+                            }
+                        }
+                        echo $searchForm->select('languages', $values, null, 'Tous', [], true) ?>
+                    </div>
+
+                    <div>
+                        <h2>Catégories</h2>
+                        <?php
+                        $values = [];
+                        $values[SearchForm::WITHOUT_CAT] = 'Sans catégorie';
+                        foreach($cats as $cat) {
+                            if ($cat instanceof Cat) {
+                                $values[$cat->getIdCat()] = $cat->getLabel();
+                            }
+                        }
+                        echo $searchForm->select('cats', $values, null, 'Toutes', [], true); ?>
+                    </div>
+
+                <?php endif; ?>
+
+                <button class="btn btn-info">Chercher</button>
+
+                </form>
+
             </aside>
 
             <aside id="listsnippets">
-                <h1>Liste snippets</h1>
+
+                <h1><?= !empty($snippets) ? ($search ? 'Trouvé(s)' : 'Tous') : 'Aucun'; ?></h1>
+                <?php
+                    if (!empty($snippets)) :
+                ?>
+
                 <ul>
                     <?php foreach($snippets as $snippet) : ?>
                         <?php if ($snippet instanceof Snippet) : ?>
-                        <a href="">
+                        <a href="?target=snippet&id=<?= $snippet->getIdSnip() ?>">
                             <li class="">
                                 <h2><?= $snippet->getTitle() ?></h2>
-                                <p><?= $snippet->getLanguage()->getLabel() ?></p>
+                                <p><?= $snippet->getLanguage() != null ? $snippet->getLanguage()->getLabel() : 'Pas de langage' ?></p>
                                 <p><?= $snippet->getDateCrea()->format('d-m-Y') ?></p>
                             </li>
                         </a>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
+                <?php endif; ?>
+
             </aside>
 
             <?= $section; ?>

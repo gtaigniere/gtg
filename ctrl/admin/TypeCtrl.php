@@ -2,85 +2,82 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
+use Form\TypeForm;
 use Html\Form;
-use Manager\RubricManager;
-use Manager\TypeManager;
 use Model\Type;
 use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-class TypeCtrl extends Controller
+class TypeCtrl extends TypRubCtrl
 {
-    /**
-     * @var TypeManager
-     */
-    private $typeManager;
-
-    /**
-     * @var RubricManager
-     */
-    private $rubricManager;
-
     /**
      * TypeCtrl constructor.
      * @param PDO $db
      */
     public function __construct(PDO $db)
     {
-        $this->typeManager = new TypeManager($db);
-        $this->rubricManager = new RubricManager($db);
+        parent::__construct($db);
     }
 
     /**
      * @param Form $form
+     * @return void
      */
     public function ajouter(Form $form): void
     {
         // Si le formulaire est validé
-        if (isset($_POST['validate'])) {
-            // Alors on persiste les données
-            $this->add($form);
-        }
-        // Sinon on le valide
-        else {
-            $this->validate($_POST);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($form->getValue('validate') != null) {
+                // Alors on persiste les données
+                $this->add($form);
+            } else {
+                $this->validate($form->getDatas());
+            }
+        } else {
+            $this->unauthorizedMethod();
         }
     }
 
     /**
+     * @param int $id
      * @param Form $form
+     * @return void
      */
-    public function modifier(Form $form): void
+    public function modifier(int $id, Form $form): void
     {
-        // Si le formulaire est validé
-        if (isset($_POST['validate'])) {
-            // Alors on persiste les données
-            $this->upd($form);
-        } // Sinon on le valide
-        else {
-            $this->validate($_POST);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Si le formulaire est validé
+            if ($form->getValue('validate') != null) {
+                // Alors on persiste les données
+                $this->upd($id, $form);
+            } else {
+                $this->validate($form->getDatas());
+            }
+        } else {
+            $this->unauthorizedMethod();
         }
     }
 
     /**
+     * @param int $id
      * @param Form $form
+     * @return void
      */
-    public function supprimer(Form $form): void
+    public function supprimer(int $id, Form $form): void
     {
         // Si on est en POST et que c'est validé
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && $form->getValue('validate') != null) {
             // Alors on supprime les données
-            $this->del($form->getValue('idType'));
-        } // Sinon on le valide
-        else {
-            $this->validate(['idType' => $form->getValue('idType')]);
+            $this->del($id);
+        } else {
+            $this->validate([]);
         }
     }
 
     /**
      * @param Form $form
+     * @return void
      */
     private function add(Form $form): void
     {
@@ -92,30 +89,26 @@ class TypeCtrl extends Controller
         } else {
             SuccessManager::add('Le type a été ajouté avec succès.');
         }
-        $types = $this->typeManager->findAll();
-        $rubrics = $this->rubricManager->findAll();
-        require_once(ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
+     * @param int $id
      * @param Form $form
+     * @return void
      */
-    private function upd(Form $form): void
+    private function upd(int $id, Form $form): void
     {
         $type = new Type();
         $type->setLabel($form->getValue('label'));
-        $type->setIdType($form->getValue('idType'));
+        $type->setIdType($id);
         $type = $this->typeManager->update($type);
         if ($type == null) {
             ErrorManager::add('Erreur lors de la modification du type !');
         } else {
             SuccessManager::add('Le type a été modifié avec succès.');
         }
-        $types = $this->typeManager->findAll();
-        $rubrics = $this->rubricManager->findAll();
-        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->all();
     }
 
     /**
@@ -131,19 +124,11 @@ class TypeCtrl extends Controller
             SuccessManager::add('Le type a été supprimé avec succès.');
         }
         $types = $this->typeManager->findAll();
-        $rubrics = $this->rubricManager->findAll();
-        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once (ROOT_DIR . 'view/template.php');
-    }
-
-    /**
-     * @param array $datas
-     */
-    public function validate(array $datas): void
-    {
-        // Vérifier le type des variables
-        require_once(ROOT_DIR . 'view/admin/validation.php');
-        require_once(ROOT_DIR . 'view/template.php');
+        $typeForms = [];
+        foreach($types as $type) {
+            $typeForms[] = new TypeForm($type);
+        }
+        $this->all();
     }
 
 }

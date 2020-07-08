@@ -2,6 +2,8 @@
 
 namespace Ctrl;
 
+use html\Form;
+
 class HomeCtrl extends Controller
 {
 
@@ -12,13 +14,20 @@ class HomeCtrl extends Controller
     {
     }
 
+    /**
+     * @return void
+     */
     public function otherSites(): void
     {
         require_once ROOT_DIR . 'view/autres_sites.php';
         require_once ROOT_DIR . 'view/template.php';
     }
 
-    public function contact(): void
+    /**
+     * @param Form $form
+     * @return void
+     */
+    public function contact(Form $form): void
     {
         require_once ROOT_DIR . 'view/contact.php';
         require_once ROOT_DIR . 'view/template.php';

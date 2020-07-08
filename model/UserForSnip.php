@@ -15,6 +15,13 @@ class UserForSnip
     private $pseudo;
 
     /**
+     * UserForSnip constructor.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
      * @return int
      */
     public function getIdUser(): int

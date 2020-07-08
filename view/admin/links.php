@@ -1,6 +1,6 @@
 <?php
 
-use Model\Link;
+use Html\Form;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
@@ -43,49 +43,39 @@ ob_start();
             </thead>
             <tbody>
 
-            <?php foreach ($links as $link) :
-                if ($link instanceof Link) : ?>
+            <?php foreach ($forms as $form) :
+                if ($form instanceof Form) : ?>
 
                     <tr>
 
-                        <form action="?target=admin&admTarg=link&action=update" method="POST">
+                        <form action="?target=admin&admTarg=link&action=update&id=<?= $form->getValue('id') ?>" method="POST">
 
-                            <td style="display: none;"><input type="hidden" name="idLink"
-                                        value="<?= $link->getIdLink() ?>"/></td>
-<!--                            <td style="display: none;">--><?php //$form->input('idLink') ?><!--</td>-->
-
-                            <td><input type="text" name="label"
-                                       value="<?php if ($link->getLabel() != null) {
-                                    echo $link->getLabel();
-                                } ?>"/></td>
-
-                            <td><input type="text" name="adrOrFile"
-                                       value="<?php if ($link->getAdrOrFile() != null) {
-                                    echo $link->getAdrOrFile();
-                                } ?>"/></td>
+                            <?= $form->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
 
                             <td>
-                                <select name="idRub">
-                                    <option value="">-- null --</option>
-                                    <?php foreach ($rubrics as $rubric) : ?>
-                                        <option value="<?= $rubric->getIdRub() ?>"
-                                            <?= (($link->getRubric() != null) && $link->getRubric()->getIdRub() == $rubric->getIdRub()) ? 'selected' : ''; ?>
-                                        ><?= $rubric->getLabel() ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <?= $form->input('label', null, ['required' => 'required']); ?>
                             </td>
-
                             <td>
-                                <select name="idType">
-                                    <option value="">-- null --</option>
-                                    <?php foreach ($types as $type) : ?>
-                                        <option value="<?= $type->getIdType() ?>"
-                                            <?= (($link->getType() != null) && $link->getType()->getIdType() == $type->getIdType()) ? 'selected' : ''; ?>
-                                        ><?= $type->getLabel() ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <?= $form->input('adrOrFile', null, ['required' => 'required']); ?>
                             </td>
-
+                            <td>
+                                <?php
+                                $values = [];
+                                foreach($rubrics as $rubric) {
+                                    $values[$rubric->getIdRub()] = $rubric->getLabel();
+                                }
+                                ?>
+                                <?= $form->select('idRub', $values, null, '--null--') ?>
+                            </td>
+                            <td>
+                                <?php
+                                $values = [];
+                                foreach($types as $type) {
+                                    $values[$type->getIdType()] = $type->getLabel();
+                                }
+                                ?>
+                                <?= $form->select('idType', $values, null, '--null--') ?>
+                            </td>
                             <td class="td-modif">
                                 <button class="btn btn-warning">Modifier</button>
                             </td>
@@ -93,7 +83,7 @@ ob_start();
                         </form>
 
                         <td class="td-suppr">
-                            <a href="?target=admin&admTarg=link&action=delete&idLink=<?= $link->getIdLink() ?>" class="btn btn-danger">Supprimer</a>
+                            <a href="?target=admin&admTarg=link&action=delete&id=<?= $form->getValue('id') ?>" class="btn btn-danger">Supprimer</a>
                         </td>
 
                     </tr>
@@ -104,32 +94,28 @@ ob_start();
             <form action="?target=admin&admTarg=link&action=insert" method="POST">
                 <tr>
 
-                    <td><input type="text" name="label" value="<?php if (isset($label)) {
-                            echo $label;
-                        } ?>" required/></td>
-
-                    <td><input type="text" name="adrOrFile" value="<?php if (isset($adrOrFile)) {
-                            echo $adrOrFile;
-                        } ?>" required/></td>
-
                     <td>
-                        <select name="idRub">
-                            <option value="">Choose an option</option>
-                            <?php foreach ($rubrics as $rubric) : ?>
-                                <option value="<?= $rubric->getIdRub() ?>"><?= $rubric->getLabel() ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </td>
-
+                        <?= $formAddLink->input('label', null, ['required' => 'required']); ?>
                     <td>
-                        <select name="idType">
-                            <option value="">Choose an option</option>
-                            <?php foreach ($types as $type) : ?>
-                                <option value="<?= $type->getIdType() ?>"><?= $type->getLabel() ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <?= $formAddLink->input('adrOrFile', null, ['required' => 'required']); ?>
+                    <td>
+                        <?php
+                        $values = [];
+                        foreach($rubrics as $rubric) {
+                            $values[$rubric->getIdRub()] = $rubric->getLabel();
+                        }
+                        ?>
+                        <?= $formAddLink->select('idRub', $values, null, 'Choose an option') ?>
                     </td>
-
+                    <td>
+                        <?php
+                        $values = [];
+                        foreach($types as $type) {
+                            $values[$type->getIdType()] = $type->getLabel();
+                        }
+                        ?>
+                        <?= $formAddLink->select('idType', $values, null, 'Choose an option') ?>
+                    </td>
                     <td class="td-ajout" colspan="2">
                         <button class="btn btn-success">Ajouter</button>
                     </td>
@@ -142,6 +128,9 @@ ob_start();
         </table>
 
         <p>
+            <a href="?target=admin&admTarg=contact">
+                <button class="btn btn-primary">Contacts</button>
+            </a>
             <a href="?target=admin&admTarg=user">
                 <button class="btn btn-primary">Utilisateurs</button>
             </a>
@@ -150,6 +139,9 @@ ob_start();
             </a>
             <a href="?target=admin&admTarg=recette">
                 <button class="btn btn-primary">Recettes</button>
+            </a>
+            <a href="?target=admin&admTarg=snippet">
+                <button class="btn btn-primary">Snippets</button>
             </a>
         </p>
 

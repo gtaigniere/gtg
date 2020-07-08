@@ -8,6 +8,7 @@ class Rubric
      * @var int
      */
     private $idRub;
+
     /**
      * @var string
      */
@@ -58,7 +59,7 @@ class Rubric
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getImage(): ?string
     {
@@ -66,7 +67,7 @@ class Rubric
     }
 
     /**
-     * @param string $image
+     * @param string|null $image
      */
     public function setImage(?string $image): void
     {

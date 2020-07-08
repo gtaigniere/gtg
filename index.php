@@ -10,7 +10,6 @@ use Config\MyPdo;
 use Router\Router;
 
 Autoloader::register();
-
 $db = new MyPdo();
 $router = new Router($_GET, $db);
 $router->route();

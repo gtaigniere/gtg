@@ -40,7 +40,7 @@ class Recette
     private $detail;
 
     /**
-     * Type constructor.
+     * Recette constructor.
      */
     public function __construct()
     {
@@ -79,17 +79,17 @@ class Recette
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getInfos(): string
+    public function getInfos(): ?string
     {
         return $this->infos;
     }
 
     /**
-     * @param string $infos
+     * @param string|null $infos
      */
-    public function setInfos(string $infos): void
+    public function setInfos(?string $infos): void
     {
         $this->infos = $infos;
     }
@@ -127,17 +127,17 @@ class Recette
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPhoto(): string
+    public function getPhoto(): ?string
     {
         return $this->photo;
     }
 
     /**
-     * @param string $photo
+     * @param string|null $photo
      */
-    public function setPhoto(string $photo): void
+    public function setPhoto(?string $photo): void
     {
         $this->photo = $photo;
     }

@@ -100,6 +100,7 @@ h6 => 0.67em	=> 10.5px */
 	--sitExtAside: #F1E6E6;
 	--recAside: #DBE9CD;
 	--liSnippets: #007BBF; /* Bleu href */
+	--lititleSnippet: #00FF00; /* Vert */
 	--violet: #9932CC;
 }
 /********** Fin Variables **********/
@@ -115,6 +116,9 @@ a {
 	padding: 5px;
 	text-decoration: none;
 	color: black;
+}
+.alert {
+	border-radius: 8px;
 }
 .btn-violet {
 	color: #fff;
@@ -601,12 +605,14 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 
 }
 /***** Fin Pages Warhammer *****/
-/***** Debut Pages Inscription, Connexion, et Contact *****/
-#section_inscription, #section_connexion, #section_contact {
+/***** Debut Pages Inscription, Connexion, Contact, et reply *****/
+#section_inscription, #section_connexion,
+#section_contact, #section_reply {
 	align-items: center;
 }
 #section_inscription form, #section_connexion form,
-#section_contact form {
+#section_contact form, #section_reply form {
+	margin-bottom: 10px;
 	padding-bottom: 10px;
 	display: flex;
 	flex-direction: column;
@@ -614,17 +620,17 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	max-width: 900px;
 }
 #section_inscription form div, #section_connexion form div,
-#section_contact form div {
+#section_contact form div, #section_reply form div {
 	padding: 10px 0;
 }
 #section_inscription label, #section_connexion label {
 	width: calc(35% - 10px);
 }
-#section_contact label {
+#section_contact label, #section_reply label {
 	width: calc(31% - 10px);
 }
 #section_inscription input, #section_connexion input,
-#section_contact input {
+#section_contact input, #section_reply input {
 	background-color: var(--fndInput);
 	min-width: 180px;
 	border-radius: 6px;
@@ -632,11 +638,11 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #section_inscription input, #section_connexion input {
 	width: 31%;
 }
-#section_contact input {
+#section_contact input, #section_reply input {
 	width: 40%;
 }
 #section_inscription form button, #section_connexion form button,
-#section_contact form button {
+#section_contact form button, #section_reply form button {
 	margin-top: 15px;
 	align-self: center;
 	width: auto;
@@ -648,39 +654,53 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 .message_connexion {
 	display: flex;
 }
-.message_contact {
+.message_contact, .message_reply {
 	display: flex;
 }
-#section_contact textarea {
-	margin-left: 5px;
+#section_contact textarea, #section_reply textarea {
 	background-color: var(--fndTxtArea);
 	border-radius: 6px;
 	width: 40%;
 	min-width: 180px;
 	resize: none;
 }
-/***** Fin Pages Inscription, Connexion, et Contact *****/
+/***** Fin Pages Inscription, Connexion, Contact, et reply *****/
 /***** Debut Sections Snippets *****/
 #navcol {
 	display: flex;
 	flex-direction: column;
-	padding: 12px;
+	padding: 12px 0;
 	width: 18%;
 	min-width: 220px;
+}
+#navcol form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: 10px;
 }
 #navcol h1 {
 	padding-top: 10px;
 	font-size: 1.6rem;
 }
-.ul_title {
+#navcol h2 {
+	margin-top: 15px;
+	padding-left: 10px;
 	font-size: 1.2rem;
+	text-align: left;
 }
-#navcol li {
-	padding-left: 8px;
-	font-size: 1.1rem;
+#navcol div {
+	padding-left: 10px;
+	padding-right: 10px;
+	width:100%;
 }
-#navcol a {
-	color: var(--liSnippets);
+#navcol input, #navcol select {
+	width: 100%;
+	border-radius: 6px;
+}
+#navcol button {
+	margin: 20px auto;
+	border-radius: 4px;
 }
 #listsnippets {
 	display: flex;
@@ -705,6 +725,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	text-align: left;
 	font-size: 1.1rem;
 	font-weight: bold;
+	color: var(--lititleSnippet);
 }
 #section_snippet {
 	display: flex;
@@ -717,9 +738,9 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #section_snippet h1 {
 	padding-top: 0;
 }
-#section_snippet .alert {
-	border-radius: 8px;
-	align-self: center;
+#section_snippet div:nth-child(2) {
+	margin-left: auto;
+	margin-right: auto;
 }
 #section_snippet form {
 	align-self: center;
@@ -750,7 +771,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 #section_snippet p {
 	font-size: 1.1rem;
 }
-#last_p {
+.tooLast_p {
 	margin-top: 15px;
 	align-self: center;
 }
@@ -772,12 +793,6 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-}
-.sect-adm .alert {
-	/* #sect-adm_links, sect-adm_users,
-		sect-adm_typsrubs, sect-adm_recettes  */
-	width: auto;
-	border-radius: 8px;
 }
 .sect-adm table {
 	/* sect-adm_links, sect-adm_users, sect-adm_recettes */
@@ -843,12 +858,21 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	display: flex;
 	justify-content: center;
 }
-/***** Debut Page Links Admin *****/
-#sect-adm_links {
+/***** Debut Page Contacts Admin *****/
 
+/***** Fin Page Contacts Admin *****/
+/***** Debut Page Links Admin *****/
+#sect-adm_links div:nth-child(2) {
+	width: auto;
+}
+#sect-adm_links select {
+	width: calc(100% - 8px);
 }
 /***** Fin Page Links Admin *****/
 /***** Debut Page Utilisateurs Admin *****/
+#sect-adm_users div:nth-child(2) {
+	width: auto;
+}
 #sect-adm_users .t-email {
 	width: 35%;
 }
@@ -859,31 +883,48 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	width: 95%;
 }
 /***** Fin Page Utilisateurs Admin *****/
-/***** Debut Page Types et Rubriques Admin *****/
-#sect-adm_typsrubs div {
+/***** Debut Page Types et Rubriques Admin
+ 	+ Catégories et Languages Admin *****/
+#sect-adm_catslangs {
+	width: 56%;
+}
+#sect-adm_typsrubs .alert {
+	width: auto;
+}
+#sect-adm_typsrubs div, #sect-adm_catslangs div {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: flex-start;
 	width: 100%;
 }
-#sect-adm_typsrubs table:first-child {
+#sect-adm_typsrubs table:first-child,
+#sect-adm_catslangs table:first-child {
 	max-width: 400px;
 }
 #sect-adm_typsrubs table:last-child {
 	max-width: 500px;
 }
-#sect-adm_typsrubs th {
+#sect-adm_catslangs table:last-child {
+	max-width: 400px;
+}
+#sect-adm_typsrubs th, #sect-adm_catslangs th {
 	border-radius: inherit;
 }
-#sect-adm_typsrubs th:first-child {
+#sect-adm_typsrubs th:first-child,
+#sect-adm_catslangs th:first-child {
 	border-radius: 4px 0 0 4px;
 }
-#sect-adm_typsrubs th:last-child {
+#sect-adm_typsrubs th:last-child,
+#sect-adm_catslangs th:last-child {
 	border-radius: 0 4px 4px 0;
 }
-/***** Fin Page Types et Rubriques Admin *****/
+/***** Fin Page Types et Rubriques Admin
+  	+ Catégories et Languages Admin *****/
 /***** Debut Page Recettes Admin *****/
+#sect-adm_recettes div:nth-child(2) {
+	width: auto;
+}
 #sect-adm_recettes th:last-child {
 	border-radius: 0 4px 4px 0;
 }
@@ -903,56 +944,86 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 	margin-top: inherit;
 }
 /***** Fin Page Recettes Admin *****/
-/***** Debut Page Recette Admin et Snippet Admin *****/
-#sect-adm_recette, #sect-adm_snippet {
+/***** Debut Page Contact Admin, Recette Admin, et Snippet Admin *****/
+#sect-adm_contact, #sect-adm_recette,
+#sect-adm_snippet {
 	align-items: center;
 }
-#sect-adm_recette form, #sect-adm_snippet form {
+#sect-adm_contact .contact {
+	margin-bottom: 15px;
+	min-width: 420px;
+	max-width: 640px;
+}
+#sect-adm_contact .contact .firstname {
+	font-weight: bold;
+}
+#sect-adm_contact .contact .mail {
+	color: var(--Bleu);
+}
+#sect-adm_contact div:last-child {
+	margin-bottom: 15px;
+}
+#sect-adm_snippet div:nth-child(2) {
+	width: auto;
+}
+#sect-adm_contact form, #sect-adm_recette form,
+#sect-adm_snippet form {
 	padding-bottom: 10px;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	max-width: 900px;
 }
-#sect-adm_recette form > div, #sect-adm_snippet form > div {
+#sect-adm_contact form > div, #sect-adm_recette form > div,
+#sect-adm_snippet form > div {
 	padding: 10px 0;
 }
-#sect-adm_recette label, #sect-adm_snippet label {
+#sect-adm_contact label, #sect-adm_recette label,
+#sect-adm_snippet label {
 	width: calc(31% - 10px);
 }
+#sect-adm_contact input, #sect-adm_contact textarea,
 #sect-adm_recette input, #sect-adm_recette textarea,
 #sect-adm_snippet input, #sect-adm_snippet textarea,
 #sect-adm_snippet select {
 	background-color: var(--fndInput);
 	border-radius: 6px;
 }
-#sect-adm_recette input, #sect-adm_snippet input,
-#sect-adm_snippet select {
+#sect-adm_contact input, #sect-adm_recette input,
+#sect-adm_snippet input, #sect-adm_snippet select {
 	width: 40%;
 	min-width: 180px;
 }
-.areatext_recette, .areatext_snippet {
+.areatext_contact, .areatext_recette, .areatext_snippet {
 	display: flex;
 }
-#sect-adm_recette textarea, #sect-adm_snippet textarea {
+#sect-adm_contact textarea, #sect-adm_recette textarea,
+#sect-adm_snippet textarea {
 	margin-bottom: 7px;
 	width: 40%;
 	min-width: 180px;
 	resize: none;
 }
-#sect-adm_recette form button, #sect-adm_snippet form button {
+#sect-adm_contact form button, #sect-adm_recette form button,
+#sect-adm_snippet form button {
 	margin-top: 15px;
+	margin-bottom: 15px;
 	align-self: center;
 	width: auto;
 	border-radius: 4px;
 }
+#sect-adm_contact form .btn-success,
 #sect-adm_snippet form .btn-success {
 	margin-bottom: 15px;
 }
-#sect-adm_recette a:last-child {
+#sect-adm_contact div p:last-child {
+	text-align: center;
+}
+#sect-adm_contact a:last-child, #sect-adm_recette a:last-child {
+	margin: 20px 0;
 	border-radius: 4px;
 }
-/***** Fin Page Recette Admin et Snippet Admin *****/
+/***** Fin Page Contact Admin, Recette Admin, et Snippet Admin *****/
 /***** Debut Page Validation Admin *****/
 #sect-adm_validation p {
 	font-size: 1.5em;

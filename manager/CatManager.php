@@ -4,7 +4,6 @@ namespace Manager;
 
 use Model\Cat;
 use PDO;
-use PDOException;
 
 class CatManager extends Manager
 {
@@ -22,18 +21,13 @@ class CatManager extends Manager
      */
     public function findAll(): array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->query('SELECT * FROM cat');
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->query('SELECT * FROM cat');
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
@@ -42,15 +36,10 @@ class CatManager extends Manager
      */
     public function findOne(int $id): ?Cat
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT * FROM cat WHERE idCat=:id');
-            $stmt->execute([':id' => $id]);
-            $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $assocs ? $this->convInObj($assocs) : null;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+        $stmt = $this->db->prepare('SELECT * FROM cat WHERE idCat=:id');
+        $stmt->execute([':id' => $id]);
+        $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $assocs ? $this->convInObj($assocs) : null;
     }
 
     /**
@@ -59,21 +48,16 @@ class CatManager extends Manager
      */
     public function CatsBySnip(int $id): array
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('SELECT c.* FROM cat c
-                JOIN snipcat sc ON sc.idCat = c.idCat
-                WHERE sc.idSnip = :id');
-            $stmt->execute([':id' => $id]);
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $objs = [];
-            foreach ($results as $assocs) {
-                $objs[] = $this->convInObj($assocs);
-            }
-            return $objs;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('SELECT c.* FROM cat c
+            JOIN snipcat sc ON sc.idCat = c.idCat
+            WHERE sc.idSnip = :id');
+        $stmt->execute([':id' => $id]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $objs = [];
+        foreach ($results as $assocs) {
+            $objs[] = $this->convInObj($assocs);
         }
+        return $objs;
     }
 
     /**
@@ -82,17 +66,12 @@ class CatManager extends Manager
      */
     public function insert(Cat $cat): ?Cat
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('INSERT INTO cat (label) VALUES (:label)');
-            if ($stmt->execute([':id' => $cat->getIdCat(), ':label' => $cat->getLabel()])) {
-                $id = $this->db->lastInsertId();
-                return $this->findOne($id);
-            }
-            return null;
-        } catch(PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('INSERT INTO cat (label) VALUES (:label)');
+        if ($stmt->execute([':label' => htmlentities($cat->getLabel())])) {
+            $id = $this->db->lastInsertId();
+            return $this->findOne($id);
         }
+        return null;
     }
 
     /**
@@ -101,14 +80,9 @@ class CatManager extends Manager
      */
     public function delete(int $id): bool
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('DELETE FROM cat WHERE idCat=:id');
-            $stmt->execute([':id' => $id]);
-            return $stmt->rowCount();
-        } catch(PDOException $e) {
-            echo $e->getMessage();
-        }
+        $stmt = $this->db->prepare('DELETE FROM cat WHERE idCat=:id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
     /**
@@ -117,16 +91,11 @@ class CatManager extends Manager
      */
     public function update(Cat $cat): ?Cat
     {
-        try {
-//            $this->db->exec("set names utf8");
-            $stmt = $this->db->prepare('UPDATE cat SET label=:label WHERE idCat=:id');
-            if ($stmt->execute([':label' => $cat->getLabel(), ':id' => $cat->getIdCat()])) {
-                return $this->findOne($cat->getIdCat());
-            }
-            return null;
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+        $stmt = $this->db->prepare('UPDATE cat SET label=:label WHERE idCat=:id');
+        if ($stmt->execute([':label' => htmlentities($cat->getLabel()), ':id' => $cat->getIdCat()])) {
+            return $this->findOne($cat->getIdCat());
         }
+        return null;
     }
 
 }

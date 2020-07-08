@@ -1,6 +1,6 @@
 <?php
 
-use Model\User;
+use Html\Form;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
@@ -42,34 +42,28 @@ ob_start();
                 </thead>
                 <tbody>
 
-                <?php foreach($users as $user) :
-                    if ($user instanceof User) : ?>
+                <?php foreach($forms as $form) :
+                    if ($form instanceof Form) : ?>
 
                     <tr>
 
-                        <form action="?target=admin&admTarg=user&action=update" method="POST">
+                        <form action="?target=admin&admTarg=user&action=update&id=<?= $form->getValue('id') ?>" method="POST">
 
-                            <td style="display: none;"><input type="hidden" name="idUser"
-                                        value="<?= $user->getIdUser() ?>" /></td>
+                            <td>
+                                <?= $form->input('pseudo', null, ['required' => 'required']); ?>
+                            </td>
 
-                            <td><input type="text" name="pseudo"
-                                        value="<?php if ($user->getPseudo() != null) {
-                                    echo $user->getPseudo();
-                                } ?>" required /></td>
+                            <td class="t-email">
+                                <?= $form->input('email', null, ['type' => 'email', 'required' => 'required']); ?>
+                            </td>
 
-                            <td class="t-email"><input type="email" name="email"
-                                        value="<?php if ($user->getEmail() != null) {
-                                    echo $user->getEmail();
-                                } ?>" required /></td>
+                            <?= $form->input('pwd', null, ['style' => 'display: none;', 'type' => 'password', 'hidden' => 'hidden']); ?>
 
-                            <td style="display: none;"><input type="hidden" name="pwd"
-                                        value="<?= $user->getPwd() ?>" /></td>
+                            <?= $form->input('confirmKey', null, ['style' => 'display: none;', 'type' => 'hidden', 'hidden' => 'hidden']); ?>
 
-                            <td style="display: none;"><input type="hidden" name="confirmKey"
-                                        value="<?= $user->getConfirmKey() ?>" /></td>
-
-                            <td class="t-confirmed"><input type="checkbox" name="confirmed"
-                                        <?php if ($user->isConfirmed()) { echo 'checked'; } ?> /></td>
+                            <td class="t-confirmed">
+                                <?= $form->input('confirmed', null, ['type' => 'checkbox']); ?>
+                            </td>
 
                             <td class="td-modif">
                                 <button class="btn btn-warning">Modifier</button>
@@ -78,7 +72,7 @@ ob_start();
                         </form>
 
                         <td class="td-suppr">
-                            <a href="?target=admin&admTarg=user&action=delete&idUser=<?= $user->getIdUser() ?>" class="btn btn-danger">Supprimer</a>
+                            <a href="?target=admin&admTarg=user&action=delete&id=<?= $form->getValue('id') ?>" class="btn btn-danger">Supprimer</a>
                         </td>
 
                     </tr>
@@ -90,24 +84,22 @@ ob_start();
 
                     <tr>
 
+                        <?= $formAddUser->input('id', null, ['style' => 'display: none;', 'type' => 'hidden']); ?>
+
                         <td>
-                            <input type="text" name="pseudo" value="<?php if(isset($pseudo)) {
-                                echo $pseudo;
-                            } ?>" required />
+                            <?= $formAddUser->input('pseudo', null, ['required' => 'required']); ?>
                         </td>
 
                         <td class="t-email">
-                            <input type="email" name="email" value="<?php if(isset($email)) {
-                                echo $email;
-                            } ?>" required />
+                            <?= $formAddUser->input('email', null, ['type' => 'email', 'required' => 'required']); ?>
                         </td>
 
-                        <td style="display: none;">
-                            <input type="hidden" name="pwd" value="test" required />
-                        </td>
+                        <?= $formAddUser->input('pwd', null, ['style' => 'display: none;', 'type' => 'password', 'hidden' => 'hidden']); ?>
+
+                        <?= $formAddUser->input('confirmKey', null, ['style' => 'display: none;', 'type' => 'hidden', 'hidden' => 'hidden']); ?>
 
                         <td class="t-confirmed">
-                            <input type="checkbox" name="confirmed" />
+                            <?= $formAddUser->input('confirmed', null, ['type' => 'checkbox']); ?>
                         </td>
 
                         <td class="td-ajout" colspan="2">
@@ -123,6 +115,9 @@ ob_start();
             </table>
 
             <p>
+                <a href="?target=admin&admTarg=contact">
+                    <button class="btn btn-primary">Contacts</button>
+                </a>
                 <a href="?target=admin&admTarg=link">
                     <button class="btn btn-primary">Liens</button>
                 </a>

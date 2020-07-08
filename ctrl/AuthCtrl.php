@@ -20,7 +20,9 @@ class AuthCtrl extends Controller
     {
         $this->userManager = new UserManager($db);
     }
-
+    /**
+     * @return void
+     */
     public function loginForm(): void
     {
         require_once 'view/connexion.php';
@@ -30,6 +32,7 @@ class AuthCtrl extends Controller
     /**
      * @param $pseudo
      * @param $pwd
+     * @return void
      */
     public function login($pseudo, $pwd): void
     {
@@ -43,18 +46,22 @@ class AuthCtrl extends Controller
     }
 
     /**
-     *
+     * @return void
      */
-    public function logout()
+    public function logout(): void
     {
         session_destroy();
         require_once 'view/logout.php';
         require_once 'view/template.php';
     }
 
+    /**
+     * @return void
+     */
     public function subscribe()
     {
         require_once 'view/inscription.php';
         require_once 'view/template.php';
     }
+
 }

@@ -23,6 +23,9 @@ class PhotoCtrl extends Controller
         $this->photoManager = new photoManager($db);
     }
 
+    /**
+     * @return void
+     */
     public function all(): void
     {
         $photos = $this->photoManager->findAll();

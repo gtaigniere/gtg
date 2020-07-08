@@ -1,9 +1,5 @@
 <?php
 
-$title = 'Snippets';
-$h1 = 'Tous les snippets';
-$h2 = 'Un snippet';
-
 use Model\Cat;
 use Model\Snippet;
 use Util\ErrorManager;
@@ -15,7 +11,7 @@ ob_start();
 
 <section id="section_snippet">
 
-    <h1><?= $h2; ?></h1>
+    <h1><?= !empty($snippets) ? 'Un snippet' : 'Pas de snippet'; ?></h1>
 
     <?php
     foreach (SuccessManager::getMessages() as $message) : ?>
@@ -37,15 +33,19 @@ ob_start();
 
         <h2 id="titlesnippet"><?= $snippet->getTitle() ?></h2>
 
-        <p><?= $snippet->getLanguage()->getLabel() ?></p>
-        <pre>
-            <code class="<?= $snippet->getLanguage()->getLabel(); ?>">
-                <?= $snippet->getCode() ?>
-            </code>
-        </pre>
+        <p><?= $snippet->getLanguage() != null ? $snippet->getLanguage()->getLabel() : 'Pas de langage' ?></p>
+        <pre><code class="<?= $snippet->getLanguage() != null ?
+                $snippet->getLanguage()->getLabel() :
+                '' ?>"><?= $snippet->getCode() ?></code></pre>
         <p><?= $snippet->getDateCrea()->format('d-m-Y H:i') ?></p>
+
+        <?php if (!empty($snippet->getComment())) : ?>
         <p><?= $snippet->getComment() ?></p>
+        <?php
+        endif;
+        if (!empty($snippet->getRequirement())) : ?>
         <p><?= $snippet->getRequirement() ?></p>
+         <?php endif; ?>
         <p><?= $snippet->getUser()->getPseudo() ?></p>
 
         <p>Catégorie(s) : <em id="cat">
@@ -54,14 +54,6 @@ ob_start();
                 }, $snippet->getCats()));
             ?>
         </em></p>
-
-<!--        --><?php //if(isset($_SESSION['User']) && $_SESSION['User'] == 'gilleste') : ?>
-            <p id="last_p">
-                <a href="?target=admin&admTarg=snippet&action=insert"><button class="btn btn-success">Ajouter</button></a>
-                <a href="?target=admin&admTarg=snippet&action=update&id=<?= $snippet->getIdSnip() ?>"><button class="btn btn-warning">Modifier</button></a>
-                <a href="?target=admin&admTarg=snippet&action=delete&id=<?= $snippet->getIdSnip() ?>"><button class="btn btn-danger">Supprimer</button></a>
-            </p>
-<!--        --><?php //endif; ?>
 
     <?php endif; ?>
 

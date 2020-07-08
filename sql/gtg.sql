@@ -263,10 +263,10 @@ INSERT INTO language (idLang, label) VALUES
 CREATE TABLE snippet (
     idSnip INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(60) NOT NULL,
-    code TEXT NULL,
+    code TEXT NOT NULL,
     dateCrea DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    comment TEXT NULL,
-    requirement TINYTEXT NULL,
+    comment TEXT DEFAULT NULL,
+    requirement TINYTEXT DEFAULT NULL,
     idLang INT DEFAULT NULL,
     idUser INT NOT NULL,
     PRIMARY KEY (idSnip)
@@ -287,6 +287,15 @@ INSERT INTO snippet (idSnip, title, code, dateCrea, comment, requirement, idLang
     (NULL, 'Envoyer un mail', 'mail("label@fournisseur", "Sujet", $message, $header);', '2020-02-07 00:00:00', NULL, NULL, 1, 2),
     (NULL, 'Test ajout', 'var $add = "Ajout d\'un snippet";console.log($add...', '2020-02-09 12:31:40', '', '', 2, 1),
     (NULL, 'Debugage', '<?phg debugueur ?>', '2020-02-08 07:31:20', NULL, NULL, 1, 2);
+
+-- Sélection des snippets n'ayant pas de catégorie
+SELECT s.* FROM snippet s WHERE NOT EXISTS (
+        SELECT 1 FROM snipcat sc WHERE sc.idSnip = s.idSnip
+    );
+-- ou
+SELECT s.* FROM snippet s WHERE s.idSnip NOT IN (
+    SELECT sc.idSnip FROM snipcat sc
+);
 
 -- --------------------------------------------------------
 
@@ -314,3 +323,26 @@ INSERT INTO snipcat (idSnip, idCat) VALUES
     (6, 1),
     (7, 2),
     (7, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contact`
+--
+CREATE TABLE contact (
+     id INT NOT NULL AUTO_INCREMENT,
+     firstname VARCHAR(40) NOT NULL,
+     mail VARCHAR(50) COLLATE utf8_general_ci NOT NULL,
+     object VARCHAR(80) COLLATE utf8_general_ci NOT NULL,
+     received DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     message TEXT COLLATE utf8_general_ci NOT NULL,
+     PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Contenu de la table `contact`
+--
+INSERT INTO message (id, firstname, mail, object, received, message) VALUES
+(NULL, 'Dylan', 'dylan@free.fr', 'Question sur PHP', '2020-06-15 11:32:17', 'Bonjour, peut on faire un constructeur en PHP ?'),
+(NULL, 'Bruno', 'bruno@bbox.fr', 'Tableaux en JavaScript', '2019-09-25 12:55:47', 'Bjr, possible de me dire si cette ligne vous parait ok ?'),
+(NULL, 'Dylan', 'Maxime@yahoo.com', 'Python en backend', '2020-07-10 16:52:35', 'Avez-vous des connaissances en Python ?');

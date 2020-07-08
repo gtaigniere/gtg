@@ -9,13 +9,27 @@ class Form
      */
     private $datas;
 
+    const DEFAULT_VALUE = '';
+
     /**
      * Form constructor.
      * @param array $datas
      */
-    public function __construct(array $datas)
+    public function __construct(array $datas = [])
     {
         $this->datas = $datas;
+    }
+
+    // Pour définir une clef à un tableau clef => valeur : $tab[$key] = 'string';
+
+    /**
+     * @param string $key
+     * @param string|string[] $value
+     * @return void
+     */
+    public function add(string $key, $value)
+    {
+        $this->datas[$key] = $value;
     }
 
     /**
@@ -28,9 +42,9 @@ class Form
 
     /**
      * @param string $key
-     * @return string|null
+     * @return array|string|null
      */
-    public function getValue(string $key)
+    public function getValue($key)
     {
         return array_key_exists($key, $this->datas) ? $this->datas[$key] : null;
     }
@@ -44,17 +58,22 @@ class Form
     public function input(string $name, ?string $label = null, array $options = []): string
     {
         $params = '';
-        foreach ($options as $key => $value) {
-            $params .= ' ' . $key . '="' . $value .'"';
-        }
         if (!array_key_exists('type', $options)) {
-            $params .= ' type="text"';
+            $options['type'] = 'text';
+        }
+        foreach ($options as $key => $value) {
+            $params .= ' ' . $key . '="' . $value . '"';
+        }
+        if ($options['type'] == "checkbox") {
+            $params .= $this->getValue($name) != null ? ' checked' : '';
+        } else {
+            $params .= ' value="' . $this->getValue($name) . '"';
         }
         $html = '';
         if ($label != null) {
             $html = '<label for="' . $name . '">' . $label . '</label>';
         }
-        return $html .= '<input id="' . $name . '" name="' . $name . '" value="' . $this->getValue($name) . '"' . $params . '>';
+        return $html .= '<input id="' . $name . '" name="' . $name . '"' . $params . '>';
     }
 
     /**
@@ -77,37 +96,44 @@ class Form
     }
 
     /**
+     * Renvoi un tableau contenant le ou les élément(s) sélectionné(s) pour le champ de type select "$name"
+     * @param string $name Correspond au nom du champ du select
+     * @return array
+     */
+    private function getSelectedValues(string $name) :array
+    {
+        $selecteds = $this->getValue($name);
+        return is_array($selecteds) ? $selecteds : [$selecteds];
+    }
+
+    /**
      * @param string $name Clef du tableau $datas
      * @param array $values
      * @param string|null $label Etiquette texte du champ
      * @param string|null $defaultOption
      * @param array $options
+     * @param bool $multiple
      * @return string
      */
-    public function select(string $name, array $values, ?string $label = null, ?string $defaultOption = null, array $options = []): string
+    public function select(string $name, array $values, ?string $label = null, ?string $defaultOption = null, array $options = [], bool $multiple = false): string
     {
         $params = '';
         foreach($options as $key => $value) {
             $params .= ' ' . $key . '="' . $value . '"';
         }
-        $selecteds = $this->getValue($name);
+        $selecteds = $this->getSelectedValues($name); // Récupération de la liste des ids des éléments à sélectionner
         $html = '';
         if ($label != null ) {
             $html .= '<label for="' . $name . '">' . $label . '</label>';
         }
-        $html .= '<select id="' . $name . '" name="' . $name . '"' . $params . '>';
+        $html .= '<select id="' . $name . '"' . $params . ' name="' . $name . ($multiple ? '[]" multiple >' : '" >');
         if ($defaultOption != null) {
-            $html .= '<option value=""> ' . $defaultOption . '</option>';
+            $html .= '<option value="' . self::DEFAULT_VALUE . '"' . (empty($selecteds) ? ' selected' : '') . '>' . $defaultOption . '</option>';
         }
         foreach($values as $key => $value) {
             // $this->getValue('language') renvoi l'id du language à sélectionner
             // $this->getValue('cats') renvoi un tableau contenant les ids des catégories à sélectionner
-            $selected = '';
-            if ((is_array($selecteds) && in_array($key, $selecteds)) ||
-                $selecteds == $key) {
-                    $selected = ' selected';
-            };
-            $html .= '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
+            $html .= '<option value="' . $key . '"' . (in_array($key, $selecteds) ? ' selected' : '') . '>' . $value . '</option>';
         }
         return $html .= '</select>';
     }

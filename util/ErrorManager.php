@@ -17,6 +17,7 @@ class ErrorManager
 
     /**
      * @param string $message
+     * @return void
      */
     public static function add(string $message): void
     {
@@ -28,6 +29,7 @@ class ErrorManager
 
     /**
      * Détruit le tableau de messages
+     * @return void
      */
     public static function destroy(): void
     {
