@@ -1,0 +1,23 @@
+/* Voici un exemple d'utilisation de before et after avec un blockquote plus sympà */
+blockquote {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  position: relative;
+  border-radius: 8px;
+}
+blockquote::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 60px;
+  line-height: 1.4rem;
+}
+blockquote::after {
+  content: '';
+  position: absolute;
+  bottom: -26px;
+  right: 5px;
+  font-size: 60px;
+  line-height: 1.4rem;
+}

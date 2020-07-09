@@ -1,0 +1,21 @@
+ul {
+  list-style-type: none;
+}
+/* Utilisation de "counter" et "counter-reset" */
+.barre ul {
+  counter-reset: compteur;
+}
+.barre li::before {
+  counter-increment: compteur; /* On donne un nom au compteur */
+}
+/* Utilisation de "attr()" */
+.barre li a::after {
+  content: attr(data-count);
+  float: right;
+  background-color: red;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  color: #FFF;
+  border-radius: 50%;
+}

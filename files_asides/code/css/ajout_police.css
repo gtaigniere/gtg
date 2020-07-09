@@ -1,0 +1,30 @@
+/* Attention : ne pas oublier de copier les fichiers des polices téléchargées dans un dossier et de modifier le chemin de l'url dans la partie "src" */
+
+/* Ajout de la police "acari-sans" normale */
+@font-face {
+  font-family: 'acari-sans';
+  src: url('../polices/acari-sans/AcariSans-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+/* Ajout de la police "acari-sans" italique */
+@font-face {
+  font-family: 'acari-sans';
+  src: url('../polices/acari-sans/AcariSans-Italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: normal;
+}
+/* Ajout de la police "acari-sans" grasse */
+@font-face {
+  font-family: 'acari-sans';
+  src: url('../polices/acari-sans/AcariSans-Bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+/* Ajout de la police "acari-sans" italique et grasse */
+@font-face {
+  font-family: 'acari-sans';
+  src: url('../polices/acari-sans/AcariSans-BoldItalic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: bold;
+}

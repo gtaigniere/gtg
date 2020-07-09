@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="Contenu du site">
+
+    <title>Autre formulaire</title>
+    <link rel="stylesheet" type="text/css" href="[chemin et nom du fichier CSS]">
+  </head>
+
+  <body>
+    <header>
+      <figure>
+        <img src="[chemin et nom du fichier du image]" alt="Logo du site">
+      </figure>
+      <h1>Nom du site</h1>
+    </header>
+
+    <nav>
+
+    </nav>
+
+    <section>
+
+      <form action="page-reception.html" method="POST">
+
+        <p>
+          <label for="comment">Commentaire</label>
+          <textarea name="commentaire" id="comment" rows="5" cols="80"></textarea>
+        </p>
+        <p>
+          <input type="radio" name="civilite" value="mlle">Mademoiselle
+          <input type="radio" name="civilite" value="mme">Madame
+          <input type="radio" name="civilite" value="mr">Monsieur
+        </p>
+        <p>
+
+        <p>
+          <input type="checkbox" name="qualite[]" value="intelligent">Intelligent
+          <input type="checkbox" name="qualite[]" value="beau">Beau
+          <input type="checkbox" name="qualite[]" value="fort">Fort
+        </p>
+
+        <p>
+          <label id="animal">Choisis un animal</label>
+          <select name="animal" id="animal">
+            <optgroup label="Félin">
+              <option value="tigre">Tigre</option>
+              <option value="leopard" selected>Léopard</option>
+              <option value="lynx">Lynx</option>
+            </optgroup>
+            <optgroup label="Aquatique">
+              <option value="dauphin">Dauphin</option>
+              <option value="requin">Requin</option>
+              <option value="sardine">Sardine</option>
+              <option value="dorade">Dorade</option>
+            </optgroup>
+          </select>
+        </p>
+
+        <p>
+          <input type="reset" name="effacer" value="Effacer toutes les valeurs">
+          <button type="reset" name="effacer">Réinitialiser</button>
+        </p>
+
+        <button>Valider</button>
+
+      </form>
+
+    </section>
+
+    <footer>
+
+    </footer>
+  </body>
+</html>

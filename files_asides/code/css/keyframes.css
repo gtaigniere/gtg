@@ -1,0 +1,40 @@
+/* Utilisation de @keyframes */
+section #img1 {
+  transition: .5s;
+  animation: slideDown 10s;
+}
+section #img1:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+/*@keyframes slideDown {
+  from {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}*/
+
+/* Autre utilisation de @keyframes */
+section #img2 {
+  transition: .5s;
+  animation: slideDown 1s infinite; /* On peut définir le nombre de fois que l'animation va se faire, ici à l'infinie */
+  /* "animation-fill-mode" permet d'indiquer quelles valeurs vont garder les parties animées une fois l'animation terminée, par exemple "forwards" */
+  animation: slideDown 1s forwards;
+}
+section #img2:hover {
+  transform: scale(1.1) rotate(10deg);
+  animation-play-state: paused: /* Applique un effet de pause */
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px);
+    opacity: 0;
+  }
+}
