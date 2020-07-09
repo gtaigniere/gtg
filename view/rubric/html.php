@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_html">
 
         <h1>HTML</h1>
@@ -160,5 +158,3 @@
         <p><em>Il est possible en HTML de créer ses propres attributs mais ils doivent commencer par "data-" (ex : data-perso="valeur").</em></p>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

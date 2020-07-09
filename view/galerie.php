@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_galerie">
 
         <h1>Galerie</h1>
@@ -15,5 +13,3 @@
         <?php endforeach; ?>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

@@ -2,7 +2,7 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
+use Ctrl\GtgController;
 use DateTime;
 use Exception;
 use Form\AdmSearchForm;
@@ -21,7 +21,12 @@ use Service\AuthService;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-class SnippetCtrl extends Controller
+/**
+ * Class SnippetCtrl
+ * Contrôleur associé à la section Snippets
+ * @package Ctrl\Admin
+ */
+class SnippetCtrl extends GtgController
 {
     /**
      * @var SnippetManager
@@ -53,9 +58,11 @@ class SnippetCtrl extends Controller
         $this->languageManager = new LanguageManager($db);
         $this->userManager = new UserManager($db);
         $this->catManager = new CatManager($db);
+        parent::__construct(ROOT_DIR . 'view/admin/template-snip.php');
     }
 
     /**
+     * Affiche la page de la liste des snippets
      * @return void
      */
     public function all(): void
@@ -66,11 +73,13 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findLast();
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/admin/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('search', 'searchForm', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
     /**
+     * Affiche la page d'un snippet
      * @param int $id
      * @return void
      */
@@ -82,11 +91,13 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/admin/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('search', 'searchForm', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
     /**
+     * Affiche le formulaire de recherche
      * @param Form $searchForm
      */
     public function search(Form $searchForm): void
@@ -99,8 +110,10 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->research($chaine, $idLangs, $idCats);
         $snippet = $this->snippetManager->research($chaine, $idLangs, $idCats, true);
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/admin/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('search', 'searchForm', 'chaine',
+                'idLangs', 'idCats', 'languages',
+                'cats','snippets', 'snippet'));
     }
 
     /**
@@ -125,8 +138,9 @@ class SnippetCtrl extends Controller
             $cats = $this->catManager->findAll();
             $snippets = $this->snippetManager->findAll();
             $action = 'insert';
-            require_once(ROOT_DIR . 'view/admin/snipForm.php');
-            require_once (ROOT_DIR . 'view/template-snip.php');
+            $this->render(ROOT_DIR . 'view/admin/snipForm.php',
+                compact('search', 'searchForm', 'languages',
+                    'cats', 'snippets', 'action'));
         }
     }
 
@@ -160,8 +174,10 @@ class SnippetCtrl extends Controller
                 $cats = $this->catManager->findAll();
                 $snippets = $this->snippetManager->findAll();
                 $action = 'update';
-                require_once ROOT_DIR . 'view/admin/snipForm.php';
-                require_once ROOT_DIR . 'view/template-snip.php';
+                $this->render(ROOT_DIR . 'view/admin/snipForm.php',
+                    compact('snippet', 'search', 'searchForm', 'form',
+                        'language', 'user', 'languages',
+                        'cats', 'snippets', 'action'));
             } else {
                 $this->notFound();
             }
@@ -192,8 +208,9 @@ class SnippetCtrl extends Controller
                 $cats = $this->catManager->findAll();
                 $snippets = $this->snippetManager->findAll();
                 $action = 'delete';
-                require_once ROOT_DIR . 'view/admin/snipForm.php';
-                require_once ROOT_DIR . 'view/template-snip.php';
+                $this->render(ROOT_DIR . 'view/admin/snipForm.php',
+                    compact('snippet', 'search', 'searchForm', 'form',
+                        'languages', 'cats', 'snippets', 'action'));
             } else {
                 $this->notFound();
             }
@@ -243,8 +260,10 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findLast();
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('language', 'user', 'idCats',
+                'search', 'searchForm', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
     /**
@@ -287,8 +306,11 @@ class SnippetCtrl extends Controller
             $cats = $this->catManager->findAll();
             $snippets = $this->snippetManager->findAll();
             $snippet = $this->snippetManager->findLast();
-            require_once (ROOT_DIR . 'view/admin/snippet.php');
-            require_once (ROOT_DIR . 'view/admin/template-snip.php');
+            $this->render(ROOT_DIR . 'view/admin/snippet.php',
+                compact('tmpDate', 'dateCrea', 'idLang',
+                    'language', 'idCats', 'search',
+                    'searchForm', 'languages', 'cats',
+                    'snippets', 'snippet'));
         } else {
             $this->notFound();
         }
@@ -313,11 +335,13 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findLast();
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/admin/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('search', 'searchForm', 'languages',
+            'cats', 'snippets', 'snippet'));
     }
 
     /**
+     * Affiche la page de validation d'ajout, de modification, et de suppression
      * @param array $datas
      */
     public function validate(array $datas)

@@ -10,7 +10,12 @@ use Manager\SnippetManager;
 use Manager\UserManager;
 use PDO;
 
-class SnippetCtrl extends Controller
+/**
+ * Class SnippetCtrl
+ * Contrôleur associé à la section Snippets
+ * @package Ctrl
+ */
+class SnippetCtrl extends GtgController
 {
     /**
      * @var SnippetManager
@@ -42,9 +47,11 @@ class SnippetCtrl extends Controller
         $this->languageManager = new LanguageManager($db);
         $this->userManager = new UserManager($db);
         $this->catManager = new CatManager($db);
+        parent::__construct(ROOT_DIR . 'view/template-snip.php');
     }
 
     /**
+     * Affiche la page de la liste des snippets
      * @return void
      */
     public function all(): void
@@ -55,11 +62,13 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findLast();
-        require_once (ROOT_DIR . 'view/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->render(ROOT_DIR . 'view/snippet.php',
+            compact('search', 'searchForm', 'languages',
+            'cats', 'snippets', 'snippet'));
     }
 
     /**
+     * Affiche la page d'un snippet
      * @param int $id
      * @return void
      */
@@ -71,11 +80,13 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findOne($id);
-        require_once (ROOT_DIR . 'view/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->render(ROOT_DIR . 'view/snippet.php',
+            compact('search', 'searchForm', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
     /**
+     * Affiche le formulaire de recherche
      * @param SearchForm $searchForm
      */
     public function search(SearchForm $searchForm): void
@@ -88,8 +99,9 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->research($chaine, $idLangs, $idCats);
         $snippet = $this->snippetManager->research($chaine, $idLangs, $idCats, true);
-        require_once (ROOT_DIR . 'view/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('search', 'chaine', 'idLangs', 'idCats',
+                'languages', 'cats', 'snippets', 'snippet'));
     }
 
 }

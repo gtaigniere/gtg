@@ -5,7 +5,12 @@ namespace Ctrl;
 use Manager\UserManager;
 use PDO;
 
-class AuthCtrl extends Controller
+/**
+ * Class AuthCtrl
+ * Contrôleur associé aux sections Inscription et Connexion
+ * @package Ctrl
+ */
+class AuthCtrl extends GtgController
 {
     /**
      * @var UserManager
@@ -19,14 +24,14 @@ class AuthCtrl extends Controller
     public function __construct(PDO $db)
     {
         $this->userManager = new UserManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
     /**
      * @return void
      */
     public function loginForm(): void
     {
-        require_once 'view/connexion.php';
-        require_once 'view/template.php';
+        $this->render('view/connexion.php', []);
     }
 
     /**
@@ -51,8 +56,7 @@ class AuthCtrl extends Controller
     public function logout(): void
     {
         session_destroy();
-        require_once 'view/logout.php';
-        require_once 'view/template.php';
+        $this->render('view/logout.php', []);
     }
 
     /**
@@ -60,8 +64,7 @@ class AuthCtrl extends Controller
      */
     public function subscribe()
     {
-        require_once 'view/inscription.php';
-        require_once 'view/template.php';
+        $this->render('view/inscription.php', []);
     }
 
 }

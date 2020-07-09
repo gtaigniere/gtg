@@ -2,7 +2,7 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
+use Ctrl\GtgController;
 use Form\CatForm;
 use Form\LanguageForm;
 use Form\SearchForm;
@@ -12,7 +12,12 @@ use Manager\LanguageManager;
 use Manager\SnippetManager;
 use PDO;
 
-class CatLangCtrl extends Controller
+/**
+ * Class CatLangCtrl
+ * Contrôleur associé à la section Admin/Catégories et Admin/Langages
+ * @package Ctrl\Admin
+ */
+class CatLangCtrl extends GtgController
 {
     /**
      * @var CatManager
@@ -38,9 +43,11 @@ class CatLangCtrl extends Controller
         $this->catManager = new CatManager($db);
         $this->languageManager = new LanguageManager($db);
         $this->snippetManager = new SnippetManager($db);
+        parent::__construct(ROOT_DIR . 'view/template-snip.php');
     }
 
     /**
+     * Affiche la page de la liste des Catégories et des langages
      * @return void
      */
     public function all(): void
@@ -60,11 +67,14 @@ class CatLangCtrl extends Controller
             $languageForms[] = new LanguageForm($language);
         }
         $formAddLang = new Form();
-        require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/catsandlangs.php',
+            compact('search', 'searchForm', 'snippets',
+                'cats', 'catForms', 'formAddCat',
+                'languages', 'languageForms', 'formAddLang'));
     }
 
     /**
+     * Affiche la page de validation d'ajout, de modification, et de suppression
      * @param array $datas
      * @return void
      */

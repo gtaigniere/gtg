@@ -4,8 +4,6 @@ use Html\Form;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-ob_start();
-
 ?>
 
     <section class="sect-adm" id="sect-adm_users">
@@ -132,5 +130,3 @@ ob_start();
         </div>
 
     </section>
-
-<?php $section =ob_get_clean(); ?>

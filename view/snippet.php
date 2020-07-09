@@ -5,8 +5,6 @@ use Model\Snippet;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-ob_start();
-
 ?>
 
 <section id="section_snippet">
@@ -58,5 +56,3 @@ ob_start();
     <?php endif; ?>
 
 </section>
-
-<?php $section = ob_get_clean(); ?>

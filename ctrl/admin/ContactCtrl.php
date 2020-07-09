@@ -2,9 +2,8 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
+use Ctrl\GtgController;
 use DateTime;
-use Form\ContactForm;
 use Form\ResponseForm;
 use Html\Form;
 use Manager\MessageManager;
@@ -13,7 +12,12 @@ use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-class ContactCtrl extends Controller
+/**
+ * Class ContactCtrl
+ * Contrôleur associé à la section Contact
+ * @package Ctrl\Admin
+ */
+class ContactCtrl extends GtgController
 {
     /**
      * @var MessageManager
@@ -27,23 +31,21 @@ class ContactCtrl extends Controller
     public function __construct(PDO $db)
     {
         $this->contactManager = new MessageManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des messages de contact
      * @return void
      */
     public function all(): void
     {
         $contacts = $this->contactManager->findAll();
-//        $forms = [];
-//        foreach($contacts as $contact) {
-//            $forms[] = new Form($contact);
-//        }
-        require_once (ROOT_DIR . 'view/admin/contacts.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/contacts.php', compact('contacts'));
     }
 
     /**
+     * Affiche un message de contact
      * @param $id
      * @return Message|null
      */
@@ -53,14 +55,14 @@ class ContactCtrl extends Controller
     }
 
     /**
+     * Affiche le formulaire de réponse à un message de contact
      * @param int $id
      */
     public function repondre(int $id)
     {
         $messageContact = $this->one($id);
         $form = new ResponseForm($messageContact);
-        require_once (ROOT_DIR . 'view/admin/reply.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/reply.php', compact('messageContact', 'form'));
     }
 
     /**
@@ -147,13 +149,13 @@ class ContactCtrl extends Controller
     }
 
     /**
+     * Affiche la page de validation d'ajout, de modification, et de suppression
      * @param array $datas
      */
     public function validate(array $datas)
     {
         // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/validation.php', compact('datas'));
     }
 
 }

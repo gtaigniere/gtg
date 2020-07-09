@@ -2,8 +2,6 @@
 
 use Html\Form;
 
-ob_start();
-
 if (isset($form) && $form instanceof Form) :
 
 ?>
@@ -83,7 +81,5 @@ if (isset($form) && $form instanceof Form) :
 <?php
 
 endif;
-
-$section = ob_get_clean();
 
 ?>

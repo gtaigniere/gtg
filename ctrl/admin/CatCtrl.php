@@ -8,6 +8,11 @@ use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
+/**
+ * Class CatCtrl
+ * Contrôleur associé à la section Admin/Catégories
+ * @package Ctrl\Admin
+ */
 class CatCtrl extends CatLangCtrl
 {
     /**

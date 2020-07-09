@@ -8,6 +8,11 @@ use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
+/**
+ * Class RubricCtrl
+ * Contrôleur associé à la section Admin/Rubriques
+ * @package Ctrl\Admin
+ */
 class RubricCtrl extends TypRubCtrl
 {
     /**

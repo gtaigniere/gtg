@@ -4,7 +4,12 @@ namespace Ctrl;
 
 use html\Form;
 
-class HomeCtrl extends Controller
+/**
+ * Class HomeCtrl
+ * Contrôleur associé aux liens "Autres sites" et "Contact" de la page d'accueil
+ * @package Ctrl
+ */
+class HomeCtrl extends GtgController
 {
 
     /**
@@ -12,25 +17,26 @@ class HomeCtrl extends Controller
      */
     public function __construct()
     {
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la page des liens vers d'autres sites
      * @return void
      */
     public function otherSites(): void
     {
-        require_once ROOT_DIR . 'view/autres_sites.php';
-        require_once ROOT_DIR . 'view/template.php';
+        $this->render(ROOT_DIR . 'view/autres_sites.php', []);
     }
 
     /**
+     * Affiche la page du formulaire de contact
      * @param Form $form
      * @return void
      */
     public function contact(Form $form): void
     {
-        require_once ROOT_DIR . 'view/contact.php';
-        require_once ROOT_DIR . 'view/template.php';
+        $this->render(ROOT_DIR . 'view/contact.php', compact('form'));
     }
 
 }

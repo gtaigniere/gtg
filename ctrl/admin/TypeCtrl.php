@@ -9,6 +9,11 @@ use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
+/**
+ * Class TypeCtrl
+ * Contrôleur associé à la section Admin/Types
+ * @package Ctrl\Admin
+ */
 class TypeCtrl extends TypRubCtrl
 {
     /**

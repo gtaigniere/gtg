@@ -3,8 +3,6 @@
 use Html\Form;
 use Util\ErrorManager;
 
-ob_start();
-
 if (isset($form) && $form instanceof Form) :
 
     $isUpdate = $form->getValue('id') != null;
@@ -69,7 +67,5 @@ if (isset($form) && $form instanceof Form) :
 <?php
 
 endif;
-
-$section = ob_get_clean();
 
 ?>

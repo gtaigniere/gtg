@@ -4,8 +4,6 @@ use Model\Message;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-ob_start();
-
 ?>
 
     <section id="sect-adm_contact">
@@ -48,6 +46,3 @@ ob_start();
         endforeach; ?>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>
-

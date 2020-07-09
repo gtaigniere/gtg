@@ -2,8 +2,6 @@
 
 use Model\Recette;
 
-ob_start();
-
     if (isset($recette) && $recette instanceof Recette) :
 
 ?>
@@ -38,5 +36,3 @@ ob_start();
     </section>
 
     <?php endif;
-
-$section = ob_get_clean(); ?>

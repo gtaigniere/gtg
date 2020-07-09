@@ -2,7 +2,7 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
+use Ctrl\GtgController;
 use Form\UserForm;
 use Html\Form;
 use Manager\UserManager;
@@ -11,7 +11,12 @@ use PDO;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-class UserCtrl extends Controller
+/**
+ * Class UserCtrl
+ * Contrôleur associé à la section Admin/Utilisateurs
+ * @package Ctrl\Admin
+ */
+class UserCtrl extends GtgController
 {
     /**
      * @var UserManager
@@ -25,9 +30,11 @@ class UserCtrl extends Controller
     public function __construct(PDO $db)
     {
         $this->userManager = new userManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la page de la liste des utilisateurs
      * @return void
      */
     public function all(): void
@@ -38,8 +45,7 @@ class UserCtrl extends Controller
             $forms[] = new UserForm($user);
         }
         $formAddUser = new Form();
-        require_once (ROOT_DIR . 'view/admin/users.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/users.php', compact('users', 'forms', 'formAddUser'));
     }
 
     /**
@@ -169,13 +175,13 @@ class UserCtrl extends Controller
     }
 
     /**
+     * Affiche la page de validation d'ajout, de modification, et de suppression
      * @param array $datas
      */
     public function validate(array $datas)
     {
         // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/validation.php', compact('datas'));
     }
 
 }

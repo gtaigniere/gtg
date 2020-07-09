@@ -2,7 +2,7 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
+use Ctrl\GtgController;
 use Form\RubricForm;
 use Form\TypeForm;
 use Html\Form;
@@ -10,7 +10,12 @@ use Manager\TypeManager;
 use Manager\RubricManager;
 use PDO;
 
-class TypRubCtrl extends Controller
+/**
+ * Class TypRubCtrl
+ * Contrôleur associé à la section Admin/Types et Admin/Rubriques
+ * @package Ctrl\Admin
+ */
+class TypRubCtrl extends GtgController
 {
     /**
      * @var TypeManager
@@ -30,9 +35,11 @@ class TypRubCtrl extends Controller
     {
         $this->typeManager = new TypeManager($db);
         $this->rubricManager = new RubricManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la page de la liste des rubriques et des types
      * @return void
      */
     public function all(): void
@@ -49,19 +56,20 @@ class TypRubCtrl extends Controller
             $rubForms[] = new RubricForm($rubric);
         }
         $formAddRub = new Form();
-        require_once (ROOT_DIR . 'view/admin/typesandrubs.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/typesandrubs.php',
+            compact('types', 'typeForms', 'formAddType',
+                'rubrics', 'rubForms', 'formAddRub'));
     }
 
     /**
+     * Affiche la page de validation d'ajout, de modification, et de suppression
      * @param array $datas
      * @return void
      */
     public function validate(array $datas): void
     {
         // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/validation.php', compact('datas'));
     }
 
 }

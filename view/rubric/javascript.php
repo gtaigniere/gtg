@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_js">
 
         <h1>JavaScript</h1>
@@ -67,5 +65,3 @@
 
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

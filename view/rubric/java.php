@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_java">
 
     <h1>Java</h1>
@@ -9,5 +7,3 @@
     <p>Void => Quand cela ne retourne rien</p>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

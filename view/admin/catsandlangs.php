@@ -5,8 +5,6 @@ use Form\LanguageForm;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-ob_start();
-
 ?>
 
 <section class="sect-adm" id="sect-adm_catslangs">
@@ -144,5 +142,3 @@ ob_start();
 	</p>
 
 </section>
-
-<?php $section = ob_get_clean(); ?>

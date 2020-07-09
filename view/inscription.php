@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_inscription">
 
         <h1>Inscription</h1>
@@ -28,5 +26,3 @@
         </form>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

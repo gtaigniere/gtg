@@ -4,8 +4,6 @@ use Html\Form;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
-ob_start();
-
 ?>
 
     <section id="section_contact">
@@ -55,5 +53,3 @@ ob_start();
         <?php endif; ?>
 
     </section>
-
-  <?php $section = ob_get_clean(); ?>

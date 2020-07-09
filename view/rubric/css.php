@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_css">
 
         <h1>CSS</h1>
@@ -272,5 +270,3 @@
         <p class="css indent1fois">}</p>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

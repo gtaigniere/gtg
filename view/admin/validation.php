@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
 <section class="sect-adm" id="sect-adm_validation">
 
     <h1>Demande de confirmation</h1>
@@ -21,5 +19,3 @@
     </form>
 
 </section>
-
-<?php $section = ob_get_clean(); ?>

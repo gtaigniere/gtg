@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_autres_sites">
 
         <h1>Autres sites</h1>
@@ -37,5 +35,3 @@
         </figure>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_algo">
 
         <h1>Algorithmie</h1>
@@ -590,5 +588,3 @@
         <p>Traiter les cas particuliers avant les cas généraux.</p>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>
