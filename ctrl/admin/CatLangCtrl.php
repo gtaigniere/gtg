@@ -2,7 +2,6 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\GtgController;
 use Form\CatForm;
 use Form\LanguageForm;
 use Form\SearchForm;
@@ -17,7 +16,7 @@ use PDO;
  * Contrôleur associé à la section Admin/Catégories et Admin/Langages
  * @package Ctrl\Admin
  */
-class CatLangCtrl extends GtgController
+class CatLangCtrl extends AdminCtrl
 {
     /**
      * @var CatManager
@@ -71,18 +70,6 @@ class CatLangCtrl extends GtgController
             compact('search', 'searchForm', 'snippets',
                 'cats', 'catForms', 'formAddCat',
                 'languages', 'languageForms', 'formAddLang'));
-    }
-
-    /**
-     * Affiche la page de validation d'ajout, de modification, et de suppression
-     * @param array $datas
-     * @return void
-     */
-    public function validate(array $datas): void
-    {
-        // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }

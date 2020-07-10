@@ -2,7 +2,6 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\GtgController;
 use DateTime;
 use Exception;
 use Form\AdmSearchForm;
@@ -26,7 +25,7 @@ use Util\SuccessManager;
  * Contrôleur associé à la section Snippets
  * @package Ctrl\Admin
  */
-class SnippetCtrl extends GtgController
+class SnippetCtrl extends AdminCtrl
 {
     /**
      * @var SnippetManager
@@ -338,17 +337,6 @@ class SnippetCtrl extends GtgController
         $this->render(ROOT_DIR . 'view/admin/snippet.php',
             compact('search', 'searchForm', 'languages',
             'cats', 'snippets', 'snippet'));
-    }
-
-    /**
-     * Affiche la page de validation d'ajout, de modification, et de suppression
-     * @param array $datas
-     */
-    public function validate(array $datas)
-    {
-        // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }

@@ -2,7 +2,6 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\GtgController;
 use Form\RubricForm;
 use Form\TypeForm;
 use Html\Form;
@@ -15,7 +14,7 @@ use PDO;
  * Contrôleur associé à la section Admin/Types et Admin/Rubriques
  * @package Ctrl\Admin
  */
-class TypRubCtrl extends GtgController
+class TypRubCtrl extends AdminCtrl
 {
     /**
      * @var TypeManager
@@ -59,17 +58,6 @@ class TypRubCtrl extends GtgController
         $this->render(ROOT_DIR . 'view/admin/typesandrubs.php',
             compact('types', 'typeForms', 'formAddType',
                 'rubrics', 'rubForms', 'formAddRub'));
-    }
-
-    /**
-     * Affiche la page de validation d'ajout, de modification, et de suppression
-     * @param array $datas
-     * @return void
-     */
-    public function validate(array $datas): void
-    {
-        // Vérifier le type des variables
-        $this->render(ROOT_DIR . 'view/admin/validation.php', compact('datas'));
     }
 
 }

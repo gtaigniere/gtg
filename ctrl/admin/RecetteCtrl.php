@@ -2,7 +2,6 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\GtgController;
 use Exception\PourNotNumericException;
 use Form\RecetteForm;
 use Html\Form;
@@ -17,7 +16,7 @@ use Util\SuccessManager;
  * Contrôleur associé à la section Admin/Recettes
  * @package Ctrl\Admin
  */
-class RecetteCtrl extends GtgController
+class RecetteCtrl extends AdminCtrl
 {
     /**
      * @var string
@@ -177,17 +176,6 @@ class RecetteCtrl extends GtgController
             SuccessManager::add('La recette a été supprimé avec succès.');
         }
         $this->all();
-    }
-
-    /**
-     * Affiche la page de validation d'ajout, de modification, et de suppression
-     * @param array $datas
-     * @return void
-     */
-    public function validate(array $datas): void
-    {
-        // Vérifier le type des variables
-        $this->render(ROOT_DIR . 'view/admin/validation.php', compact('datas'));
     }
 
 }

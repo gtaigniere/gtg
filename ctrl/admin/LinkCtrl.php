@@ -2,7 +2,6 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\GtgController;
 use Form\LinkForm;
 use Html\Form;
 use Manager\LinkManager;
@@ -18,7 +17,7 @@ use Util\SuccessManager;
  * Contrôleur associé à la section Admin/Liens
  * @package Ctrl\Admin
  */
-class LinkCtrl extends GtgController
+class LinkCtrl extends AdminCtrl
 {
     /**
      * @var LinkManager
@@ -183,16 +182,6 @@ class LinkCtrl extends GtgController
             SuccessManager::add('Le lien a été supprimé avec succès.');
         }
         $this->all();
-    }
-
-    /**
-     * Affiche la page de validation d'ajout, de modification, et de suppression
-     * @param array $datas
-     */
-    public function validate(array $datas)
-    {
-        // Vérifier le type des variables
-        $this->render(ROOT_DIR . 'view/admin/validation.php', compact('datas'));
     }
 
 }

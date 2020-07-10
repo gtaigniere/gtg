@@ -87,9 +87,9 @@ class SnippetCtrl extends GtgController
 
     /**
      * Affiche le formulaire de recherche
-     * @param SearchForm $searchForm
+     * @param Form $searchForm
      */
-    public function search(SearchForm $searchForm): void
+    public function search(Form $searchForm): void
     {
         $search = true;
         $chaine = $searchForm->getValue('search');
@@ -99,9 +99,10 @@ class SnippetCtrl extends GtgController
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->research($chaine, $idLangs, $idCats);
         $snippet = $this->snippetManager->research($chaine, $idLangs, $idCats, true);
-        $this->render(ROOT_DIR . 'view/admin/snippet.php',
-            compact('search', 'chaine', 'idLangs', 'idCats',
-                'languages', 'cats', 'snippets', 'snippet'));
+        $this->render(ROOT_DIR . 'view/snippet.php',
+            compact('search', 'searchForm', 'chaine',
+                'idLangs', 'idCats', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
 }

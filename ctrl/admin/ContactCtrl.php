@@ -2,7 +2,6 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\GtgController;
 use DateTime;
 use Form\ResponseForm;
 use Html\Form;
@@ -17,7 +16,7 @@ use Util\SuccessManager;
  * Contrôleur associé à la section Contact
  * @package Ctrl\Admin
  */
-class ContactCtrl extends GtgController
+class ContactCtrl extends AdminCtrl
 {
     /**
      * @var MessageManager
@@ -146,16 +145,6 @@ class ContactCtrl extends GtgController
             SuccessManager::add('Le message de contact a été supprimé avec succès.');
         }
         $this->all();
-    }
-
-    /**
-     * Affiche la page de validation d'ajout, de modification, et de suppression
-     * @param array $datas
-     */
-    public function validate(array $datas)
-    {
-        // Vérifier le type des variables
-        $this->render(ROOT_DIR . 'view/admin/validation.php', compact('datas'));
     }
 
 }

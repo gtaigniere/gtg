@@ -2,7 +2,6 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\GtgController;
 use Form\UserForm;
 use Html\Form;
 use Manager\UserManager;
@@ -16,7 +15,7 @@ use Util\SuccessManager;
  * Contrôleur associé à la section Admin/Utilisateurs
  * @package Ctrl\Admin
  */
-class UserCtrl extends GtgController
+class UserCtrl extends AdminCtrl
 {
     /**
      * @var UserManager
@@ -172,16 +171,6 @@ class UserCtrl extends GtgController
             SuccessManager::add('L\'utilisateur a été supprimé avec succès.');
         }
         $this->all();
-    }
-
-    /**
-     * Affiche la page de validation d'ajout, de modification, et de suppression
-     * @param array $datas
-     */
-    public function validate(array $datas)
-    {
-        // Vérifier le type des variables
-        $this->render(ROOT_DIR . 'view/admin/validation.php', compact('datas'));
     }
 
 }
