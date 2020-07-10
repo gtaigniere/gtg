@@ -2,7 +2,7 @@
 
 namespace Ctrl\Admin;
 
-use Html\Form;
+use Core\Html\Form;
 use Model\Language;
 use PDO;
 use Util\ErrorManager;

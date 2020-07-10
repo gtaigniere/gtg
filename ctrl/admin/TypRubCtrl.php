@@ -4,7 +4,7 @@ namespace Ctrl\Admin;
 
 use Form\RubricForm;
 use Form\TypeForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\TypeManager;
 use Manager\RubricManager;
 use PDO;

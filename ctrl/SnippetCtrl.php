@@ -3,7 +3,7 @@
 namespace Ctrl;
 
 use Form\SearchForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;

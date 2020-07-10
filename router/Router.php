@@ -26,7 +26,7 @@ use Form\AdmSearchForm;
 use Form\ContactForm;
 use Form\RecetteForm;
 use Form\SearchForm;
-use Html\Form;
+use Core\Html\Form;
 use PDO;
 use Util\ErrorManager;
 

@@ -3,7 +3,7 @@
 namespace Ctrl\Admin;
 
 use Form\LinkForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\LinkManager;
 use Manager\RubricManager;
 use Manager\TypeManager;

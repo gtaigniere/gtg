@@ -1,6 +1,6 @@
 <?php
 
-use Html\Form;
+use Core\Html\Form;
 
 if (isset($form) && $form instanceof Form) :
 

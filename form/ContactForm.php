@@ -2,7 +2,7 @@
 
 namespace Form;
 
-use Html\Form;
+use Core\Html\Form;
 use Model\Message;
 
 class ContactForm extends Form

@@ -1,6 +1,6 @@
 <?php
 
-use Html\Form;
+use Core\Html\Form;
 use Util\ErrorManager;
 use Util\SuccessManager;
 

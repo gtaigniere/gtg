@@ -1,7 +1,7 @@
 <?php
 
 use Form\SearchForm;
-use Html\Form;
+use Core\Html\Form;
 use Model\Cat;
 use Model\Language;
 use Model\Snippet;

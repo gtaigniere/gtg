@@ -4,7 +4,7 @@ namespace Ctrl\Admin;
 
 use DateTime;
 use Form\ResponseForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\MessageManager;
 use Model\Message;
 use PDO;

@@ -3,7 +3,7 @@
 namespace Ctrl\Admin;
 
 use Form\TypeForm;
-use Html\Form;
+use Core\Html\Form;
 use Model\Type;
 use PDO;
 use Util\ErrorManager;

@@ -1,10 +1,16 @@
 <?php
 
-namespace Html;
+namespace Core\Html;
 
+/**
+ * Class Form
+ * Représente les données d'un formulaire
+ * @package Html
+ */
 class Form
 {
     /**
+     * Tableau associatifs dont le clefs correspondent aux champs "name" des différentes parties d'un formulaire
      * @var array
      */
     private $datas;
@@ -20,11 +26,10 @@ class Form
         $this->datas = $datas;
     }
 
-    // Pour définir une clef à un tableau clef => valeur : $tab[$key] = 'string';
-
     /**
+     * Ajoute une clef et sa valeur au formulaire
      * @param string $key
-     * @param string|string[] $value
+     * @param string|string[] $value Peut prendre une chaîne de caractères ou un tableau
      * @return void
      */
     public function add(string $key, $value)
@@ -33,6 +38,7 @@ class Form
     }
 
     /**
+     * Renvoi l'ensemble des valeurs des champs du formulaire
      * @return array
      */
     public function getDatas(): array
@@ -41,8 +47,10 @@ class Form
     }
 
     /**
+     * Renvoi la ou les valeurs associées à la clef passée en paramètres
      * @param string $key
-     * @return array|string|null
+     * @return array|string|null Peut être un tableau, une chaîne de caractères, ou null.
+     * Si la clef n'existe pas, renvoi null
      */
     public function getValue($key)
     {
@@ -50,9 +58,14 @@ class Form
     }
 
     /**
-     * @param string $name
-     * @param string|null $label
-     * @param array $options
+     * Renvoi un string contenant l'input d'un formulaire en fonction des paramètres fournis
+     * Si une valeur est associée à l'attribut $name, elle sera associée au champs "value" de l'html
+     * Si un type est donné dans le tableau $options tel que : $options['type'] = 'givenType'
+     * alors <input type="givenType" ...> sinon par défaut le type sera "text"
+     * @param string $name Correspond aux champs "name" et "id" de l'input
+     * @param string|null $label Si différent de null alors affiche le champs "label" tel que :
+     * <label for="givenName">given label</label> <input id="givenName" ... name="givenName">
+     * @param array $options Tableau associatif dont les clefs correspondent aux attributs passés à l'input
      * @return string
      */
     public function input(string $name, ?string $label = null, array $options = []): string

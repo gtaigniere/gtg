@@ -2,7 +2,7 @@
 
 namespace Form;
 
-use Html\Form;
+use Core\Html\Form;
 
 class SearchForm extends Form
 {

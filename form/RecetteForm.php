@@ -3,7 +3,7 @@
 namespace Form;
 
 use Exception;
-use Html\Form;
+use Core\Html\Form;
 use Model\Recette;
 
 class RecetteForm extends Form

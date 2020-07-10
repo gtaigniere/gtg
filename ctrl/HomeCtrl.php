@@ -2,7 +2,7 @@
 
 namespace Ctrl;
 
-use html\Form;
+use Core\Html\Form;
 
 /**
  * Class HomeCtrl

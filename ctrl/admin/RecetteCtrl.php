@@ -4,7 +4,7 @@ namespace Ctrl\Admin;
 
 use Exception\PourNotNumericException;
 use Form\RecetteForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\RecetteManager;
 use Model\Recette;
 use PDO;
