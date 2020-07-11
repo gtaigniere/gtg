@@ -5,6 +5,7 @@ namespace Ctrl\Admin;
 use DateTime;
 use Exception;
 use Form\AdmSearchForm;
+use Form\SearchForm;
 use Form\SnippetForm;
 use Core\Html\Form;
 use Manager\CatManager;
@@ -132,13 +133,13 @@ class SnippetCtrl extends AdminCtrl
             }
         } else {
             $search = false;
-            $searchForm = new Form();
+            $form = new SearchForm();
             $languages = $this->languageManager->findAll();
             $cats = $this->catManager->findAll();
             $snippets = $this->snippetManager->findAll();
             $action = 'insert';
             $this->render(ROOT_DIR . 'view/admin/snipForm.php',
-                compact('search', 'searchForm', 'languages',
+                compact('search', 'form', 'languages',
                     'cats', 'snippets', 'action'));
         }
     }
