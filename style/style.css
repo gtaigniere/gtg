@@ -947,6 +947,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 /***** Debut Page Contact Admin, Recette Admin, et Snippet Admin *****/
 #sect-adm_contact, #sect-adm_recette,
 #sect-adm_snippet {
+	width: 56%;
 	align-items: center;
 }
 #sect-adm_contact .contact {

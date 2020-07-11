@@ -206,12 +206,11 @@ class LinkManager extends Manager
 
     /**
      * @param array $assocs
-     * @param string $className
      * @return mixed
      */
-    protected function convInObj(array $assocs, string $className = null)
+    protected function convInObj(array $assocs)
     {
-        $link = parent::convInObj($assocs, $className);
+        $link = parent::convInObj($assocs);
         $rubric = ($assocs['idRub'] != null) ? $this->rubricManager->findOne($assocs['idRub']) : null;
         $type = ($assocs['idType'] != null) ? $this->typeManager->findOne($assocs['idType']) : null;
         $link->setRubric($rubric);

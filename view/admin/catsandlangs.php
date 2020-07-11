@@ -5,6 +5,8 @@ use Form\LanguageForm;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
+require_once ROOT_DIR . 'view/fragment/searchForm.php';
+
 ?>
 
 <section class="sect-adm" id="sect-adm_catslangs">

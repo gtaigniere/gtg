@@ -3,7 +3,7 @@
 namespace Router;
 
 use Ctrl\AuthCtrl;
-use Ctrl\Controller;
+use Core\Ctrl\Controller;
 use Ctrl\HomeCtrl;
 use Ctrl\LinkCtrl;
 use Ctrl\RecetteCtrl;
@@ -23,7 +23,6 @@ use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
 use Exception\PourNotNumericException;
 use Form\AdmSearchForm;
-use Form\ContactForm;
 use Form\RecetteForm;
 use Form\SearchForm;
 use Core\Html\Form;
@@ -128,7 +127,7 @@ class Router
 
     private function notFound(): void
     {
-        (new Controller())->notFound();
+        (new Controller(''))->notFound();
     }
 
     private function recette(): void

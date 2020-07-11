@@ -47,7 +47,7 @@ class SnippetCtrl extends GtgController
         $this->languageManager = new LanguageManager($db);
         $this->userManager = new UserManager($db);
         $this->catManager = new CatManager($db);
-        parent::__construct(ROOT_DIR . 'view/template-snip.php');
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**

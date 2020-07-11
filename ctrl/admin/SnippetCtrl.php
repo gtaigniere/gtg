@@ -58,7 +58,7 @@ class SnippetCtrl extends AdminCtrl
         $this->languageManager = new LanguageManager($db);
         $this->userManager = new UserManager($db);
         $this->catManager = new CatManager($db);
-        parent::__construct(ROOT_DIR . 'view/admin/template-snip.php');
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
@@ -133,13 +133,14 @@ class SnippetCtrl extends AdminCtrl
             }
         } else {
             $search = false;
-            $form = new SearchForm();
+            $searchForm = new SearchForm();
+            $form = new Form();
             $languages = $this->languageManager->findAll();
             $cats = $this->catManager->findAll();
             $snippets = $this->snippetManager->findAll();
             $action = 'insert';
             $this->render(ROOT_DIR . 'view/admin/snipForm.php',
-                compact('search', 'form', 'languages',
+                compact('search', 'searchForm','form', 'languages',
                     'cats', 'snippets', 'action'));
         }
     }
@@ -162,7 +163,7 @@ class SnippetCtrl extends AdminCtrl
             $snippet = $this->snippetManager->findOne($id);
             if ($snippet != null) {
                 $search = false;
-                $searchForm = new Form();
+                $searchForm = new SearchForm();
                 $form = new SnippetForm($snippet);
                 $language = new Language();
                 $language = $form->getValue('idLang');

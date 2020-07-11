@@ -52,7 +52,16 @@ class UserManager extends Manager
         $stmt = $this->db->prepare('SELECT idUser, pseudo FROM user WHERE idUser = :id');
         $stmt->execute([':id' => $id]);
         $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
-        return ($assocs ? $this->convInObj($assocs, UserForSnip::class) : null);
+        if ($assocs) {
+            $user = $this->convInObj($assocs);
+            if ($user != null) {
+                $userFS = new UserForSnip();
+                $userFS->setIdUser($user->getIdUser());
+                $userFS->setPseudo($user->getPseudo());
+                return $userFS;
+            }
+        }
+        return null;
     }
 
     /**

@@ -42,7 +42,7 @@ class CatLangCtrl extends AdminCtrl
         $this->catManager = new CatManager($db);
         $this->languageManager = new LanguageManager($db);
         $this->snippetManager = new SnippetManager($db);
-        parent::__construct(ROOT_DIR . 'view/template-snip.php');
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**

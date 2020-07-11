@@ -5,6 +5,8 @@ use Model\Snippet;
 use Util\ErrorManager;
 use Util\SuccessManager;
 
+require_once ROOT_DIR . 'view/fragment/searchForm.php';
+
 ?>
 
 <section id="section_snippet">

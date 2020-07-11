@@ -311,12 +311,11 @@ class SnippetManager extends Manager
 
     /**
      * @param array $assocs
-     * @param string $className
      * @return mixed
      */
-    protected function convInObj(array $assocs, string $className = null)
+    protected function convInObj(array $assocs)
     {
-        $snippet = parent::convInObj($assocs, $className);
+        $snippet = parent::convInObj($assocs);
         $language = $assocs['idLang'] != null ? $this->languageManager->findOne($assocs['idLang']) : null;
         $snippet->setLanguage($language);
         $user = $this->userManager->findOneForSnippet($assocs['idUser']);
