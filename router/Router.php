@@ -4,6 +4,7 @@ namespace Router;
 
 use Ctrl\AuthCtrl;
 use Core\Ctrl\Controller;
+use Ctrl\GtgController;
 use Ctrl\HomeCtrl;
 use Ctrl\LinkCtrl;
 use Ctrl\RecetteCtrl;
@@ -90,7 +91,7 @@ class Router
                     $this->notFound();
             }
         } else {
-            $this->rubric();
+            $this->notFound();
         }
     }
 
@@ -128,7 +129,7 @@ class Router
 
     private function notFound(): void
     {
-        (new Controller(''))->notFound();
+        (new GtgController())->notFound();
     }
 
     private function recette(): void

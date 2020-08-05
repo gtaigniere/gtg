@@ -16,7 +16,7 @@ class GtgController extends Controller
      * GtgController constructor.
      * @param string $template
      */
-    public function __construct(string $template)
+    public function __construct(string $template = ROOT_DIR . 'view/template.php')
     {
         parent::__construct($template);
     }
