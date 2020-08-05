@@ -30,7 +30,6 @@ require_once ROOT_DIR . 'view/fragment/searchForm.php';
     ?>
 
     <?php if ($snippet instanceof Snippet) : ?>
-
         <h2 id="titlesnippet"><?= $snippet->getTitle() ?></h2>
 
         <p><?= $snippet->getLanguage() != null ? $snippet->getLanguage()->getLabel() : 'Pas de langage' ?></p>

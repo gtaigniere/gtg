@@ -125,6 +125,7 @@ class Router
         (new HomeCtrl())->contact($form);
     }
 
+
     private function notFound(): void
     {
         (new Controller(''))->notFound();

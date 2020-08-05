@@ -15,6 +15,7 @@ use Model\Snippet;
 
             <?php if ($searchForm instanceof Form) :
                 echo $searchForm->input('action', null, ['type' => 'hidden']);
+                echo $searchForm->input('admTarg', null, ['type' => 'hidden']);
                 echo $searchForm->input('target', null, ['type' => 'hidden']);
 
                 ?>
@@ -65,7 +66,7 @@ use Model\Snippet;
             <ul>
                 <?php foreach($snippets as $snip) : ?>
                     <?php if ($snip instanceof Snippet) : ?>
-                        <a href="?target=snippet&id=<?= $snip->getIdSnip() ?>">
+                        <a href="?target=admin&admTarg=snippet&id=<?= $snip->getIdSnip() ?>">
                             <li class="">
                                 <h2><?= $snip->getTitle() ?></h2>
                                 <p><?= $snip->getLanguage() != null ? $snip->getLanguage()->getLabel() : 'Pas de langage' ?></p>

@@ -75,7 +75,7 @@ class SnippetCtrl extends GtgController
     public function one(int $id): void
     {
         $search = false;
-        $searchForm = new Form();
+        $searchForm = new SearchForm();
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
