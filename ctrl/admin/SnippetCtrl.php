@@ -18,8 +18,8 @@ use Model\UserForSnip;
 use PDO;
 use PDOException;
 use Service\AuthService;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 /**
  * Class SnippetCtrl

@@ -28,7 +28,7 @@ use Form\RecetteForm;
 use Form\SearchForm;
 use Core\Html\Form;
 use PDO;
-use Util\ErrorManager;
+use Core\Util\ErrorManager;
 
 class Router
 {

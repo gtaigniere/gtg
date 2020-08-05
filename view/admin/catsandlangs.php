@@ -2,8 +2,8 @@
 
 use Form\CatForm;
 use Form\LanguageForm;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 require_once ROOT_DIR . 'view/fragment/searchForm.php';
 

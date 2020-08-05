@@ -9,8 +9,8 @@ use Manager\RubricManager;
 use Manager\TypeManager;
 use Model\Link;
 use PDO;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 /**
  * Class LinkCtrl

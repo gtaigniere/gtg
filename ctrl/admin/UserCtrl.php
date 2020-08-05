@@ -7,8 +7,8 @@ use Core\Html\Form;
 use Manager\UserManager;
 use Model\User;
 use PDO;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 /**
  * Class UserCtrl

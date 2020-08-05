@@ -1,8 +1,8 @@
 <?php
 
 use Model\Message;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 ?>
 

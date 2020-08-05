@@ -8,8 +8,8 @@ use Core\Html\Form;
 use Manager\MessageManager;
 use Model\Message;
 use PDO;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 /**
  * Class ContactCtrl

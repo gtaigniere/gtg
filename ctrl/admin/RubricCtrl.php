@@ -5,8 +5,8 @@ namespace Ctrl\Admin;
 use Core\Html\Form;
 use Model\Rubric;
 use PDO;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 /**
  * Class RubricCtrl
