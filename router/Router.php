@@ -91,7 +91,7 @@ class Router
                     $this->notFound();
             }
         } else {
-            $this->notFound();
+            $this->rubric();
         }
     }
 
