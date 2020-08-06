@@ -3,7 +3,6 @@
 namespace Router;
 
 use Ctrl\AuthCtrl;
-use Core\Ctrl\Controller;
 use Ctrl\GtgController;
 use Ctrl\HomeCtrl;
 use Ctrl\LinkCtrl;

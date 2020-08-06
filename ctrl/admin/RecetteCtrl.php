@@ -58,7 +58,7 @@ class RecetteCtrl extends AdminCtrl
                 $this->validate($form->getDatas());
             }
         } else {
-            $this->render(ROOT_DIR . 'view/admin/recette.php', []);
+            $this->render(ROOT_DIR . 'view/admin/recette.php', compact('form'));
         }
     }
 
@@ -69,7 +69,7 @@ class RecetteCtrl extends AdminCtrl
      */
     public function modifierAvantAjouter(Form $form)
     {
-        $this->render(ROOT_DIR . 'view/admin/recette.php', []);
+        $this->render(ROOT_DIR . 'view/admin/recette.php', compact('form'));
     }
 
     /**

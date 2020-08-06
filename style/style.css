@@ -133,6 +133,9 @@ a {
 .btn-violet:focus {
 	box-shadow: 0 0 0 0.2rem rgba(170, 65, 200, 0.5);
 }
+main {
+	justify-content: center;
+}
 body {
 	display: flex;
 	flex-direction: column;
