@@ -336,19 +336,18 @@ class SnippetManager extends Manager
     private function createRequest(string $chaine, array $idLangs, array $idCats): string
     {
         $wheres = [];
-        $req = 'SELECT s.* FROM snippet s ';
+        $req = 'SELECT s0.* FROM snippet s0 ';
         if (!empty($idCats)) {
             // Cas 1 : Uniquement 'Sans catégorie' de sélectionné
             if (count($idCats) == 1 && in_array(SearchForm::WITHOUT_CAT, $idCats)) {
-                $wheres[] = 'NOT EXISTS (SELECT 1 FROM snipcat sc WHERE sc.idSnip = s.idSnip) ';
+                $wheres[] = 'NOT EXISTS (SELECT 1 FROM snipcat sc WHERE sc.idSnip = s0.idSnip) ';
             } else {
                 // Cas 2 : Plusieurs catégories sélectionnées
                 // Ajout du filtre de catégorie
-                $req .= 'JOIN snipcat sc ON sc.idSnip = s.idSnip ';
-                foreach ($idCats as $idCat) {
-                    if ($idCat != SearchForm::WITHOUT_CAT) {
-                        $wheres[] = 'sc.idCat = ? ';
-                    }
+                foreach ($idCats as $key => $idCat) {
+                    $req .= 'JOIN snipcat sc' . $key . ' ON s' . $key . '.idSnip = sc' . $key . '.idSnip ';
+                    $req .= 'JOIN snippet s' . ($key + 1) . ' ON s' . ($key + 1) . '.idSnip = s0.idSnip ';
+                    $wheres[] = 'sc' . $key . '.idCat = ?';
                 }
             }
         }
@@ -356,13 +355,13 @@ class SnippetManager extends Manager
             $langs = [];
             // Ajout du filtre de langage
             foreach ($idLangs as $idLang) {
-                $langs[] = 's.idLang = ? ';
+                $langs[] = 's0.idLang = ? ';
             }
             $wheres[] = '(' . join(' OR ', $langs) . ') ';
         }
         // Ajout du filtre par rapport à la chiane fournie
         if (!empty($chaine)) {
-            $wheres[] = '(s.code LIKE ? OR s.comment LIKE ? OR s.requirement LIKE ?)';
+            $wheres[] = '(s0.code LIKE ? OR s0.comment LIKE ? OR s0.requirement LIKE ?)';
         }
         $req .= !empty($wheres) ? 'WHERE ' . join(' AND ', $wheres) : '';
         return $req;
@@ -384,11 +383,12 @@ class SnippetManager extends Manager
             $chaine = '%' . $chaine . '%';
             $chaines = [$chaine, $chaine, $chaine];
         }
+
         // Création de la liste des paramètres à transmettre à la requète
         $params = array_merge(array_diff($idCats, [SearchForm::WITHOUT_CAT]), $idLangs, $chaines);
         // Si on veut juste le premier snippet du résultat alors on va ajouter la partie avec l'ORDER BY
         if ($one) {
-            $req = $this->createRequest($chaine, $idLangs, $idCats) . ' ORDER BY s.idSnip ASC LIMIT 1';
+            $req = $this->createRequest($chaine, $idLangs, $idCats) . ' ORDER BY s0.idSnip ASC LIMIT 1';
             $stmt = $this->db->prepare($req);
             $stmt->execute($params);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);
