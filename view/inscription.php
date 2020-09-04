@@ -21,6 +21,11 @@
                 <input id="pwd" type="password" name="pwd" required />
             </div>
 
+            <div>
+                <label for="confirmPwd">Confirmer Mot de passe :</label>
+                <input id="confirmPwd" type="password" name="confirmPwd" required />
+            </div>
+
             <button class="btn btn-info">S'inscrire</button>
 
         </form>

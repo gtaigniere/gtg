@@ -9,7 +9,7 @@ use Model\Snippet;
 ?>
 
 <aside id="navcol">
-        <h1>Research</h1>
+        <h1>Recherche</h1>
 
         <form action="index.php" method="GET">
 
