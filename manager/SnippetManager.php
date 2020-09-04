@@ -345,8 +345,7 @@ class SnippetManager extends Manager
                 // Cas 2 : Plusieurs catégories sélectionnées
                 // Ajout du filtre de catégorie
                 foreach ($idCats as $key => $idCat) {
-                    $req .= 'JOIN snipcat sc' . $key . ' ON s' . $key . '.idSnip = sc' . $key . '.idSnip ';
-                    $req .= 'JOIN snippet s' . ($key + 1) . ' ON s' . ($key + 1) . '.idSnip = s0.idSnip ';
+                    $req .= 'JOIN snipcat sc' . $key . ' ON s0.idSnip = sc' . $key . '.idSnip ';
                     $wheres[] = 'sc' . $key . '.idCat = ?';
                 }
             }
