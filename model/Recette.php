@@ -2,6 +2,10 @@
 
 namespace Model;
 
+/**
+ * Class Recette
+ * @package Model
+ */
 class Recette
 {
     /**

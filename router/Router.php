@@ -29,6 +29,10 @@ use Core\Html\Form;
 use PDO;
 use Core\Util\ErrorManager;
 
+/**
+ * C'est le routeur du site
+ * @package Router
+ */
 class Router
 {
     /**

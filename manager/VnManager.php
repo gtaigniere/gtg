@@ -5,6 +5,10 @@ namespace Manager;
 use Model\Vietnam;
 use PDO;
 
+/**
+ * Class VnManager
+ * @package Manager
+ */
 class VnManager extends Manager
 {
     /**

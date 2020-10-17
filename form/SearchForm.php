@@ -4,6 +4,10 @@ namespace Form;
 
 use Core\Html\Form;
 
+/**
+ * Classe associée au formulaire de recherche
+ * @package Form
+ */
 class SearchForm extends Form
 {
     const WITHOUT_CAT = '-1'; // Correspond au choix 'sans catégorie' dans la recherche

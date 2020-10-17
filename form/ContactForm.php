@@ -5,6 +5,10 @@ namespace Form;
 use Core\Html\Form;
 use Model\Message;
 
+/**
+ * Classe associée aux formulaires pour la classe Contact
+ * @package Form
+ */
 class ContactForm extends Form
 {
     /**

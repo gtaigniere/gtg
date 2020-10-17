@@ -5,6 +5,10 @@ namespace Manager;
 use Model\Cat;
 use PDO;
 
+/**
+ * Class CatManager
+ * @package Manager
+ */
 class CatManager extends Manager
 {
     /**

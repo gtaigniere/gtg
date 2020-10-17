@@ -2,6 +2,10 @@
 
 namespace Core\Util;
 
+/**
+ * Permet de créer des messages d'erreur et de les supprimer
+ * @package Core\Util
+ */
 class ErrorManager
 {
 
@@ -15,6 +19,7 @@ class ErrorManager
     }
 
     /**
+     * Ajoute un message au tableau de messages
      * @param string $message
      * @return void
      */

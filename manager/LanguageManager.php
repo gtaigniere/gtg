@@ -5,6 +5,10 @@ namespace Manager;
 use Model\Language;
 use PDO;
 
+/**
+ * Class LanguageManager
+ * @package Manager
+ */
 class LanguageManager extends Manager
 {
     /**

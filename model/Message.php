@@ -5,6 +5,10 @@ namespace Model;
 use DateTime;
 use Exception;
 
+/**
+ * Class Message
+ * @package Model
+ */
 class Message
 {
     /**

@@ -9,6 +9,10 @@ use Model\Cat;
 use Model\Snippet;
 use PDO;
 
+/**
+ * Class SnippetManager
+ * @package Manager
+ */
 class SnippetManager extends Manager
 {
     /**

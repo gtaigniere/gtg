@@ -5,6 +5,10 @@ namespace Form;
 use Core\Html\Form;
 use Model\Rubric;
 
+/**
+ * Classe associée aux formulaires pour la classe Rubric
+ * @package Form
+ */
 class RubricForm extends Form
 {
     /**

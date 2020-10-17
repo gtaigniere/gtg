@@ -5,6 +5,10 @@ namespace Form;
 use Core\Html\Form;
 use Model\Language;
 
+/**
+ * Classe associée aux formulaires pour la classe Language
+ * @package Form
+ */
 class LanguageForm extends Form
 {
     /**

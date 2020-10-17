@@ -5,6 +5,10 @@ namespace Manager;
 use Model\Link;
 use PDO;
 
+/**
+ * Class LinkManager
+ * @package Manager
+ */
 class LinkManager extends Manager
 {
     /**

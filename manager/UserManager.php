@@ -6,6 +6,10 @@ use Model\UserForSnip;
 use Model\User;
 use PDO;
 
+/**
+ * Class UserManager
+ * @package Manager
+ */
 class UserManager extends Manager
 {
     /**

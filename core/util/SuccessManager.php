@@ -2,6 +2,10 @@
 
 namespace Core\Util;
 
+/**
+ * Permet de créer des messages de succès et de les supprimer
+ * @package Core\Util
+ */
 class SuccessManager
 {
 
@@ -15,6 +19,7 @@ class SuccessManager
     }
 
     /**
+     * Ajoute un message au tableau de messages
      * @param string $message
      * @return void
      */

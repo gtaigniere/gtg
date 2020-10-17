@@ -5,6 +5,10 @@ namespace Form;
 use Core\Html\Form;
 use Model\Type;
 
+/**
+ * Classe associée aux formulaires pour la classe Type
+ * @package Form
+ */
 class TypeForm extends Form
 {
     /**
