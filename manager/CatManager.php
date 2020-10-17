@@ -17,7 +17,7 @@ class CatManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Cat[]
      */
     public function findAll(): array
     {
@@ -44,7 +44,7 @@ class CatManager extends Manager
 
     /**
      * @param int $id
-     * @return array
+     * @return Cat[]
      */
     public function CatsBySnip(int $id): array
     {
@@ -75,17 +75,6 @@ class CatManager extends Manager
     }
 
     /**
-     * @param int $id
-     * @return bool
-     */
-    public function delete(int $id): bool
-    {
-        $stmt = $this->db->prepare('DELETE FROM cat WHERE idCat=:id');
-        $stmt->execute([':id' => $id]);
-        return $stmt->rowCount() > 0;
-    }
-
-    /**
      * @param Cat $cat
      * @return Cat|null
      */
@@ -96,6 +85,17 @@ class CatManager extends Manager
             return $this->findOne($cat->getIdCat());
         }
         return null;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM cat WHERE idCat=:id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
 }

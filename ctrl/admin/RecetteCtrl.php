@@ -12,7 +12,6 @@ use Core\Util\ErrorManager;
 use Core\Util\SuccessManager;
 
 /**
- * Class RecetteCtrl
  * Contrôleur associé à la section Admin/Recettes
  * @package Ctrl\Admin
  */
@@ -34,7 +33,7 @@ class RecetteCtrl extends AdminCtrl
     }
 
     /**
-     * Affiche la page de la liste des recettes
+     * Affiche la liste des recettes
      * @return void
      */
     public function all(): void

@@ -12,7 +12,6 @@ use Core\Util\ErrorManager;
 use Core\Util\SuccessManager;
 
 /**
- * Class ContactCtrl
  * Contrôleur associé à la section Contact
  * @package Ctrl\Admin
  */
@@ -44,7 +43,7 @@ class ContactCtrl extends AdminCtrl
     }
 
     /**
-     * Affiche un message de contact
+     * Affiche le message de contact dont l'id est passé en paramètre
      * @param $id
      * @return Message|null
      */

@@ -29,7 +29,7 @@ class LinkManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Link[]
      */
     public function findAll(): array
     {
@@ -116,7 +116,7 @@ class LinkManager extends Manager
 
     /**
      * @param int $idRub
-     * @return array
+     * @return Link[]
      */
     public function findAllByRubric(int $idRub): array
     {
@@ -128,7 +128,7 @@ class LinkManager extends Manager
 
     /**
      * @param int $idType
-     * @return array
+     * @return Link[]
      */
     public function findAllByType(int $idType): array
     {

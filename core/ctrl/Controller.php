@@ -3,7 +3,6 @@
 namespace Core\Ctrl;
 
 /**
- * Class Controller
  * Classe mère du contrôleur de tous nos contrôleurs pour le site GTG
  * @package Core\Ctrl
  */
@@ -24,7 +23,7 @@ class Controller
     }
 
     /**
-     * Envoi les paramètres aux vues
+     * Envoie les paramètres aux vues
      * @param string $view Chemin de la vue
      * @param array $params Paramètres passés à la vue sous la forme "clef => valeur" où les clefs sont ajoutées à la table des symbôles
      */

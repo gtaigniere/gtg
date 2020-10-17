@@ -11,7 +11,6 @@ use Manager\UserManager;
 use PDO;
 
 /**
- * Class SnippetCtrl
  * Contrôleur associé à la section Snippets
  * @package Ctrl
  */
@@ -51,7 +50,7 @@ class SnippetCtrl extends GtgController
     }
 
     /**
-     * Affiche la page de la liste des snippets
+     * Affiche la liste des snippets
      * @return void
      */
     public function all(): void
@@ -68,17 +67,20 @@ class SnippetCtrl extends GtgController
     }
 
     /**
-     * Affiche la page d'un snippet
+     * Affiche le snippet dont l'id est passé en paramètre
      * @param int $id
+     * @param Form $searchForm
      * @return void
      */
-    public function one(int $id): void
+    public function one(int $id, Form $searchForm): void
     {
         $search = false;
-        $searchForm = new SearchForm();
+        $chaine = $searchForm->getValue('search') != null ? $searchForm->getValue('search') : '';
+        $idLangs = $searchForm->getValue('languages') != null ? $searchForm->getValue('languages') : [];
+        $idCats = $searchForm->getValue('cats') ? $searchForm->getValue('cats') : [];
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
-        $snippets = $this->snippetManager->findAll();
+        $snippets = $this->snippetManager->research($chaine, $idLangs, $idCats);
         $snippet = $this->snippetManager->findOne($id);
         $this->render(ROOT_DIR . 'view/snippet.php',
             compact('search', 'searchForm', 'languages',

@@ -174,7 +174,7 @@ class Router
     {
         $ctrl = new SnippetCtrl($this->db);
         if (isset($this->params['id'])) {
-            $ctrl->one($this->params['id']);
+            $ctrl->one($this->params['id'], new SearchForm($this->params));
         } else {
             $ctrl->all();
         }
@@ -632,7 +632,7 @@ class Router
     {
         $ctrl = new AdmSnipCtrl($this->db);
         if (isset($this->params['id'])) {
-            $ctrl->one($this->params['id']);
+            $ctrl->one($this->params['id'], new AdmSearchForm($this->params));
         } else {
             $ctrl->all();
         }

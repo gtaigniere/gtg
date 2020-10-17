@@ -5,7 +5,6 @@ namespace Ctrl\Admin;
 use Ctrl\GtgController;
 
 /**
- * Class AdminCtrl
  * Classe mère pour tous les contrôleurs de la section Admin
  * @package Ctrl\Admin
  */

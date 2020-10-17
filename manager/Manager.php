@@ -5,7 +5,6 @@ namespace Manager;
 use PDO;
 
 /**
- * Class Manager
  * Fournie un accès à la base de données afin de mettre en place les opérations de CRUD
  * @package Manager
  */

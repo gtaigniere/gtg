@@ -9,7 +9,6 @@ use Manager\VnManager;
 use PDO;
 
 /**
- * Class VnCtrl
  * Contrôleur associé à la section Vietnam
  * @package Ctrl
  */
@@ -60,7 +59,7 @@ class VnCtrl extends GtgController
     }
 
     /**
-     * Affiche la page de la galerie
+     * Affiche la galerie
      * @return void
      */
     public function galerie(): void

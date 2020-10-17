@@ -10,7 +10,6 @@ use Core\Util\ErrorManager;
 use Core\Util\SuccessManager;
 
 /**
- * Class TypeCtrl
  * Contrôleur associé à la section Admin/Types
  * @package Ctrl\Admin
  */

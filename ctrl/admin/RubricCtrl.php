@@ -9,7 +9,6 @@ use Core\Util\ErrorManager;
 use Core\Util\SuccessManager;
 
 /**
- * Class RubricCtrl
  * Contrôleur associé à la section Admin/Rubriques
  * @package Ctrl\Admin
  */

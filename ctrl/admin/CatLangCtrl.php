@@ -12,7 +12,6 @@ use Manager\SnippetManager;
 use PDO;
 
 /**
- * Class CatLangCtrl
  * Contrôleur associé à la section Admin/Catégories et Admin/Langages
  * @package Ctrl\Admin
  */
@@ -46,7 +45,7 @@ class CatLangCtrl extends AdminCtrl
     }
 
     /**
-     * Affiche la page de la liste des Catégories et des langages
+     * Affiche la liste des Catégories et des langages
      * @return void
      */
     public function all(): void

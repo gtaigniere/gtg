@@ -13,7 +13,6 @@ use Core\Util\ErrorManager;
 use Core\Util\SuccessManager;
 
 /**
- * Class LinkCtrl
  * Contrôleur associé à la section Admin/Liens
  * @package Ctrl\Admin
  */
@@ -47,7 +46,7 @@ class LinkCtrl extends AdminCtrl
     }
 
     /**
-     * Affiche la page de la liste des liens
+     * Affiche la liste des liens
      * @return void
      */
     public function all(): void

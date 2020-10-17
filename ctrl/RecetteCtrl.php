@@ -7,7 +7,6 @@ use Manager\RecetteManager;
 use PDO;
 
 /**
- * Class RecetteCtrl
  * Contrôleur associé à la section Recettes
  * @package Ctrl
  */
@@ -35,7 +34,7 @@ class RecetteCtrl extends GtgController
     }
 
     /**
-     * Affiche la page de la liste des recettes
+     * Affiche la liste des recettes
      * @return void
      */
     public function all(): void
@@ -45,7 +44,7 @@ class RecetteCtrl extends GtgController
     }
 
     /**
-     * Affiche la page d'une recette
+     * Affiche la recette dont l'id est passé en paramètre
      * @param int $id
      * @return void
      */

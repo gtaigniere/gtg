@@ -17,7 +17,7 @@ class LanguageManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Language[]
      */
     public function findAll(): array
     {
@@ -57,17 +57,6 @@ class LanguageManager extends Manager
     }
 
     /**
-     * @param int $id
-     * @return bool
-     */
-    public function delete(int $id): bool
-    {
-        $stmt = $this->db->prepare('DELETE FROM language WHERE idLang=:id');
-        $stmt->execute([':id' => $id]);
-        return $stmt->rowCount() > 0;
-    }
-
-    /**
      * @param Language $language
      * @return Language|null
      */
@@ -78,6 +67,17 @@ class LanguageManager extends Manager
             return $this->findOne($language->getIdLang());
         }
         return null;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM language WHERE idLang=:id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
 }

@@ -6,7 +6,6 @@ use Manager\TypeManager;
 use PDO;
 
 /**
- * Class TypeCtrl
  * Contrôleur associé à la section Types
  * @package Ctrl
  */
@@ -28,7 +27,7 @@ class TypeCtrl extends GtgController
     }
 
     /**
-     * Affiche la page de la liste des types
+     * Affiche la liste des types
      * @return void
      */
     public function all(): void
@@ -38,7 +37,7 @@ class TypeCtrl extends GtgController
     }
 
     /**
-     * Affiche la page d'un type
+     * Affiche le type dont l'id est passé en paramètre
      * @param int $id
      * @return void
      */

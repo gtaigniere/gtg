@@ -5,7 +5,6 @@ namespace Ctrl;
 use Core\Ctrl\Controller;
 
 /**
- * Class GtgController
  * Classe mère de tous nos contrôleurs pour le site GTG
  * @package Ctrl
  */
@@ -22,7 +21,7 @@ class GtgController extends Controller
     }
 
     /**
-     * Renvoi vers la page lorsqu'une ressource n'a pas été trouvée
+     * Renvoie vers la page lorsqu'une ressource n'a pas été trouvée
      * @return void
      */
     public function notFound(): void
@@ -31,7 +30,7 @@ class GtgController extends Controller
     }
 
     /**
-     * Renvoi vers la page lorsqu'un accès non autorisée est demandé
+     * Renvoie vers la page lorsqu'un accès non autorisée est demandé
      * @return void
      */
     public function unauthorizedAccess(): void
@@ -40,7 +39,7 @@ class GtgController extends Controller
     }
 
     /**
-     * Renvoi vers la page lorsqu'une requète utilise une méthode non autorisée
+     * Renvoie vers la page lorsqu'une requète utilise une méthode non autorisée
      * @return void
      */
     public function unauthorizedMethod(): void

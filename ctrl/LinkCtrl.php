@@ -6,7 +6,6 @@ use Manager\LinkManager;
 use PDO;
 
 /**
- * Class LinkCtrl
  * Contrôleur associé à la section Liens
  * @package Ctrl
  */
@@ -28,7 +27,7 @@ class LinkCtrl extends GtgController
     }
 
     /**
-     * Affiche la page de la liste des liens
+     * Affiche la liste des liens
      * @return void
      */
     public function all(): void
@@ -38,7 +37,7 @@ class LinkCtrl extends GtgController
     }
 
     /**
-     * Affiche la page d'un lien
+     * Affiche le lien dont l'id est passé en paramètres
      * @param int $id
      * @return void
      */
@@ -49,7 +48,7 @@ class LinkCtrl extends GtgController
     }
 
     /**
-     * Permet d'ouvrir un lien dont l'id est passé en paramètres
+     * Permet d'ouvrir le lien dont l'id est passé en paramètres
      * @param int $id
      * @return void
      */

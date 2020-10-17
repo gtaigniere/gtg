@@ -9,7 +9,6 @@ use Core\Util\ErrorManager;
 use Core\Util\SuccessManager;
 
 /**
- * Class LanguageCtrl
  * Contrôleur associé à la section Admin/Langages
  * @package Ctrl\Admin
  */

@@ -7,7 +7,6 @@ use Manager\LinkManager;
 use PDO;
 
 /**
- * Class RubricCtrl
  * Contrôleur associé à la section Rubrics
  * @package Ctrl
  */
@@ -35,7 +34,7 @@ class RubricCtrl extends GtgController
     }
 
     /**
-     * Affiche la page des rubriques qui est aussi la page d'accueil
+     * Affiche la page d'accueil (avec les rubriques)
      * @return void
      */
     public function index(): void
@@ -45,7 +44,7 @@ class RubricCtrl extends GtgController
     }
 
     /**
-     * Affiche la page d'une rubrique
+     * Affiche la rubrique dont l'id est passé en paramètre
      * @param int $id
      * @return void
      */

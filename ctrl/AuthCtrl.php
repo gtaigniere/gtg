@@ -6,7 +6,6 @@ use Manager\UserManager;
 use PDO;
 
 /**
- * Class AuthCtrl
  * Contrôleur associé aux sections Inscription et Connexion
  * @package Ctrl
  */

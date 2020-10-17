@@ -9,7 +9,6 @@ use Core\Util\ErrorManager;
 use Core\Util\SuccessManager;
 
 /**
- * Class CatCtrl
  * Contrôleur associé à la section Admin/Catégories
  * @package Ctrl\Admin
  */

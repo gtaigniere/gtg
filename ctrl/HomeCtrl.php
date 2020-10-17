@@ -5,7 +5,6 @@ namespace Ctrl;
 use Core\Html\Form;
 
 /**
- * Class HomeCtrl
  * Contrôleur associé aux liens "Autres sites" et "Contact" de la page d'accueil
  * @package Ctrl
  */
@@ -21,7 +20,7 @@ class HomeCtrl extends GtgController
     }
 
     /**
-     * Affiche la page des liens vers d'autres sites
+     * Affiche les liens vers d'autres sites
      * @return void
      */
     public function otherSites(): void
@@ -30,7 +29,7 @@ class HomeCtrl extends GtgController
     }
 
     /**
-     * Affiche la page du formulaire de contact
+     * Affiche le formulaire de contact
      * @param Form $form
      * @return void
      */

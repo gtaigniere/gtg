@@ -39,7 +39,7 @@ class SnippetManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Snippet[]
      */
     public function findAll(): array
     {
@@ -76,7 +76,7 @@ class SnippetManager extends Manager
 
     /**
      * @param int $id
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findByLang(int $id): ?array
     {
@@ -94,7 +94,7 @@ class SnippetManager extends Manager
 
     /**
      * @param int $id
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findLastByLang(int $id): ?array
     {
@@ -112,7 +112,7 @@ class SnippetManager extends Manager
 
     /**
      * @param int $id
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findByCat(int $id): ?array
     {
@@ -130,7 +130,7 @@ class SnippetManager extends Manager
 
     /**
      * @param int $id
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findLastByCat(int $id): ?array
     {
@@ -149,7 +149,7 @@ class SnippetManager extends Manager
     /**
      * @param int $idLang
      * @param int $idCat
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findByLangAndCat(int $idLang, int $idCat): ?array
     {
@@ -168,7 +168,7 @@ class SnippetManager extends Manager
     /**
      * @param int $idLang
      * @param int $idCat
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findLastByLangAndCat(int $idLang, int $idCat): ?array
     {

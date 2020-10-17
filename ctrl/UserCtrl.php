@@ -6,7 +6,6 @@ use Manager\UserManager;
 use PDO;
 
 /**
- * Class UserCtrl
  * Contrôleur associé à la section Utilisateurs
  * @package Ctrl
  */
@@ -28,7 +27,7 @@ class UserCtrl extends GtgController
     }
 
     /**
-     * Affiche la page de la liste des utilisateurs
+     * Affiche la liste des utilisateurs
      * @return void
      */
     public function all(): void
@@ -38,7 +37,7 @@ class UserCtrl extends GtgController
     }
 
     /**
-     * Affiche la page d'un utilisateur
+     * Affiche l'utilisateur dont l'id est passé en paramètre
      * @param int $id
      * @return void
      */

@@ -10,7 +10,6 @@ use Manager\RubricManager;
 use PDO;
 
 /**
- * Class TypRubCtrl
  * Contrôleur associé à la section Admin/Types et Admin/Rubriques
  * @package Ctrl\Admin
  */
@@ -38,7 +37,7 @@ class TypRubCtrl extends AdminCtrl
     }
 
     /**
-     * Affiche la page de la liste des rubriques et des types
+     * Affiche la liste des rubriques et des types
      * @return void
      */
     public function all(): void

@@ -11,7 +11,6 @@ use Core\Util\ErrorManager;
 use Core\Util\SuccessManager;
 
 /**
- * Class UserCtrl
  * Contrôleur associé à la section Admin/Utilisateurs
  * @package Ctrl\Admin
  */
