@@ -18,7 +18,7 @@ class UserManager extends Manager
     }
 
     /**
-     * @return array
+     * @return User[]
      */
     public function findAll(): array
     {

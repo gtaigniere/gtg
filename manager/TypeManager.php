@@ -18,7 +18,7 @@ class TypeManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Type[]
      */
     public function findAll(): array
     {

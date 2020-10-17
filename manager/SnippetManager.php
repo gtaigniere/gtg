@@ -39,7 +39,7 @@ class SnippetManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Snippet[]
      */
     public function findAll(): array
     {
@@ -330,8 +330,8 @@ class SnippetManager extends Manager
      * Création de la requète de recherche
      * @param string $chaine Chaine de caractères recherchée dans les champs
      * code, comment, et requirement de la table snippet
-     * @param array $idLangs Tableau contenant les différents ids des langages recherchés
-     * @param array $idCats Tableau contenant les différents ids des catégories recherchées
+     * @param int[] $idLangs Tableau contenant les différents ids des langages recherchés
+     * @param int[] $idCats Tableau contenant les différents ids des catégories recherchées
      * @return string
      */
     private function createRequest(string $chaine, array $idLangs, array $idCats): string
@@ -372,8 +372,8 @@ class SnippetManager extends Manager
     /**
      * Permet de rechercher des snippets en fonction d'une chaine de caractères, d'un language, et de catégories
      * @param string $chaine Chaine de caractères recherchée dans les champs code, comment, et requirement
-     * @param array $idLangs Tableau contenant les différents ids des langages recherchés
-     * @param array $idCats Tableau contenant les différents ids des catégories recherchées
+     * @param int[] $idLangs Tableau contenant les différents ids des langages recherchés
+     * @param int[] $idCats Tableau contenant les différents ids des catégories recherchées
      * @param bool $one Si true, renvoit le premier snippet, par ordre croissant d'id du résultat de la recherche
      * sinon renvoit tous les snippets correspondant aux critères de la recherche
      * @return Snippet[]|Snippet|null

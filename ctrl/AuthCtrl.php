@@ -30,11 +30,11 @@ class AuthCtrl extends Controller
     }
 
     /**
-     * @param $pseudo
-     * @param $pwd
+     * @param string $pseudo
+     * @param string $pwd
      * @return void
      */
-    public function login($pseudo, $pwd): void
+    public function login(string $pseudo, string $pwd): void
     {
         // Effectuer la vérification et la connexion
         if ($loginOk) {

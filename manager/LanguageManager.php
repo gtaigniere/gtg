@@ -17,7 +17,7 @@ class LanguageManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Language[]
      */
     public function findAll(): array
     {

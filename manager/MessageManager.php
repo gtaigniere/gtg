@@ -19,7 +19,7 @@ class MessageManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Message[]
      */
     public function findAll(): array
     {

@@ -17,7 +17,7 @@ class CatManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Cat[]
      */
     public function findAll(): array
     {
@@ -44,7 +44,7 @@ class CatManager extends Manager
 
     /**
      * @param int $id
-     * @return array
+     * @return Cat[]
      */
     public function CatsBySnip(int $id): array
     {

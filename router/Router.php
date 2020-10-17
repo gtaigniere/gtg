@@ -23,7 +23,6 @@ use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
 use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
 use Exception\PourNotNumericException;
 use Form\AdmSearchForm;
-use Form\ContactForm;
 use Form\RecetteForm;
 use Form\SearchForm;
 use Html\Form;
@@ -43,7 +42,7 @@ class Router
     private $db;
 
     /**
-     * RouterNew constructor.
+     * Router constructor.
      * @param array $params
      * @param PDO $db
      */

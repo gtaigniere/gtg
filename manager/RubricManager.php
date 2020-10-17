@@ -18,7 +18,7 @@ class RubricManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Rubric[]
      */
     public function findAll(): array
     {

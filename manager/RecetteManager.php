@@ -17,7 +17,7 @@ class RecetteManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Recette[]
      */
     public function findAll(): array
     {

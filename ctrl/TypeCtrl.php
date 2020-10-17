@@ -18,7 +18,7 @@ class TypeCtrl extends Controller
      */
     public function __construct(PDO $db)
     {
-        $this->typeManager = new typeManager($db);
+        $this->typeManager = new TypeManager($db);
     }
 
     /**
