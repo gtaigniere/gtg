@@ -27,7 +27,7 @@ class UserCtrl extends GtgController
     }
 
     /**
-     * Affiche la liste des utilisateurs
+     * Affiche tous les utilisateurs
      * @return void
      */
     public function all(): void

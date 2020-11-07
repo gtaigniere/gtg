@@ -27,7 +27,7 @@ class TypeCtrl extends GtgController
     }
 
     /**
-     * Affiche la liste des types
+     * Affiche tous les types
      * @return void
      */
     public function all(): void

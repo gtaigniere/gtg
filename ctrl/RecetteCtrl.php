@@ -34,7 +34,7 @@ class RecetteCtrl extends GtgController
     }
 
     /**
-     * Affiche la liste des recettes
+     * Affiche toutes les recettes
      * @return void
      */
     public function all(): void
