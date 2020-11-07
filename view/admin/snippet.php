@@ -2,10 +2,10 @@
 
 use Model\Cat;
 use Model\Snippet;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
-ob_start();
+require_once ROOT_DIR . 'view/fragment/admSearchForm.php';
 
 ?>
 
@@ -68,5 +68,3 @@ ob_start();
     <?php endif; ?>
 
 </section>
-
-<?php $section = ob_get_clean(); ?>

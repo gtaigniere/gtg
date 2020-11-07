@@ -2,6 +2,10 @@
 
 namespace Model;
 
+/**
+ * Class Link
+ * @package Model
+ */
 class Link
 {
     /**

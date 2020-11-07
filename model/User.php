@@ -2,6 +2,10 @@
 
 namespace Model;
 
+/**
+ * Class User
+ * @package Model
+ */
 class User
 {
     /**

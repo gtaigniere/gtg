@@ -7,6 +7,10 @@ use Exception;
 use Model\Message;
 use PDO;
 
+/**
+ * Class MessageManager
+ * @package Manager
+ */
 class MessageManager extends Manager
 {
     /**

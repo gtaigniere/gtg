@@ -2,8 +2,6 @@
 
 use Model\Rubric;
 
-ob_start();
-
 ?>
 
     <section id="section_accueil">
@@ -23,5 +21,3 @@ ob_start();
         endforeach; ?>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

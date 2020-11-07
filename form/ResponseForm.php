@@ -2,11 +2,10 @@
 
 namespace Form;
 
-use Html\Form;
+use Core\Html\Form;
 use Model\Message;
 
 /**
- * Class ResponseForm
  * Représente un formulaire de réponse contenant les informations
  * reçues depuis le message de contact et comprenant les champs suivants :
  * mail => adresse mail du contact
@@ -28,7 +27,6 @@ class ResponseForm extends Form
             'object' => 'rep->' . $contact->getObject(),
             'message' => $contact->getFirstname() . PHP_EOL .
             $contact->getReceived()->format('Y-m-d H:i') . PHP_EOL .
-            $contact->getObject() . PHP_EOL .
             $contact->getMessage() . PHP_EOL
         ];
         parent::__construct($datas);

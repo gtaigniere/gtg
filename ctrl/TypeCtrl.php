@@ -5,7 +5,11 @@ namespace Ctrl;
 use Manager\TypeManager;
 use PDO;
 
-class TypeCtrl extends Controller
+/**
+ * Contrôleur associé à la section Types
+ * @package Ctrl
+ */
+class TypeCtrl extends GtgController
 {
     /**
      * @var TypeManager
@@ -18,26 +22,29 @@ class TypeCtrl extends Controller
      */
     public function __construct(PDO $db)
     {
-        $this->typeManager = new TypeManager($db);
+        $this->typeManager = new typeManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des types
      * @return void
      */
     public function all(): void
     {
         $types = $this->typeManager->findAll();
-        require (ROOT_DIR . 'view/admin/listTypes.php');
+        $this->render(ROOT_DIR . 'view/admin/listTypes.php', compact('types'));
     }
 
     /**
+     * Affiche le type dont l'id est passé en paramètre
      * @param int $id
      * @return void
      */
     public function one(int $id): void
     {
         $type = $this->typeManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/oneType.php');
+        $this->render(ROOT_DIR . 'view/admin/oneType.php', compact('type'));
     }
 
 }

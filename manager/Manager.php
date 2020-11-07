@@ -4,14 +4,20 @@ namespace Manager;
 
 use PDO;
 
+/**
+ * Fournie un accès à la base de données afin de mettre en place les opérations de CRUD
+ * @package Manager
+ */
 abstract class Manager
 {
     /**
+     * Nom de l'entité associée au manager
      * @var string
      */
     protected $className;
 
     /**
+     * Accès à la base de données
      * @var PDO
      */
     protected $db;
@@ -28,15 +34,13 @@ abstract class Manager
     }
 
     /**
-     * @param array $assocs
-     * @param string $className
+     * Converti les occurences d'une entité de la base de données en objets
+     * @param array $assocs Tableau d'occurences d'une entité
      * @return mixed
      */
-    protected function convInObj(array $assocs, string $className = null)
+    protected function convInObj(array $assocs)
     {
-        if ($className == null) {
-            $className = $this->className;
-        }
+        $className = $this->className;
         if (class_exists($className)) {
             $obj = new $className();
             foreach ($assocs as $key => $value) {

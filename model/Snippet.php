@@ -5,6 +5,10 @@ namespace Model;
 use DateTime;
 use Exception;
 
+/**
+ * Class Snippet
+ * @package Model
+ */
 class Snippet
 {
     /**

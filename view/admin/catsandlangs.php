@@ -2,10 +2,10 @@
 
 use Form\CatForm;
 use Form\LanguageForm;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
-ob_start();
+require_once ROOT_DIR . 'view/fragment/searchForm.php';
 
 ?>
 
@@ -144,5 +144,3 @@ ob_start();
 	</p>
 
 </section>
-
-<?php $section = ob_get_clean(); ?>

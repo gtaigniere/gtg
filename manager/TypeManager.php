@@ -5,6 +5,10 @@ namespace Manager;
 use Model\type;
 use PDO;
 
+/**
+ * Class TypeManager
+ * @package Manager
+ */
 class TypeManager extends Manager
 {
 

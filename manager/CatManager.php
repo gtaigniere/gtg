@@ -5,6 +5,10 @@ namespace Manager;
 use Model\Cat;
 use PDO;
 
+/**
+ * Class CatManager
+ * @package Manager
+ */
 class CatManager extends Manager
 {
     /**
@@ -75,17 +79,6 @@ class CatManager extends Manager
     }
 
     /**
-     * @param int $id
-     * @return bool
-     */
-    public function delete(int $id): bool
-    {
-        $stmt = $this->db->prepare('DELETE FROM cat WHERE idCat=:id');
-        $stmt->execute([':id' => $id]);
-        return $stmt->rowCount() > 0;
-    }
-
-    /**
      * @param Cat $cat
      * @return Cat|null
      */
@@ -96,6 +89,17 @@ class CatManager extends Manager
             return $this->findOne($cat->getIdCat());
         }
         return null;
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare('DELETE FROM cat WHERE idCat=:id');
+        $stmt->execute([':id' => $id]);
+        return $stmt->rowCount() > 0;
     }
 
 }

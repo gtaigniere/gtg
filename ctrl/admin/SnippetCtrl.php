@@ -2,12 +2,12 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
 use DateTime;
 use Exception;
 use Form\AdmSearchForm;
+use Form\SearchForm;
 use Form\SnippetForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;
@@ -18,10 +18,14 @@ use Model\UserForSnip;
 use PDO;
 use PDOException;
 use Service\AuthService;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
-class SnippetCtrl extends Controller
+/**
+ * Contrôleur associé à la section Snippets
+ * @package Ctrl\Admin
+ */
+class SnippetCtrl extends AdminCtrl
 {
     /**
      * @var SnippetManager
@@ -53,9 +57,11 @@ class SnippetCtrl extends Controller
         $this->languageManager = new LanguageManager($db);
         $this->userManager = new UserManager($db);
         $this->catManager = new CatManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des snippets
      * @return void
      */
     public function all(): void
@@ -66,27 +72,34 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findLast();
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/admin/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('search', 'searchForm', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
     /**
+     * Affiche le snippet dont l'id est passé en paramètre
      * @param int $id
+     * @param Form $searchForm
      * @return void
      */
-    public function one(int $id): void
+    public function one(int $id, Form $searchForm): void
     {
         $search = false;
-        $searchForm = new AdmSearchForm();
+        $chaine = $searchForm->getValue('search') != null ? $searchForm->getValue('search') : '';
+        $idLangs = $searchForm->getValue('languages') != null ? $searchForm->getValue('languages') : [];
+        $idCats = $searchForm->getValue('cats') ? $searchForm->getValue('cats') : [];
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
-        $snippets = $this->snippetManager->findAll();
+        $snippets = $this->snippetManager->research($chaine, $idLangs, $idCats);
         $snippet = $this->snippetManager->findOne($id);
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/admin/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('search', 'searchForm', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
     /**
+     * Affiche le formulaire de recherche
      * @param Form $searchForm
      */
     public function search(Form $searchForm): void
@@ -99,8 +112,10 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->research($chaine, $idLangs, $idCats);
         $snippet = $this->snippetManager->research($chaine, $idLangs, $idCats, true);
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/admin/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('search', 'searchForm', 'chaine',
+                'idLangs', 'idCats', 'languages',
+                'cats','snippets', 'snippet'));
     }
 
     /**
@@ -120,13 +135,15 @@ class SnippetCtrl extends Controller
             }
         } else {
             $search = false;
-            $searchForm = new Form();
+            $searchForm = new SearchForm();
+            $form = new Form();
             $languages = $this->languageManager->findAll();
             $cats = $this->catManager->findAll();
             $snippets = $this->snippetManager->findAll();
             $action = 'insert';
-            require_once(ROOT_DIR . 'view/admin/snipForm.php');
-            require_once (ROOT_DIR . 'view/template-snip.php');
+            $this->render(ROOT_DIR . 'view/admin/snipForm.php',
+                compact('search', 'searchForm','form', 'languages',
+                    'cats', 'snippets', 'action'));
         }
     }
 
@@ -148,7 +165,7 @@ class SnippetCtrl extends Controller
             $snippet = $this->snippetManager->findOne($id);
             if ($snippet != null) {
                 $search = false;
-                $searchForm = new Form();
+                $searchForm = new SearchForm();
                 $form = new SnippetForm($snippet);
                 $language = new Language();
                 $language = $form->getValue('idLang');
@@ -160,8 +177,10 @@ class SnippetCtrl extends Controller
                 $cats = $this->catManager->findAll();
                 $snippets = $this->snippetManager->findAll();
                 $action = 'update';
-                require_once ROOT_DIR . 'view/admin/snipForm.php';
-                require_once ROOT_DIR . 'view/template-snip.php';
+                $this->render(ROOT_DIR . 'view/admin/snipForm.php',
+                    compact('snippet', 'search', 'searchForm', 'form',
+                        'language', 'user', 'languages',
+                        'cats', 'snippets', 'action'));
             } else {
                 $this->notFound();
             }
@@ -192,8 +211,9 @@ class SnippetCtrl extends Controller
                 $cats = $this->catManager->findAll();
                 $snippets = $this->snippetManager->findAll();
                 $action = 'delete';
-                require_once ROOT_DIR . 'view/admin/snipForm.php';
-                require_once ROOT_DIR . 'view/template-snip.php';
+                $this->render(ROOT_DIR . 'view/admin/snipForm.php',
+                    compact('snippet', 'search', 'searchForm', 'form',
+                        'languages', 'cats', 'snippets', 'action'));
             } else {
                 $this->notFound();
             }
@@ -243,8 +263,10 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findLast();
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('language', 'user', 'idCats',
+                'search', 'searchForm', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
     /**
@@ -287,8 +309,11 @@ class SnippetCtrl extends Controller
             $cats = $this->catManager->findAll();
             $snippets = $this->snippetManager->findAll();
             $snippet = $this->snippetManager->findLast();
-            require_once (ROOT_DIR . 'view/admin/snippet.php');
-            require_once (ROOT_DIR . 'view/admin/template-snip.php');
+            $this->render(ROOT_DIR . 'view/admin/snippet.php',
+                compact('tmpDate', 'dateCrea', 'idLang',
+                    'language', 'idCats', 'search',
+                    'searchForm', 'languages', 'cats',
+                    'snippets', 'snippet'));
         } else {
             $this->notFound();
         }
@@ -313,18 +338,9 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findLast();
-        require_once (ROOT_DIR . 'view/admin/snippet.php');
-        require_once (ROOT_DIR . 'view/admin/template-snip.php');
-    }
-
-    /**
-     * @param array $datas
-     */
-    public function validate(array $datas)
-    {
-        // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/snippet.php',
+            compact('search', 'searchForm', 'languages',
+            'cats', 'snippets', 'snippet'));
     }
 
 }

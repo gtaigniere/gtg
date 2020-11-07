@@ -1,8 +1,8 @@
 <?php
 
-use Html\Form;
+use Core\Html\Form;
 
-ob_start();
+require_once ROOT_DIR . 'view/fragment/searchForm.php';
 
 if (isset($form) && $form instanceof Form) :
 
@@ -11,7 +11,7 @@ if (isset($form) && $form instanceof Form) :
         <section id="sect-adm_snippet">
 
             <h1>
-                <?= ($action == 'insert') ? 'Ajout d\'un snippet' : $form->getValue('titre'); ?>
+                <?= ($action == 'insert') ? 'Ajout d\'un snippet' : $form->getValue('title'); ?>
             </h1>
 
                 <form method="POST">
@@ -83,7 +83,5 @@ if (isset($form) && $form instanceof Form) :
 <?php
 
 endif;
-
-$section = ob_get_clean();
 
 ?>

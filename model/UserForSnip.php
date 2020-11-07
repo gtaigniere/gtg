@@ -2,6 +2,10 @@
 
 namespace Model;
 
+/**
+ * Class UserForSnip
+ * @package Model
+ */
 class UserForSnip
 {
     /**

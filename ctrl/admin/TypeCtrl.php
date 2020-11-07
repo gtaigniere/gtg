@@ -3,12 +3,16 @@
 namespace Ctrl\Admin;
 
 use Form\TypeForm;
-use Html\Form;
+use Core\Html\Form;
 use Model\Type;
 use PDO;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
+/**
+ * Contrôleur associé à la section Admin/Types
+ * @package Ctrl\Admin
+ */
 class TypeCtrl extends TypRubCtrl
 {
     /**

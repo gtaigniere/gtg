@@ -2,17 +2,20 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
 use Form\CatForm;
 use Form\LanguageForm;
 use Form\SearchForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;
 use PDO;
 
-class CatLangCtrl extends Controller
+/**
+ * Contrôleur associé à la section Admin/Catégories et Admin/Langages
+ * @package Ctrl\Admin
+ */
+class CatLangCtrl extends AdminCtrl
 {
     /**
      * @var CatManager
@@ -38,9 +41,11 @@ class CatLangCtrl extends Controller
         $this->catManager = new CatManager($db);
         $this->languageManager = new LanguageManager($db);
         $this->snippetManager = new SnippetManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des Catégories et des langages
      * @return void
      */
     public function all(): void
@@ -60,19 +65,10 @@ class CatLangCtrl extends Controller
             $languageForms[] = new LanguageForm($language);
         }
         $formAddLang = new Form();
-        require_once (ROOT_DIR . 'view/admin/catsandlangs.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
-    }
-
-    /**
-     * @param array $datas
-     * @return void
-     */
-    public function validate(array $datas): void
-    {
-        // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/catsandlangs.php',
+            compact('search', 'searchForm', 'snippets',
+                'cats', 'catForms', 'formAddCat',
+                'languages', 'languageForms', 'formAddLang'));
     }
 
 }

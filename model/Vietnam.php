@@ -2,6 +2,10 @@
 
 namespace Model;
 
+/**
+ * Class Vietnam
+ * @package Model
+ */
 class Vietnam
 {
 

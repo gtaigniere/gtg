@@ -5,6 +5,10 @@ namespace Manager;
 use Model\Link;
 use PDO;
 
+/**
+ * Class LinkManager
+ * @package Manager
+ */
 class LinkManager extends Manager
 {
     /**
@@ -29,7 +33,7 @@ class LinkManager extends Manager
     }
 
     /**
-     * @return array
+     * @return Link[]
      */
     public function findAll(): array
     {
@@ -116,7 +120,7 @@ class LinkManager extends Manager
 
     /**
      * @param int $idRub
-     * @return array
+     * @return Link[]
      */
     public function findAllByRubric(int $idRub): array
     {
@@ -128,7 +132,7 @@ class LinkManager extends Manager
 
     /**
      * @param int $idType
-     * @return array
+     * @return Link[]
      */
     public function findAllByType(int $idType): array
     {
@@ -206,12 +210,11 @@ class LinkManager extends Manager
 
     /**
      * @param array $assocs
-     * @param string $className
      * @return mixed
      */
-    protected function convInObj(array $assocs, string $className = null)
+    protected function convInObj(array $assocs)
     {
-        $link = parent::convInObj($assocs, $className);
+        $link = parent::convInObj($assocs);
         $rubric = ($assocs['idRub'] != null) ? $this->rubricManager->findOne($assocs['idRub']) : null;
         $type = ($assocs['idType'] != null) ? $this->typeManager->findOne($assocs['idType']) : null;
         $link->setRubric($rubric);

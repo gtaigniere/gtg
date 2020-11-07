@@ -1,9 +1,7 @@
 <?php
 
-use Html\Form;
-use Util\ErrorManager;
-
-ob_start();
+use Core\Html\Form;
+use Core\Util\ErrorManager;
 
 if (isset($form) && $form instanceof Form) :
 
@@ -69,7 +67,5 @@ if (isset($form) && $form instanceof Form) :
 <?php
 
 endif;
-
-$section = ob_get_clean();
 
 ?>

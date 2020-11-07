@@ -6,7 +6,11 @@ use Manager\RubricManager;
 use Manager\LinkManager;
 use PDO;
 
-class RubricCtrl extends Controller
+/**
+ * Contrôleur associé à la section Rubrics
+ * @package Ctrl
+ */
+class RubricCtrl extends GtgController
 {
     /**
      * @var RubricManager
@@ -26,19 +30,21 @@ class RubricCtrl extends Controller
     {
         $this->rubricManager = new RubricManager($db);
         $this->linkManager = new LinkManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la page d'accueil (avec les rubriques)
      * @return void
      */
     public function index(): void
     {
         $rubrics = $this->rubricManager->findAll();
-        require ROOT_DIR . 'view/accueil.php';
-        require ROOT_DIR . 'view/template.php';
+        $this->render(ROOT_DIR . 'view/accueil.php', compact('rubrics'));
     }
 
     /**
+     * Affiche la rubrique dont l'id est passé en paramètre
      * @param int $id
      * @return void
      */
@@ -47,8 +53,7 @@ class RubricCtrl extends Controller
         $rubric = $this->rubricManager->findOne($id);
         if ($rubric != null) {
             $links = $this->linkManager->findAllAsides($id, ['support', 'code', 'site-ext', 'menu-rubrique']);
-            require_once ROOT_DIR . 'view/rubric/' . $rubric->getLabel() . '.php';
-            require_once ROOT_DIR . 'view/template.php';
+            $this->render(ROOT_DIR . 'view/rubric/' . $rubric->getLabel() . '.php', compact('links'));
         } else {
             $this->notFound();
         }

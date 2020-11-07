@@ -3,9 +3,13 @@
 namespace Form;
 
 use Exception;
-use Html\Form;
+use Core\Html\Form;
 use Model\Recette;
 
+/**
+ * Classe associée aux formulaires pour la classe Recette
+ * @package Form
+ */
 class RecetteForm extends Form
 {
     public function __construct($recette)

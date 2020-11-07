@@ -2,10 +2,14 @@
 
 namespace Form;
 
-use Html\Form;
+use Core\Html\Form;
 use Model\Cat;
 use Model\Snippet;
 
+/**
+ * Classe associée aux formulaires pour la classe Snippet
+ * @package Form
+ */
 class SnippetForm extends Form
 {
 

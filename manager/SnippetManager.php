@@ -9,6 +9,10 @@ use Model\Cat;
 use Model\Snippet;
 use PDO;
 
+/**
+ * Class SnippetManager
+ * @package Manager
+ */
 class SnippetManager extends Manager
 {
     /**
@@ -76,7 +80,7 @@ class SnippetManager extends Manager
 
     /**
      * @param int $id
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findByLang(int $id): ?array
     {
@@ -94,7 +98,7 @@ class SnippetManager extends Manager
 
     /**
      * @param int $id
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findLastByLang(int $id): ?array
     {
@@ -112,7 +116,7 @@ class SnippetManager extends Manager
 
     /**
      * @param int $id
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findByCat(int $id): ?array
     {
@@ -130,7 +134,7 @@ class SnippetManager extends Manager
 
     /**
      * @param int $id
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findLastByCat(int $id): ?array
     {
@@ -149,7 +153,7 @@ class SnippetManager extends Manager
     /**
      * @param int $idLang
      * @param int $idCat
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findByLangAndCat(int $idLang, int $idCat): ?array
     {
@@ -168,7 +172,7 @@ class SnippetManager extends Manager
     /**
      * @param int $idLang
      * @param int $idCat
-     * @return array|null
+     * @return Snippet[]|null
      */
     public function findLastByLangAndCat(int $idLang, int $idCat): ?array
     {
@@ -311,12 +315,11 @@ class SnippetManager extends Manager
 
     /**
      * @param array $assocs
-     * @param string $className
      * @return mixed
      */
-    protected function convInObj(array $assocs, string $className = null)
+    protected function convInObj(array $assocs)
     {
-        $snippet = parent::convInObj($assocs, $className);
+        $snippet = parent::convInObj($assocs);
         $language = $assocs['idLang'] != null ? $this->languageManager->findOne($assocs['idLang']) : null;
         $snippet->setLanguage($language);
         $user = $this->userManager->findOneForSnippet($assocs['idUser']);
@@ -337,19 +340,17 @@ class SnippetManager extends Manager
     private function createRequest(string $chaine, array $idLangs, array $idCats): string
     {
         $wheres = [];
-        $req = 'SELECT s.* FROM snippet s ';
+        $req = 'SELECT s0.* FROM snippet s0 ';
         if (!empty($idCats)) {
             // Cas 1 : Uniquement 'Sans catégorie' de sélectionné
             if (count($idCats) == 1 && in_array(SearchForm::WITHOUT_CAT, $idCats)) {
-                $wheres[] = 'NOT EXISTS (SELECT 1 FROM snipcat sc WHERE sc.idSnip = s.idSnip) ';
+                $wheres[] = 'NOT EXISTS (SELECT 1 FROM snipcat sc WHERE sc.idSnip = s0.idSnip) ';
             } else {
                 // Cas 2 : Plusieurs catégories sélectionnées
                 // Ajout du filtre de catégorie
-                $req .= 'JOIN snipcat sc ON sc.idSnip = s.idSnip ';
-                foreach ($idCats as $idCat) {
-                    if ($idCat != SearchForm::WITHOUT_CAT) {
-                        $wheres[] = 'sc.idCat = ? ';
-                    }
+                foreach ($idCats as $key => $idCat) {
+                    $req .= 'JOIN snipcat sc' . $key . ' ON s0.idSnip = sc' . $key . '.idSnip ';
+                    $wheres[] = 'sc' . $key . '.idCat = ?';
                 }
             }
         }
@@ -357,13 +358,13 @@ class SnippetManager extends Manager
             $langs = [];
             // Ajout du filtre de langage
             foreach ($idLangs as $idLang) {
-                $langs[] = 's.idLang = ? ';
+                $langs[] = 's0.idLang = ? ';
             }
             $wheres[] = '(' . join(' OR ', $langs) . ') ';
         }
         // Ajout du filtre par rapport à la chiane fournie
         if (!empty($chaine)) {
-            $wheres[] = '(s.code LIKE ? OR s.comment LIKE ? OR s.requirement LIKE ?)';
+            $wheres[] = '(s0.code LIKE ? OR s0.comment LIKE ? OR s0.requirement LIKE ?)';
         }
         $req .= !empty($wheres) ? 'WHERE ' . join(' AND ', $wheres) : '';
         return $req;
@@ -385,11 +386,12 @@ class SnippetManager extends Manager
             $chaine = '%' . $chaine . '%';
             $chaines = [$chaine, $chaine, $chaine];
         }
+
         // Création de la liste des paramètres à transmettre à la requète
         $params = array_merge(array_diff($idCats, [SearchForm::WITHOUT_CAT]), $idLangs, $chaines);
         // Si on veut juste le premier snippet du résultat alors on va ajouter la partie avec l'ORDER BY
         if ($one) {
-            $req = $this->createRequest($chaine, $idLangs, $idCats) . ' ORDER BY s.idSnip ASC LIMIT 1';
+            $req = $this->createRequest($chaine, $idLangs, $idCats) . ' ORDER BY s0.idSnip ASC LIMIT 1';
             $stmt = $this->db->prepare($req);
             $stmt->execute($params);
             $assocs = $stmt->fetch(PDO::FETCH_ASSOC);

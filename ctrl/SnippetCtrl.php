@@ -3,14 +3,18 @@
 namespace Ctrl;
 
 use Form\SearchForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\CatManager;
 use Manager\LanguageManager;
 use Manager\SnippetManager;
 use Manager\UserManager;
 use PDO;
 
-class SnippetCtrl extends Controller
+/**
+ * Contrôleur associé à la section Snippets
+ * @package Ctrl
+ */
+class SnippetCtrl extends GtgController
 {
     /**
      * @var SnippetManager
@@ -42,9 +46,11 @@ class SnippetCtrl extends Controller
         $this->languageManager = new LanguageManager($db);
         $this->userManager = new UserManager($db);
         $this->catManager = new CatManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des snippets
      * @return void
      */
     public function all(): void
@@ -55,30 +61,37 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->findAll();
         $snippet = $this->snippetManager->findLast();
-        require_once (ROOT_DIR . 'view/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->render(ROOT_DIR . 'view/snippet.php',
+            compact('search', 'searchForm', 'languages',
+            'cats', 'snippets', 'snippet'));
     }
 
     /**
+     * Affiche le snippet dont l'id est passé en paramètre
      * @param int $id
+     * @param Form $searchForm
      * @return void
      */
-    public function one(int $id): void
+    public function one(int $id, Form $searchForm): void
     {
         $search = false;
-        $searchForm = new Form();
+        $chaine = $searchForm->getValue('search') != null ? $searchForm->getValue('search') : '';
+        $idLangs = $searchForm->getValue('languages') != null ? $searchForm->getValue('languages') : [];
+        $idCats = $searchForm->getValue('cats') ? $searchForm->getValue('cats') : [];
         $languages = $this->languageManager->findAll();
         $cats = $this->catManager->findAll();
-        $snippets = $this->snippetManager->findAll();
+        $snippets = $this->snippetManager->research($chaine, $idLangs, $idCats);
         $snippet = $this->snippetManager->findOne($id);
-        require_once (ROOT_DIR . 'view/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->render(ROOT_DIR . 'view/snippet.php',
+            compact('search', 'searchForm', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
     /**
-     * @param SearchForm $searchForm
+     * Affiche le formulaire de recherche
+     * @param Form $searchForm
      */
-    public function search(SearchForm $searchForm): void
+    public function search(Form $searchForm): void
     {
         $search = true;
         $chaine = $searchForm->getValue('search');
@@ -88,8 +101,10 @@ class SnippetCtrl extends Controller
         $cats = $this->catManager->findAll();
         $snippets = $this->snippetManager->research($chaine, $idLangs, $idCats);
         $snippet = $this->snippetManager->research($chaine, $idLangs, $idCats, true);
-        require_once (ROOT_DIR . 'view/snippet.php');
-        require_once (ROOT_DIR . 'view/template-snip.php');
+        $this->render(ROOT_DIR . 'view/snippet.php',
+            compact('search', 'searchForm', 'chaine',
+                'idLangs', 'idCats', 'languages',
+                'cats', 'snippets', 'snippet'));
     }
 
 }

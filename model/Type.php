@@ -2,6 +2,10 @@
 
 namespace Model;
 
+/**
+ * Class Type
+ * @package Model
+ */
 class Type
 {
     /**

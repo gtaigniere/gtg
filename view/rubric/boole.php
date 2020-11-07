@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_boole">
 
         <h1>Algèbre de Boole</h1>
@@ -185,5 +183,3 @@
         </table>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

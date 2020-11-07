@@ -2,12 +2,16 @@
 
 namespace Ctrl\Admin;
 
-use Html\Form;
+use Core\Html\Form;
 use Model\Cat;
 use PDO;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
+/**
+ * Contrôleur associé à la section Admin/Catégories
+ * @package Ctrl\Admin
+ */
 class CatCtrl extends CatLangCtrl
 {
     /**

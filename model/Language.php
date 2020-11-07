@@ -2,6 +2,10 @@
 
 namespace Model;
 
+/**
+ * Class Language
+ * @package Model
+ */
 class Language
 {
     /**

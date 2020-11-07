@@ -2,10 +2,8 @@
 
 use Form\RubricForm;
 use Form\TypeForm;
-use Util\ErrorManager;
-use Util\SuccessManager;
-
-ob_start();
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 ?>
 
@@ -160,9 +158,9 @@ ob_start();
 		<a href="?target=admin&admTarg=recette">
 			<button class="btn btn-primary">Recettes</button>
 		</a>
-
+        <a href="?target=admin&admTarg=snippet">
+            <button class="btn btn-primary">Snippets</button>
+        </a>
 	</p>
 
 </section>
-
-<?php $section = ob_get_clean(); ?>

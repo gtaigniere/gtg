@@ -2,10 +2,10 @@
 
 use Model\Cat;
 use Model\Snippet;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
-ob_start();
+require_once ROOT_DIR . 'view/fragment/searchForm.php';
 
 ?>
 
@@ -30,7 +30,6 @@ ob_start();
     ?>
 
     <?php if ($snippet instanceof Snippet) : ?>
-
         <h2 id="titlesnippet"><?= $snippet->getTitle() ?></h2>
 
         <p><?= $snippet->getLanguage() != null ? $snippet->getLanguage()->getLabel() : 'Pas de langage' ?></p>
@@ -58,5 +57,3 @@ ob_start();
     <?php endif; ?>
 
 </section>
-
-<?php $section = ob_get_clean(); ?>

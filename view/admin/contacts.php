@@ -1,10 +1,8 @@
 <?php
 
 use Model\Message;
-use Util\ErrorManager;
-use Util\SuccessManager;
-
-ob_start();
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 ?>
 
@@ -47,7 +45,22 @@ ob_start();
             <?php endif;
         endforeach; ?>
 
+        <p>
+            <a href="?target=admin&admTarg=link">
+                <button class="btn btn-primary">Liens</button>
+            </a>
+            <a href="?target=admin&admTarg=user">
+                <button class="btn btn-primary">Utilisateurs</button>
+            </a>
+            <a href="?target=admin&admTarg=typAndRub">
+                <button class="btn btn-primary">Types et Rubriques</button>
+            </a>
+            <a href="?target=admin&admTarg=recette">
+                <button class="btn btn-primary">Recettes</button>
+            </a>
+            <a href="?target=admin&admTarg=snippet">
+                <button class="btn btn-primary">Snippets</button>
+            </a>
+        </p>
+
     </section>
-
-<?php $section = ob_get_clean(); ?>
-

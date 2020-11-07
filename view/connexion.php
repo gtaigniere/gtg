@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_connexion">
 
         <h1>Connexion</h1>
@@ -22,5 +20,3 @@
         </form>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

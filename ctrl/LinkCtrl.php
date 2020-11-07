@@ -5,7 +5,11 @@ namespace Ctrl;
 use Manager\LinkManager;
 use PDO;
 
-class LinkCtrl extends Controller
+/**
+ * Contrôleur associé à la section Liens
+ * @package Ctrl
+ */
+class LinkCtrl extends GtgController
 {
     /**
      * @var LinkManager
@@ -19,29 +23,32 @@ class LinkCtrl extends Controller
     public function __construct(PDO $db)
     {
         $this->linkManager = new LinkManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des liens
      * @return void
      */
     public function all(): void
     {
         $links = $this->linkManager->findAll();
-        require_once (ROOT_DIR . 'view/allLinks.php');
+        $this->render(ROOT_DIR . 'view/allLinks.php', compact('links'));
     }
 
     /**
+     * Affiche le lien dont l'id est passé en paramètres
      * @param int $id
      * @return void
      */
     public function one(int $id): void
     {
         $link = $this->linkManager->findOne($id);
-        require_once (ROOT_DIR . 'view/oneLink.php');
+        $this->render(ROOT_DIR . 'view/oneLink.php', compact('link'));
     }
 
     /**
-     * Permet d'ouvrir un lien dont l'id est passé en paramètres
+     * Permet d'ouvrir le lien dont l'id est passé en paramètres
      * @param int $id
      * @return void
      */

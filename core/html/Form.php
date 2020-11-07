@@ -1,10 +1,15 @@
 <?php
 
-namespace Html;
+namespace Core\Html;
 
+/**
+ * Représente les données d'un formulaire
+ * @package Html
+ */
 class Form
 {
     /**
+     * Tableau associatifs dont les clefs correspondent aux champs "name" des différentes parties d'un formulaire
      * @var array
      */
     private $datas;
@@ -20,11 +25,10 @@ class Form
         $this->datas = $datas;
     }
 
-    // Pour définir une clef à un tableau clef => valeur : $tab[$key] = 'string';
-
     /**
+     * Ajoute une clef et sa valeur au formulaire
      * @param string $key
-     * @param string|string[] $value
+     * @param string|string[] $value Peut prendre une chaîne de caractères ou un tableau
      * @return void
      */
     public function add(string $key, $value)
@@ -33,6 +37,7 @@ class Form
     }
 
     /**
+     * Renvoie l'ensemble des valeurs des champs du formulaire
      * @return array
      */
     public function getDatas(): array
@@ -41,8 +46,10 @@ class Form
     }
 
     /**
+     * Renvoie la ou les valeurs associées à la clef passée en paramètres
      * @param string $key
-     * @return array|string|null
+     * @return array|string|null Peut être un tableau, une chaîne de caractères, ou null.
+     * Si la clef n'existe pas, renvoi null
      */
     public function getValue($key)
     {
@@ -50,9 +57,14 @@ class Form
     }
 
     /**
-     * @param string $name
-     * @param string|null $label
-     * @param array $options
+     * Renvoie un string contenant l'input d'un formulaire en fonction des paramètres fournis
+     * Si une valeur est associée à l'attribut $name, elle sera associée au champs "value" de l'html
+     * Si un type est donné dans le tableau $options tel que : $options['type'] = 'givenType'
+     * alors <input type="givenType" ...> sinon par défaut le type sera "text"
+     * @param string $name Correspond aux champs "name" et "id" de l'input
+     * @param string|null $label Si différent de null alors affiche le champs "label" tel que :
+     * <label for="givenName">given label</label> <input id="givenName" ... name="givenName">
+     * @param array $options Tableau associatif dont les clefs correspondent aux attributs passés à l'input
      * @return string
      */
     public function input(string $name, ?string $label = null, array $options = []): string
@@ -77,10 +89,13 @@ class Form
     }
 
     /**
-    * @param string $name
-    * @param string|null $label
-    * @param array $options
-    * @return string
+     * Renvoie un string contenant le textarea d'un formulaire en fonction des paramètres fournis
+     * Si une valeur est associée à l'attribut $name, elle sera associée au contenu de la balise textarea
+     * @param string $name Correspond aux champs "name" et "id" du textarea
+     * @param string|null $label Si différent de null alors affiche le champs "label" tel que :
+     * <label for="givenName">given label</label> <textarea id="givenName" ... name="givenName">...</textarea>
+     * @param array $options Tableau associatif dont les clefs correspondent aux attributs passés au textarea
+     * @return string
     */
     public function textarea(string $name, ?string $label = null, array $options = []): string
     {
@@ -96,7 +111,7 @@ class Form
     }
 
     /**
-     * Renvoi un tableau contenant le ou les élément(s) sélectionné(s) pour le champ de type select "$name"
+     * Renvoie un tableau contenant le ou les élément(s) sélectionné(s) pour le champ de type select "$name"
      * @param string $name Correspond au nom du champ du select
      * @return array
      */
@@ -107,12 +122,18 @@ class Form
     }
 
     /**
-     * @param string $name Clef du tableau $datas
-     * @param array $values
-     * @param string|null $label Etiquette texte du champ
-     * @param string|null $defaultOption
-     * @param array $options
-     * @param bool $multiple
+     * Renvoi un string contenant le select d'un formulaire en fonction des paramètres fournis
+     * @param string $name Correspond aux champs "name" et "id" du select
+     * @param array $values Tableau associatif dont chaque clef et sa valeur associée correspondent
+     * respectivement au champ "value" et au text d'une balise option du select tel que :
+     * <option value="givenValue">given text</option>
+     * @param string|null $label Si différent de null alors affiche le champs "label" tel que :
+     * <label for="givenName">given label</label> <select id="givenName" ... name="givenName">...</select>
+     * @param string|null $defaultOption Si différent de null alors ajoute une balise option,
+     * qui sera sélectionnée par défaut si aucune autre n'est sélectionnée, tel que :
+     * <option value="givenValue" selected>given text</option>
+     * @param array $options Tableau associatif dont les clefs correspondent aux attributs passés au select
+     * @param bool $multiple Si vrai alors ajoute l'option "multiple" au select
      * @return string
      */
     public function select(string $name, array $values, ?string $label = null, ?string $defaultOption = null, array $options = [], bool $multiple = false): string

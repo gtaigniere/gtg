@@ -133,6 +133,9 @@ a {
 .btn-violet:focus {
 	box-shadow: 0 0 0 0.2rem rgba(170, 65, 200, 0.5);
 }
+main {
+	justify-content: center;
+}
 body {
 	display: flex;
 	flex-direction: column;
@@ -176,39 +179,14 @@ h1, h2, h3, h4, h5, h6 {
 .text_majuscule {
 	text-transform: uppercase;
 }
-.infobulle {
-	position: relative;
-	color: var(--infbul);
-	font-style: italic;
-	text-indent: inherit; /*  Ne fonctionne pas */
-}
-.text_info {
-	/*display: inline-block;*/
-	padding: 0 5px;
-	display: none;
-	position: absolute;
-	top: -1px;
-	/*left: calc(100% + 5px);*/
-	left: 190px;
-	/*height: 124px;
-    width: 290px;*/
-	background-color: #FFFFFFC0;
-	border: 1px solid var(--txtInfBorder);
-	border-radius: 10px;
-	color: #228B22 	;
-	font-style: normal;
-	text-indent: inherit; /*  Ne fonctionne pas */
-}
-/*
-.infobulle:hover .text_info {
-display: block;
-}
-*/
 .zmargin_bottom {
 	margin-bottom: 0;
 }
 .nomargin_bottom {
 	margin-bottom: 5px;
+}
+.infobulle {
+
 }
 .programme {
 	margin-left: 20px;
@@ -217,6 +195,7 @@ display: block;
 	background-color: var(--fndProg);
 	position: relative;
 	border-radius: 10px;
+
 }
 .programme p {
 	margin-bottom: 0;
@@ -236,7 +215,7 @@ display: block;
 .indent5fois {
 	text-indent: 7em;
 }
-.html, .css, .javascript, .php {
+.css, .javascript, .php {
 	margin-left: 20px;
 }
 caption {
@@ -479,8 +458,17 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 /***** Fin Page Boole *****/
 /***** Debut Page Algo *****/
-#section_algo {
-
+#section_algo pre {
+	font-family: spectral, serif;
+	font-size: 1rem;
+}
+#section_algo .algo {
+	margin-left: 20px;
+	margin-bottom: 20px;
+	padding: 5px 8px 3px 8px;
+	background-color: var(--fndProg);
+	position: relative;
+	border-radius: 10px;
 }
 #section_algo table {
 	margin-bottom: 15px;
@@ -531,11 +519,51 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 }
 /***** Fin Page Model_bdd *****/
 /***** Debut Page Html *****/
+#section_html pre {
+	font-family: spectral, serif;
+	font-size: 1rem;
+}
+#section_html .html {
+	margin-left: 20px;
+	margin-bottom: 20px;
+	padding: 5px 8px 3px 8px;
+	background-color: var(--fndProg);
+	position: relative;
+	border-radius: 10px;
+}
+#section_html .balise {
+	margin-right: 5px;
+	background-color: var(--fndProg);
+	border-radius: 6px;
+}
+#section_html .margleft {
+	margin-left: 20px;
+}
 #section_html {
 
 }
 /***** Fin Page html *****/
 /***** Debut Page Css *****/
+#section_css pre {
+	font-family: spectral, serif;
+	font-size: 1rem;
+}
+#section_css .css {
+	margin-left: 20px;
+	margin-bottom: 20px;
+	padding: 5px 8px 3px 8px;
+	background-color: var(--fndProg);
+	position: relative;
+	border-radius: 10px;
+}
+#section_css .balise {
+	margin-right: 5px;
+	background-color: var(--fndProg);
+	border-radius: 6px;
+}
+#section_css .margleft {
+	margin-left: 20px;
+}
 #section_css {
 
 }
@@ -813,7 +841,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 .sect-adm th:last-child {
 	/* sect-adm_links, sect-adm_users,
 		sect-adm_typsrubs, sect-adm_recettes */
-	border-radius: 4px 0 0 4px;
+	border-radius: 0 4px 4px 0;
 }
 .sect-adm table td {
 	/* sect-adm_links, sect-adm_users,
@@ -947,6 +975,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 /***** Debut Page Contact Admin, Recette Admin, et Snippet Admin *****/
 #sect-adm_contact, #sect-adm_recette,
 #sect-adm_snippet {
+	width: 56%;
 	align-items: center;
 }
 #sect-adm_contact .contact {

@@ -2,18 +2,21 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
 use Form\LinkForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\LinkManager;
 use Manager\RubricManager;
 use Manager\TypeManager;
 use Model\Link;
 use PDO;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
-class LinkCtrl extends Controller
+/**
+ * Contrôleur associé à la section Admin/Liens
+ * @package Ctrl\Admin
+ */
+class LinkCtrl extends AdminCtrl
 {
     /**
      * @var LinkManager
@@ -39,9 +42,11 @@ class LinkCtrl extends Controller
         $this->linkManager = new LinkManager($db);
         $this->rubricManager = new RubricManager($db);
         $this->typeManager = new TypeManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des liens
      * @return void
      */
     public function all(): void
@@ -54,8 +59,8 @@ class LinkCtrl extends Controller
         $rubrics = $this->rubricManager->findAll();
         $types = $this->typeManager->findAll();
         $formAddLink = new Form();
-        require_once (ROOT_DIR . 'view/admin/links.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/links.php',
+            compact('links', 'forms', 'rubrics', 'types', 'formAddLink'));
     }
 
     /**
@@ -176,16 +181,6 @@ class LinkCtrl extends Controller
             SuccessManager::add('Le lien a été supprimé avec succès.');
         }
         $this->all();
-    }
-
-    /**
-     * @param array $datas
-     */
-    public function validate(array $datas)
-    {
-        // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }

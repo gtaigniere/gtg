@@ -18,6 +18,4 @@ class MyPdo extends PDO {
         parent::__construct($sgbdHost, $this->_user, $this->_password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     }
 
-
-
 }

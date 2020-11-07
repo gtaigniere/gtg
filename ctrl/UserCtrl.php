@@ -5,7 +5,11 @@ namespace Ctrl;
 use Manager\UserManager;
 use PDO;
 
-class UserCtrl extends Controller
+/**
+ * Contrôleur associé à la section Utilisateurs
+ * @package Ctrl
+ */
+class UserCtrl extends GtgController
 {
     /**
      * @var string
@@ -19,27 +23,28 @@ class UserCtrl extends Controller
     public function __construct(PDO $db)
     {
         $this->userManager = new userManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des utilisateurs
      * @return void
      */
     public function all(): void
     {
         $users = $this->userManager->findAll();
-        require (ROOT_DIR . 'view/.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render('', compact('users'));
     }
 
     /**
+     * Affiche l'utilisateur dont l'id est passé en paramètre
      * @param int $id
      * @return void
      */
     public function one(int $id): void
     {
         $user = $this->userManager->findOne($id);
-        require_once (ROOT_DIR . 'view/.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render('', compact('user'));
     }
 
 }

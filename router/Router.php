@@ -3,7 +3,7 @@
 namespace Router;
 
 use Ctrl\AuthCtrl;
-use Ctrl\Controller;
+use Ctrl\GtgController;
 use Ctrl\HomeCtrl;
 use Ctrl\LinkCtrl;
 use Ctrl\RecetteCtrl;
@@ -25,10 +25,14 @@ use Exception\PourNotNumericException;
 use Form\AdmSearchForm;
 use Form\RecetteForm;
 use Form\SearchForm;
-use Html\Form;
+use Core\Html\Form;
 use PDO;
-use Util\ErrorManager;
+use Core\Util\ErrorManager;
 
+/**
+ * C'est le routeur du site
+ * @package Router
+ */
 class Router
 {
     /**
@@ -125,9 +129,10 @@ class Router
         (new HomeCtrl())->contact($form);
     }
 
+
     private function notFound(): void
     {
-        (new Controller())->notFound();
+        (new GtgController())->notFound();
     }
 
     private function recette(): void
@@ -173,7 +178,7 @@ class Router
     {
         $ctrl = new SnippetCtrl($this->db);
         if (isset($this->params['id'])) {
-            $ctrl->one($this->params['id']);
+            $ctrl->one($this->params['id'], new SearchForm($this->params));
         } else {
             $ctrl->all();
         }
@@ -631,7 +636,7 @@ class Router
     {
         $ctrl = new AdmSnipCtrl($this->db);
         if (isset($this->params['id'])) {
-            $ctrl->one($this->params['id']);
+            $ctrl->one($this->params['id'], new AdmSearchForm($this->params));
         } else {
             $ctrl->all();
         }

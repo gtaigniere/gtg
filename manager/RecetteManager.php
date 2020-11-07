@@ -5,6 +5,10 @@ namespace Manager;
 use Model\Recette;
 use PDO;
 
+/**
+ * Class RecetteManager
+ * @package Manager
+ */
 class RecetteManager extends Manager
 {
     /**

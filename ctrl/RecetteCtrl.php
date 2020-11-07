@@ -6,7 +6,11 @@ use Manager\LinkManager;
 use Manager\RecetteManager;
 use PDO;
 
-class RecetteCtrl extends Controller
+/**
+ * Contrôleur associé à la section Recettes
+ * @package Ctrl
+ */
+class RecetteCtrl extends GtgController
 {
     /**
      * @var RecetteManager
@@ -26,19 +30,21 @@ class RecetteCtrl extends Controller
     {
         $this->recetteManager = new RecetteManager($db);
         $this->linkManager = new LinkManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des recettes
      * @return void
      */
     public function all(): void
     {
         $recettes = $this->recetteManager->findAll();
-
-        require ROOT_DIR . 'view/template.php';
+        $this->render(ROOT_DIR . 'view/recettes.php', compact('recettes'));
     }
 
     /**
+     * Affiche la recette dont l'id est passé en paramètre
      * @param int $id
      * @return void
      */
@@ -48,8 +54,7 @@ class RecetteCtrl extends Controller
         $recette = $this->recetteManager->findOne($id);
         $links = $this->linkManager->findAllAsides($idRub = 13, ['site-ext', 'menu-rubrique']);
         if (($recette) != null) {
-            require_once ROOT_DIR . 'view/recette.php';
-            require_once ROOT_DIR . 'view/template.php';
+            $this->render(ROOT_DIR . 'view/recette.php', compact('recettes', 'recette', 'links'));
         } else {
             $this->notFound();
         }

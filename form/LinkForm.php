@@ -2,9 +2,13 @@
 
 namespace Form;
 
-use Html\Form;
+use Core\Html\Form;
 use Model\Link;
 
+/**
+ * Classe associée aux formulaires pour la classe Link
+ * @package Form
+ */
 class LinkForm extends Form
 {
     /**

@@ -2,9 +2,13 @@
 
 namespace Form;
 
-use Html\Form;
+use Core\Html\Form;
 use Model\User;
 
+/**
+ * Classe associée aux formulaires pour la classe User
+ * @package Form
+ */
 class UserForm extends Form
 {
     /**

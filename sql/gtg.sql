@@ -345,4 +345,16 @@ CREATE TABLE contact (
 INSERT INTO message (id, firstname, mail, object, received, message) VALUES
 (NULL, 'Dylan', 'dylan@free.fr', 'Question sur PHP', '2020-06-15 11:32:17', 'Bonjour, peut on faire un constructeur en PHP ?'),
 (NULL, 'Bruno', 'bruno@bbox.fr', 'Tableaux en JavaScript', '2019-09-25 12:55:47', 'Bjr, possible de me dire si cette ligne vous parait ok ?'),
-(NULL, 'Dylan', 'Maxime@yahoo.com', 'Python en backend', '2020-07-10 16:52:35', 'Avez-vous des connaissances en Python ?');
+(NULL, 'Maxime', 'Maxime@yahoo.com', 'Python en backend', '2020-07-10 16:52:35', 'Avez-vous des connaissances en Python ?');
+
+-- Requête avec un AND sur la même colonne
+SELECT s.* FROM snippet s
+	JOIN snipcat sc ON sc.idSnip = s.idSnip
+	WHERE sc.idCat = 2
+    	AND sc.idSnip IN (
+		SELECT sc.idSnip FROM snipcat sc WHERE sc.idCat = 3)
+
+SELECT s.* FROM snippet s
+    JOIN snipcat sc1 ON sc1.idSnip = s.idSnip
+    JOIN snipcat sc2 ON sc2.idSnip = s.idSnip
+    WHERE sc1.idCat = 2 AND sc2.idCat = 3

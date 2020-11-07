@@ -5,6 +5,10 @@ namespace Manager;
 use Model\Rubric;
 use PDO;
 
+/**
+ * Class RubricManager
+ * @package Manager
+ */
 class RubricManager extends Manager
 {
 

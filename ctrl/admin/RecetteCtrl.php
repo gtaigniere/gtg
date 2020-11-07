@@ -2,17 +2,20 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
 use Exception\PourNotNumericException;
 use Form\RecetteForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\RecetteManager;
 use Model\Recette;
 use PDO;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
-class RecetteCtrl extends Controller
+/**
+ * Contrôleur associé à la section Admin/Recettes
+ * @package Ctrl\Admin
+ */
+class RecetteCtrl extends AdminCtrl
 {
     /**
      * @var string
@@ -26,16 +29,17 @@ class RecetteCtrl extends Controller
     public function __construct(PDO $db)
     {
         $this->recetteManager = new recetteManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des recettes
      * @return void
      */
     public function all(): void
     {
         $recettes = $this->recetteManager->findAll();
-        require_once (ROOT_DIR . 'view/admin/recettes.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/recettes.php', compact('recettes'));
     }
 
     /**
@@ -53,8 +57,7 @@ class RecetteCtrl extends Controller
                 $this->validate($form->getDatas());
             }
         } else {
-            require_once (ROOT_DIR . 'view/admin/recette.php');
-            require_once (ROOT_DIR . 'view/template.php');
+            $this->render(ROOT_DIR . 'view/admin/recette.php', compact('form'));
         }
     }
 
@@ -65,8 +68,7 @@ class RecetteCtrl extends Controller
      */
     public function modifierAvantAjouter(Form $form)
     {
-        require_once ROOT_DIR . 'view/admin/recette.php';
-        require_once ROOT_DIR . 'view/template.php';
+        $this->render(ROOT_DIR . 'view/admin/recette.php', compact('form'));
     }
 
     /**
@@ -87,8 +89,7 @@ class RecetteCtrl extends Controller
             $recette = $this->recetteManager->findOne($id);
             if ($recette != null) {
                 $form = new RecetteForm($recette);
-                require_once ROOT_DIR . 'view/admin/recette.php';
-                require_once ROOT_DIR . 'view/template.php';
+                $this->render(ROOT_DIR . 'view/admin/recette.php', compact('recette', 'form'));
             } else {
                 $this->notFound();
             }
@@ -174,17 +175,6 @@ class RecetteCtrl extends Controller
             SuccessManager::add('La recette a été supprimé avec succès.');
         }
         $this->all();
-    }
-
-    /**
-     * @param array $datas
-     * @return void
-     */
-    public function validate(array $datas): void
-    {
-        // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }

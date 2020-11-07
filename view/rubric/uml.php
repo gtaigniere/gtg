@@ -1,5 +1,3 @@
-<?php ob_start(); ?>
-
     <section id="section_uml">
 
         <h1>UML</h1>
@@ -25,5 +23,3 @@
         <figcaption>Diagramme de cas d'utilisation</figcaption>
 
     </section>
-
-<?php $section = ob_get_clean(); ?>

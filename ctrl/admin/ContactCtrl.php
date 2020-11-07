@@ -2,18 +2,20 @@
 
 namespace Ctrl\Admin;
 
-use Ctrl\Controller;
 use DateTime;
-use Form\ContactForm;
 use Form\ResponseForm;
-use Html\Form;
+use Core\Html\Form;
 use Manager\MessageManager;
 use Model\Message;
 use PDO;
-use Util\ErrorManager;
-use Util\SuccessManager;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
-class ContactCtrl extends Controller
+/**
+ * Contrôleur associé à la section Contact
+ * @package Ctrl\Admin
+ */
+class ContactCtrl extends AdminCtrl
 {
     /**
      * @var MessageManager
@@ -27,23 +29,21 @@ class ContactCtrl extends Controller
     public function __construct(PDO $db)
     {
         $this->contactManager = new MessageManager($db);
+        parent::__construct(ROOT_DIR . 'view/template.php');
     }
 
     /**
+     * Affiche la liste des messages de contact
      * @return void
      */
     public function all(): void
     {
         $contacts = $this->contactManager->findAll();
-//        $forms = [];
-//        foreach($contacts as $contact) {
-//            $forms[] = new Form($contact);
-//        }
-        require_once (ROOT_DIR . 'view/admin/contacts.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/contacts.php', compact('contacts'));
     }
 
     /**
+     * Affiche le message de contact dont l'id est passé en paramètre
      * @param int $id
      * @return Message|null
      */
@@ -53,14 +53,14 @@ class ContactCtrl extends Controller
     }
 
     /**
+     * Affiche le formulaire de réponse à un message de contact
      * @param int $id
      */
     public function repondre(int $id)
     {
         $messageContact = $this->one($id);
         $form = new ResponseForm($messageContact);
-        require_once (ROOT_DIR . 'view/admin/reply.php');
-        require_once (ROOT_DIR . 'view/template.php');
+        $this->render(ROOT_DIR . 'view/admin/reply.php', compact('messageContact', 'form'));
     }
 
     /**
@@ -144,16 +144,6 @@ class ContactCtrl extends Controller
             SuccessManager::add('Le message de contact a été supprimé avec succès.');
         }
         $this->all();
-    }
-
-    /**
-     * @param array $datas
-     */
-    public function validate(array $datas)
-    {
-        // Vérifier le type des variables
-        require_once (ROOT_DIR . 'view/admin/validation.php');
-        require_once (ROOT_DIR . 'view/template.php');
     }
 
 }

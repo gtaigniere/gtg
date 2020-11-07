@@ -1,10 +1,8 @@
 <?php
 
-use Html\Form;
-use Util\ErrorManager;
-use Util\SuccessManager;
-
-ob_start();
+use Core\Html\Form;
+use Core\Util\ErrorManager;
+use Core\Util\SuccessManager;
 
 ?>
 
@@ -148,5 +146,3 @@ ob_start();
     </div>
 
 </section>
-
-<?php $section = ob_get_clean(); ?>

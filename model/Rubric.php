@@ -2,6 +2,10 @@
 
 namespace Model;
 
+/**
+ * Class Rubric
+ * @package Model
+ */
 class Rubric
 {
     /**

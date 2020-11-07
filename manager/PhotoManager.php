@@ -4,6 +4,10 @@ namespace Manager;
 
 use PDO;
 
+/**
+ * Class PhotoManager
+ * @package Manager
+ */
 class PhotoManager extends Manager
 {
     const CHEMIN = ROOT_DIR . 'imgs/galerie/';
