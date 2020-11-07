@@ -27,7 +27,7 @@ class LinkCtrl extends GtgController
     }
 
     /**
-     * Affiche la liste des liens
+     * Affiche tous les liens
      * @return void
      */
     public function all(): void

@@ -50,7 +50,7 @@ class SnippetCtrl extends GtgController
     }
 
     /**
-     * Affiche la liste des snippets
+     * Affiche tous les snippets
      * @return void
      */
     public function all(): void
