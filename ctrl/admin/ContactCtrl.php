@@ -44,10 +44,10 @@ class ContactCtrl extends AdminCtrl
 
     /**
      * Affiche le message de contact dont l'id est passé en paramètre
-     * @param $id
+     * @param int $id
      * @return Message|null
      */
-    public function one($id): ?Message
+    public function one(int $id): ?Message
     {
         return $this->contactManager->findOne($id);
     }

@@ -46,7 +46,7 @@ class Router
     private $db;
 
     /**
-     * RouterNew constructor.
+     * Router constructor.
      * @param array $params
      * @param PDO $db
      */
