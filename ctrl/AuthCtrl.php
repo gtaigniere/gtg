@@ -26,6 +26,7 @@ class AuthCtrl extends GtgController
         parent::__construct(ROOT_DIR . 'view/template.php');
     }
     /**
+     * Affiche le formulaire de connexion
      * @return void
      */
     public function loginForm(): void
