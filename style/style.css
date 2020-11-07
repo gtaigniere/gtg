@@ -841,7 +841,7 @@ transform: translate3d(-10px, 0, 340px) rotateY(93.5deg) scaleY(1.1);
 .sect-adm th:last-child {
 	/* sect-adm_links, sect-adm_users,
 		sect-adm_typsrubs, sect-adm_recettes */
-	border-radius: 4px 0 0 4px;
+	border-radius: 0 4px 4px 0;
 }
 .sect-adm table td {
 	/* sect-adm_links, sect-adm_users,
