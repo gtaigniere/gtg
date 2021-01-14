@@ -1,9 +1,11 @@
 <?php
 
 use Model\Message;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
-
+use Core\Util\{
+    ErrorManager,
+    SuccessManager
+};
+if (isset($contacts)) {
 ?>
 
     <section id="sect-adm_contact">
@@ -64,3 +66,6 @@ use Core\Util\SuccessManager;
         </p>
 
     </section>
+<?php
+}
+?>

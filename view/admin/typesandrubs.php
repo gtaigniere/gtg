@@ -1,10 +1,13 @@
 <?php
-
-use Form\RubricForm;
-use Form\TypeForm;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
-
+use Form\{
+    RubricForm,
+    TypeForm
+};
+use Core\Util\{
+    ErrorManager,
+    SuccessManager
+};
+if (isset($typeForms, $formAddType, $rubForms, $formAddRub)) {
 ?>
 
 <section class="sect-adm" id="sect-adm_typsrubs">
@@ -164,3 +167,7 @@ use Core\Util\SuccessManager;
 	</p>
 
 </section>
+<?php
+}
+?>
+

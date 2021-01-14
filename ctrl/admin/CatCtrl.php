@@ -2,11 +2,13 @@
 
 namespace Ctrl\Admin;
 
-use Core\Html\Form;
+use Core\{
+    Html\Form,
+    Util\ErrorManager,
+    Util\SuccessManager
+};
 use Model\Cat;
 use PDO;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
 
 /**
  * Contrôleur associé à la section Admin/Catégories

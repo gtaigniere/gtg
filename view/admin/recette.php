@@ -1,7 +1,9 @@
 <?php
 
-use Core\Html\Form;
-use Core\Util\ErrorManager;
+use Core\{
+    Html\Form,
+    Util\ErrorManager
+};
 
 if (isset($form) && $form instanceof Form) :
 

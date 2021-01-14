@@ -2,6 +2,7 @@
 
 use Model\Recette;
 
+if (isset($recettes)) {
 ?>
 <aside id="recette_aside">
 
@@ -22,3 +23,6 @@ use Model\Recette;
     </ul>
 
 </aside>
+<?php
+}
+?>

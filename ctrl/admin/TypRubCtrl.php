@@ -2,11 +2,15 @@
 
 namespace Ctrl\Admin;
 
-use Form\RubricForm;
-use Form\TypeForm;
+use Form\{
+    RubricForm,
+    TypeForm
+};
 use Core\Html\Form;
-use Manager\TypeManager;
-use Manager\RubricManager;
+use Manager\{
+    TypeManager,
+    RubricManager
+};
 use PDO;
 
 /**

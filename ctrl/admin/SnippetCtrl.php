@@ -2,24 +2,32 @@
 
 namespace Ctrl\Admin;
 
+use Core\{
+    Html\Form,
+    Util\ErrorManager,
+    Util\SuccessManager
+};
 use DateTime;
 use Exception;
-use Form\AdmSearchForm;
-use Form\SearchForm;
-use Form\SnippetForm;
-use Core\Html\Form;
-use Manager\CatManager;
-use Manager\LanguageManager;
-use Manager\SnippetManager;
-use Manager\UserManager;
-use Model\Language;
-use Model\Snippet;
-use Model\UserForSnip;
+use Form\{
+    AdmSearchForm,
+    SearchForm,
+    SnippetForm
+};
+use Manager\{
+    CatManager,
+    LanguageManager,
+    SnippetManager,
+    UserManager
+};
+use Model\{
+    Language,
+    Snippet,
+    UserForSnip
+};
 use PDO;
 use PDOException;
 use Service\AuthService;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
 
 /**
  * Contrôleur associé à la section Snippets
@@ -105,7 +113,7 @@ class SnippetCtrl extends AdminCtrl
     public function search(Form $searchForm): void
     {
         $search = true;
-        $chaine = $searchForm->getValue('search');
+        $chaine = htmlentities($searchForm->getValue('search'));
         $idLangs = $searchForm->getValue('languages') != null ? $searchForm->getValue('languages') : [];
         $idCats = $searchForm->getValue('cats') ? $searchForm->getValue('cats') : [];
         $languages = $this->languageManager->findAll();

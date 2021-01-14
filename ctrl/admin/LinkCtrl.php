@@ -2,15 +2,19 @@
 
 namespace Ctrl\Admin;
 
+use Core\{
+    Html\Form,
+    Util\ErrorManager,
+    Util\SuccessManager
+};
 use Form\LinkForm;
-use Core\Html\Form;
-use Manager\LinkManager;
-use Manager\RubricManager;
-use Manager\TypeManager;
+use Manager\{
+    LinkManager,
+    RubricManager,
+    TypeManager
+};
 use Model\Link;
 use PDO;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
 
 /**
  * Contrôleur associé à la section Admin/Liens

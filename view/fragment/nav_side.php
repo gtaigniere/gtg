@@ -1,3 +1,6 @@
+<?php
+if (isset($links)) {
+?>
 <nav id="nav_side">
 
     <ul>
@@ -9,3 +12,6 @@
     </ul>
 
 </nav>
+<?php
+}
+?>

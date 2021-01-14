@@ -6,6 +6,7 @@ use Model\Cat;
 use Model\Language;
 use Model\Snippet;
 
+if (isset($searchForm, $languages, $cats, $search)) {
 ?>
 
 <aside id="navcol">
@@ -79,3 +80,6 @@ use Model\Snippet;
         <?php endif; ?>
 
     </aside>
+<?php
+}
+?>

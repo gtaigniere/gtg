@@ -1,12 +1,17 @@
 <?php
 
-use Form\CatForm;
-use Form\LanguageForm;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
+use Form\{
+    CatForm,
+    LanguageForm
+};
+use Core\Util\{
+    ErrorManager,
+    SuccessManager
+};
 
 require_once ROOT_DIR . 'view/fragment/searchForm.php';
 
+if (isset($catForms, $formAddCat, $languageForms, $formAddLang)) {
 ?>
 
 <section class="sect-adm" id="sect-adm_catslangs">
@@ -144,3 +149,6 @@ require_once ROOT_DIR . 'view/fragment/searchForm.php';
 	</p>
 
 </section>
+<?php
+}
+?>

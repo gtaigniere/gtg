@@ -2,8 +2,10 @@
 
 namespace Ctrl;
 
-use Manager\LinkManager;
-use Manager\RecetteManager;
+use Manager\{
+    LinkManager,
+    RecetteManager
+};
 use PDO;
 
 /**

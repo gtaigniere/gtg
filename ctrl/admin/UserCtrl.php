@@ -2,13 +2,15 @@
 
 namespace Ctrl\Admin;
 
+use Core\{
+    Html\Form,
+    Util\ErrorManager,
+    Util\SuccessManager
+};
 use Form\UserForm;
-use Core\Html\Form;
 use Manager\UserManager;
 use Model\User;
 use PDO;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
 
 /**
  * Contrôleur associé à la section Admin/Utilisateurs
@@ -145,7 +147,7 @@ class UserCtrl extends AdminCtrl
         $user->setConfirmKey($form->getValue('confirmKey'));
         $user->setConfirmed(
             $form->getValue('confirmed') != null ?
-                true : false
+                        true : false
         );
         $user->setIdUser($id);
         $user = $this->userManager->update($user);
