@@ -17,6 +17,7 @@
         <p class="css">display : table; (permet d’avoir un bloc sans marges).</p>
         <p class="indent1fois">Tailles de bloc : si l’on veut qu’une partie fasse toujours 80px et une autre le reste, on peut faire : width : calc(100% - 80px).</p>
         <p class="indent1fois">La propriété "transform" peut permettre de décaler une image sans que cela n'affecte les éléments à côté, contrairement à position (se fait sur la propriété que l'on veut).</p>
+        <p class="indent1fois">Pour les tableaux (&lt;table&gt;), si l'on veut que les lignes soient plus lisibles, on peut utiliser les mots clefs "odd" et "even" avec la pseudo classe "nth-child()", en indiquant pour chacun un background différent.</p>
 
         <h3>Propriétés</h3>
 
@@ -241,7 +242,7 @@
             </tr>
         </table>
 
-        <p><strong>Attention</strong>, les pseudos éléments ne fonctionneront pas sur des éléments qui n'ont pas de contenus (img, br, etc...)</p>
+        <p><strong>Attention</strong>, les pseudos éléments ne fonctionneront pas sur des éléments qui n'ont pas de contenu (img, br, etc...)</p>
 
         <h3>Variables</h3>
         <p class="margleft">Elles commencent toujours par "--".</p>

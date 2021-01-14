@@ -2,14 +2,16 @@
 
 namespace Ctrl\Admin;
 
+use Core\{
+    Html\Form,
+    Util\ErrorManager,
+    Util\SuccessManager
+};
 use DateTime;
 use Form\ResponseForm;
-use Core\Html\Form;
 use Manager\MessageManager;
 use Model\Message;
 use PDO;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
 
 /**
  * Contrôleur associé à la section Contact

@@ -2,13 +2,17 @@
 
 namespace Ctrl\Admin;
 
-use Form\CatForm;
-use Form\LanguageForm;
-use Form\SearchForm;
+use Form\{
+    CatForm,
+    LanguageForm,
+    SearchForm
+};
 use Core\Html\Form;
-use Manager\CatManager;
-use Manager\LanguageManager;
-use Manager\SnippetManager;
+use Manager\{
+    CatManager,
+    LanguageManager,
+    SnippetManager
+};
 use PDO;
 
 /**

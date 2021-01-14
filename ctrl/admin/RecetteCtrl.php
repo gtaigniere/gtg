@@ -2,14 +2,16 @@
 
 namespace Ctrl\Admin;
 
+use Core\{
+    Html\Form,
+    Util\ErrorManager,
+    Util\SuccessManager
+};
 use Exception\PourNotNumericException;
 use Form\RecetteForm;
-use Core\Html\Form;
 use Manager\RecetteManager;
 use Model\Recette;
 use PDO;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
 
 /**
  * Contrôleur associé à la section Admin/Recettes

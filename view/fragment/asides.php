@@ -2,6 +2,7 @@
 
 use Model\Link;
 
+if (isset($key, $values)) {
 ?>
 <aside id="<?= $key ?>_aside">
 
@@ -28,3 +29,6 @@ use Model\Link;
     </ul>
 
 </aside>
+<?php
+}
+?>

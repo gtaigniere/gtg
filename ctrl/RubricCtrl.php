@@ -2,8 +2,10 @@
 
 namespace Ctrl;
 
-use Manager\RubricManager;
-use Manager\LinkManager;
+use Manager\{
+    RubricManager,
+    LinkManager
+};
 use PDO;
 
 /**

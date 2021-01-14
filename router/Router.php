@@ -2,32 +2,40 @@
 
 namespace Router;
 
-use Ctrl\AuthCtrl;
-use Ctrl\GtgController;
-use Ctrl\HomeCtrl;
-use Ctrl\LinkCtrl;
-use Ctrl\RecetteCtrl;
-use Ctrl\RubricCtrl;
-use Ctrl\SnippetCtrl;
-use Ctrl\VnCtrl;
-use Ctrl\Admin\CatLangCtrl as AdmCatLngCtrl;
-use Ctrl\Admin\CatCtrl as AdmCatCtrl;
-use Ctrl\Admin\ContactCtrl as AdmContCtrl;
-use Ctrl\Admin\LanguageCtrl as AdmLngCtrl;
-use Ctrl\Admin\LinkCtrl as AdmLnkCtrl;
-use Ctrl\Admin\TypRubCtrl as AdmTypRubCtrl;
-use Ctrl\Admin\TypeCtrl as AdmTypCtrl;
-use Ctrl\Admin\RubricCtrl as AdmRubCtrl;
-use Ctrl\Admin\SnippetCtrl as AdmSnipCtrl;
-use Ctrl\Admin\UserCtrl as AdmUsrCtrl;
-use Ctrl\Admin\RecetteCtrl as AdmRecCtrl;
+use Ctrl\{
+    AuthCtrl,
+    GtgController,
+    HomeCtrl,
+    LinkCtrl,
+    RecetteCtrl,
+    RubricCtrl,
+    SnippetCtrl,
+    VnCtrl
+};
+use Ctrl\Admin\{
+    CatLangCtrl as AdmCatLngCtrl,
+    CatCtrl as AdmCatCtrl,
+    ContactCtrl as AdmContCtrl,
+    LanguageCtrl as AdmLngCtrl,
+    LinkCtrl as AdmLnkCtrl,
+    TypRubCtrl as AdmTypRubCtrl,
+    TypeCtrl as AdmTypCtrl,
+    RubricCtrl as AdmRubCtrl,
+    SnippetCtrl as AdmSnipCtrl,
+    UserCtrl as AdmUsrCtrl,
+    RecetteCtrl as AdmRecCtrl
+};
 use Exception\PourNotNumericException;
-use Form\AdmSearchForm;
-use Form\RecetteForm;
-use Form\SearchForm;
-use Core\Html\Form;
+use Form\{
+    AdmSearchForm,
+    RecetteForm,
+    SearchForm
+};
+use Core\{
+    Html\Form,
+    Util\ErrorManager
+};
 use PDO;
-use Core\Util\ErrorManager;
 
 /**
  * C'est le routeur du site

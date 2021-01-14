@@ -4,7 +4,7 @@ use Core\Html\Form;
 
 require_once ROOT_DIR . 'view/fragment/searchForm.php';
 
-if (isset($form) && $form instanceof Form) :
+if (isset($form, $action, $languages, $cats) && $form instanceof Form) :
 
 ?>
 

@@ -1,12 +1,17 @@
 <?php
 
-use Model\Cat;
-use Model\Snippet;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
+use Model\{
+    Cat,
+    Snippet
+};
+use Core\Util\{
+    ErrorManager,
+    SuccessManager
+};
 
 require_once ROOT_DIR . 'view/fragment/admSearchForm.php';
 
+if (isset($snippet)) {
 ?>
 
 <section id="section_snippet">
@@ -68,3 +73,6 @@ require_once ROOT_DIR . 'view/fragment/admSearchForm.php';
     <?php endif; ?>
 
 </section>
+<?php
+}
+?>

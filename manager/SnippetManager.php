@@ -5,8 +5,10 @@ namespace Manager;
 use DateTime;
 use Form\SearchForm;
 use Exception;
-use Model\Cat;
-use Model\Snippet;
+use Model\{
+    Cat,
+    Snippet
+};
 use PDO;
 
 /**
@@ -362,7 +364,7 @@ class SnippetManager extends Manager
             }
             $wheres[] = '(' . join(' OR ', $langs) . ') ';
         }
-        // Ajout du filtre par rapport à la chiane fournie
+        // Ajout du filtre par rapport à la chaîne fournie
         if (!empty($chaine)) {
             $wheres[] = '(s0.code LIKE ? OR s0.comment LIKE ? OR s0.requirement LIKE ?)';
         }

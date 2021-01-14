@@ -5,8 +5,10 @@ session_start();
 require_once 'config' . DIRECTORY_SEPARATOR . 'config.php';
 require_once 'config' . DIRECTORY_SEPARATOR . 'Autoloader.php';
 
-use Config\Autoloader;
-use Config\MyPdo;
+use Config\{
+    Autoloader,
+    MyPdo
+};
 use Router\Router;
 
 Autoloader::register();

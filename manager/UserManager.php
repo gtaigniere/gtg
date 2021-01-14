@@ -2,8 +2,10 @@
 
 namespace Manager;
 
-use Model\UserForSnip;
-use Model\User;
+use Model\{
+    UserForSnip,
+    User
+};
 use PDO;
 
 /**

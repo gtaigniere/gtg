@@ -1,9 +1,11 @@
 <?php
 
 use Core\Html\Form;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
-
+use Core\Util\{
+    ErrorManager,
+    SuccessManager
+};
+if (isset($forms, $formAddUser)) {
 ?>
 
     <section class="sect-adm" id="sect-adm_users">
@@ -133,3 +135,6 @@ use Core\Util\SuccessManager;
         </div>
 
     </section>
+<?php
+}
+?>

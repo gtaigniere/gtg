@@ -1,9 +1,11 @@
 <?php
 
 use Model\Recette;
-use Core\Util\ErrorManager;
-use Core\Util\SuccessManager;
-
+use Core\Util\{
+    ErrorManager,
+    SuccessManager
+};
+if (isset($recettes)) {
 ?>
 
     <section class="sect-adm" id="sect-adm_recettes">
@@ -95,3 +97,6 @@ use Core\Util\SuccessManager;
         </div>
 
     </section>
+<?php
+}
+?>

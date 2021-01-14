@@ -4,10 +4,12 @@ namespace Ctrl;
 
 use Form\SearchForm;
 use Core\Html\Form;
-use Manager\CatManager;
-use Manager\LanguageManager;
-use Manager\SnippetManager;
-use Manager\UserManager;
+use Manager\{
+    CatManager,
+    LanguageManager,
+    SnippetManager,
+    UserManager
+};
 use PDO;
 
 /**
